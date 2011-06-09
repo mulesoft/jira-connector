@@ -16,7 +16,7 @@ package org.mule.module.jira.config;
 import org.mule.construct.SimpleFlowConstruct;
 import org.mule.tck.FunctionalTestCase;
 
-public class jiraNamespaceHandlerTestCase extends FunctionalTestCase
+public class JiraNamespaceHandlerTestCase extends FunctionalTestCase
 {
     @Override
     protected String getConfigResources()

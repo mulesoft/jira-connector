@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 public final class JiraClientAdaptor
 {
-    private static Logger log = LoggerFactory.getLogger(jiraCloudConnector.class);
+    private static Logger log = LoggerFactory.getLogger(JiraCloudConnector.class);
 
     private JiraClientAdaptor()
     {

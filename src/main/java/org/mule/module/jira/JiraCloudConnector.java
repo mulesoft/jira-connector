@@ -26,8 +26,10 @@ import org.mule.tools.cloudconnect.annotations.Property;
 
 import com.atlassian.jira.rpc.soap.beans.RemoteIssue;
 
+import java.rmi.RemoteException;
+
 @Connector(namespacePrefix = "jira")
-public class jiraCloudConnector implements Initialisable
+public class JiraCloudConnector implements Initialisable
 {
     @Property(optional = true, name = "client-ref")
     private JiraClient<JiraException> client;
@@ -35,7 +37,7 @@ public class jiraCloudConnector implements Initialisable
     private String username;
     @Property
     private String password;
-    @Property   
+    @Property
     private String address;
 
     @Operation
@@ -48,9 +50,48 @@ public class jiraCloudConnector implements Initialisable
     {
         if (client == null)
         {
-            client = JiraClientAdaptor.adapt(new AxisJiraClient(new DefaultAxisPortProvider(username,
-                password, address)));
+            setClient(new AxisJiraClient(new DefaultAxisPortProvider(username, password, address)));
         }
-
     }
+
+    public JiraClient<JiraException> getClient()
+    {
+        return client;
+    }
+
+    public void setClient(JiraClient<RemoteException> client)
+    {
+        this.client = JiraClientAdaptor.adapt(client);
+    }
+
+    public String getUsername()
+    {
+        return username;
+    }
+
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+
+    public String getAddress()
+    {
+        return address;
+    }
+
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
+
 }
