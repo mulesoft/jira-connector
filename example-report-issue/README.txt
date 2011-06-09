@@ -10,6 +10,6 @@ HOW TO DEMO:
     b. jiraPassword This is the password of your Jira account
   	c. jiraAddress This is the url of your Jira server
   2. Run the "MainFlow". This will create an issue given its description and summary. You can run it by either running the JiraFunctionalTestDriver or hitting 
-  http://localhost:9090/jira-demo-report-issue?summary=<SUMMARY>&description=<DESCRIPTION>
+  http://localhost:9090/jira-demo-report-issue?summary=<SUMMARY>&description=<DESCRIPTION>&type=<ISSUE_TYPE_ID>&project=<PROJECT_KEY>
 
     

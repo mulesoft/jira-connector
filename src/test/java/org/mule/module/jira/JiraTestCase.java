@@ -45,13 +45,6 @@ public class JiraTestCase
         client = new AxisJiraClient(provider);
     }
 
-//    @Test
-//    public void issueExists() throws Exception
-//    {
-//        String key = "156";
-//        client.existsIssue(key);
-//        when(service.getIssue(anyString(), eq(key))).then;
-//    }
 
     @Test
     public void getIssueExists() throws Exception
@@ -83,8 +76,13 @@ public class JiraTestCase
     public void createIssue() throws Exception
     {
         RemoteIssue issue = new RemoteIssue();
-        client.createssue(issue);
-        verify(service).createIssue(anyString(), eq(issue));
+        when(service.createIssue(anyString(), eq(issue))).thenReturn(new RemoteIssue()
+        {
+            {
+                setKey("100");
+            }
+        });
+        assertEquals("100", client.createssue(issue));
     }
 
 

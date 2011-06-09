@@ -11,6 +11,7 @@
 package org.mulesoft.demo.jira;
 
 import org.mule.api.MuleEvent;
+import org.mule.api.MuleMessage;
 import org.mule.api.transport.PropertyScope;
 import org.mule.construct.SimpleFlowConstruct;
 import org.mule.tck.FunctionalTestCase;
@@ -26,9 +27,13 @@ public class JiraFunctionalTestDriver extends FunctionalTestCase
     public void testUpdateFlow() throws Exception
     {
         final MuleEvent event = getTestEvent("");
-        event.getMessage().setProperty("summary", "Titles are wrong cased", PropertyScope.INBOUND);
-        event.getMessage().setProperty("description",
-            "Titles should start with an uppercase letter, but ...", PropertyScope.INBOUND);
+        MuleMessage message = event.getMessage();
+        
+        message.setProperty("summary", "Titles are wrong cased", PropertyScope.INBOUND);
+        message.setProperty("description", "Titles should start with an uppercase letter, but ...",
+            PropertyScope.INBOUND);
+        message.setProperty("project", "TEST", PropertyScope.INBOUND);
+        message.setProperty("type", "2", PropertyScope.INBOUND);
         final SimpleFlowConstruct flow = lookupFlowConstruct("MainFlow");
         final MuleEvent responseEvent = flow.process(event);
         System.out.println(responseEvent);

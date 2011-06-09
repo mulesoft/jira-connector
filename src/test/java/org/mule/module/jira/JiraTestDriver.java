@@ -10,6 +10,7 @@
 
 package org.mule.module.jira;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
 
 import org.mule.api.lifecycle.InitialisationException;
@@ -18,36 +19,50 @@ import com.atlassian.jira.rpc.soap.beans.RemoteIssue;
 
 import org.junit.Before;
 import org.junit.Test;
+
 public class JiraTestDriver
 {
-    private static final String ISSUE_ID = "TST-12722";
     private JiraCloudConnector connector;
 
     @Before
     public void setup() throws InitialisationException
     {
         connector = new JiraCloudConnector();
-        connector.setAddress(JiraCloudConnector.DEFAULT_ADDRESS);
-        connector.setPassword("soaptester");
-        connector.setUsername("soaptester");
+        connector.setAddress("http://localhost:8080/rpc/soap/jirasoapservice-v2");
+        connector.setPassword("admin");
+        connector.setUsername("admin");
         connector.initialise();
     }
 
+    /**
+     * Creates an issue an verifies it can be fetched by key 
+     */
     @Test
     public void createIssue() throws Exception
     {
         RemoteIssue issue = new RemoteIssue();
+        issue.setProject("TEST");
         issue.setSummary("A big bug!");
         issue.setDescription("This occurs when fooing, baring or bazing");
-        connector.createIssue(issue);
+        issue.setType("3");
+        String key = connector.createIssue(issue);
         try
         {
-            assertNotNull(connector.getIssue(issue.getKey()));
+            assertNotNull(connector.getIssue(key));
         }
         finally
         {
-            connector.deleteIssue(issue.getKey());
+            connector.deleteIssue(key);
         }
+    }
+
+    /**
+     * Tries to get an inexistent issue 
+     */
+    @Test(expected = JiraException.class)
+    public void getIssueInexistent() throws Exception
+    {
+        connector.getIssue("FOOBAR-600");
     }
 
 }

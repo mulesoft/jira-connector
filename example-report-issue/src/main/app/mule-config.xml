@@ -7,13 +7,10 @@
     has been included with this distribution in the LICENSE.txt file.
   -->
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
-  xmlns:jira="http://www.mulesoft.org/schema/mule/jira"
-  xmlns:json="http://www.mulesoft.org/schema/mule/json" 
-  xmlns:mongodb="http://www.mulesoft.org/schema/mule/mongodb"
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:jira="http://www.mulesoft.org/schema/mule/jira"
+  xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:mongodb="http://www.mulesoft.org/schema/mule/mongodb"
   xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
-  xmlns:spring="http://www.springframework.org/schema/beans" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:http="http://www.mulesoft.org/schema/mule/http"
   xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -29,8 +26,7 @@
 
   <flow name="MainFlow">
     <description>Creates an issue in a Jira server with the given
-      summary
-      and description</description>
+      summary, description, project and issue type id</description>
     <http:inbound-endpoint host="localhost" port="9090"
       path="jira-demo-report-issue" />
     <bean-builder-transformer
@@ -39,6 +35,10 @@
         expression="inbound:summary" />
       <bean-property property-name="description"
         evaluator="header" expression="inbound:description" />
+      <bean-property property-name="project"
+        evaluator="header" expression="inbound:project" />
+      <bean-property property-name="type"
+        evaluator="header" expression="inbound:type" />
     </bean-builder-transformer>
     <jira:create-issue issue="#[payload]" />
   </flow>
