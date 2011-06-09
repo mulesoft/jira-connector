@@ -28,6 +28,10 @@ import com.atlassian.jira.rpc.soap.beans.RemoteIssue;
 
 import java.rmi.RemoteException;
 
+/**
+ * JIRA Connector Facade
+ * @author flbulgarelli
+ */
 @Connector(namespacePrefix = "jira")
 public class JiraCloudConnector implements Initialisable
 {
@@ -47,11 +51,12 @@ public class JiraCloudConnector implements Initialisable
      * 
      * {@code  <jira:create-issue issue="#[map-payload:anIssue]" />} 
      * @param issue the issue to create in Jira
+     * @return the new issue's key 
      */
     @Operation
-    public void createIssue(@Parameter RemoteIssue issue)
+    public String createIssue(@Parameter RemoteIssue issue)
     {
-        client.createssue(issue);
+        return client.createssue(issue);
     }
     
     /**

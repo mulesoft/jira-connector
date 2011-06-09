@@ -29,9 +29,9 @@ public class AxisJiraClient implements JiraClient<RemoteException>
         this.serviceProvider = serviceProvider;
     }
 
-    public void createssue(RemoteIssue issue) throws RemoteException
+    public String createssue(RemoteIssue issue) throws RemoteException
     {
-        getService().createIssue(getToken(), issue);
+        return getService().createIssue(getToken(), issue).getKey();
     }
     
     public void deleteIssue(String key) throws RemoteException

@@ -73,6 +73,8 @@ Creates an issue.
 |config-ref|Specify which configuration to use for this invocation|yes||
 |issue|the issue to create in Jira|no||
 
+Returns new issue's key
+
 
 
 Get Issue

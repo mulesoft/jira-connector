@@ -14,7 +14,7 @@ import com.atlassian.jira.rpc.soap.beans.RemoteIssue;
 
 public interface JiraClient<ExceptionType extends Throwable>
 {
-    void createssue(RemoteIssue issue) throws ExceptionType;
+    String createssue(RemoteIssue issue) throws ExceptionType;
 
     void deleteIssue(String key) throws ExceptionType;
 
