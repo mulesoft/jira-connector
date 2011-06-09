@@ -64,5 +64,11 @@ public class JiraTestDriver
     {
         connector.getIssue("FOOBAR-600");
     }
+    
+    @Test(expected = JiraException.class)
+    public void deleteInexistent() throws Exception
+    {
+        connector.deleteIssue("BAZ-986");
+    }
 
 }

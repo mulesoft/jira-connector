@@ -39,10 +39,21 @@ public class JiraCloudConnector implements Initialisable
     
     @Property(optional = true, name = "client-ref")
     private JiraClient<JiraException> client;
+    /**
+     * The user login username
+     */
     @Property
     private String username;
+    /**
+     * The user login password
+     */
     @Property
     private String password;
+    /**
+     * The JIRA Server Soap address. It usually looks like 
+     * https://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2
+     * or http://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2  
+     */
     @Property(optional = true, defaultValue = DEFAULT_ADDRESS)
     private String address;
 
@@ -73,7 +84,8 @@ public class JiraCloudConnector implements Initialisable
     }
     
     /**
-     * Deletes an issue by key. TODO if not exists?
+     * Deletes an existent issue by key. 
+     * If it does not exist, a JiraExcpetion will be thrown.  
      * 
      * {@code <jira:delete-issue key="aKey" />}
      * 
