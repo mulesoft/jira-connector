@@ -19,12 +19,27 @@
                           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
                           http://www.mulesoft.org/schema/mule/jira http://www.mulesoft.org/schema/mule/jira/1.0/mule-jira.xsd">
 
-  <jira:config username="auser" password="apassword" address="andendpoint" />
+  <jira:config username="auser" password="apassword"
+    address="andendpoint" />
 
   <flow name="CreateIssue">
     <inbound-endpoint address="vm://CreateIssue"
       exchange-pattern="request-response" />
     <jira:create-issue issue="#[map-payload:anIssue]" />
   </flow>
+
+  <flow name="DeleteIssue">
+    <inbound-endpoint address="vm://DeleteIssue"
+      exchange-pattern="request-response" />
+    <jira:delete-issue key="akey" />
+  </flow>
+
+  <flow name="GetIssue">
+    <inbound-endpoint address="vm://GetIssue"
+      exchange-pattern="request-response" />
+    <jira:get-issue key="akey" />
+  </flow>
+
+
 
 </mule>

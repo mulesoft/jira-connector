@@ -31,19 +31,53 @@ import java.rmi.RemoteException;
 @Connector(namespacePrefix = "jira")
 public class JiraCloudConnector implements Initialisable
 {
+    public static final String DEFAULT_ADDRESS = "https://jira.atlassian.com/rpc/soap/jirasoapservice-v2";
+    
     @Property(optional = true, name = "client-ref")
     private JiraClient<JiraException> client;
     @Property
     private String username;
     @Property
     private String password;
-    @Property
+    @Property(optional = true, defaultValue = DEFAULT_ADDRESS)
     private String address;
 
+    /**
+     * Creates an issue. 
+     * 
+     * {@code  <jira:create-issue issue="#[map-payload:anIssue]" />} 
+     * @param issue the issue to create in Jira
+     */
     @Operation
     public void createIssue(@Parameter RemoteIssue issue)
     {
         client.createssue(issue);
+    }
+    
+    /**
+     * Answers an existent issue by key.
+     * 
+     * {@code <jira:get-issue key="#[header:key]" />} 
+     * @param key the key of the issue
+     * @return a non null issue. If it not exists, a JiraException will be thrown
+     */
+    @Operation
+    public RemoteIssue getIssue(String key)
+    {
+        return client.getIssue(key);
+    }
+    
+    /**
+     * Deletes an issue by key. TODO if not exists?
+     * 
+     * {@code <jira:delete-issue key="aKey" />}
+     * 
+     * @param key the key of the issue
+     */
+    @Operation
+    public void deleteIssue(String key)
+    {
+        client.deleteIssue(key);
     }
 
     public void initialise() throws InitialisationException

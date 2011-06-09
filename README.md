@@ -46,21 +46,84 @@ Configuration
 
 You can configure the connector as follows:
 
-    <jira:config/>
+    <jira:config client="value" username="value" password="value" address="value"/>
 
 Here is detailed list of all the configuration attributes:
 
 | attribute | description | optional | default value |
 |:-----------|:-----------|:---------|:--------------|
 |name|Give a name to this configuration so it can be later referenced by config-ref.|yes||
+|client||yes|
+|username||no|
+|password||no|
+|address||yes|DEFAULT_ADDRESS
 
 
-My Operation
+Create Issue
 ------------
+
+Creates an issue. 
+
+
+
+      <jira:create-issue issue="#[map-payload:anIssue]" />
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
+|issue|the issue to create in Jira|no||
+
+
+
+Get Issue
+---------
+
+Answers an existent issue by key.
+
+
+
+     <jira:get-issue key="#[header:key]" />
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|key|the key of the issue|no||
+
+Returns non null issue. If it not exists, a JiraException will be thrown
+
+
+
+Delete Issue
+------------
+
+Deletes an issue by key. TODO if not exists?
+
+
+
+     <jira:delete-issue key="aKey" />
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|key|the key of the issue|no||
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

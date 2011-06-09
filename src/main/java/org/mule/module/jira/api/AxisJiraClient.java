@@ -33,6 +33,16 @@ public class AxisJiraClient implements JiraClient<RemoteException>
     {
         getService().createIssue(getToken(), issue);
     }
+    
+    public void deleteIssue(String key) throws RemoteException
+    {
+        getService().deleteIssue(getToken(), key);
+    }
+    
+    public RemoteIssue getIssue(String key) throws RemoteException
+    {
+        return getService().getIssue(getToken(), key);
+    }
 
     private JiraSoapService getService() throws RemoteException
     {
@@ -43,5 +53,6 @@ public class AxisJiraClient implements JiraClient<RemoteException>
     {
         return serviceProvider.getToken();
     }
+    
 
 }

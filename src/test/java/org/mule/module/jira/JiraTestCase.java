@@ -14,22 +14,78 @@
 
 package org.mule.module.jira;
 
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+
+import org.mule.module.jira.api.AxisJiraClient;
+import org.mule.module.jira.api.AxisJiraSoapServiceProvider;
+import org.mule.module.jira.api.JiraClient;
+
+import static org.junit.Assert.*;
+import com.atlassian.jira.rpc.soap.beans.RemoteIssue;
+import com.atlassian.jira.rpc.soap.jirasoapservice_v2.JiraSoapService;
+
+import java.rmi.RemoteException;
+
+import org.junit.Before;
 import org.junit.Test;
-
-import org.mule.module.jira.JiraCloudConnector;
-
 public class JiraTestCase
 {
-    @Test
-    public void invokeSomeMethodOnTheCloudConnector()
+    
+    private JiraClient<RemoteException> client;
+    private AxisJiraSoapServiceProvider provider;
+    private JiraSoapService service;
+    
+    @Before
+    public void setup() throws RemoteException
     {
-        /*
-         * Add code that tests the cloud connector at the API level. This means that
-         * you'll instantiate your cloud connector directly, invoke one of its
-         * methods and assert you get the correct result. Example: jiraCloudConnector
-         * connector = new jiraCloudConnector(); Object result =
-         * connector.someMethod("sample input"); assertEquals("expected output",
-         * result);
-         */
+        service = mock(JiraSoapService.class);
+        provider = mock(AxisJiraSoapServiceProvider.class);
+        when(provider.getService()).thenReturn(service);
+        client = new AxisJiraClient(provider);
     }
+
+//    @Test
+//    public void issueExists() throws Exception
+//    {
+//        String key = "156";
+//        client.existsIssue(key);
+//        when(service.getIssue(anyString(), eq(key))).then;
+//    }
+
+    @Test
+    public void getIssueExists() throws Exception
+    {
+        RemoteIssue issue = new RemoteIssue();
+        String key = "156";
+        when(service.getIssue(anyString(), eq(key))).thenReturn(issue);
+        assertSame(issue, client.getIssue(key));
+    }
+    
+    @Test(expected = RemoteException.class)
+    public void getIssueNotExists() throws Exception
+    {
+        String key = "156";
+        when(service.getIssue(anyString(), eq(key))).thenThrow(new RemoteException());
+        client.getIssue(key);
+    }
+    
+    @Test
+    public void removeIssue() throws Exception
+    {
+        String key = "156";
+        client.deleteIssue(key);
+        verify(service).deleteIssue(anyString(), eq(key));
+    }
+    
+    
+    @Test
+    public void createIssue() throws Exception
+    {
+        RemoteIssue issue = new RemoteIssue();
+        client.createssue(issue);
+        verify(service).createIssue(anyString(), eq(issue));
+    }
+
+
 }
