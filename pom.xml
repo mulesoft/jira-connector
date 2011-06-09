@@ -153,7 +153,7 @@
 
     </plugins>
   </build>
-  
+
   <!-- plugins for creating site reports -->
   <reporting>
     <plugins>
@@ -250,7 +250,7 @@
       <artifactId>mule-cloud-connector-annotations</artifactId>
       <version>2.0.15</version>
     </dependency>
-     <dependency>
+    <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-all</artifactId>
       <version>1.8.4</version>
@@ -262,7 +262,7 @@
       <version>${mule.version}</version>
       <scope>test</scope>
     </dependency>
-    
+
     <!-- Validation -->
     <dependency>
       <groupId>javax.validation</groupId>
@@ -270,7 +270,7 @@
       <version>1.0.0.GA</version>
     </dependency>
   </dependencies>
-  
+
   <repositories>
     <repository>
       <id>codehaus-repo</id>
@@ -297,6 +297,12 @@
       <layout>default</layout>
     </repository>
   </repositories>
+
+  <scm>
+    <connection>scm:git:git://github.com:mulesoft/jira-connector.git</connection>
+    <developerConnection>scm:git:git@github.com:mulesoft/jira-connector.git</developerConnection>
+    <url>http://github.com/mulesoft/jira-connector</url>
+  </scm>
 
   <distributionManagement>
     <repository>
