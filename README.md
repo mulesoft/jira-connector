@@ -38,7 +38,7 @@ application:
     <dependency>
         <groupId>org.mule.modules</groupId>
         <artifactId>mule-module-jira</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.1-SNAPSHOT</version>
     </dependency>
 
 Configuration
@@ -54,9 +54,11 @@ Here is detailed list of all the configuration attributes:
 |:-----------|:-----------|:---------|:--------------|
 |name|Give a name to this configuration so it can be later referenced by config-ref.|yes||
 |client||yes|
-|username||no|
-|password||no|
-|address||yes|DEFAULT_ADDRESS
+|username|The user login username|no|
+|password|The user login password|no|
+|address|The JIRA Server Soap address. It usually looks like 
+https://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2
+or http://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2|yes|DEFAULT_ADDRESS
 
 
 Create Issue
@@ -98,7 +100,8 @@ Returns non null issue. If it not exists, a JiraException will be thrown
 Delete Issue
 ------------
 
-Deletes an issue by key. TODO if not exists?
+Deletes an existent issue by key. 
+If it does not exist, a JiraExcpetion will be thrown.  
 
 
 
