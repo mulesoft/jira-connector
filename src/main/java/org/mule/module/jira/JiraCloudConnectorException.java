@@ -10,18 +10,19 @@
 
 package org.mule.module.jira;
 
-public class JiraException extends RuntimeException
-{
+public class JiraCloudConnectorException extends RuntimeException {
+
     private static final long serialVersionUID = -2109364149460283327L;
 
-    public JiraException(Throwable cause)
-    {
+    public JiraCloudConnectorException(Throwable cause) {
         super(cause);
     }
 
-    public JiraException(String message, Throwable cause)
-    {
+    public JiraCloudConnectorException(String message, Throwable cause) {
         super(message, cause);
     }
 
+    public JiraCloudConnectorException(String s) {
+        super(s);
+    }
 }

@@ -14,11 +14,9 @@ import com.atlassian.jira.rpc.soap.jirasoapservice_v2.JiraSoapService;
 
 import java.rmi.RemoteException;
 
-public interface AxisJiraSoapServiceProvider
-{
+public interface AxisJiraSoapServiceProvider {
 
     JiraSoapService getService() throws RemoteException;
 
     String getToken() throws RemoteException;
-
 }

@@ -14,24 +14,307 @@
 
 package org.mule.module.jira.config;
 
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mule.construct.SimpleFlowConstruct;
+import org.mule.module.jira.JiraClientFactory;
+import org.mule.module.jira.api.JiraClient;
 import org.mule.tck.FunctionalTestCase;
 
-public class JiraNamespaceHandlerTestCase extends FunctionalTestCase
-{
+public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
+
+    private static final String TOKEN = "aToken";
+    private static final String GROUP_NAME = "someGroupName";
+    private static final String USER_NAME = "someUserName";
+    private static final String PASSWORD = "somePassword";
+    private static final String FULL_NAME = "some full name";
+    private static final String EMAIL = "some email";
+    private static final String ISSUE_KEY = "someIssueKey";
+    private static final String PROJECT_KEY = "someProjectKey";
+    private static final String SOME_URL = "someUrl";
+    private static final String PERMISSION_SCHEME_NAME = "somePermissionSchemeName";
+    private static final String NOTIFICATION_SCHEME_NAME = "someNotificationSchemeName";
+    private static final String SECURITY_SCHEME_NAME = "someSecuritySchemeName";
+    private static final String PROJECT_ROLE_NAME = "someProjectRoleName";
+    @Mock
+    private JiraClient mockJiraClient;
+
     @Override
-    protected String getConfigResources()
-    {
+    protected void doSetUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(mockJiraClient.login("fede", "1024")).thenReturn(TOKEN);
+        JiraClientFactory.setDefaultClient(mockJiraClient);
+    }
+
+    @Override
+    protected String getConfigResources() {
         return "jira-namespace-config.xml";
     }
 
-    public void testSendMessageToFlow() throws Exception
-    {
-        lookupFlowConstruct("CreateIssue");
+    public void testGetComment() throws Exception {
+        lookupFlowConstruct("getComment").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getComment(TOKEN, 123L);
     }
 
-    private SimpleFlowConstruct lookupFlowConstruct(String name)
-    {
+    public void testGetConfiguration() throws Exception {
+        lookupFlowConstruct("getConfiguration").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getConfiguration(TOKEN);
+    }
+
+    public void testCreateGroup() throws Exception {
+        lookupFlowConstruct("createGroup").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).createGroup(TOKEN, GROUP_NAME, USER_NAME);
+    }
+
+    public void testGetServerInfo() throws Exception {
+        lookupFlowConstruct("getServerInfo").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getServerInfo(TOKEN);
+    }
+
+    public void testGetGroup() throws Exception {
+        lookupFlowConstruct("getGroup").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getGroup(TOKEN, GROUP_NAME);
+    }
+
+    public void testCreateUser() throws Exception {
+        lookupFlowConstruct("createUser").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).createUser(TOKEN, USER_NAME, PASSWORD, FULL_NAME, EMAIL);
+    }
+
+    public void testAddComment() throws Exception {
+        lookupFlowConstruct("addComment").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).addComment(TOKEN, ISSUE_KEY, USER_NAME, "someComment", null, null);
+    }
+
+    public void testGetComponents() throws Exception {
+        lookupFlowConstruct("getComponents").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getComponents(TOKEN, PROJECT_KEY);
+    }
+
+    public void testGetUser() throws Exception {
+        lookupFlowConstruct("getUser").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getUser(TOKEN, USER_NAME);
+    }
+
+    public void testUpdateGroup() throws Exception {
+        lookupFlowConstruct("updateGroup").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).updateGroup(TOKEN, GROUP_NAME, new String[]{USER_NAME});
+    }
+
+    public void testAddUserToGroup() throws Exception {
+        lookupFlowConstruct("addUserToGroup").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).addUserToGroup(TOKEN, GROUP_NAME, USER_NAME);
+    }
+
+    public void testRemoveUserFromGroup() throws Exception {
+        lookupFlowConstruct("removeUserFromGroup").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).removeUserFromGroup(TOKEN, GROUP_NAME, USER_NAME);
+    }
+
+    public void testGetIssue() throws Exception {
+        lookupFlowConstruct("getIssue").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getIssue(TOKEN, ISSUE_KEY);
+    }
+
+//    public void testCreateIssue() throws Exception {
+//        lookupFlowConstruct("createIssue").process(getTestEvent(""));
+//        Mockito.verify(mockJiraClient).createIssue();
+//    }
+
+//    public void testUpdateIssue() throws Exception {
+//        lookupFlowConstruct("updateIssue").process(getTestEvent(""));
+//        Mockito.verify(mockJiraClient).upda
+//    }
+//
+
+    public void testDeleteIssue() throws Exception {
+        lookupFlowConstruct("deleteIssue").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).deleteIssue(TOKEN, ISSUE_KEY);
+    }
+
+    public void testGetAvailableActions() throws Exception {
+        lookupFlowConstruct("getAvailableActions").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getAvailableActions(TOKEN, ISSUE_KEY);
+    }
+
+    public void testGetSubTaskIssueTypes() throws Exception {
+        lookupFlowConstruct("getSubTaskIssueTypes").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getSubTaskIssueTypes(TOKEN);
+    }
+
+    public void testCreateProject() throws Exception {
+        lookupFlowConstruct("createProject").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).createProject(TOKEN, PROJECT_KEY, "someProjectName", "someProjectDescription", SOME_URL, USER_NAME, PERMISSION_SCHEME_NAME, NOTIFICATION_SCHEME_NAME, SECURITY_SCHEME_NAME);
+    }
+
+    public void testUpdateProject() throws Exception {
+        lookupFlowConstruct("updateProject").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).updateProject(TOKEN, PROJECT_KEY, "someProjectDescription", SOME_URL, USER_NAME, PERMISSION_SCHEME_NAME, NOTIFICATION_SCHEME_NAME, SECURITY_SCHEME_NAME);
+    }
+
+    public void testGetProjectByKey() throws Exception {
+        lookupFlowConstruct("getProjectByKey").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getProjectByKey(TOKEN, PROJECT_KEY);
+    }
+
+    public void testRemoveAllRoleActorsByProject() throws Exception {
+        lookupFlowConstruct("removeAllRoleActorsByProject").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).removeAllRoleActorsByProject(TOKEN, PROJECT_KEY);
+    }
+
+    public void testGetPriorities() throws Exception {
+        lookupFlowConstruct("getPriorities").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getPriorities(TOKEN);
+    }
+
+    public void testGetResolutions() throws Exception {
+        lookupFlowConstruct("getResolutions").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getResolutions(TOKEN);
+    }
+
+    public void testGetIssueTypes() throws Exception {
+        lookupFlowConstruct("getIssueTypes").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getIssueTypes(TOKEN);
+    }
+
+    public void testGetStatuses() throws Exception {
+        lookupFlowConstruct("getStatuses").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getStatuses(TOKEN);
+    }
+
+    public void testGetIssueTypesForProject() throws Exception {
+        lookupFlowConstruct("getIssueTypesForProject").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getIssueTypesForProject(TOKEN, "someProjectId");
+    }
+
+    public void testGetProjectRoles() throws Exception {
+        lookupFlowConstruct("getProjectRoles").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getProjectRoles(TOKEN);
+    }
+
+    public void testGetProjectRole() throws Exception {
+        lookupFlowConstruct("getProjectRole").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getProjectRole(TOKEN, 123L);
+    }
+
+    public void testGetProjectRoleActors() throws Exception {
+        lookupFlowConstruct("getProjectRoleActors").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getProjectRoleActors(TOKEN, 123L, PROJECT_KEY);
+    }
+
+    public void testGetDefaultRoleActors() throws Exception {
+        lookupFlowConstruct("getDefaultRoleActors").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getDefaultRoleActors(TOKEN, 123L);
+    }
+
+    public void testRemoveAllRoleActorsByNameAndType() throws Exception {
+        lookupFlowConstruct("removeAllRoleActorsByNameAndType").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).removeAllRoleActorsByNameAndType(TOKEN, "someName", "someType");
+    }
+
+    public void testDeleteProjectRole() throws Exception {
+        lookupFlowConstruct("deleteProjectRole").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).deleteProjectRole(TOKEN, 123L, false);
+    }
+
+    public void testCreateProjectRole() throws Exception {
+        lookupFlowConstruct("createProjectRole").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).createProjectRole(TOKEN, PROJECT_ROLE_NAME, "someProjectRoleDescription");
+    }
+
+    public void testIsProjectRoleNameUnique() throws Exception {
+        lookupFlowConstruct("isProjectRoleNameUnique").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).isProjectRoleNameUnique(TOKEN, PROJECT_ROLE_NAME);
+    }
+
+    public void testAddDefaultActorsToProjectRole() throws Exception {
+        lookupFlowConstruct("addDefaultActorsToProjectRole").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).addDefaultActorsToProjectRole(TOKEN, new String[]{"actor1", "actor2"}, 123L, "someType");
+    }
+
+    public void testRemoveDefaultActorsFromProjectRole() throws Exception {
+        lookupFlowConstruct("removeDefaultActorsFromProjectRole").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).removeDefaultActorsFromProjectRole(TOKEN, new String[]{"actor1", "actor2"}, 123L, "someType");
+    }
+
+    public void testGetAssociatedNotificationSchemes() throws Exception {
+        lookupFlowConstruct("getAssociatedNotificationSchemes").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getAssociatedNotificationSchemes(TOKEN, 123L);
+    }
+
+    public void testGetAssociatedPermissionSchemes() throws Exception {
+        lookupFlowConstruct("getAssociatedPermissionSchemes").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getAssociatedPermissionSchemes(TOKEN, 123L);
+    }
+
+    public void testDeleteProject() throws Exception {
+        lookupFlowConstruct("deleteProject").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).deleteProject(TOKEN, PROJECT_KEY);
+    }
+
+    public void testGetProjectById() throws Exception {
+        lookupFlowConstruct("getProjectById").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getProjectById(TOKEN, 123L);
+    }
+
+    public void testGetVersions() throws Exception {
+        lookupFlowConstruct("getVersions").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getVersions(TOKEN, PROJECT_KEY);
+    }
+
+    public void testGetComments() throws Exception {
+        lookupFlowConstruct("getComments").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getComments(TOKEN, ISSUE_KEY);
+    }
+
+    public void testGetFavouriteFilters() throws Exception {
+        lookupFlowConstruct("getFavouriteFilters").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getFavouriteFilters(TOKEN);
+    }
+
+    public void testArchiveVersion() throws Exception {
+        lookupFlowConstruct("archiveVersion").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).archiveVersion(TOKEN, PROJECT_KEY, "someVersionName", true);
+    }
+
+    public void testGetFieldsForEdit() throws Exception {
+        lookupFlowConstruct("getFieldsForEdit").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getFieldsForEdit(TOKEN, ISSUE_KEY);
+    }
+
+    public void testGetSubTaskIssueTypesForProject() throws Exception {
+        lookupFlowConstruct("getSubTaskIssueTypesForProject").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getSubTaskIssueTypesForProject(TOKEN, "someProjectId");
+    }
+
+    public void testLogin() throws Exception {
+        lookupFlowConstruct("login").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).login("someUsername", "somePassword");
+    }
+
+    public void testGetSecurityLevel() throws Exception {
+        lookupFlowConstruct("getSecurityLevel").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getSecurityLevel(TOKEN, ISSUE_KEY);
+    }
+
+    public void testGetCustomFields() throws Exception {
+        lookupFlowConstruct("getCustomFields").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getCustomFields(TOKEN);
+    }
+
+    public void testLogout() throws Exception {
+        lookupFlowConstruct("logout").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).logout(TOKEN);
+    }
+
+    public void testGetProjectWithSchemesById() throws Exception {
+        lookupFlowConstruct("getProjectWithSchemesById").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).getProjectWithSchemesById(TOKEN, 123L);
+    }
+
+
+    private SimpleFlowConstruct lookupFlowConstruct(String name) {
         return (SimpleFlowConstruct) muleContext.getRegistry().lookupFlowConstruct(name);
     }
 }

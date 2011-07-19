@@ -10,65 +10,50 @@
 
 package org.mule.module.jira;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
-
-import org.mule.api.lifecycle.InitialisationException;
-
-import com.atlassian.jira.rpc.soap.beans.RemoteIssue;
-
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.junit.Before;
 import org.junit.Test;
+import org.mule.api.lifecycle.InitialisationException;
 
-public class JiraTestDriver
-{
+public class JiraTestDriver {
     private JiraCloudConnector connector;
 
     @Before
-    public void setup() throws InitialisationException
-    {
+    public void setup() throws InitialisationException {
         connector = new JiraCloudConnector();
         connector.setAddress("http://localhost:8080/rpc/soap/jirasoapservice-v2");
-        connector.setPassword("admin");
-        connector.setUsername("admin");
-        connector.initialise();
+        connector.setPassword("fede");
+        connector.setUsername("1024");
     }
 
     /**
-     * Creates an issue an verifies it can be fetched by key 
+     * Creates an issue an verifies it can be fetched by key
      */
     @Test
-    public void createIssue() throws Exception
-    {
-        RemoteIssue issue = new RemoteIssue();
-        issue.setProject("TEST");
-        issue.setSummary("A big bug!");
-        issue.setDescription("This occurs when fooing, baring or bazing");
-        issue.setType("3");
-        String key = connector.createIssue(issue);
-        try
-        {
-            assertNotNull(connector.getIssue(key));
-        }
-        finally
-        {
-            connector.deleteIssue(key);
-        }
+    public void createIssue() throws Exception {
+        String token = connector.login("fede", "1024");
+
+        connector.getIssueTypesForProject(token, "TST");
     }
 
-    /**
-     * Tries to get an inexistent issue 
-     */
-    @Test(expected = JiraException.class)
-    public void getIssueInexistent() throws Exception
-    {
-        connector.getIssue("FOOBAR-600");
+    private void printObject(Object obj) {
+        System.out.println(ToStringBuilder.reflectionToString(obj, ToStringStyle.MULTI_LINE_STYLE));
     }
-    
-    @Test(expected = JiraException.class)
-    public void deleteInexistent() throws Exception
-    {
-        connector.deleteIssue("BAZ-986");
-    }
+
+//    /**
+//     * Tries to get an inexistent issue
+//     */
+//    @Test(expected = JiraCloudConnectorException.class)
+//    public void getIssueInexistent() throws Exception
+//    {
+//        connector.getIssue("FOOBAR-600");
+//    }
+//
+//    @Test(expected = JiraCloudConnectorException.class)
+//    public void deleteInexistent() throws Exception
+//    {
+//        connector.deleteIssue("BAZ-986");
+//    }
 
 }

@@ -10,13 +10,190 @@
 
 package org.mule.module.jira.api;
 
-import com.atlassian.jira.rpc.soap.beans.RemoteIssue;
+import com.atlassian.jira.rpc.soap.beans.*;
 
-public interface JiraClient<ExceptionType extends Throwable>
-{
-    String createssue(RemoteIssue issue) throws ExceptionType;
+import java.util.Calendar;
 
-    void deleteIssue(String key) throws ExceptionType;
+public interface JiraClient {
 
-    RemoteIssue getIssue(String key) throws ExceptionType;
+    RemoteComment getComment(String token, Long id);
+
+    RemoteConfiguration getConfiguration(String token);
+
+    RemoteGroup createGroup(String token, String groupName, String userName);
+
+    RemoteServerInfo getServerInfo(String token);
+
+    RemoteGroup getGroup(String token, String groupName);
+
+    RemoteUser createUser(String token, String username, String password, String fullName, String email);
+
+    void addComment(String token, String issueKey, String commentAuthor, String commentBody, String commentGroupLevel, String commentRoleLevel);
+
+    RemoteComponent[] getComponents(String token, String projectKey);
+
+    RemoteUser getUser(String token, String username);
+
+    void addUserToGroup(String token, String groupName, String userName);
+
+    void removeUserFromGroup(String token, String groupName, String userName);
+
+    RemoteIssue getIssue(String token, String issueKey);
+
+    RemoteIssue createIssue(String token, String assignee, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, String[] customFieldKeys, String[][] customerFieldValues);
+
+    RemoteIssue updateIssue(String token, String issueKey, String[] fieldIds, String[][] fieldValues);
+
+    void deleteIssue(String token, String issueKey);
+
+    RemoteNamedObject[] getAvailableActions(String token, String issueKey);
+
+    RemoteIssueType[] getSubTaskIssueTypes(String token);
+
+    RemoteProject getProjectByKey(String token, String projectKey);
+
+    RemotePriority[] getPriorities(String token);
+
+    RemoteResolution[] getResolutions(String token);
+
+    RemoteIssueType[] getIssueTypes(String token);
+
+    RemoteStatus[] getStatuses(String token);
+
+    RemoteIssueType[] getIssueTypesForProject(String token, String projectId);
+
+    RemoteProjectRole[] getProjectRoles(String token);
+
+    RemoteProjectRole getProjectRole(String token, Long id);
+
+    RemoteRoleActors getDefaultRoleActors(String token, Long projectRoleId);
+
+    void removeAllRoleActorsByNameAndType(String token, String name, String type);
+
+    void deleteProjectRole(String token, Long projectRoleId, Boolean confirm);
+
+    void addDefaultActorsToProjectRole(String token, String[] actors, Long projectRoleId, String type);
+
+    RemoteProject getProjectById(String token, Long projectId);
+
+    RemoteProjectRole createProjectRole(String token, String projectRoleName, String projectRoleDescription);
+
+    boolean isProjectRoleNameUnique(String token, String name);
+
+    void updateProjectRole(String token, Long projectRoleId, String projectRoleName, String projectRoleDescription);
+
+    void removeDefaultActorsFromProjectRole(String token, String[] actors, Long remoteProjectRoleId, String type);
+
+    RemoteScheme[] getAssociatedNotificationSchemes(String token, Long projectRoleId);
+
+    RemoteScheme[] getAssociatedPermissionSchemes(String token, Long projectRoleId);
+
+    RemoteVersion[] getVersions(String token, String projectKey);
+
+    RemoteComment[] getComments(String token, String issueKey);
+
+    void deleteProject(String token, String projectKey);
+
+    RemoteField[] getFieldsForEdit(String token, String issueKey);
+
+    RemoteIssueType[] getSubTaskIssueTypesForProject(String token, String projectId);
+
+    RemoteSecurityLevel getSecurityLevel(String token, String issueKey);
+
+    RemoteProject getProjectWithSchemesById(String token, Long projectId);
+
+    RemoteFilter[] getFavouriteFilters(String token);
+
+    void archiveVersion(String token, String projectKey, String versionName, Boolean archive);
+
+    RemoteSecurityLevel[] getSecurityLevels(String token, String projectKey);
+
+    RemoteAvatar[] getProjectAvatars(String token, String projectKey, Boolean includeSystemAvatars);
+
+    void setProjectAvatar(String token, String projectKey, Long avatarId);
+
+    RemoteAvatar getProjectAvatar(String token, String projectKey);
+
+    void deleteProjectAvatar(String token, Long avatarId);
+
+    RemoteScheme[] getNotificationSchemes(String token);
+
+    RemotePermissionScheme[] getPermissionSchemes(String token);
+
+    RemoteAttachment[] getAttachmentsFromIssue(String token, String issueKey);
+
+    RemoteField[] getFieldsForAction(String token, String issueKey, String actionIdString);
+
+    void deleteWorklogWithNewRemainingEstimate(String token, String workLogId, String newRemainingEstimate);
+
+    void deleteWorklogAndAutoAdjustRemainingEstimate(String token, String worklogId);
+
+    void deleteWorklogAndRetainRemainingEstimate(String token, String worklogId);
+
+    RemoteWorklog[] getWorklogs(String token, String issueKey);
+
+    boolean hasPermissionToCreateWorklog(String token, String issueKey);
+
+    boolean hasPermissionToDeleteWorklog(String token, String worklogId);
+
+    boolean hasPermissionToUpdateWorklog(String token, String worklogId);
+
+    Calendar getResolutionDateByKey(String token, String issueKey);
+
+    Calendar getResolutionDateById(String token, Long issueId);
+
+    long getIssueCountForFilter(String token, String filterId);
+
+
+    RemoteIssue[] getIssuesFromTextSearchWithProject(String token, String[] projectKeys, String searchTerms, Integer maxNumResults);
+
+    RemoteIssue[] getIssuesFromJqlSearch(String token, String jqlSearch, Integer maxNumResults);
+
+    void deleteUser(String token, String username);
+
+    void deleteGroup(String token, String groupName, String swapGroupName);
+
+    void refreshCustomFields(String token);
+
+    boolean addBase64EncodedAttachmentsToIssue(String token, String issueKey, String[] fileNames, String[] base64EncodedAttachmentData);
+
+    RemoteIssue[] getIssuesFromFilterWithLimit(String token, String filterId, Integer offset, Integer maxNumResults);
+
+    RemoteIssue[] getIssuesFromTextSearchWithLimit(String token, String searchTerms, Integer offset, Integer maxNumResults);
+
+    RemoteProject[] getProjectsNoSchemes(String token);
+
+    RemoteScheme[] getSecuritySchemes(String token);
+
+    void setNewProjectAvatar(String token, String projectKey, String contentType, String base64ImageData);
+
+    RemoteField[] getCustomFields(String token);
+
+    void deletePermissionScheme(String token, String permissionSchemeName);
+
+    RemoteIssue getIssueById(String token, String issueId);
+
+    RemoteGroup updateGroup(String token, String groupName, String[] usernames);
+
+    void removeAllRoleActorsByProject(String token, String projectKey);
+
+    RemoteProjectRoleActors getProjectRoleActors(String token, Long remoteProjectRoleId, String remoteProjectKey);
+
+    boolean logout(String token);
+
+    RemotePermission[] getAllPermissions(String token);
+
+    RemotePermissionScheme createPermissionScheme(String token, String name, String description);
+
+    String login(String username, String password);
+
+    RemoteIssue createIssueWithSecurityLevel(String token, String asignee, String description, String dueDate, String environment, String project, String reporter, String type, Long votes, Long securityLevelId);
+
+    boolean hasPermissionToEditComment(String token, Long commentId);
+
+    RemoteComment editComment(String token, Long commentId, String body, String updateAuthor);
+
+    RemoteProject createProject(String token, String key, String name, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName);
+
+    RemoteProject updateProject(String token, String key, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName);
 }
