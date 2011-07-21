@@ -17,12 +17,9 @@ import org.mule.module.jira.JiraCloudConnectorException;
 
 import javax.validation.constraints.NotNull;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class AxisJiraClient implements JiraClient {
-
 
     private AxisJiraSoapServiceProvider serviceProvider;
     private AxisJiraClientHelper helper;
@@ -31,10 +28,6 @@ public class AxisJiraClient implements JiraClient {
         Validate.notNull(serviceProvider);
         this.serviceProvider = serviceProvider;
         helper = new AxisJiraClientHelper(this);
-    }
-
-    private JiraSoapService getService() throws RemoteException {
-        return serviceProvider.getService();
     }
 
     public RemoteComment getComment(String token, Long id) {
@@ -55,8 +48,8 @@ public class AxisJiraClient implements JiraClient {
 
     public RemoteGroup createGroup(String token, String groupName, String userName) {
         try {
-            RemoteUser remoteUser = getUser(token, userName);
-            return getService().createGroup(token, groupName, remoteUser);
+            RemoteUser user = getUser(token, userName);
+            return getService().createGroup(token, groupName, user);
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
@@ -88,15 +81,19 @@ public class AxisJiraClient implements JiraClient {
 
     public void addComment(String token, String issueKey, String commentAuthor, String commentBody, String commentGroupLevel, String commentRoleLevel) {
         try {
-            RemoteComment remoteComment = helper.createComment(commentAuthor, commentBody, commentGroupLevel, commentRoleLevel);
-            getService().addComment(token, issueKey, remoteComment);
+            RemoteComment comment = helper.createComment(commentAuthor, commentBody, commentGroupLevel, commentRoleLevel);
+            getService().addComment(token, issueKey, comment);
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
     }
 
     public RemoteComponent[] getComponents(String token, String projectKey) {
-        return new RemoteComponent[0];  //To change body of implemented methods use File | Settings | File Templates.
+        try {
+            return getService().getComponents(token, projectKey);
+        } catch (RemoteException e) {
+            throw new JiraCloudConnectorException(e);
+        }
     }
 
     public RemoteUser getUser(String token, String username) {
@@ -131,18 +128,43 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    public RemoteIssue createIssue(String token, String assignee, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, String[] customFieldKeys, String[][] customerFieldValues) {
-        RemoteIssue remoteIssue = helper.createIssue(token, assignee, description, dueDate, environment, priority, project, reporter, type, votes, customFieldKeys, customerFieldValues);
+    public RemoteIssue createIssue(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, String[] customFieldKeys, String[] customFieldValues) {
+        RemoteIssue issue = helper.createIssue(assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFieldKeys, customFieldValues);
         try {
-            return getService().createIssue(token, remoteIssue);
+            return getService().createIssue(token, issue);
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
     }
 
-    // TODO
-    public RemoteIssue updateIssue(String token, String issueKey, String[] fieldIds, String[][] fieldValues) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public RemoteIssue updateIssue(String token, String issueKey, String[] fieldIds, String[] fieldValues) {
+        try {
+            return getService().updateIssue(token, issueKey, helper.createFieldValues(fieldIds, fieldValues));
+        } catch (RemoteException e) {
+            throw new JiraCloudConnectorException(e);
+        }
+    }
+
+    public RemotePermissionScheme addPermissionTo(String token, String permissionSchemeName, Long permissionCode, String entityName) {
+        try {
+            RemotePermissionScheme permissionScheme = helper.getPermissionScheme(token, permissionSchemeName);
+            RemotePermission remotePermission = helper.getPermission(token, permissionCode);
+            RemoteEntity entity = helper.getUserOrUserGroupByName(token, entityName);
+            return getService().addPermissionTo(token, permissionScheme, remotePermission, entity);
+        } catch (RemoteException e) {
+            throw new JiraCloudConnectorException(e);
+        }
+    }
+
+    public RemotePermissionScheme deletePermissionFrom(String token, String permissionSchemeName, Long permissionCode, String entityName) {
+        try {
+            RemotePermissionScheme permissionScheme = helper.getPermissionScheme(token, permissionSchemeName);
+            RemotePermission remotePermission = helper.getPermission(token, permissionCode);
+            RemoteEntity entity = helper.getUserOrUserGroupByName(token, entityName);
+            return getService().deletePermissionFrom(token, permissionScheme, remotePermission, entity);
+        } catch (RemoteException e) {
+            throw new JiraCloudConnectorException(e);
+        }
     }
 
     public void deleteIssue(String token, String issueKey) {
@@ -284,6 +306,26 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
+    public void addActorsToProjectRole(String token, String[] actors, Long projectRoleId, String projectKey, String actorType) {
+        RemoteProjectRole projectRole = getProjectRole(token, projectRoleId);
+        RemoteProject project = getProjectByKey(token, projectKey);
+        try {
+            getService().addActorsToProjectRole(token, actors, projectRole, project, actorType);
+        } catch (RemoteException e) {
+            throw new JiraCloudConnectorException(e);
+        }
+    }
+
+    public void removeActorsFromProjectRole(String token, String[] actors, Long projectRoleId, String projectKey, String actorType) {
+        RemoteProjectRole projectRole = getProjectRole(token, projectRoleId);
+        RemoteProject project = getProjectByKey(token, projectKey);
+        try {
+            getService().removeActorsFromProjectRole(token, actors, projectRole, project, actorType);
+        } catch (RemoteException e) {
+            throw new JiraCloudConnectorException(e);
+        }
+    }
+
     public boolean isProjectRoleNameUnique(String token, String name) {
         try {
             return getService().isProjectRoleNameUnique(token, name);
@@ -399,6 +441,15 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
+    public void releaseVersion(String token, String projectKey, String versionName) {
+        RemoteVersion version = helper.getVersion(token, projectKey, versionName);
+        try {
+            getService().releaseVersion(token, projectKey, version);
+        } catch (RemoteException e) {
+            throw new JiraCloudConnectorException(e);
+        }
+    }
+
     public RemoteSecurityLevel[] getSecurityLevels(String token, String projectKey) {
         try {
             return getService().getSecurityLevels(token, projectKey);
@@ -471,6 +522,14 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
+    public RemoteIssue progressWorkflowAction(String token, String issueKey, String actionIdString, String[] fieldIds, String[] fieldsValues) {
+        try {
+            return getService().progressWorkflowAction(token, issueKey, actionIdString, helper.createFieldValues(fieldIds, fieldsValues));
+        } catch (RemoteException e) {
+            throw new JiraCloudConnectorException(e);
+        }
+    }
+
     public void deleteWorklogWithNewRemainingEstimate(String token, String workLogId, String newRemainingEstimate) {
         try {
             getService().deleteWorklogWithNewRemainingEstimate(token, workLogId, newRemainingEstimate);
@@ -482,6 +541,17 @@ public class AxisJiraClient implements JiraClient {
     public void deleteWorklogAndAutoAdjustRemainingEstimate(String token, String worklogId) {
         try {
             getService().deleteWorklogAndAutoAdjustRemainingEstimate(token, worklogId);
+        } catch (RemoteException e) {
+            throw new JiraCloudConnectorException(e);
+        }
+    }
+
+    public void updateWorklogWithNewRemainingEstimate(String token, String issueKey, String worklogId, String comment,
+                                                      String groupLevel, String roleLevelId, String newRemainingEstimate) {
+        RemoteWorklog worklog = helper.getWorklog(token, issueKey, worklogId);
+        helper.updateWorkLog(worklog, comment, groupLevel, roleLevelId);
+        try {
+            getService().updateWorklogWithNewRemainingEstimate(token, worklog, newRemainingEstimate);
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
@@ -631,6 +701,15 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
+    public RemoteVersion addVersion(String token, String projectKey, String versionName, Boolean archived, Boolean released, String releaseDate) {
+        RemoteVersion version = helper.createVersion(versionName, archived, released, releaseDate);
+        try {
+            return getService().addVersion(token, projectKey, version);
+        } catch (RemoteException e) {
+            throw new JiraCloudConnectorException(e);
+        }
+    }
+
     public void setNewProjectAvatar(String token, String projectKey, String contentType, String base64ImageData) {
         try {
             getService().setNewProjectAvatar(token, projectKey, contentType, base64ImageData);
@@ -665,21 +744,13 @@ public class AxisJiraClient implements JiraClient {
 
     public RemoteGroup updateGroup(String token, String groupName, String[] usernames) {
         RemoteGroup group = getGroup(token, groupName);
-        RemoteUser[] usersToAddToGroup = getRemoteUsers(token, usernames).toArray(new RemoteUser[usernames.length]);
+        RemoteUser[] usersToAddToGroup = helper.getRemoteUsers(token, usernames).toArray(new RemoteUser[usernames.length]);
         group.setUsers(usersToAddToGroup);
         try {
             return getService().updateGroup(token, group);
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
-    }
-
-    private List<RemoteUser> getRemoteUsers(String token, String[] usernames) {
-        List<RemoteUser> remoteUsers = new ArrayList<RemoteUser>(usernames.length);
-        for (String username : usernames) {
-            remoteUsers.add(getUser(token, username));
-        }
-        return remoteUsers;
     }
 
     public void removeAllRoleActorsByProject(String token, String projectKey) {
@@ -730,9 +801,15 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    // TODO
-    public RemoteIssue createIssueWithSecurityLevel(String token, String asignee, String description, String dueDate, String environment, String project, String reporter, String type, Long votes, Long securityLevelId) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public RemoteIssue createIssueWithSecurityLevel(String token, String asignee, String summary, String description,
+                                                    String dueDate, String environment, String priority, String project,
+                                                    String reporter, String type, Long votes, String[] customFieldKeys, String[] customFieldValues, Long securityLevelId) {
+        RemoteIssue issue = createIssue(token, asignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFieldKeys, customFieldValues);
+        try {
+            return getService().createIssueWithSecurityLevel(token, issue, securityLevelId);
+        } catch (RemoteException e) {
+            throw new JiraCloudConnectorException(e);
+        }
     }
 
     public boolean hasPermissionToEditComment(String token, Long commentId) {
@@ -754,7 +831,8 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    public RemoteProject createProject(String token, String key, String name, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName) {
+    public RemoteProject createProject(String token, String key, String name, String description, String url, String lead,
+                                       String permissionSchemeName, String notificationSchemeName, String securityShemeName) {
         RemotePermissionScheme permissionScheme = helper.getPermissionScheme(token, permissionSchemeName);
         RemoteScheme notificationScheme = helper.getNotificationScheme(token, notificationSchemeName);
         RemoteScheme securityScheme = helper.getSecurityScheme(token, securityShemeName);
@@ -765,7 +843,8 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    public RemoteProject updateProject(String token, String key, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName) {
+    public RemoteProject updateProject(String token, String key, String description, String url, String lead,
+                                       String permissionSchemeName, String notificationSchemeName, String securityShemeName) {
         RemoteProject project = getProjectByKey(token, key);
         helper.updateDescription(project, description);
         helper.updateUrl(project, url);
@@ -778,5 +857,9 @@ public class AxisJiraClient implements JiraClient {
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
+    }
+
+    private JiraSoapService getService() throws RemoteException {
+        return serviceProvider.getService();
     }
 }

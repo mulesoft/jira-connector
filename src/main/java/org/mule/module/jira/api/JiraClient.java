@@ -40,9 +40,9 @@ public interface JiraClient {
 
     RemoteIssue getIssue(String token, String issueKey);
 
-    RemoteIssue createIssue(String token, String assignee, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, String[] customFieldKeys, String[][] customerFieldValues);
+    RemoteIssue createIssue(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, String[] customFieldKeys, String[] customerFieldValues);
 
-    RemoteIssue updateIssue(String token, String issueKey, String[] fieldIds, String[][] fieldValues);
+    RemoteIssue createIssueWithSecurityLevel(String token, String asignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, String[] customFieldKeys, String[] customFieldValues, Long securityLevelId);
 
     void deleteIssue(String token, String issueKey);
 
@@ -82,7 +82,7 @@ public interface JiraClient {
 
     void updateProjectRole(String token, Long projectRoleId, String projectRoleName, String projectRoleDescription);
 
-    void removeDefaultActorsFromProjectRole(String token, String[] actors, Long remoteProjectRoleId, String type);
+    void removeDefaultActorsFromProjectRole(String token, String[] actors, Long projectRoleId, String type);
 
     RemoteScheme[] getAssociatedNotificationSchemes(String token, Long projectRoleId);
 
@@ -144,7 +144,6 @@ public interface JiraClient {
 
     long getIssueCountForFilter(String token, String filterId);
 
-
     RemoteIssue[] getIssuesFromTextSearchWithProject(String token, String[] projectKeys, String searchTerms, Integer maxNumResults);
 
     RemoteIssue[] getIssuesFromJqlSearch(String token, String jqlSearch, Integer maxNumResults);
@@ -177,7 +176,7 @@ public interface JiraClient {
 
     void removeAllRoleActorsByProject(String token, String projectKey);
 
-    RemoteProjectRoleActors getProjectRoleActors(String token, Long remoteProjectRoleId, String remoteProjectKey);
+    RemoteProjectRoleActors getProjectRoleActors(String token, Long projectRoleId, String projectKey);
 
     boolean logout(String token);
 
@@ -187,8 +186,6 @@ public interface JiraClient {
 
     String login(String username, String password);
 
-    RemoteIssue createIssueWithSecurityLevel(String token, String asignee, String description, String dueDate, String environment, String project, String reporter, String type, Long votes, Long securityLevelId);
-
     boolean hasPermissionToEditComment(String token, Long commentId);
 
     RemoteComment editComment(String token, Long commentId, String body, String updateAuthor);
@@ -196,4 +193,22 @@ public interface JiraClient {
     RemoteProject createProject(String token, String key, String name, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName);
 
     RemoteProject updateProject(String token, String key, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName);
+
+    void addActorsToProjectRole(String token, String[] actors, Long projectRoleId, String projectKey, String actorType);
+
+    void removeActorsFromProjectRole(String token, String[] actors, Long projectRoleId, String projectKey, String actorType);
+
+    void releaseVersion(String token, String projectKey, String versionName);
+
+    void updateWorklogWithNewRemainingEstimate(String token, String issueKey, String worklogId, String comment, String groupLevel, String roleLevelId, String newRemainingEstimate);
+
+    RemoteVersion addVersion(String token, String projectKey, String versionName, Boolean archived, Boolean released, String releaseDate);
+
+    RemoteIssue updateIssue(String token, String issueKey, String[] fieldIds, String[] fieldValues);
+
+    RemotePermissionScheme addPermissionTo(String token, String permissionSchemeName, Long permissionCode, String entityName);
+
+    RemotePermissionScheme deletePermissionFrom(String token, String permissionSchemeName, Long permissionCode, String entityName);
+
+    RemoteIssue progressWorkflowAction(String token, String issueKey, String actionIdString, String[] fieldIds, String[] fieldsValues);
 }

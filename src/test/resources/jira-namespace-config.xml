@@ -21,10 +21,11 @@
                           http://www.mulesoft.org/schema/mule/jira http://www.mulesoft.org/schema/mule/jira/1.0/mule-jira.xsd">
 
 
-    <jira:config username="fede" password="1024" address="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
+    <jira:config name="default" username="fede" password="1024"
+                 address="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
 
     <flow name="getComment">
-        <jira:get-comment id="123"/>
+        <jira:get-comment commentId="123"/>
     </flow>
 
     <flow name="getConfiguration">
@@ -62,9 +63,7 @@
     <flow name="updateGroup">
         <jira:update-group groupName="someGroupName">
             <jira:usernames>
-                <jira:username>
-                    someUserName
-                </jira:username>
+                <jira:username>someUserName</jira:username>
             </jira:usernames>
         </jira:update-group>
     </flow>
@@ -81,15 +80,51 @@
         <jira:get-issue issueKey="someIssueKey"/>
     </flow>
 
-    <!--<flow name="createIssue">-->
-    <!--<-->
-    <!--<-->
-    <!--</flow>-->
+    <flow name="createIssue">
+        <jira:create-issue summary="someSummary" project="someProject" type="someType" assignee="someUserName"
+                           reporter="someUserName"
+                           dueDate="someDueDate" description="someDescription" environment="someEnvironment"
+                           priority="somePriority" votes="10">
+            <jira:customFieldKeys>
+                <jira:customFieldKey>key1</jira:customFieldKey>
+                <jira:customFieldKey>key2</jira:customFieldKey>
+            </jira:customFieldKeys>
+            <jira:customFieldValues>
+                <jira:customFieldValue>value1</jira:customFieldValue>
+                <jira:customFieldValue>value2</jira:customFieldValue>
+            </jira:customFieldValues>
+        </jira:create-issue>
+    </flow>
 
-    <!--<flow name="updateIssue">-->
-    <!--<-->
-    <!--<-->
-    <!--</flow>-->
+    <flow name="createIssueWithSecurityLevel">
+        <jira:create-issue-with-security-level summary="someSummary" project="someProject" type="someType"
+                                               assignee="someUserName" reporter="someUserName"
+                                               dueDate="someDueDate" description="someDescription"
+                                               environment="someEnvironment" priority="somePriority" votes="10"
+                                               securityLevelId="1">
+            <jira:customFieldKeys>
+                <jira:customFieldKey>key1</jira:customFieldKey>
+                <jira:customFieldKey>key2</jira:customFieldKey>
+            </jira:customFieldKeys>
+            <jira:customFieldValues>
+                <jira:customFieldValue>value1</jira:customFieldValue>
+                <jira:customFieldValue>value2</jira:customFieldValue>
+            </jira:customFieldValues>
+        </jira:create-issue-with-security-level>
+    </flow>
+
+    <flow name="updateIssue">
+        <jira:update-issue issueKey="someIssueKey">
+            <jira:fieldIds>
+                <jira:fieldId>fieldId1</jira:fieldId>
+                <jira:fieldId>fieldId2</jira:fieldId>
+            </jira:fieldIds>
+            <jira:fieldValues>
+                <jira:fieldValue>value1</jira:fieldValue>
+                <jira:fieldValue>value2</jira:fieldValue>
+            </jira:fieldValues>
+        </jira:update-issue>
+    </flow>
 
     <flow name="deleteIssue">
         <jira:delete-issue issueKey="someIssueKey"/>
@@ -150,7 +185,7 @@
     </flow>
 
     <flow name="getProjectRole">
-        <jira:get-project-role id="123"/>
+        <jira:get-project-role projectRoleId="123"/>
     </flow>
 
     <flow name="getProjectRoleActors">
@@ -169,6 +204,11 @@
         <jira:delete-project-role projectRoleId="123" confirm="false"/>
     </flow>
 
+    <flow name="updateProjectRole">
+        <jira:update-project-role projectRoleId="123" projectRoleName="someProjectRoleName"
+                                  projectRoleDescription="someProjectRoleDescription"/>
+    </flow>
+
     <flow name="createProjectRole">
         <jira:create-project-role projectRoleName="someProjectRoleName"
                                   projectRoleDescription="someProjectRoleDescription"/>
@@ -176,6 +216,10 @@
 
     <flow name="isProjectRoleNameUnique">
         <jira:is-project-role-name-unique name="someProjectRoleName"/>
+    </flow>
+
+    <flow name="releaseVersion">
+        <jira:release-version projectKey="someProjectKey" versionName="someVersionName"/>
     </flow>
 
     <flow name="addDefaultActorsToProjectRole">
@@ -237,7 +281,7 @@
     </flow>
 
     <flow name="login">
-        <jira:login username="someUsername" password="somePassword"/>
+        <jira:login username="someUserName" password="somePassword"/>
     </flow>
 
     <flow name="getSecurityLevel">
@@ -254,5 +298,217 @@
 
     <flow name="getProjectWithSchemesById">
         <jira:get-project-with-schemes-by-id projectId="123"/>
+    </flow>
+
+    <flow name="addActorsToProjectRole">
+        <jira:add-actors-to-project-role projectRoleId="123" projectKey="someProjectKey" actorType="someActorType">
+            <jira:actors>
+                <jira:actor>actor1</jira:actor>
+                <jira:actor>actor2</jira:actor>
+            </jira:actors>
+        </jira:add-actors-to-project-role>
+    </flow>
+
+    <flow name="removeActorsFromProjectRole">
+        <jira:remove-actors-from-project-role projectRoleId="123" projectKey="someProjectKey" actorType="someActorType">
+            <jira:actors>
+                <jira:actor>actor1</jira:actor>
+                <jira:actor>actor2</jira:actor>
+            </jira:actors>
+        </jira:remove-actors-from-project-role>
+    </flow>
+
+
+    <flow name="updateWorklogWithNewRemainingEstimate">
+        <jira:update-worklog-with-new-remaining-estimate issueKey="someIssueKey" worklogId="someWorklogId"
+                                                         newRemainingEstimate="1d" comment="someComment"
+                                                         groupLevel="someGroupLevel" roleLevelId="someRoleLevelId"/>
+    </flow>
+
+    <flow name="addVersion">
+        <jira:add-version projectKey="someProjectKey" versionName="someVersionName" archived="true" released="false"
+                          releaseDate="someDate"/>
+    </flow>
+
+    <flow name="getSecurityLevels">
+        <jira:get-security-levels projectKey="someProjectKey"/>
+    </flow>
+
+    <flow name="getProjectAvatars">
+        <jira:get-project-avatars projectKey="someProjectKey" includeSystemAvatars="true"/>
+    </flow>
+
+    <flow name="setProjectAvatar">
+        <jira:set-project-avatar projectKey="someProjectKey" avatarId="123"/>
+    </flow>
+
+    <flow name="getProjectAvatar">
+        <jira:get-project-avatar projectKey="someProjectKey"/>
+    </flow>
+
+    <flow name="deleteProjectAvatar">
+        <jira:delete-project-avatar avatarId="123"/>
+    </flow>
+
+    <flow name="getNotificationSchemes">
+        <jira:get-notification-schemes/>
+    </flow>
+
+    <flow name="getPermissionSchemes">
+        <jira:get-permission-schemes/>
+    </flow>
+
+    <flow name="getAttachmentsFromIssue">
+        <jira:get-attachments-from-issue issueKey="someIssueKey"/>
+    </flow>
+
+    <flow name="getFieldsForAction">
+        <jira:get-fields-for-action issueKey="someIssueKey" actionIdString="someActionIdString"/>
+    </flow>
+
+    <flow name="deleteWorklogWithNewRemainingEstimate">
+        <jira:delete-worklog-with-new-remaining-estimate workLogId="someWorklogId" newRemainingEstimate="1h"/>
+    </flow>
+
+    <flow name="deleteWorklogAndAutoAdjustRemainingEstimate">
+        <jira:delete-worklog-and-auto-adjust-remaining-estimate worklogId="someWorklogId"/>
+    </flow>
+
+    <flow name="deleteWorklogAndRetainRemainingEstimate">
+        <jira:delete-worklog-and-retain-remaining-estimate worklogId="someWorklogId"/>
+    </flow>
+
+    <flow name="getWorklogs">
+        <jira:get-worklogs issueKey="someIssueKey"/>
+    </flow>
+
+    <flow name="hasPermissionToCreateWorklog">
+        <jira:has-permission-to-create-worklog issueKey="someIssueKey"/>
+    </flow>
+
+    <flow name="hasPermissionToDeleteWorklog">
+        <jira:has-permission-to-delete-worklog worklogId="someWorklogId"/>
+    </flow>
+
+    <flow name="hasPermissionToUpdateWorklog">
+        <jira:has-permission-to-update-worklog worklogId="someWorklogId"/>
+    </flow>
+
+    <flow name="getResolutionDateByKey">
+        <jira:get-resolution-date-by-key issueKey="someIssueKey"/>
+    </flow>
+
+    <flow name="getResolutionDateById">
+        <jira:get-resolution-date-by-id issueId="123"/>
+    </flow>
+
+    <flow name="getIssueCountForFilter">
+        <jira:get-issue-count-for-filter filterId="someFilterId"/>
+    </flow>
+
+    <flow name="getIssuesFromTextSearchWithProject">
+        <jira:get-issues-from-text-search-with-project searchTerms="someSearchTerms" maxNumResults="10">
+            <jira:projectKeys>
+                <jira:projectKey>projectKey1</jira:projectKey>
+                <jira:projectKey>projectKey2</jira:projectKey>
+            </jira:projectKeys>
+        </jira:get-issues-from-text-search-with-project>
+    </flow>
+
+    <flow name="getIssuesFromJqlSearch">
+        <jira:get-issues-from-jql-search jqlSearch="someJqlSearch" maxNumResults="10"/>
+    </flow>
+
+    <flow name="deleteUser">
+        <jira:delete-user username="someUserName"/>
+    </flow>
+
+    <flow name="deleteGroup">
+        <jira:delete-group groupName="someGroupName" swapGroupName="someSwapGroupName"/>
+    </flow>
+
+    <flow name="refreshCustomFields">
+        <jira:refresh-custom-fields/>
+    </flow>
+
+    <flow name="addBase64EncodedAttachmentsToIssue">
+        <jira:add-base64-encoded-attachments-to-issue issueKey="someIssueKey">
+            <jira:fileNames>
+                <jira:fileName>fileName1</jira:fileName>
+                <jira:fileName>fileName2</jira:fileName>
+            </jira:fileNames>
+            <jira:base64EncodedAttachmentData>
+                <jira:base64EncodedAttachmentDatum>base64EncodedAttachment1</jira:base64EncodedAttachmentDatum>
+                <jira:base64EncodedAttachmentDatum>base64EncodedAttachment2</jira:base64EncodedAttachmentDatum>
+            </jira:base64EncodedAttachmentData>
+        </jira:add-base64-encoded-attachments-to-issue>
+    </flow>
+
+    <flow name="getIssuesFromFilterWithLimit">
+        <jira:get-issues-from-filter-with-limit filterId="someFilterId" offset="12" maxNumResults="10"/>
+    </flow>
+
+    <flow name="getIssuesFromTextSearchWithLimit">
+        <jira:get-issues-from-text-search-with-limit searchTerms="someSearchTerms" offset="12" maxNumResults="10"/>
+    </flow>
+
+    <flow name="getProjectsNoSchemes">
+        <jira:get-projects-no-schemes/>
+    </flow>
+
+    <flow name="getSecuritySchemes">
+        <jira:get-security-schemes/>
+    </flow>
+
+    <flow name="setNewProjectAvatar">
+        <jira:set-new-project-avatar projectKey="someProjectKey" contentType="someContentType"
+                                     base64ImageData="someBase64ImageData"/>
+    </flow>
+
+    <flow name="deletePermissionScheme">
+        <jira:delete-permission-scheme permissionSchemeName="somePermissionSchemeName"/>
+    </flow>
+
+    <flow name="getIssueById">
+        <jira:get-issue-by-id issueId="someIssueId"/>
+    </flow>
+
+    <flow name="getAllPermissions">
+        <jira:get-all-permissions/>
+    </flow>
+
+    <flow name="createPermissionScheme">
+        <jira:create-permission-scheme name="somePermissionSchemeName" description="somePermissionSchemeDesc"/>
+    </flow>
+
+    <flow name="hasPermissionToEditComment">
+        <jira:has-permission-to-edit-comment commentId="123"/>
+    </flow>
+
+    <flow name="addPermissionTo">
+        <jira:add-permission-to permissionSchemeName="somePermissionSchemeName" permissionCode="123"
+                                entityName="someEntityName"/>
+    </flow>
+
+    <flow name="deletePermissionFrom">
+        <jira:delete-permission-from permissionSchemeName="somePermissionSchemeName" permissionCode="123"
+                                     entityName="someEntityName"/>
+    </flow>
+
+    <flow name="editComment">
+        <jira:edit-comment commentId="123" body="someBody" updateAuthor="someUserName" />
+    </flow>
+
+    <flow name="progressWorkflowAction">
+        <jira:progress-workflow-action issueKey="someIssueKey" actionIdString="someActionIdString">
+            <jira:fieldIds>
+                <jira:fieldId>fieldId1</jira:fieldId>
+                <jira:fieldId>fieldId2</jira:fieldId>
+            </jira:fieldIds>
+            <jira:fieldsValues>
+                <jira:fieldsValue>value1</jira:fieldsValue>
+                <jira:fieldsValue>value2</jira:fieldsValue>
+            </jira:fieldsValues>
+        </jira:progress-workflow-action>
     </flow>
 </mule>
