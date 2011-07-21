@@ -20,6 +20,13 @@
         <cloudconnect.version>2.0.15</cloudconnect.version>
     </properties>
 
+    <developers>
+        <developer>
+            <name>Federico Recio</name>
+            <email>federico.recio@mulesoft.com</email>
+        </developer>
+    </developers>
+
     <build>
         <extensions>
             <extension>
