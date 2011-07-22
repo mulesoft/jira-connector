@@ -38,7 +38,7 @@ application:
     <dependency>
         <groupId>org.mule.modules</groupId>
         <artifactId>mule-module-jira</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.1</version>
     </dependency>
 
 Configuration
