@@ -5,7 +5,7 @@
     <artifactId>mule-module-jira</artifactId>
     <packaging>cloud-connector</packaging>
     <name>Mule jira Cloud Connector</name>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
     <description>Mule Cloud connector to jira</description>
     <url>http://www.muleforge.org/projects/mule-module-jira</url>
 
