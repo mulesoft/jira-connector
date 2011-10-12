@@ -20,34 +20,23 @@ import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.param.Optional;
 import org.mule.module.jira.api.JiraClient;
 
-import com.atlassian.jira.rpc.soap.beans.RemoteAttachment;
 import com.atlassian.jira.rpc.soap.beans.RemoteAvatar;
 import com.atlassian.jira.rpc.soap.beans.RemoteComment;
-import com.atlassian.jira.rpc.soap.beans.RemoteComponent;
 import com.atlassian.jira.rpc.soap.beans.RemoteConfiguration;
-import com.atlassian.jira.rpc.soap.beans.RemoteField;
-import com.atlassian.jira.rpc.soap.beans.RemoteFilter;
 import com.atlassian.jira.rpc.soap.beans.RemoteGroup;
 import com.atlassian.jira.rpc.soap.beans.RemoteIssue;
-import com.atlassian.jira.rpc.soap.beans.RemoteIssueType;
-import com.atlassian.jira.rpc.soap.beans.RemoteNamedObject;
-import com.atlassian.jira.rpc.soap.beans.RemotePermission;
 import com.atlassian.jira.rpc.soap.beans.RemotePermissionScheme;
-import com.atlassian.jira.rpc.soap.beans.RemotePriority;
 import com.atlassian.jira.rpc.soap.beans.RemoteProject;
 import com.atlassian.jira.rpc.soap.beans.RemoteProjectRole;
 import com.atlassian.jira.rpc.soap.beans.RemoteProjectRoleActors;
-import com.atlassian.jira.rpc.soap.beans.RemoteResolution;
 import com.atlassian.jira.rpc.soap.beans.RemoteRoleActors;
-import com.atlassian.jira.rpc.soap.beans.RemoteScheme;
 import com.atlassian.jira.rpc.soap.beans.RemoteSecurityLevel;
 import com.atlassian.jira.rpc.soap.beans.RemoteServerInfo;
-import com.atlassian.jira.rpc.soap.beans.RemoteStatus;
 import com.atlassian.jira.rpc.soap.beans.RemoteUser;
 import com.atlassian.jira.rpc.soap.beans.RemoteVersion;
-import com.atlassian.jira.rpc.soap.beans.RemoteWorklog;
 
 import java.util.Calendar;
+import java.util.List;
 
 /***
  * Cloud Connector Facade to <a href="http://www.atlassian.com/software/jira/">Jira</a> Tracker
@@ -55,10 +44,10 @@ import java.util.Calendar;
  */
 @Module(name = "jira",        
         namespace = "http://repository.mulesoft.org/releases/org/mule/modules/mule-module-jira",
-        schemaLocation = "http://repository.mulesoft.org/releases/org/mule/modules/mule-module-jira/2.0/mule-netsuite.xsd")
+        schemaLocation = "http://repository.mulesoft.org/releases/org/mule/modules/mule-module-jira/2.0/mule-jira.xsd")
 public class JiraCloudConnector {
 
-    private JiraClient client;
+    private JiraClient<List<Object>> client;
     /**
      * The user login username
      */
@@ -204,7 +193,7 @@ public class JiraCloudConnector {
      * @return an array of RemoteComponent objects
      */
     @Processor
-    public RemoteComponent[] getComponents(@Optional String token,
+    public List<Object> getComponents(@Optional String token,
                                             String projectKey) {
         return getClient().getComponents(createTokenIfNecessary(token), projectKey);
     }
@@ -237,7 +226,7 @@ public class JiraCloudConnector {
     @Processor
     public RemoteGroup updateGroup(@Optional String token,
                                     String groupName,
-                                    String[] usernames) {
+                                    List<String> usernames) {
         return getClient().updateGroup(createTokenIfNecessary(token), groupName, usernames);
     }
 
@@ -321,8 +310,8 @@ public class JiraCloudConnector {
                                    @Optional String reporter,
                                     String type,
                                    @Optional Long votes,
-                                   @Optional String[] customFieldKeys,
-                                   @Optional String[] customFieldValues) {
+                                   @Optional List<String> customFieldKeys,
+                                   @Optional List<String> customFieldValues) {
         return getClient().createIssue(createTokenIfNecessary(token), assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFieldKeys, customFieldValues);
     }
 
@@ -359,8 +348,8 @@ public class JiraCloudConnector {
                                                     @Optional String reporter,
                                                      String type,
                                                     @Optional Long votes,
-                                                    @Optional String[] customFieldKeys,
-                                                    @Optional String[] customFieldValues,
+                                                    @Optional List<String> customFieldKeys,
+                                                    @Optional List<String> customFieldValues,
                                                      Long securityLevelId) {
         return getClient().createIssueWithSecurityLevel(createTokenIfNecessary(token), assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFieldKeys, customFieldValues, securityLevelId);
     }
@@ -380,8 +369,8 @@ public class JiraCloudConnector {
     @Processor
     public RemoteIssue updateIssue(@Optional String token,
                                     String issueKey,
-                                    String[] fieldIds,
-                                    String[] fieldValues) {
+                                    List<String> fieldIds,
+                                    List<String> fieldValues) {
         return getClient().updateIssue(createTokenIfNecessary(token), issueKey, fieldIds, fieldValues);
     }
 
@@ -410,7 +399,7 @@ public class JiraCloudConnector {
      * @return the available actions for the given issue key
      */
     @Processor
-    public RemoteNamedObject[] getAvailableActions(@Optional String token,
+    public List<Object> getAvailableActions(@Optional String token,
                                                     String issueKey) {
         return getClient().getAvailableActions(createTokenIfNecessary(token), issueKey);
     }
@@ -425,7 +414,7 @@ public class JiraCloudConnector {
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    public RemoteIssueType[] getSubTaskIssueTypes(@Optional String token) {
+    public List<Object> getSubTaskIssueTypes(@Optional String token) {
         return getClient().getSubTaskIssueTypes(createTokenIfNecessary(token));
     }
 
@@ -524,7 +513,7 @@ public class JiraCloudConnector {
      * @return an array of RemoteStatus objects
      */
     @Processor
-    public RemotePriority[] getPriorities(@Optional String token) {
+    public List<Object> getPriorities(@Optional String token) {
         return getClient().getPriorities(createTokenIfNecessary(token));
     }
 
@@ -537,7 +526,7 @@ public class JiraCloudConnector {
      * @return an array of RemoteResolution objects
      */
     @Processor
-    public RemoteResolution[] getResolutions(@Optional String token) {
+    public List<Object> getResolutions(@Optional String token) {
         return getClient().getResolutions(createTokenIfNecessary(token));
     }
 
@@ -551,7 +540,7 @@ public class JiraCloudConnector {
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    public RemoteIssueType[] getIssueTypes(@Optional String token) {
+    public List<Object> getIssueTypes(@Optional String token) {
         return getClient().getIssueTypes(createTokenIfNecessary(token));
     }
 
@@ -566,7 +555,7 @@ public class JiraCloudConnector {
      * @return an array of RemoteStatus objects
      */
     @Processor
-    public RemoteStatus[] getStatuses(@Optional String token) {
+    public List<Object> getStatuses(@Optional String token) {
         return getClient().getStatuses(createTokenIfNecessary(token));
     }
 
@@ -580,7 +569,7 @@ public class JiraCloudConnector {
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    public RemoteIssueType[] getIssueTypesForProject(@Optional String token,
+    public List<Object> getIssueTypesForProject(@Optional String token,
                                                       String projectId) {
         return getClient().getIssueTypesForProject(createTokenIfNecessary(token), projectId);
     }
@@ -595,7 +584,7 @@ public class JiraCloudConnector {
      * @return the project roles.
      */
     @Processor
-    public RemoteProjectRole[] getProjectRoles(@Optional String token) {
+    public List<Object> getProjectRoles(@Optional String token) {
         return getClient().getProjectRoles(createTokenIfNecessary(token));
     }
 
@@ -759,7 +748,7 @@ public class JiraCloudConnector {
      */
     @Processor
     public void addActorsToProjectRole(@Optional String token,
-                                        String[] actors,
+                                        List<String> actors,
                                         Long projectRoleId,
                                         String projectKey,
                                        @Optional String actorType) {
@@ -779,7 +768,7 @@ public class JiraCloudConnector {
      */
     @Processor
     public void removeActorsFromProjectRole(@Optional String token,
-                                             String[] actors,
+                                             List<String> actors,
                                              Long projectRoleId,
                                              String projectKey,
                                             @Optional String actorType) {
@@ -798,7 +787,7 @@ public class JiraCloudConnector {
      */
     @Processor
     public void addDefaultActorsToProjectRole(@Optional String token,
-                                               String[] actors,
+                                               List<String> actors,
                                                Long projectRoleId,
                                               @Optional String type) {
         getClient().addDefaultActorsToProjectRole(createTokenIfNecessary(token), actors, projectRoleId, type);
@@ -816,7 +805,7 @@ public class JiraCloudConnector {
      */
     @Processor
     public void removeDefaultActorsFromProjectRole(@Optional String token,
-                                                    String[] actors,
+                                                    List<String> actors,
                                                     Long remoteProjectRoleId,
                                                    @Optional String type) {
         getClient().removeDefaultActorsFromProjectRole(createTokenIfNecessary(token), actors, remoteProjectRoleId, type);
@@ -832,7 +821,7 @@ public class JiraCloudConnector {
      * @return the associated notification schemes for the given project role.
      */
     @Processor
-    public RemoteScheme[] getAssociatedNotificationSchemes(@Optional String token,
+    public List<Object> getAssociatedNotificationSchemes(@Optional String token,
                                                             Long projectRoleId) {
         return getClient().getAssociatedNotificationSchemes(createTokenIfNecessary(token), projectRoleId);
     }
@@ -847,7 +836,7 @@ public class JiraCloudConnector {
      * @return the associated permission schemas for the given project role.
      */
     @Processor
-    public RemoteScheme[] getAssociatedPermissionSchemes(@Optional String token,
+    public List<Object> getAssociatedPermissionSchemes(@Optional String token,
                                                           Long projectRoleId) {
         return getClient().getAssociatedPermissionSchemes(createTokenIfNecessary(token), projectRoleId);
     }
@@ -891,7 +880,7 @@ public class JiraCloudConnector {
      * @return an array of RemoteVersion objects
      */
     @Processor
-    public RemoteVersion[] getVersions(@Optional String token,
+    public List<Object> getVersions(@Optional String token,
                                         String projectKey) {
         return getClient().getVersions(createTokenIfNecessary(token), projectKey);
     }
@@ -906,7 +895,7 @@ public class JiraCloudConnector {
      * @return the comments for the issue denoted by the given key.
      */
     @Processor
-    public RemoteComment[] getComments(@Optional String token,
+    public List<Object> getComments(@Optional String token,
                                         String issueKey) {
         return getClient().getComments(createTokenIfNecessary(token), issueKey);
     }
@@ -920,7 +909,7 @@ public class JiraCloudConnector {
      * @return a list of the currently logged in user's favourite fitlers.
      */
     @Processor
-    public RemoteFilter[] getFavouriteFilters(@Optional String token) {
+    public List<Object> getFavouriteFilters(@Optional String token) {
         return getClient().getFavouriteFilters(createTokenIfNecessary(token));
     }
 
@@ -954,7 +943,7 @@ public class JiraCloudConnector {
      * @return the fields for edit
      */
     @Processor
-    public RemoteField[] getFieldsForEdit(@Optional String token,
+    public List<Object> getFieldsForEdit(@Optional String token,
                                            String issueKey) {
         return getClient().getFieldsForEdit(createTokenIfNecessary(token), issueKey);
     }
@@ -970,7 +959,7 @@ public class JiraCloudConnector {
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    public RemoteIssueType[] getSubTaskIssueTypesForProject(@Optional String token,
+    public List<Object> getSubTaskIssueTypesForProject(@Optional String token,
                                                              String projectId) {
         return getClient().getSubTaskIssueTypesForProject(createTokenIfNecessary(token), projectId);
     }
@@ -1016,7 +1005,7 @@ public class JiraCloudConnector {
      * @return the custom fields for the current user
      */
     @Processor
-    public RemoteField[] getCustomFields(@Optional String token) {
+    public List<Object> getCustomFields(@Optional String token) {
         return getClient().getCustomFields(createTokenIfNecessary(token));
     }
 
@@ -1059,7 +1048,7 @@ public class JiraCloudConnector {
      * @return array of RemoteSecurityLevels for the project
      */
     @Processor
-    public RemoteSecurityLevel[] getSecurityLevels(@Optional String token,
+    public List<Object> getSecurityLevels(@Optional String token,
                                                     String projectKey) {
         return getClient().getSecurityLevels(createTokenIfNecessary(token), projectKey);
     }
@@ -1077,7 +1066,7 @@ public class JiraCloudConnector {
      * @return the avatars for the project, possibly empty.
      */
     @Processor
-    public RemoteAvatar[] getProjectAvatars(@Optional String token,
+    public List<Object> getProjectAvatars(@Optional String token,
                                              String projectKey,
                                              Boolean includeSystemAvatars) {
         return getClient().getProjectAvatars(createTokenIfNecessary(token), projectKey, includeSystemAvatars);
@@ -1138,7 +1127,7 @@ public class JiraCloudConnector {
      * @return the notification schemes.
      */
     @Processor
-    public RemoteScheme[] getNotificationSchemes(@Optional String token) {
+    public List<Object> getNotificationSchemes(@Optional String token) {
         return getClient().getNotificationSchemes(createTokenIfNecessary(token));
     }
 
@@ -1150,7 +1139,7 @@ public class JiraCloudConnector {
      * @return the permission schemes.
      */
     @Processor
-    public RemotePermissionScheme[] getPermissionSchemes(@Optional String token) {
+    public List<Object> getPermissionSchemes(@Optional String token) {
         return getClient().getPermissionSchemes(createTokenIfNecessary(token));
     }
 
@@ -1163,7 +1152,7 @@ public class JiraCloudConnector {
      * @return all the permissions
      */
     @Processor
-    public RemotePermission[] getAllPermissions(@Optional String token) {
+    public List<Object> getAllPermissions(@Optional String token) {
         return getClient().getAllPermissions(createTokenIfNecessary(token));
     }
 
@@ -1245,7 +1234,7 @@ public class JiraCloudConnector {
      * @return the attachments for the issue denoted by the given key.
      */
     @Processor
-    public RemoteAttachment[] getAttachmentsFromIssue(@Optional String token,
+    public List<Object> getAttachmentsFromIssue(@Optional String token,
                                                        String issueKey) {
         return getClient().getAttachmentsFromIssue(createTokenIfNecessary(token), issueKey);
     }
@@ -1298,7 +1287,7 @@ public class JiraCloudConnector {
      * @return the fields for the given action
      */
     @Processor
-    public RemoteField[] getFieldsForAction(@Optional String token,
+    public List<Object> getFieldsForAction(@Optional String token,
                                              String issueKey,
                                              String actionIdString) {
         return getClient().getFieldsForAction(createTokenIfNecessary(token), issueKey, actionIdString);
@@ -1381,7 +1370,7 @@ public class JiraCloudConnector {
      * @return all the worklogs of the issue.
      */
     @Processor
-    public RemoteWorklog[] getWorklogs(@Optional String token,
+    public List<Object> getWorklogs(@Optional String token,
                                         String issueKey) {
         return getClient().getWorklogs(createTokenIfNecessary(token), issueKey);
     }
@@ -1564,8 +1553,8 @@ public class JiraCloudConnector {
      * @return issues matching the search terms
      */
     @Processor
-    public RemoteIssue[] getIssuesFromTextSearchWithProject(@Optional String token,
-                                                             String[] projectKeys,
+    public List<Object> getIssuesFromTextSearchWithProject(@Optional String token,
+                                                             List<String> projectKeys,
                                                              String searchTerms,
                                                              Integer maxNumResults) {
         return getClient().getIssuesFromTextSearchWithProject(createTokenIfNecessary(token), projectKeys, searchTerms, maxNumResults);
@@ -1589,7 +1578,7 @@ public class JiraCloudConnector {
      * @return issues matching the JQL query
      */
     @Processor
-    public RemoteIssue[] getIssuesFromJqlSearch(@Optional String token,
+    public List<Object> getIssuesFromJqlSearch(@Optional String token,
                                                  String jqlSearch,
                                                  Integer maxNumResults) {
         return getClient().getIssuesFromJqlSearch(createTokenIfNecessary(token), jqlSearch, maxNumResults);
@@ -1654,8 +1643,8 @@ public class JiraCloudConnector {
     @Processor
     public boolean addBase64EncodedAttachmentsToIssue(@Optional String token,
                                                        String issueKey,
-                                                       String[] fileNames,
-                                                       String[] base64EncodedAttachmentData) {
+                                                       List<String> fileNames,
+                                                       List<String> base64EncodedAttachmentData) {
         return getClient().addBase64EncodedAttachmentsToIssue(createTokenIfNecessary(token), issueKey, fileNames, base64EncodedAttachmentData);
     }
 
@@ -1680,7 +1669,7 @@ public class JiraCloudConnector {
      * @return issues matching the saved filter
      */
     @Processor
-    public RemoteIssue[] getIssuesFromFilterWithLimit(@Optional String token,
+    public List<Object> getIssuesFromFilterWithLimit(@Optional String token,
                                                        String filterId,
                                                        Integer offset,
                                                        Integer maxNumResults) {
@@ -1712,7 +1701,7 @@ public class JiraCloudConnector {
      * @return issues matching the search terms
      */
     @Processor
-    public RemoteIssue[] getIssuesFromTextSearchWithLimit(@Optional String token,
+    public List<Object> getIssuesFromTextSearchWithLimit(@Optional String token,
                                                            String searchTerms,
                                                            Integer offset,
                                                            Integer maxNumResults) {
@@ -1727,7 +1716,7 @@ public class JiraCloudConnector {
      * @return an array of RemoteProject objects.
      */
     @Processor
-    public RemoteProject[] getProjectsNoSchemes(@Optional String token) {
+    public List<Object> getProjectsNoSchemes(@Optional String token) {
         return getClient().getProjectsNoSchemes(createTokenIfNecessary(token));
     }
 
@@ -1768,8 +1757,8 @@ public class JiraCloudConnector {
     public RemoteIssue progressWorkflowAction(@Optional String token,
                                                String issueKey,
                                                String actionIdString,
-                                              @Optional String[] fieldIds,
-                                              @Optional String[] fieldsValues) {
+                                              @Optional List<String> fieldIds,
+                                              @Optional List<String> fieldsValues) {
         return getClient().progressWorkflowAction(createTokenIfNecessary(token), issueKey, actionIdString, fieldIds, fieldsValues);
     }
 
@@ -1782,18 +1771,18 @@ public class JiraCloudConnector {
      * @return the security schemes.
      */
     @Processor
-    public RemoteScheme[] getSecuritySchemes(@Optional String token) {
+    public List<Object> getSecuritySchemes(@Optional String token) {
         return getClient().getSecuritySchemes(createTokenIfNecessary(token));
     }
 
-    public synchronized JiraClient getClient() {
+    public synchronized JiraClient<List<Object>> getClient() {
         if (client == null) {
             client = JiraClientFactory.getClient(address);
         }
         return client;
     }
 
-    public void setClient(JiraClient client) {
+    public void setClient(JiraClient<?> client) {
         this.client = JiraClientAdaptor.adapt(client);
     }
 

@@ -10,16 +10,19 @@
 
 package org.mule.module.jira;
 
-import org.apache.axis.AxisFault;
 import org.mule.module.jira.api.JiraClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.rmi.RemoteException;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.axis.AxisFault;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class JiraClientAdaptor {
     private static Logger log = LoggerFactory.getLogger(JiraCloudConnector.class);
@@ -28,7 +31,7 @@ public final class JiraClientAdaptor {
     }
 
     @SuppressWarnings("unchecked")
-    public static JiraClient adapt(final JiraClient receptor) {
+    public static JiraClient<List<Object>> adapt(final JiraClient<?> receptor) {
         return (JiraClient) Proxy.newProxyInstance(
                 JiraClientAdaptor.class.getClassLoader(), new Class[]{JiraClient.class},
                 new InvocationHandler() {
@@ -37,7 +40,7 @@ public final class JiraClientAdaptor {
                             if (log.isDebugEnabled()) {
                                 log.debug("Entering {} with args {}", method.getName(), args);
                             }
-                            Object ret = method.invoke(receptor, args);
+                            Object ret = adaptReturnType(method.invoke(receptor, args));
                             if (log.isDebugEnabled()) {
                                 log.debug("Returning from {} with value {}", method.getName(), ret);
                             }
@@ -50,8 +53,15 @@ public final class JiraClientAdaptor {
                             throw adaptException(e.getCause());
                         }
                     }
-
                 });
+    }
+    
+
+    private static Object adaptReturnType(Object result)
+    {
+        if(result instanceof Object[])
+            return Arrays.asList((Object[])result);
+        return result;
     }
 
     private static Throwable adaptException(Throwable e) {

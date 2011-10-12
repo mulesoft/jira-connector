@@ -10,16 +10,46 @@
 
 package org.mule.module.jira.api;
 
-import com.atlassian.jira.rpc.soap.beans.*;
-import com.atlassian.jira.rpc.soap.jirasoapservice_v2.JiraSoapService;
-import org.apache.commons.lang.Validate;
 import org.mule.module.jira.JiraCloudConnectorException;
 
-import javax.validation.constraints.NotNull;
+import com.atlassian.jira.rpc.soap.beans.RemoteAttachment;
+import com.atlassian.jira.rpc.soap.beans.RemoteAvatar;
+import com.atlassian.jira.rpc.soap.beans.RemoteComment;
+import com.atlassian.jira.rpc.soap.beans.RemoteComponent;
+import com.atlassian.jira.rpc.soap.beans.RemoteConfiguration;
+import com.atlassian.jira.rpc.soap.beans.RemoteEntity;
+import com.atlassian.jira.rpc.soap.beans.RemoteField;
+import com.atlassian.jira.rpc.soap.beans.RemoteFilter;
+import com.atlassian.jira.rpc.soap.beans.RemoteGroup;
+import com.atlassian.jira.rpc.soap.beans.RemoteIssue;
+import com.atlassian.jira.rpc.soap.beans.RemoteIssueType;
+import com.atlassian.jira.rpc.soap.beans.RemoteNamedObject;
+import com.atlassian.jira.rpc.soap.beans.RemotePermission;
+import com.atlassian.jira.rpc.soap.beans.RemotePermissionScheme;
+import com.atlassian.jira.rpc.soap.beans.RemotePriority;
+import com.atlassian.jira.rpc.soap.beans.RemoteProject;
+import com.atlassian.jira.rpc.soap.beans.RemoteProjectRole;
+import com.atlassian.jira.rpc.soap.beans.RemoteProjectRoleActors;
+import com.atlassian.jira.rpc.soap.beans.RemoteResolution;
+import com.atlassian.jira.rpc.soap.beans.RemoteRoleActors;
+import com.atlassian.jira.rpc.soap.beans.RemoteScheme;
+import com.atlassian.jira.rpc.soap.beans.RemoteSecurityLevel;
+import com.atlassian.jira.rpc.soap.beans.RemoteServerInfo;
+import com.atlassian.jira.rpc.soap.beans.RemoteStatus;
+import com.atlassian.jira.rpc.soap.beans.RemoteUser;
+import com.atlassian.jira.rpc.soap.beans.RemoteVersion;
+import com.atlassian.jira.rpc.soap.beans.RemoteWorklog;
+import com.atlassian.jira.rpc.soap.jirasoapservice_v2.JiraSoapService;
+
 import java.rmi.RemoteException;
 import java.util.Calendar;
+import java.util.List;
 
-public class AxisJiraClient implements JiraClient {
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang.Validate;
+
+public class AxisJiraClient implements JiraClient<Object[]> {
 
     private AxisJiraSoapServiceProvider serviceProvider;
     private AxisJiraClientHelper helper;
@@ -128,8 +158,8 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    public RemoteIssue createIssue(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, String[] customFieldKeys, String[] customFieldValues) {
-        RemoteIssue issue = helper.createIssue(assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFieldKeys, customFieldValues);
+    public RemoteIssue createIssue(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, List<String> customFieldKeys, List<String> customFieldValues) {
+        RemoteIssue issue = helper.createIssue(assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, toStringArray(customFieldKeys), toStringArray(customFieldValues));
         try {
             return getService().createIssue(token, issue);
         } catch (RemoteException e) {
@@ -137,9 +167,9 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    public RemoteIssue updateIssue(String token, String issueKey, String[] fieldIds, String[] fieldValues) {
+    public RemoteIssue updateIssue(String token, String issueKey, List<String> fieldIds, List<String> fieldValues) {
         try {
-            return getService().updateIssue(token, issueKey, helper.createFieldValues(fieldIds, fieldValues));
+            return getService().updateIssue(token, issueKey, helper.createFieldValues(toStringArray(fieldIds), toStringArray(fieldValues)));
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
@@ -279,9 +309,9 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    public void addDefaultActorsToProjectRole(String token, String[] actors, Long projectRoleId, String type) {
+    public void addDefaultActorsToProjectRole(String token, List<String> actors, Long projectRoleId, String type) {
         try {
-            getService().addDefaultActorsToProjectRole(token, actors, getProjectRole(token, projectRoleId), type);
+            getService().addDefaultActorsToProjectRole(token,toStringArray( actors ), getProjectRole(token, projectRoleId), type);
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
@@ -306,21 +336,21 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    public void addActorsToProjectRole(String token, String[] actors, Long projectRoleId, String projectKey, String actorType) {
+    public void addActorsToProjectRole(String token, List<String> actors, Long projectRoleId, String projectKey, String actorType) {
         RemoteProjectRole projectRole = getProjectRole(token, projectRoleId);
         RemoteProject project = getProjectByKey(token, projectKey);
         try {
-            getService().addActorsToProjectRole(token, actors, projectRole, project, actorType);
+            getService().addActorsToProjectRole(token, toStringArray(actors), projectRole, project, actorType);
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
     }
 
-    public void removeActorsFromProjectRole(String token, String[] actors, Long projectRoleId, String projectKey, String actorType) {
+    public void removeActorsFromProjectRole(String token, List<String> actors, Long projectRoleId, String projectKey, String actorType) {
         RemoteProjectRole projectRole = getProjectRole(token, projectRoleId);
         RemoteProject project = getProjectByKey(token, projectKey);
         try {
-            getService().removeActorsFromProjectRole(token, actors, projectRole, project, actorType);
+            getService().removeActorsFromProjectRole(token, toStringArray(actors), projectRole, project, actorType);
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
@@ -345,9 +375,9 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    public void removeDefaultActorsFromProjectRole(String token, String[] actors, Long projectRoleId, String type) {
+    public void removeDefaultActorsFromProjectRole(String token, List<String> actors, Long projectRoleId, String type) {
         try {
-            getService().removeDefaultActorsFromProjectRole(token, actors, getProjectRole(token, projectRoleId), type);
+            getService().removeDefaultActorsFromProjectRole(token, toStringArray(actors), getProjectRole(token, projectRoleId), type);
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
@@ -522,9 +552,9 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    public RemoteIssue progressWorkflowAction(String token, String issueKey, String actionIdString, String[] fieldIds, String[] fieldsValues) {
+    public RemoteIssue progressWorkflowAction(String token, String issueKey, String actionIdString, List<String> fieldIds, List<String> fieldsValues) {
         try {
-            return getService().progressWorkflowAction(token, issueKey, actionIdString, helper.createFieldValues(fieldIds, fieldsValues));
+            return getService().progressWorkflowAction(token, issueKey, actionIdString, helper.createFieldValues(toStringArray(fieldIds), toStringArray(fieldsValues)));
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
@@ -621,9 +651,9 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    public RemoteIssue[] getIssuesFromTextSearchWithProject(String token, String[] projectKeys, String searchTerms, Integer maxNumResults) {
+    public RemoteIssue[] getIssuesFromTextSearchWithProject(String token, List<String> projectKeys, String searchTerms, Integer maxNumResults) {
         try {
-            return getService().getIssuesFromTextSearchWithProject(token, projectKeys, searchTerms, maxNumResults);
+            return getService().getIssuesFromTextSearchWithProject(token, toStringArray(projectKeys), searchTerms, maxNumResults);
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
@@ -661,9 +691,9 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    public boolean addBase64EncodedAttachmentsToIssue(String token, String issueKey, String[] fileNames, String[] base64EncodedAttachmentData) {
+    public boolean addBase64EncodedAttachmentsToIssue(String token, String issueKey, List<String> fileNames, List<String> base64EncodedAttachmentData) {
         try {
-            return getService().addBase64EncodedAttachmentsToIssue(token, issueKey, fileNames, base64EncodedAttachmentData);
+            return getService().addBase64EncodedAttachmentsToIssue(token, issueKey, toStringArray(fileNames), toStringArray(base64EncodedAttachmentData));
         } catch (RemoteException e) {
             throw new JiraCloudConnectorException(e);
         }
@@ -742,9 +772,9 @@ public class AxisJiraClient implements JiraClient {
         }
     }
 
-    public RemoteGroup updateGroup(String token, String groupName, String[] usernames) {
+    public RemoteGroup updateGroup(String token, String groupName, List<String> usernames) {
         RemoteGroup group = getGroup(token, groupName);
-        RemoteUser[] usersToAddToGroup = helper.getRemoteUsers(token, usernames).toArray(new RemoteUser[usernames.length]);
+        RemoteUser[] usersToAddToGroup = helper.getRemoteUsers(token, toStringArray(usernames)).toArray(new RemoteUser[usernames.size()]);
         group.setUsers(usersToAddToGroup);
         try {
             return getService().updateGroup(token, group);
@@ -803,7 +833,7 @@ public class AxisJiraClient implements JiraClient {
 
     public RemoteIssue createIssueWithSecurityLevel(String token, String asignee, String summary, String description,
                                                     String dueDate, String environment, String priority, String project,
-                                                    String reporter, String type, Long votes, String[] customFieldKeys, String[] customFieldValues, Long securityLevelId) {
+                                                    String reporter, String type, Long votes, List<String> customFieldKeys, List<String> customFieldValues, Long securityLevelId) {
         RemoteIssue issue = createIssue(token, asignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFieldKeys, customFieldValues);
         try {
             return getService().createIssueWithSecurityLevel(token, issue, securityLevelId);
@@ -861,5 +891,9 @@ public class AxisJiraClient implements JiraClient {
 
     private JiraSoapService getService() throws RemoteException {
         return serviceProvider.getService();
+    }
+    
+    private String[] toStringArray(List<String> list) {
+        return list.toArray(new String[list.size()]);
     }
 }
