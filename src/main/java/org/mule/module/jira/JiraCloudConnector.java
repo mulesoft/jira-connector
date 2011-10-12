@@ -51,7 +51,7 @@ import java.util.Calendar;
 
 /***
  * Cloud Connector Facade to <a href="http://www.atlassian.com/software/jira/">Jira</a> Tracker
- * @author flbulgarelli
+ * @author Mulesoft
  */
 @Module(name = "jira",        
         namespace = "http://repository.mulesoft.org/releases/org/mule/modules/mule-module-jira",
