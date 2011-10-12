@@ -142,25 +142,25 @@
           <additionalJOption>-J-Xmx1024m</additionalJOption>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>axistools-maven-plugin</artifactId>
-        <version>1.4</version>
-        <configuration>
-          <sourceDirectory>src/main/resources</sourceDirectory>
-          <wsdlFiles>
-            <wsdlFile>jirasoapservice-v2.wsdl</wsdlFile>
-          </wsdlFiles>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>wsdl2java</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.codehaus.mojo</groupId>-->
+<!--        <artifactId>axistools-maven-plugin</artifactId>-->
+<!--        <version>1.4</version>-->
+<!--        <configuration>-->
+<!--          <sourceDirectory>src/main/resources</sourceDirectory>-->
+<!--          <wsdlFiles>-->
+<!--            <wsdlFile>jirasoapservice-v2.wsdl</wsdlFile>-->
+<!--          </wsdlFiles>-->
+<!--        </configuration>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <phase>generate-sources</phase>-->
+<!--            <goals>-->
+<!--              <goal>wsdl2java</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--      </plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
