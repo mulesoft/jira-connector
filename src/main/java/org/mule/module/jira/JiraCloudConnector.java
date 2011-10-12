@@ -80,7 +80,7 @@ public class JiraCloudConnector {
     /**
      * Finds a comment.
      * <p/>
-     * {@code <jira:get-comment commentId="123"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-comment}
      *
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param commentId the commentId of the comment
@@ -95,7 +95,7 @@ public class JiraCloudConnector {
     /**
      * Returns information about the current configuration of JIRA.
      * <p/>
-     * {@code <jira:get-configuration/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-configuration}
      *
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return a RemoteConfiguration object which contains information about the current configuration of JIRA.
@@ -104,11 +104,11 @@ public class JiraCloudConnector {
     public RemoteConfiguration getConfiguration(@Optional String token) {
         return getClient().getConfiguration(createTokenIfNecessary(token));
     }
-
     /**
      * Creates a group with the given name optionally adding the given user to it.
      * <p/>
-     * {@code <jira:create-group groupName="someGroupName" userName="someUserName"/> }
+     * 
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-group}
      *
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param groupName the name of the group to create.
@@ -125,7 +125,7 @@ public class JiraCloudConnector {
     /**
      * Returns information about the server JIRA is running on including build number and base URL.
      *
-     * {@code <jira:get-server-info/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-server-info}
      *
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return information about the server JIRA is running on including build number and base URL.
@@ -138,7 +138,7 @@ public class JiraCloudConnector {
     /**
      * Find the group with the specified name in JIRA.
      *
-     *  {@code <jira:get-group groupName="someGroupName"/> }
+     *  {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-group}
      *
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param groupName the name of the group to find
@@ -153,7 +153,7 @@ public class JiraCloudConnector {
     /**
      * Creates a user in JIRA with the specified user details
      *
-     * {@code <jira:create-user username="someUserName" password="somePassword" fullName="some full name" email="some email"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-user}
      *
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param username the user name to create
@@ -174,7 +174,7 @@ public class JiraCloudConnector {
     /**
      * Adds a new comment to the issue.
      *
-     * {@code <jira:add-comment issueKey="someIssueKey" commentAuthor="someUserName" commentBody="someComment"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-comment}
      *
      * @param token             optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey          the key of the issue
@@ -196,7 +196,8 @@ public class JiraCloudConnector {
     /**
      * Returns an array of all the components for the specified project key.
      *
-     * {@code  <jira:get-components projectKey="someProjectKey"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-components}
+
      *
      * @param token      optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey the key of the requested project
@@ -211,7 +212,7 @@ public class JiraCloudConnector {
     /**
      * Returns information about a user defined to JIRA.
      *
-     * {@code  <jira:get-user username="someUserName"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-user}
      *
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param username the user name to look up
@@ -226,11 +227,8 @@ public class JiraCloudConnector {
     /**
      * Updates the given group name with the provided users.
      *
-     * {@code <jira:update-group groupName="someGroupName">
-                <jira:usernames>
-                  <jira:username>someUserName</jira:username>
-                </jira:usernames>
-              </jira:update-group>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-group}
+ 
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param groupName the group name to update
      * @param usernames the updated usernames
@@ -246,7 +244,7 @@ public class JiraCloudConnector {
     /**
      * Adds a user to the given group name.
      *
-     * {@code <jira:add-user-to-group groupName="someGroupName" userName="someUserName"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-user-to-group}
      *
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param groupName the group name
@@ -262,7 +260,7 @@ public class JiraCloudConnector {
     /**
      * Removes a user from the group name.
      *
-     * {@code <jira:remove-user-from-group groupName="someGroupName" userName="someUserName"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-user-from-group}
      *
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param groupName the group name for which to remove the user
@@ -278,7 +276,7 @@ public class JiraCloudConnector {
     /**
      * Finds an issue by key.
      *
-     * {@code  <jira:get-issue issueKey="someIssueKey"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue}
      *
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey the key of the issue to find.
@@ -293,17 +291,8 @@ public class JiraCloudConnector {
     /**
      * Creates an issue.
      *
-     * {@code  <jira:create-issue summary="someSummary" project="someProject" type="someType" assignee="someUserName" reporter="someUserName"
-                                  dueDate="someDueDate" description="someDescription" environment="someEnvironment" priority="somePriority" votes="voteCount" >
-                  <jira:customFieldKeys>
-                     <jira:customFieldKey>key1</jira:customFieldKey>
-                     <jira:customFieldKey>key2</jira:customFieldKey>
-                  </jira:customFieldKeys>
-                  <jira:customFieldValues>
-                     <jira:customFieldValue>value1</jira:customFieldValue>
-                     <jira:customFieldValue>value2</jira:customFieldValue>
-                  </jira:customFieldValues>
-              </jira:create-issue>   }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue}
+
      *
      * @param token             optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param assignee          the assignee of the new issue
@@ -340,20 +329,7 @@ public class JiraCloudConnector {
     /**
      * Creates an issue using the the security level denoted by the given id.
      *
-     * {@code <jira:create-issue-with-security-level summary="someSummary" project="someProject" type="someType"
-                                               assignee="someUserName" reporter="someUserName"
-                                               dueDate="someDueDate" description="someDescription"
-                                               environment="someEnvironment" priority="somePriority" votes="voteCount"
-                                               securityLevelId="someSecurityLevelId">
-                    <jira:customFieldKeys>
-                        <jira:customFieldKey>key1</jira:customFieldKey>
-                        <jira:customFieldKey>key2</jira:customFieldKey>
-                    </jira:customFieldKeys>
-                    <jira:customFieldValues>
-                        <jira:customFieldValue>value1</jira:customFieldValue>
-                        <jira:customFieldValue>value2</jira:customFieldValue>
-                    </jira:customFieldValues>
-              </jira:create-issue-with-security-level> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue-with-security-level}
      *
      * @param token             optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param assignee          the assignee of the new issue
@@ -393,16 +369,8 @@ public class JiraCloudConnector {
      * This will update an issue with new values.
      * NOTE : You cannot update the 'status' field of the issue via this method.
      *
-     * {@code <jira:update-issue issueKey="someIssueKey">
-                 <jira:fieldIds>
-                    <jira:fieldId>fieldId1</jira:fieldId>
-                    <jira:fieldId>fieldId2</jira:fieldId>
-                </jira:fieldIds>
-                <jira:fieldValues>
-                    <jira:fieldValue>value1</jira:fieldValue>
-                    <jira:fieldValue>value2</jira:fieldValue>
-                </jira:fieldValues>
-              </jira:update-issue> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-issue}
+ 
      * @param token       optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey    the issue to update.
      * @param fieldIds    the ids of the custom fields
@@ -420,7 +388,7 @@ public class JiraCloudConnector {
     /**
      * Deletes the issue with the given key
      *
-     * {@code <jira:delete-issue issueKey="someIssueKey"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-issue}
      *
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey the key of the issue to delete
@@ -434,7 +402,8 @@ public class JiraCloudConnector {
     /**
      * Finds the available actions for the given issue key
      *
-     * ${@code  <jira:get-available-actions issueKey="someIssueKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-available-actions}
+ 
      *
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey the key of the issue
@@ -449,7 +418,8 @@ public class JiraCloudConnector {
     /**
      * Returns an array of all the sub task issue types in JIRA.
      *
-     * {@code <jira:get-sub-task-issue-types/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-sub-task-issue-types}
+
      *
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return an array of RemoteIssueType objects
@@ -462,10 +432,8 @@ public class JiraCloudConnector {
     /**
      * Creates a new project
      *
-     * {@code         <jira:create-project key="someProjectKey" name="someProjectName" description="someProjectDescription"
-                                           lead="someUserName" permissionSchemeName="somePermissionSchemeName"
-                                           notificationSchemeName="someNotificationSchemeName"
-                                           securityShemeName="someSecuritySchemeName" url="someUrl"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-project}
+
      * @param token                  optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param key                    the key for the new project
      * @param name                   the name for the new project
@@ -493,10 +461,8 @@ public class JiraCloudConnector {
     /**
      * Updates the project denoted by the given key.
      *
-     * {@code         <jira:update-project key="someProjectKey" description="someProjectDescription" lead="someUserName"
-                             permissionSchemeName="somePermissionSchemeName"
-                             notificationSchemeName="someNotificationSchemeName"
-                             securityShemeName="someSecuritySchemeName" url="someUrl"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-project}
+ 
      *
      * @param token                  optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param key                    the key of the project to update
@@ -523,7 +489,8 @@ public class JiraCloudConnector {
     /**
      * Returns the Project with the matching key (if the user has permission to browse it).
      *
-     * {@code  <jira:get-project-by-key projectKey="someProjectKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-by-key}
+
      * @param token      optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey the key of the requested projec
      * @return the RemoteProject object specified by the key, if it exists and the user has the BROWSE permission for it
@@ -537,7 +504,7 @@ public class JiraCloudConnector {
     /**
      * Removes all role actors for the given project key.
      *
-     * {@code  <jira:remove-all-role-actors-by-project projectKey="someProjectKey"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-all-role-actors-by-project}
      *
      * @param token      optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey the project key for which to remove all role actors
@@ -551,7 +518,8 @@ public class JiraCloudConnector {
     /**
      * Returns an array of all the issue statuses in JIRA.
      *
-     * {@code  <jira:get-priorities/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-priorities}
+ 
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return an array of RemoteStatus objects
      */
@@ -563,7 +531,7 @@ public class JiraCloudConnector {
     /**
      * Returns an array of all the issue resolutions in JIRA.
      *
-     * {@code <jira:get-resolutions/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-resolutions}
      *
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return an array of RemoteResolution objects
@@ -576,7 +544,8 @@ public class JiraCloudConnector {
     /**
      * Returns an array of all the issue types for all projects in JIRA.
      *
-     * {@code <jira:get-issue-types/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue-types}
+ 
      *
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return an array of RemoteIssueType objects
@@ -590,7 +559,8 @@ public class JiraCloudConnector {
     /**
      * Returns an array of all the issue statuses in JIRA.
      *
-     * {@code <jira:get-statuses/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-statuses}
+
      *
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return an array of RemoteStatus objects
@@ -604,7 +574,7 @@ public class JiraCloudConnector {
     /**
      * Returns an array of all the (non-sub task) issue types for the specified project id.
      *
-     * {@code <jira:get-issue-types-for-project projectId="someProjectId"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue-types-for-project}
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectId id of the project
      * @return an array of RemoteIssueType objects
@@ -618,7 +588,8 @@ public class JiraCloudConnector {
     /**
      * Returns the project roles.
      *
-     * {@code  <jira:get-project-roles/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-roles}
+ 
      *
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return the project roles.
@@ -631,7 +602,7 @@ public class JiraCloudConnector {
     /**
      * Returns the project role by projectRoleId.
      *
-     * {@code  <jira:get-project-role projectRoleId="123"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-role}
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectRoleId the projectRoleId of the project role
      * @return the project role by projectRoleId.
@@ -645,7 +616,7 @@ public class JiraCloudConnector {
     /**
      * Returns the project role actors for the given project
      *
-     * {@code <jira:get-project-role-actors projectRoleId="123" projectKey="someProjectKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-role-actors}
      *
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectRoleId the project role id to use
@@ -662,7 +633,7 @@ public class JiraCloudConnector {
     /**
      * Returns the default role actors for the given project role id.
      *
-     *  {@code <jira:get-default-role-actors projectRoleId="123"/>}
+     *  {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-default-role-actors}
      *
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectRoleId the id of the project role
@@ -677,7 +648,8 @@ public class JiraCloudConnector {
     /**
      * Removes all role actors using the given name and type.
      *
-     *  {@code <jira:remove-all-role-actors-by-name-and-type name="someName" type="someType"/>}
+     *  {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-all-role-actors-by-name-and-type}
+
      *
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param name  the name to delete
@@ -693,11 +665,12 @@ public class JiraCloudConnector {
     /**
      * Deletes the project role denoted by the given project role id.
      *
-     * {@code <jira:delete-project-role projectRoleId="123" confirm="false"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-project-role}
+
      *
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectRoleId the id of the project role to delete
-     * @param confirm
+     * @param confirm       whether confirm
      */
     @Processor
     public void deleteProjectRole(@Optional String token,
@@ -709,8 +682,8 @@ public class JiraCloudConnector {
     /**
      * Updates the project role with the given id.
      *
-     * {@code <jira:update-project-role projectRoleId="123" projectRoleName="someProjectRoleName"
-                                  projectRoleDescription="someProjectDescription"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-project-role}
+
      *
      * @param token                  optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectRoleId          the id of the project role to update
@@ -728,8 +701,8 @@ public class JiraCloudConnector {
     /**
      * Creates a new project role.
      *
-     * {@code <jira:create-project-role projectRoleName="someProjectRoleName"
-                                  projectRoleDescription="someProjectRoleDescription"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-project-role}
+
      * @param token                  optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectRoleName        the name of the new project role
      * @param projectRoleDescription the description of the new project role
@@ -745,7 +718,8 @@ public class JiraCloudConnector {
     /**
      * Checks if the given project role name is unique.
      *
-     * {@code <jira:is-project-role-name-unique name="someProjectRoleName"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:is-project-role-name-unique}
+
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param name  the project role name to check for uniqueness
      * @return true if the given project role name is unique, false otherwise.
@@ -759,7 +733,8 @@ public class JiraCloudConnector {
     /**
      * Releases the version denoted by the given name
      *
-     * {@code <jira:release-version projectKey="someProjectKey" versionName="someVersionName"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:release-version}
+     * 
      * @param token       optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey  the project key to use
      * @param versionName the version name to release
@@ -774,12 +749,8 @@ public class JiraCloudConnector {
     /**
      * Adds the given actors to the project role.
      *
-     * {@code         <jira:add-default-actors-to-project-role projectRoleId="123" type="someType">
-                          <jira:actors>
-                              <jira:actor>actor1</jira:actor>
-                              <jira:actor>actor2</jira:actor>
-                          </jira:actors>
-                      </jira:add-default-actors-to-project-role>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-default-actors-to-project-role}
+ 
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param actors        the actors to add
      * @param projectRoleId the id of the project role to use
@@ -798,12 +769,8 @@ public class JiraCloudConnector {
     /**
      * Removes the given actors from the project role
      *
-     * {@code         <jira:remove-default-actors-from-project-role remoteProjectRoleId="123" type="someType">
-                          <jira:actors>
-                              <jira:actor>actor1</jira:actor>
-                              <jira:actor>actor2</jira:actor>
-                          </jira:actors>
-                      </jira:remove-default-actors-from-project-role>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-default-actors-from-project-role}
+
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param actors        the actors to remove
      * @param projectRoleId the id of the project role to use
@@ -822,12 +789,8 @@ public class JiraCloudConnector {
     /**
      * Adds the default actors to the project role denoted by this id.
      *
-     * {@code         <jira:add-default-actors-to-project-role projectRoleId="123" type="someType">
-                          <jira:actors>
-                              <jira:actor>actor1</jira:actor>
-                              <jira:actor>actor2</jira:actor>
-                          </jira:actors>
-                      </jira:add-default-actors-to-project-role>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-default-actors-to-project-role}
+ 
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param actors        the actors to add
      * @param projectRoleId the id of the project role
@@ -844,12 +807,8 @@ public class JiraCloudConnector {
     /**
      * Removes the default actors from the project role denoted by this id.
      *
-     * {@code         <jira:remove-default-actors-from-project-role remoteProjectRoleId="123" type="someType">
-                         <jira:actors>
-                             <jira:actor>actor1</jira:actor>
-                             <jira:actor>actor2</jira:actor>
-                         </jira:actors>
-                      </jira:remove-default-actors-from-project-role>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-default-actors-from-project-role}
+
      * @param token               optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param actors              the actors to remove
      * @param remoteProjectRoleId the id of the project role
@@ -866,7 +825,8 @@ public class JiraCloudConnector {
     /**
      * Returns the associated notification schemes for the given project role.
      *
-     * {@code <jira:get-associated-notification-schemes projectRoleId="123"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-associated-notification-schemes}
+
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectRoleId the project role to search
      * @return the associated notification schemes for the given project role.
@@ -880,7 +840,8 @@ public class JiraCloudConnector {
     /**
      * Returns the associated permission schemas for the given project role.
      *
-     * {@code <jira:get-associated-permission-schemes projectRoleId="123"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-associated-permission-schemes}
+
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectRoleId the project role to search
      * @return the associated permission schemas for the given project role.
@@ -894,7 +855,8 @@ public class JiraCloudConnector {
     /**
      * Deletes the project represented by the given project key.
      *
-     * {@code <jira:delete-project projectKey="someProjectKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-project}
+
      * @param token      optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey the key of the project to delete
      */
@@ -907,7 +869,8 @@ public class JiraCloudConnector {
     /**
      * Returns the Project with the matching id (if the user has permission to browse it).
      *
-     * {@code  <jira:get-project-by-id projectId="123"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-by-id}
+ 
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectId the id of the requested project
      * @return the RemoteProject object specified by the key, if it exists and the user has the BROWSE permission for it
@@ -921,7 +884,8 @@ public class JiraCloudConnector {
     /**
      * Returns an array of all the versions for the specified project key.
      *
-     * {@code <jira:get-versions projectKey="someProjectKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-versions}
+
      * @param token      optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey the key of the requested project
      * @return an array of RemoteVersion objects
@@ -935,7 +899,8 @@ public class JiraCloudConnector {
     /**
      * Returns the comments for the issue denoted by the given key.
      *
-     * {@code <jira:get-comments issueKey="someIssueKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-comments}
+
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey the key of the issue to get the comments for
      * @return the comments for the issue denoted by the given key.
@@ -949,7 +914,8 @@ public class JiraCloudConnector {
     /**
      * This retreives a list of the currently logged in user's favourite fitlers.
      *
-     * {@code <jira:get-favourite-filters/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-favourite-filters}
+ 
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return a list of the currently logged in user's favourite fitlers.
      */
@@ -961,7 +927,9 @@ public class JiraCloudConnector {
     /**
      * Archieves the given version/
      *
-     * {@code <jira:archive-version projectKey="someProjectKey" versionName="someVersionName" archive="true"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:archive-version}
+
+
      * @param token       optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey  the project key to use
      * @param versionName the version name to use
@@ -978,7 +946,9 @@ public class JiraCloudConnector {
     /**
      * Returns the fields for edit for the given issue key
      *
-     * {@code <jira:get-fields-for-edit issueKey="someIssueKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-fields-for-edit}
+
+
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey the issue key to get the fields for
      * @return the fields for edit
@@ -992,7 +962,9 @@ public class JiraCloudConnector {
     /**
      * Returns an array of all the sub task issue types for the specified project id.
      *
-     * {@code <jira:get-sub-task-issue-types-for-project projectId="someProjectId"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-sub-task-issue-types-for-project}
+
+
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectId id of the project
      * @return an array of RemoteIssueType objects
@@ -1006,7 +978,9 @@ public class JiraCloudConnector {
     /**
      * Log in using the given credentials, it returns the authentication token.
      *
-     * {@code <jira:login username="someUserName" password="somePassword"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:login}
+
+
      * @param username the username to use
      * @param password the password to use
      * @return the authentication token
@@ -1020,7 +994,9 @@ public class JiraCloudConnector {
     /**
      * Returns the current security level for given issue
      *
-     * {@code <jira:get-security-level issueKey="someIssueKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-security-level}
+
+
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey the issue key
      * @return issue security level
@@ -1034,7 +1010,8 @@ public class JiraCloudConnector {
     /**
      * Returns the custom fields for the current user
      *
-     * {@code <jira:get-custom-fields/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-custom-fields}
+ 
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return the custom fields for the current user
      */
@@ -1046,7 +1023,9 @@ public class JiraCloudConnector {
     /**
      * Cleans up an authentication token that was previously created with a call to login
      *
-     * {@code <jira:logout token="aToken"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:logout}
+
+
      * @param token the token to invalidate
      * @return true if the logout succeeded
      */
@@ -1058,7 +1037,7 @@ public class JiraCloudConnector {
     /**
      * Returns the Project with the matching id (if the user has permission to browse it) with notification, issue security and permission schemes attached.
      *
-     * {@code <jira:get-project-with-schemes-by-id projectId="123"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-with-schemes-by-id}
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectId the id of the requested project
      * @return the RemoteProject object specified by the key, if it exists and the user has the BROWSE permission for it
@@ -1072,7 +1051,9 @@ public class JiraCloudConnector {
     /**
      * Returns an array of all security levels for a given project.
      *
-     * {@code <jira:get-security-levels projectKey="someProjectKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-security-levels}
+
+
      * @param token      optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey the key for the project
      * @return array of RemoteSecurityLevels for the project
@@ -1088,7 +1069,8 @@ public class JiraCloudConnector {
      * system (built-in) avatars as well as custom (user-supplied) avatars for that project, otherwise it will include
      * only the custom avatars. Project browse permission is required.
      *
-     * {@code  <jira:get-project-avatars projectKey="someProjectKey" includeSystemAvatars="true"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-avatars}
+
      * @param token                optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey           the key for the project.
      * @param includeSystemAvatars if false, only custom avatars will be included in the returned array.
@@ -1104,7 +1086,8 @@ public class JiraCloudConnector {
     /**
      * Sets the current avatar for the given project to that with the given id. Project administration permission is required.
      *
-     * {@code <jira:set-project-avatar projectKey="someProjectKey" avatarId="123"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:set-project-avatar}
+
      * @param token      optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey the key for the project.
      * @param avatarId   the id of an existing avatar to use for the project or null for the default avatar.
@@ -1119,7 +1102,8 @@ public class JiraCloudConnector {
     /**
      * Retrieves the current avatar for the given project. Project browse permission is required.
      *
-     * {@code <jira:get-project-avatar projectKey="someProjectKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-avatar}
+    
      * @param token      optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey the key for the project.
      * @return the current avatar for the project.
@@ -1133,7 +1117,9 @@ public class JiraCloudConnector {
     /**
      * Deletes the given custom Avatar from the system. System avatars cannot be deleted. Project administration permission is required.
      *
-     * {@code  <jira:delete-project-avatar avatarId="123"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-project-avatar}
+
+
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param avatarId id of the custom avatar to delete.
      */
@@ -1146,7 +1132,8 @@ public class JiraCloudConnector {
     /**
      * Returns notification schemes.
      *
-     * {@code  <jira:get-notification-schemes/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-notification-schemes}
+ 
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return the notification schemes.
      */
@@ -1158,7 +1145,7 @@ public class JiraCloudConnector {
     /**
      * Returns the permission schemes.
      *
-     * {@code <jira:get-permission-schemes/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-permission-schemes}
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return the permission schemes.
      */
@@ -1170,7 +1157,8 @@ public class JiraCloudConnector {
     /**
      * Returns all the permissions.
      *
-     * {@code  <jira:get-all-permissions/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-all-permissions}
+ 
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return all the permissions
      */
@@ -1182,7 +1170,7 @@ public class JiraCloudConnector {
     /**
      * Creates a new permission schema using the given name and description.
      *
-     * {@code <jira:create-permission-scheme name="somePermissionSchemeName" description="somePermissionSchemeDesc"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-permission-scheme}
      * @param token       optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param name        the name of the new permission scheme
      * @param description the description of the new permission scheme
@@ -1198,8 +1186,8 @@ public class JiraCloudConnector {
     /**
      * Adds the permission to the given entity name (username or group name)
      *
-     * {@code <jira:add-permission-to permissionSchemeName="somePermissionSchemeName" permissionCode="123"
-                                entityName="someEntityName" /> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-permission-to}
+ 
      * @param token                optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param permissionSchemeName the name of the permission scheme to use
      * @param permissionCode       the permission code to use
@@ -1217,8 +1205,8 @@ public class JiraCloudConnector {
     /**
      * Removes the permission to the given entity name (username or group name)
      *
-     * {@code      <jira:delete-permission-from permissionSchemeName="somePermissionSchemeName" permissionCode="123"
-                                     entityName="someEntityName"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-permission-from}
+ 
      * @param token                optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param permissionSchemeName the name of the permission scheme to use
      * @param permissionCode       the permission code to use
@@ -1236,7 +1224,8 @@ public class JiraCloudConnector {
     /**
      * Deletes the permission scheme denoted by the given name
      *
-     * {@code  <jira:delete-permission-scheme permissionSchemeName="somePermissionSchemeName"/> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-permission-scheme}
+
      * @param token                optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param permissionSchemeName the name of the permission scheme to delete
      */
@@ -1249,7 +1238,8 @@ public class JiraCloudConnector {
     /**
      * Returns the attachments for the issue denoted by the given key.
      *
-     * {@code <jira:get-attachments-from-issue issueKey="someIssueKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-attachments-from-issue}
+
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey the issue key to use
      * @return the attachments for the issue denoted by the given key.
@@ -1263,7 +1253,9 @@ public class JiraCloudConnector {
     /**
      * Returns whether the current user has permissions to edit the comment denoted by the given id.
      *
-     * {@code <jira:has-permission-to-edit-comment commentId="123"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:has-permission-to-edit-comment}
+
+
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param commentId the comment id to use
      * @return whether the current user has permissions to edit the comment denoted by the given id.
@@ -1277,7 +1269,9 @@ public class JiraCloudConnector {
     /**
      * Edits the comment denoted by the given id
      *
-     * {@code <jira:edit-comment commentId="123" body="someBody" updateAuthor="someUserName" /> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:edit-comment}
+
+
      * @param token        optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param commentId    the id of the comment to edit
      * @param body         the updated body comment
@@ -1295,7 +1289,9 @@ public class JiraCloudConnector {
     /**
      * Returns the fields for the given action.
      *
-     * {@code <jira:get-fields-for-action issueKey="someIssueKey" actionIdString="someActionIdString"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-fields-for-action}
+
+
      * @param token          optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey       the issue key to use
      * @param actionIdString the action id to use
@@ -1311,7 +1307,9 @@ public class JiraCloudConnector {
     /**
      * Returns the issue for the given issue id.
      *
-     * {@code <jira:get-issue-by-id issueId="someIssueId"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue-by-id}
+
+
      * @param token   optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueId the issue id to use
      * @return the issue for the given issue id.
@@ -1325,7 +1323,9 @@ public class JiraCloudConnector {
     /**
      * Deletes the worklog with the given id and sets the remaining estimate field on the isssue to the given value. The time spent field of the issue is reduced by the time spent amount on the worklog being deleted.
      *
-     * {@code <jira:delete-worklog-with-new-remaining-estimate workLogId="someWorklogId" newRemainingEstimate="1h"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-worklog-with-new-remaining-estimate}
+
+
      * @param token                optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used                the SOAP auth token.
      * @param workLogId            the id of the worklog to delete.
      * @param newRemainingEstimate the new value for the issue's remaining estimate as a duration string, eg 1d 2h.
@@ -1342,7 +1342,9 @@ public class JiraCloudConnector {
      * by the time spent amount on the worklog being deleted. The time spent field of the issue is reduced by the
      * time spent amount on the worklog being deleted.
      *
-     * {@code <jira:delete-worklog-and-auto-adjust-remaining-estimate worklogId="someWorklogId"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-worklog-and-auto-adjust-remaining-estimate}
+
+
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used     the SOAP auth token.
      * @param worklogId the id of the worklog to delete.
      */
@@ -1356,7 +1358,9 @@ public class JiraCloudConnector {
      * Deletes the worklog with the given id but leaves the remaining estimate field on the isssue unchanged. The time
      * spent field of the issue is reduced by the time spent amount on the worklog being deleted.
      *
-     * {@code <jira:delete-worklog-and-retain-remaining-estimate worklogId="someWorklogId"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-worklog-and-retain-remaining-estimate}
+
+
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used     the SOAP auth token.
      * @param worklogId the id of the worklog to delete.
      */
@@ -1369,7 +1373,9 @@ public class JiraCloudConnector {
     /**
      * Returns all worklogs for the given issue.
      *
-     * {@code <jira:get-worklogs issueKey="someIssueKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-worklogs}
+
+
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used    the SOAP auth token.
      * @param issueKey the key of the issue.
      * @return all the worklogs of the issue.
@@ -1384,7 +1390,9 @@ public class JiraCloudConnector {
      * Determines if the user has the permission to add worklogs to the specified issue, that timetracking is enabled
      * in JIRA and that the specified issue is in an editable workflow state.
      *
-     * {@code <jira:has-permission-to-create-worklog issueKey="someIssueKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:has-permission-to-create-worklog}
+
+
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used    the SOAP auth token.
      * @param issueKey the key of the issue.
      * @return true if the user has permission to create a worklog on the specified issue, false otherwise
@@ -1402,7 +1410,9 @@ public class JiraCloudConnector {
      * The user is the worklog author and has the WORKLOG_DELETE_OWN permission
      * and false otherwise.
      *
-     * {@code <jira:has-permission-to-delete-worklog worklogId="someWorklogId"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:has-permission-to-delete-worklog}
+
+
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used     the SOAP auth token.
      * @param worklogId the id of the worklog wishes to delete.
      * @return true if the user has permission to delete the supplied worklog, false otherwise
@@ -1420,7 +1430,9 @@ public class JiraCloudConnector {
      * The user is the worklog author and has the WORKLOG_EDIT_OWN permission
      * and false otherwise.
      *
-     * {@code <jira:has-permission-to-update-worklog worklogId="someWorklogId"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:has-permission-to-update-worklog}
+
+
      * @param token     optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param worklogId the ide of the worklog wishes to update.
      * @return true if the user has permission to update the supplied worklog, false otherwise
@@ -1437,9 +1449,8 @@ public class JiraCloudConnector {
      * changed by subtracting the previous value of the worklog's time spent amount and adding the new value in the
      * given worklog.
      *
-     * {@code         <jira:update-worklog-with-new-remaining-estimate issueKey="someIssueKey" worklogId="someWorklogId"
-                                                         newRemainingEstimate="1d" comment="someComment"
-                                                         groupLevel="someGroupLevel" roleLevelId="someRoleLevelId"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-worklog-with-new-remaining-estimate}
+ 
      * @param token                optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey             the issue key to use
      * @param worklogId            the worklog id to use
@@ -1462,8 +1473,8 @@ public class JiraCloudConnector {
     /**
      * Adds a new version
      *
-     * {@code         <jira:add-version projectKey="someProjectKey" versionName="someVersionName" archived="true" released="false"
-                          releaseDate="someDate"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-version}
+
      * @param token       optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey  the project key to use
      * @param versionName the version name to use
@@ -1486,7 +1497,9 @@ public class JiraCloudConnector {
      * Given an issue key, this method returns the resolution date for this issue. If the issue hasn't been resolved
      * yet, this method will return null.
      *
-     * {@code <jira:get-resolution-date-by-key issueKey="someIssueKey"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-resolution-date-by-key}
+
+
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey the key of the issue
      * @return The resolution date of the issue. May be null
@@ -1501,7 +1514,8 @@ public class JiraCloudConnector {
      * Given an issue id, this method returns the resolution date for this issue. If the issue hasn't been resolved yet, this method will return null.
      * If the no issue with the given id exists a RemoteException will be thrown.
      *
-     * {@code <jira:get-resolution-date-by-id issueId="123"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-resolution-date-by-id}
+
      * @param token   optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueId the id of the issue
      * @return The resolution date of the issue. May be null
@@ -1515,7 +1529,9 @@ public class JiraCloudConnector {
     /**
      * Returns the issue count for the filter denoted by this id.
      *
-     * {@code <jira:get-issue-count-for-filter filterId="someFilterId"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue-count-for-filter}
+
+
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param filterId the fiter id to use
      * @return the issue count for the filter denoted by this id.
@@ -1540,12 +1556,7 @@ public class JiraCloudConnector {
      * jira.search.views.max.unlimited.group then the number of results returned will be constrained by the value of
      * jira.search.views.max.limit if it is less than the specified maxNumResults.
      *
-     * {@code         <jira:get-issues-from-text-search-with-project searchTerms="someSearchTerms" maxNumResults="10">
-                         <jira:projectKeys>
-                             <jira:projectKey>projectKey1</jira:projectKey>
-                             <jira:projectKey>projectKey2</jira:projectKey>
-                         </jira:projectKeys>
-                      </jira:get-issues-from-text-search-with-project>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issues-from-text-search-with-project} 
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKeys   the project keys to use
      * @param searchTerms   earch terms
@@ -1569,7 +1580,9 @@ public class JiraCloudConnector {
      * jira.search.views.max.unlimited.group then the number of results returned will be constrained by the value of
      * jira.search.views.max.limit if it is less than the specified maxNumResults.
      *
-     * {@code <jira:get-issues-from-jql-search jqlSearch="someJqlSearch" maxNumResults="10"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issues-from-jql-search}
+
+
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param jqlSearch     JQL query string to execute
      * @param maxNumResults the maximum number of results that this method will return
@@ -1585,7 +1598,9 @@ public class JiraCloudConnector {
     /**
      * Deletes a user in JIRA with the specified username.
      *
-     * {@code <jira:delete-user username="someUserName"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-user}
+
+
      * @param token    optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param username the user name to delete
      */
@@ -1598,7 +1613,7 @@ public class JiraCloudConnector {
     /**
      * Deletes the group denoted by the given group name.
      *
-     * {@code  <jira:delete-group groupName="someGroupName" swapGroupName="someSwapGroupName"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-group}
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param groupName     the group name to use
      * @param swapGroupName the swap group name to use
@@ -1613,7 +1628,8 @@ public class JiraCloudConnector {
     /**
      * Refreshs custom fields for the current user.
      *
-     * {@code <jira:refresh-custom-fields/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:refresh-custom-fields}
+ 
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      */
     @Processor
@@ -1627,16 +1643,8 @@ public class JiraCloudConnector {
      * SOAP-ifying byte arrays.
      * For more information, please see JRA-11693.
      *
-     * {@code         <jira:add-base64-encoded-attachments-to-issue issueKey="someIssueKey">
-                          <jira:fileNames>
-                              <jira:fileName>fileName1</jira:fileName>
-                              <jira:fileName>fileName2</jira:fileName>
-                          </jira:fileNames>
-                          <jira:base64EncodedAttachmentData>
-                              <jira:base64EncodedAttachmentDatum>base64EncodedAttachment1</jira:base64EncodedAttachmentDatum>
-                              <jira:base64EncodedAttachmentDatum>base64EncodedAttachment2</jira:base64EncodedAttachmentDatum>
-                          </jira:base64EncodedAttachmentData>
-                      </jira:add-base64-encoded-attachments-to-issue>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-base64-encoded-attachments-to-issue}
+ 
      * @param token                       optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey                    the issue to attach to
      * @param fileNames                   an array of filenames; each element names an attachment to be uploaded
@@ -1664,7 +1672,7 @@ public class JiraCloudConnector {
      * jira.search.views.max.unlimited.group then the number of results returned will be constrained by the value of
      * jira.search.views.max.limit if it is less than the specified maxNumResults.
      *
-     * {@code <jira:get-issues-from-filter-with-limit filterId="someFilterId" offset="12" maxNumResults="10"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issues-from-filter-with-limit}
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param filterId      identifies the saved filter to use for the search.
      * @param offset        the place in the result set to use as the first result returned
@@ -1695,7 +1703,8 @@ public class JiraCloudConnector {
      * jira.search.views.max.unlimited.group then the number of results returned will be constrained by the value of
      * jira.search.views.max.limit if it is less than the specified maxNumResults.
      *
-     * {@code <jira:get-issues-from-text-search-with-limit searchTerms="someSearchTerms" offset="12" maxNumResults="10"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issues-from-text-search-with-limit}
+
      * @param token         optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param searchTerms   search terms
      * @param offset        the place in the result set to use as the first result returned
@@ -1713,7 +1722,7 @@ public class JiraCloudConnector {
     /**
      * Returns an array of all the Projects defined in JIRA.
      *
-     * {@code <jira:get-projects-no-schemes/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-projects-no-schemes}
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return an array of RemoteProject objects.
      */
@@ -1728,8 +1737,8 @@ public class JiraCloudConnector {
      * 48 pixels are taken, if it is smaller it is upscaled to 48 pixels. The small version of the avatar image (16
      * pixels) is generated automatically. Project administration permission is required.
      *
-     * {@code <jira:set-new-project-avatar projectKey="someProjectKey" contentType="someContentType"
-                                     base64ImageData="someBase64ImageData"/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:set-new-project-avatar}
+ 
      * @param token           optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param projectKey      the key for the project.
      * @param contentType     the MIME type of the image provided, e.g. image/gif, image/jpeg, image/png.
@@ -1746,16 +1755,8 @@ public class JiraCloudConnector {
     /**
      * This will progress an issue through a workflow.
      *
-     * {@code         <jira:progress-workflow-action issueKey="someIssueKey" actionIdString="someActionIdString">
-                          <jira:fieldIds>
-                              <jira:fieldId>fieldId1</jira:fieldId>
-                              <jira:fieldId>fieldId2</jira:fieldId>
-                          </jira:fieldIds>
-                          <jira:fieldsValues>
-                              <jira:fieldsValue>value1</jira:fieldsValue>
-                              <jira:fieldsValue>value2</jira:fieldsValue>
-                          </jira:fieldsValues>
-                      </jira:progress-workflow-action> }
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:progress-workflow-action }
+ 
      * @param token          optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @param issueKey       the issue to update.
      * @param actionIdString the workflow action to progress to
@@ -1775,7 +1776,8 @@ public class JiraCloudConnector {
     /**
      * Returns the security schemes.
      *
-     * {@code <jira:get-security-schemes/>}
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-security-schemes}
+
      * @param token optionally provide a token to use, if not provided {@link JiraCloudConnector#username} and {@link JiraCloudConnector#password} will be used
      * @return the security schemes.
      */
