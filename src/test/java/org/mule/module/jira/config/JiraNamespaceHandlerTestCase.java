@@ -14,13 +14,14 @@
 
 package org.mule.module.jira.config;
 
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mule.construct.SimpleFlowConstruct;
+import org.mule.api.processor.MessageProcessor;
 import org.mule.module.jira.JiraClientFactory;
 import org.mule.module.jira.api.JiraClient;
 import org.mule.tck.FunctionalTestCase;
+
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
 
@@ -554,7 +555,7 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
         Mockito.verify(mockJiraClient).progressWorkflowAction(TOKEN, ISSUE_KEY, "someActionIdString", FIELD_IDS, FIELD_VALUES);
     }
 
-    private SimpleFlowConstruct lookupFlowConstruct(String name) {
-        return (SimpleFlowConstruct) muleContext.getRegistry().lookupFlowConstruct(name);
+    private MessageProcessor lookupFlowConstruct(String name) {
+        return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(name);
     }
 }
