@@ -15,10 +15,10 @@
 
 <mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
-      xmlns:jira="http://www.mulesoft.org/schema/mule/jira"
+      xmlns:jira="http://repository.mulesoft.org/releases/org/mule/modules/mule-module-jira"
       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
-                          http://www.mulesoft.org/schema/mule/jira http://www.mulesoft.org/schema/mule/jira/1.0/mule-jira.xsd">
+                          http://repository.mulesoft.org/releases/org/mule/modules/mule-module-jira http://repository.mulesoft.org/releases/org/mule/modules/mule-module-jira/2.0/mule-jira.xsd">
 
 
     <jira:config name="default" username="fede" password="1024"
@@ -85,14 +85,14 @@
                            reporter="someUserName"
                            dueDate="someDueDate" description="someDescription" environment="someEnvironment"
                            priority="somePriority" votes="10">
-            <jira:customFieldKeys>
-                <jira:customFieldKey>key1</jira:customFieldKey>
-                <jira:customFieldKey>key2</jira:customFieldKey>
-            </jira:customFieldKeys>
-            <jira:customFieldValues>
-                <jira:customFieldValue>value1</jira:customFieldValue>
-                <jira:customFieldValue>value2</jira:customFieldValue>
-            </jira:customFieldValues>
+            <jira:custom-field-keys>
+                <jira:custom-field-key>key1</jira:custom-field-key>
+                <jira:custom-field-key>key2</jira:custom-field-key>
+            </jira:custom-field-keys>
+            <jira:custom-field-values>
+                <jira:custom-field-value>value1</jira:custom-field-value>
+                <jira:custom-field-value>value2</jira:custom-field-value>
+            </jira:custom-field-values>
         </jira:create-issue>
     </flow>
 
@@ -102,27 +102,27 @@
                                                dueDate="someDueDate" description="someDescription"
                                                environment="someEnvironment" priority="somePriority" votes="10"
                                                securityLevelId="1">
-            <jira:customFieldKeys>
-                <jira:customFieldKey>key1</jira:customFieldKey>
-                <jira:customFieldKey>key2</jira:customFieldKey>
-            </jira:customFieldKeys>
-            <jira:customFieldValues>
-                <jira:customFieldValue>value1</jira:customFieldValue>
-                <jira:customFieldValue>value2</jira:customFieldValue>
-            </jira:customFieldValues>
+            <jira:custom-field-keys>
+                <jira:custom-field-key>key1</jira:custom-field-key>
+                <jira:custom-field-key>key2</jira:custom-field-key>
+            </jira:custom-field-keys>
+            <jira:custom-field-values>
+                <jira:custom-field-value>value1</jira:custom-field-value>
+                <jira:custom-field-value>value2</jira:custom-field-value>
+            </jira:custom-field-values>
         </jira:create-issue-with-security-level>
     </flow>
 
     <flow name="updateIssue">
         <jira:update-issue issueKey="someIssueKey">
-            <jira:fieldIds>
-                <jira:fieldId>fieldId1</jira:fieldId>
-                <jira:fieldId>fieldId2</jira:fieldId>
-            </jira:fieldIds>
-            <jira:fieldValues>
-                <jira:fieldValue>value1</jira:fieldValue>
-                <jira:fieldValue>value2</jira:fieldValue>
-            </jira:fieldValues>
+            <jira:field-ids>
+                <jira:field-id>fieldId1</jira:field-id>
+                <jira:field-id>fieldId2</jira:field-id>
+            </jira:field-ids>
+            <jira:field-values>
+                <jira:field-value>value1</jira:field-value>
+                <jira:field-value>value2</jira:field-value>
+            </jira:field-values>
         </jira:update-issue>
     </flow>
 
@@ -408,10 +408,10 @@
 
     <flow name="getIssuesFromTextSearchWithProject">
         <jira:get-issues-from-text-search-with-project searchTerms="someSearchTerms" maxNumResults="10">
-            <jira:projectKeys>
-                <jira:projectKey>projectKey1</jira:projectKey>
-                <jira:projectKey>projectKey2</jira:projectKey>
-            </jira:projectKeys>
+            <jira:project-keys>
+                <jira:project-key>projectKey1</jira:project-key>
+                <jira:project-key>projectKey2</jira:project-key>
+            </jira:project-keys>
         </jira:get-issues-from-text-search-with-project>
     </flow>
 
@@ -433,14 +433,14 @@
 
     <flow name="addBase64EncodedAttachmentsToIssue">
         <jira:add-base64-encoded-attachments-to-issue issueKey="someIssueKey">
-            <jira:fileNames>
-                <jira:fileName>fileName1</jira:fileName>
-                <jira:fileName>fileName2</jira:fileName>
-            </jira:fileNames>
-            <jira:base64EncodedAttachmentData>
-                <jira:base64EncodedAttachmentDatum>base64EncodedAttachment1</jira:base64EncodedAttachmentDatum>
-                <jira:base64EncodedAttachmentDatum>base64EncodedAttachment2</jira:base64EncodedAttachmentDatum>
-            </jira:base64EncodedAttachmentData>
+            <jira:file-names>
+                <jira:file-name>fileName1</jira:file-name>
+                <jira:file-name>fileName2</jira:file-name>
+            </jira:file-names>
+            <jira:base64-encoded-attachment-data>
+                <jira:base64-encoded-attachment-datum>base64EncodedAttachment1</jira:base64-encoded-attachment-datum>
+                <jira:base64-encoded-attachment-datum>base64EncodedAttachment2</jira:base64-encoded-attachment-datum>
+            </jira:base64-encoded-attachment-data>
         </jira:add-base64-encoded-attachments-to-issue>
     </flow>
 
@@ -501,14 +501,14 @@
 
     <flow name="progressWorkflowAction">
         <jira:progress-workflow-action issueKey="someIssueKey" actionIdString="someActionIdString">
-            <jira:fieldIds>
-                <jira:fieldId>fieldId1</jira:fieldId>
-                <jira:fieldId>fieldId2</jira:fieldId>
-            </jira:fieldIds>
-            <jira:fieldsValues>
-                <jira:fieldsValue>value1</jira:fieldsValue>
-                <jira:fieldsValue>value2</jira:fieldsValue>
-            </jira:fieldsValues>
+            <jira:field-ids>
+                <jira:field-id>fieldId1</jira:field-id>
+                <jira:field-id>fieldId2</jira:field-id>
+            </jira:field-ids>
+            <jira:fields-values>
+                <jira:fields-value>value1</jira:fields-value>
+                <jira:fields-value>value2</jira:fields-value>
+            </jira:fields-values>
         </jira:progress-workflow-action>
     </flow>
 </mule>

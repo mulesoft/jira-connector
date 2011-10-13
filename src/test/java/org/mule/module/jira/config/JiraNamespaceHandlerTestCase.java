@@ -14,13 +14,17 @@
 
 package org.mule.module.jira.config;
 
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mule.construct.SimpleFlowConstruct;
+import org.mule.api.processor.MessageProcessor;
 import org.mule.module.jira.JiraClientFactory;
 import org.mule.module.jira.api.JiraClient;
 import org.mule.tck.FunctionalTestCase;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
 
@@ -41,10 +45,10 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
     private static final String ESTIMATE = "1h";
     private static final int OFFSET = 12;
     private static final int MAX_NUM_RESULTS = 10;
-    private static final String[] ACTORS = new String[]{"actor1", "actor2"};
-    private static final String[] FIELD_KEYS = new String[]{"key1", "key2"};
-    private static final String[] FIELD_VALUES = new String[]{"value1", "value2"};
-    private static final String[] FIELD_IDS = new String[]{"fieldId1", "fieldId2"};
+    private static final List<String> ACTORS = Arrays.asList( "actor1", "actor2" );
+    private static final List<String> FIELD_KEYS = Arrays.asList("key1", "key2" );
+    private static final List<String> FIELD_VALUES = Arrays.asList("value1", "value2");
+    private static final List<String> FIELD_IDS = Arrays.asList("fieldId1", "fieldId2");
     private static final String COMMENT = "someComment";
     @Mock
     private JiraClient mockJiraClient;
@@ -108,7 +112,7 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
 
     public void testUpdateGroup() throws Exception {
         lookupFlowConstruct("updateGroup").process(getTestEvent(""));
-        String[] usernames = {USER_NAME};
+        List<String> usernames = Arrays.asList(USER_NAME);
         Mockito.verify(mockJiraClient).updateGroup(TOKEN, GROUP_NAME, usernames);
     }
 
@@ -137,12 +141,12 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
         lookupFlowConstruct("createIssueWithSecurityLevel").process(getTestEvent(""));
         Mockito.verify(mockJiraClient).createIssueWithSecurityLevel(TOKEN, USER_NAME, "someSummary", "someDescription",
                 "someDueDate", "someEnvironment", "somePriority", "someProject", USER_NAME, "someType", 10L,
-                new String[]{"key1", "key2"}, new String[]{"value1", "value2"}, 1L);
+                Arrays.asList("key1", "key2"), Arrays.asList("value1", "value2"), 1L);
     }
 
     public void testUpdateIssue() throws Exception {
         lookupFlowConstruct("updateIssue").process(getTestEvent(""));
-        Mockito.verify(mockJiraClient).updateIssue(TOKEN, ISSUE_KEY, FIELD_IDS, new String[]{"value1", "value2"});
+        Mockito.verify(mockJiraClient).updateIssue(TOKEN, ISSUE_KEY, FIELD_IDS, Arrays.asList("value1", "value2"));
     }
 
 
@@ -460,7 +464,7 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
 
     public void testGetIssuesFromTextSearchWithProject() throws Exception {
         lookupFlowConstruct("getIssuesFromTextSearchWithProject").process(getTestEvent(""));
-        Mockito.verify(mockJiraClient).getIssuesFromTextSearchWithProject(TOKEN, new String[]{"projectKey1", "projectKey2"}, "someSearchTerms", MAX_NUM_RESULTS);
+        Mockito.verify(mockJiraClient).getIssuesFromTextSearchWithProject(TOKEN, Arrays.asList("projectKey1", "projectKey2"), "someSearchTerms", MAX_NUM_RESULTS);
     }
 
     public void testGetIssuesFromJqlSearch() throws Exception {
@@ -485,8 +489,8 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
 
     public void testAddBase64EncodedAttachmentsToIssue() throws Exception {
         lookupFlowConstruct("addBase64EncodedAttachmentsToIssue").process(getTestEvent(""));
-        Mockito.verify(mockJiraClient).addBase64EncodedAttachmentsToIssue(TOKEN, ISSUE_KEY, new String[]{"fileName1", "fileName2"},
-                new String[]{"base64EncodedAttachment1", "base64EncodedAttachment2"});
+        Mockito.verify(mockJiraClient).addBase64EncodedAttachmentsToIssue(TOKEN, ISSUE_KEY, Arrays.asList("fileName1", "fileName2"),
+                Arrays.asList("base64EncodedAttachment1", "base64EncodedAttachment2"));
     }
 
     public void testGetIssuesFromFilterWithLimit() throws Exception {
@@ -554,7 +558,7 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
         Mockito.verify(mockJiraClient).progressWorkflowAction(TOKEN, ISSUE_KEY, "someActionIdString", FIELD_IDS, FIELD_VALUES);
     }
 
-    private SimpleFlowConstruct lookupFlowConstruct(String name) {
-        return (SimpleFlowConstruct) muleContext.getRegistry().lookupFlowConstruct(name);
+    private MessageProcessor lookupFlowConstruct(String name) {
+        return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(name);
     }
 }
