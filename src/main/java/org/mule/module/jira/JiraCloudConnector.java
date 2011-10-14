@@ -1777,7 +1777,7 @@ public class JiraCloudConnector {
 
     public synchronized JiraClient<List<Object>> getClient() {
         if (client == null) {
-            client = JiraClientFactory.getClient(address);
+            setClient(JiraClientFactory.getClient(address));
         }
         return client;
     }
