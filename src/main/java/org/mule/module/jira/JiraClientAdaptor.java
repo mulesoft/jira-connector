@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class JiraClientAdaptor {
-    private static Logger log = LoggerFactory.getLogger(JiraCloudConnector.class);
+    private static Logger log = LoggerFactory.getLogger(JiraConnector.class);
 
     private JiraClientAdaptor() {
     }
@@ -66,10 +66,10 @@ public final class JiraClientAdaptor {
 
     private static Throwable adaptException(Throwable e) {
         if (e instanceof AxisFault) {
-            return new JiraCloudConnectorException(((AxisFault) e).getFaultString(), e);
+            return new JiraConnectorException(((AxisFault) e).getFaultString(), e);
         }
         if (e instanceof RemoteException) {
-            return new JiraCloudConnectorException(e);
+            return new JiraConnectorException(e);
         }
         return e;
     }

@@ -4,8 +4,8 @@
   <groupId>org.mule.modules</groupId>
   <artifactId>mule-module-jira</artifactId>
   <packaging>mule-module</packaging>
-  <name>Mule Jira Cloud Connector</name>
-  <version>2.1-SNPASHOT</version>
+  <name>Mule Jira Connector</name>
+  <version>2.1-SNAPSHOT</version>
   <description>Mule Cloud connector to Jira</description>
   <url>http://www.muleforge.org/projects/mule-module-jira</url>
 

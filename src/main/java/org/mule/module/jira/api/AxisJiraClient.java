@@ -10,7 +10,7 @@
 
 package org.mule.module.jira.api;
 
-import org.mule.module.jira.JiraCloudConnectorException;
+import org.mule.module.jira.JiraConnectorException;
 
 import com.atlassian.jira.rpc.soap.beans.RemoteAttachment;
 import com.atlassian.jira.rpc.soap.beans.RemoteAvatar;
@@ -64,7 +64,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getComment(token, id);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -72,7 +72,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getConfiguration(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -81,7 +81,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
             RemoteUser user = getUser(token, userName);
             return getService().createGroup(token, groupName, user);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -89,7 +89,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getServerInfo(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -97,7 +97,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getGroup(token, groupName);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -105,7 +105,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().createUser(token, username, password, fullName, email);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -114,7 +114,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
             RemoteComment comment = helper.createComment(commentAuthor, commentBody, commentGroupLevel, commentRoleLevel);
             getService().addComment(token, issueKey, comment);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -122,7 +122,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getComponents(token, projectKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -130,7 +130,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getUser(token, username);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -138,7 +138,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().addUserToGroup(token, getGroup(token, groupName), getUser(token, userName));
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -146,7 +146,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().removeUserFromGroup(token, getGroup(token, groupName), getUser(token, userName));
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -154,7 +154,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getIssue(token, issueKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -163,7 +163,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().createIssue(token, issue);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -171,7 +171,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().updateIssue(token, issueKey, helper.createFieldValues(toStringArray(fieldIds), toStringArray(fieldValues)));
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -182,7 +182,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
             RemoteEntity entity = helper.getUserOrUserGroupByName(token, entityName);
             return getService().addPermissionTo(token, permissionScheme, remotePermission, entity);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -193,7 +193,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
             RemoteEntity entity = helper.getUserOrUserGroupByName(token, entityName);
             return getService().deletePermissionFrom(token, permissionScheme, remotePermission, entity);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -201,7 +201,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().deleteIssue(token, issueKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -209,7 +209,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getAvailableActions(token, issueKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -217,7 +217,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getSubTaskIssueTypes(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -225,7 +225,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getProjectByKey(token, projectKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -233,7 +233,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getPriorities(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -241,7 +241,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getResolutions(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -249,7 +249,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getIssueTypes(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -257,7 +257,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getStatuses(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -265,7 +265,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getIssueTypesForProject(token, projectId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -273,7 +273,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getProjectRoles(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -281,7 +281,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getProjectRole(token, id);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -289,7 +289,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getDefaultRoleActors(token, getProjectRole(token, projectRoleId));
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -297,7 +297,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().removeAllRoleActorsByNameAndType(token, name, type);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -305,7 +305,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().deleteProjectRole(token, getProjectRole(token, projectRoleId), confirm);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -313,7 +313,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().addDefaultActorsToProjectRole(token,toStringArray( actors ), getProjectRole(token, projectRoleId), type);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -321,7 +321,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getProjectById(token, projectId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -332,7 +332,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().createProjectRole(token, projectRole);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -342,7 +342,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().addActorsToProjectRole(token, toStringArray(actors), projectRole, project, actorType);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -352,7 +352,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().removeActorsFromProjectRole(token, toStringArray(actors), projectRole, project, actorType);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -360,7 +360,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().isProjectRoleNameUnique(token, name);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -371,7 +371,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().updateProjectRole(token, projectRole);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -379,7 +379,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().removeDefaultActorsFromProjectRole(token, toStringArray(actors), getProjectRole(token, projectRoleId), type);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -387,7 +387,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getAssociatedNotificationSchemes(token, getProjectRole(token, projectRoleId));
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -395,7 +395,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getAssociatedPermissionSchemes(token, getProjectRole(token, projectRoleId));
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -403,7 +403,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getVersions(token, projectKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -411,7 +411,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getComments(token, issueKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -419,7 +419,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().deleteProject(token, projectKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -427,7 +427,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getFieldsForEdit(token, issueKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -435,7 +435,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getSubTaskIssueTypesForProject(token, projectId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -443,7 +443,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getSecurityLevel(token, issueKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -451,7 +451,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getProjectWithSchemesById(token, projectId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -459,7 +459,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getFavouriteFilters(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -467,7 +467,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().archiveVersion(token, projectKey, versionName, archive);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -476,7 +476,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().releaseVersion(token, projectKey, version);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -484,7 +484,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getSecurityLevels(token, projectKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -492,7 +492,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getProjectAvatars(token, projectKey, includeSystemAvatars);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -500,7 +500,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().setProjectAvatar(token, projectKey, avatarId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -508,7 +508,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getProjectAvatar(token, projectKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -516,7 +516,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().deleteProjectAvatar(token, avatarId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -524,7 +524,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getNotificationSchemes(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -532,7 +532,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getPermissionSchemes(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -540,7 +540,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getAttachmentsFromIssue(token, issueKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -548,7 +548,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getFieldsForAction(token, issueKey, actionIdString);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -556,7 +556,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().progressWorkflowAction(token, issueKey, actionIdString, helper.createFieldValues(toStringArray(fieldIds), toStringArray(fieldsValues)));
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -564,7 +564,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().deleteWorklogWithNewRemainingEstimate(token, workLogId, newRemainingEstimate);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -572,7 +572,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().deleteWorklogAndAutoAdjustRemainingEstimate(token, worklogId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -583,7 +583,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().updateWorklogWithNewRemainingEstimate(token, worklog, newRemainingEstimate);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -591,7 +591,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().deleteWorklogAndRetainRemainingEstimate(token, worklogId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -599,7 +599,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getWorklogs(token, issueKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -607,7 +607,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().hasPermissionToCreateWorklog(token, issueKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -615,7 +615,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().hasPermissionToDeleteWorklog(token, worklogId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -623,7 +623,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().hasPermissionToUpdateWorklog(token, worklogId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -631,7 +631,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getResolutionDateByKey(token, issueKey);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -639,7 +639,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getResolutionDateById(token, issueId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -647,7 +647,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getIssueCountForFilter(token, filterId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -655,7 +655,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getIssuesFromTextSearchWithProject(token, toStringArray(projectKeys), searchTerms, maxNumResults);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -663,7 +663,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getIssuesFromJqlSearch(token, jqlSearch, maxNumResults);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -671,7 +671,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().deleteUser(token, username);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -679,7 +679,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().deleteGroup(token, groupName, swapGroupName);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -687,7 +687,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().refreshCustomFields(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -695,7 +695,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().addBase64EncodedAttachmentsToIssue(token, issueKey, toStringArray(fileNames), toStringArray(base64EncodedAttachmentData));
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -703,7 +703,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getIssuesFromFilterWithLimit(token, filterId, offset, maxNumResults);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -711,7 +711,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getIssuesFromTextSearchWithLimit(token, searchTerms, offset, maxNumResults);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -719,7 +719,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getProjectsNoSchemes(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -727,7 +727,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getSecuritySchemes(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -736,7 +736,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().addVersion(token, projectKey, version);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -744,7 +744,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().setNewProjectAvatar(token, projectKey, contentType, base64ImageData);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -752,7 +752,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getCustomFields(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -760,7 +760,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().deletePermissionScheme(token, permissionSchemeName);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -768,7 +768,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getIssueById(token, issueId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -779,7 +779,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().updateGroup(token, group);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -787,7 +787,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             getService().removeAllRoleActorsByProject(token, getProjectByKey(token, projectKey));
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -795,7 +795,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getProjectRoleActors(token, getProjectRole(token, projectRoleId), getProjectByKey(token, projectKey));
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -803,7 +803,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().logout(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -811,7 +811,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().getAllPermissions(token);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -819,7 +819,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().createPermissionScheme(token, name, description);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -827,7 +827,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().login(username, password);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -838,7 +838,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().createIssueWithSecurityLevel(token, issue, securityLevelId);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -846,7 +846,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().hasPermissionToEditComment(token, getComment(token, commentId));
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -857,7 +857,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().editComment(token, comment);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -869,7 +869,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().createProject(token, key, name, description, url, lead, permissionScheme, notificationScheme, securityScheme);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 
@@ -885,7 +885,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         try {
             return getService().updateProject(token, project);
         } catch (RemoteException e) {
-            throw new JiraCloudConnectorException(e);
+            throw new JiraConnectorException(e);
         }
     }
 

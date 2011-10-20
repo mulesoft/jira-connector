@@ -11,7 +11,7 @@
 package org.mule.module.jira.api;
 
 import com.atlassian.jira.rpc.soap.beans.*;
-import org.mule.module.jira.JiraCloudConnectorException;
+import org.mule.module.jira.JiraConnectorException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,7 +58,7 @@ public class AxisJiraClientHelper {
             return null;
         }
         if (customFieldKeys.length != customFieldValues.length) {
-            throw new JiraCloudConnectorException("The number of keys provided does not match the number of value sets");
+            throw new JiraConnectorException("The number of keys provided does not match the number of value sets");
         }
         RemoteCustomFieldValue[] result = new RemoteCustomFieldValue[customFieldKeys.length];
         for (int i = 0; i < customFieldKeys.length; i++) {
@@ -77,7 +77,7 @@ public class AxisJiraClientHelper {
             calendar.setTime(date);
             return calendar;
         } catch (ParseException e) {
-            throw new JiraCloudConnectorException("Could not parse date string: " + dateString + " expected format is: " + DATE_FORMAT, e);
+            throw new JiraConnectorException("Could not parse date string: " + dateString + " expected format is: " + DATE_FORMAT, e);
         }
     }
 
@@ -89,7 +89,7 @@ public class AxisJiraClientHelper {
         for (String username : usernames) {
             RemoteUser user = axisJiraClient.getUser(token, username);
             if(user == null) {
-                throw new JiraCloudConnectorException("No user exists with username: " + username);
+                throw new JiraConnectorException("No user exists with username: " + username);
             }
             remoteUsers.add(user);
         }
@@ -106,7 +106,7 @@ public class AxisJiraClientHelper {
                 return permissionScheme;
             }
         }
-        throw new JiraCloudConnectorException("Permission scheme not found found with name: " + permissionSchemeName);
+        throw new JiraConnectorException("Permission scheme not found found with name: " + permissionSchemeName);
     }
 
     protected RemoteScheme getNotificationScheme(String token, String notificationSchemeName) {
@@ -119,7 +119,7 @@ public class AxisJiraClientHelper {
                 return notificationScheme;
             }
         }
-        throw new JiraCloudConnectorException("Notification scheme not found with name: " + notificationSchemeName);
+        throw new JiraConnectorException("Notification scheme not found with name: " + notificationSchemeName);
     }
 
     protected RemoteScheme getSecurityScheme(String token, String securityShemeName) {
@@ -132,7 +132,7 @@ public class AxisJiraClientHelper {
                 return securityScheme;
             }
         }
-        throw new JiraCloudConnectorException("Security scheme not found with name: " + securityShemeName);
+        throw new JiraConnectorException("Security scheme not found with name: " + securityShemeName);
     }
 
     protected void upateSecurityScheme(String token, String securityShemeName, RemoteProject project) {
@@ -205,7 +205,7 @@ public class AxisJiraClientHelper {
                 return version;
             }
         }
-        throw new JiraCloudConnectorException("Version not found found with name: " + versionName);
+        throw new JiraConnectorException("Version not found found with name: " + versionName);
     }
 
     protected RemoteWorklog getWorklog(String token, String issueKey, String worklogId) {
@@ -215,7 +215,7 @@ public class AxisJiraClientHelper {
                 return worklog;
             }
         }
-        throw new JiraCloudConnectorException("Worklok not found found with id: " + worklogId);
+        throw new JiraConnectorException("Worklok not found found with id: " + worklogId);
     }
 
     protected void updateWorkLog(RemoteWorklog worklog, String comment, String groupLevel, String roleLevelId) {
@@ -244,7 +244,7 @@ public class AxisJiraClientHelper {
             return null;
         }
         if (fieldIds.length != fieldValues.length) {
-            throw new JiraCloudConnectorException("The number of field ids provided does not match the number of value sets");
+            throw new JiraConnectorException("The number of field ids provided does not match the number of value sets");
         }
         RemoteFieldValue[] result = new RemoteFieldValue[fieldIds.length];
         for (int i = 0; i < fieldIds.length; i++) {
@@ -262,7 +262,7 @@ public class AxisJiraClientHelper {
         if (group != null) {
             return group;
         }
-        throw new JiraCloudConnectorException("No user or group found with name: " + entityName);
+        throw new JiraConnectorException("No user or group found with name: " + entityName);
     }
 
     protected RemotePermission getPermission(String token, Long permissionCode) {
@@ -272,6 +272,6 @@ public class AxisJiraClientHelper {
                 return permission;
             }
         }
-        throw new JiraCloudConnectorException("No permission found for code: " + permissionCode);
+        throw new JiraConnectorException("No permission found for code: " + permissionCode);
     }
 }
