@@ -67,7 +67,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <meta name="description" content="Documentation for Mule Jira Cloud Connector." />
+  <meta name="description" content="Documentation for Mule Jira Connector." />
 
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
@@ -75,7 +75,7 @@
   GetAllPermissionsMessageProcessor
 
 
-| Mule Jira Cloud Connector
+| Mule Jira Connector
 
 </title>
 <link href="../../../../../../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
@@ -109,7 +109,7 @@
 <div id="header">
     <div id="headerLeft">
     
-      <span id="masthead-title">Mule Jira Cloud Connector</span>
+      <span id="masthead-title">Mule Jira Connector</span>
     
     <ul id="header-tabs" class="">
     	<li id="guide"><a href="../../../../../../guide/install.html">
@@ -280,6 +280,8 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/IsProjectRoleNameUniqueMessageProcessor.html">IsProjectRoleNameUniqueMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorCapabilitiesAdapter.html">JiraCloudConnectorCapabilitiesAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorLifecycleAdapter.html">JiraCloudConnectorLifecycleAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorCapabilitiesAdapter.html">JiraConnectorCapabilitiesAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/LoginMessageProcessor.html">LoginMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/LogoutMessageProcessor.html">LogoutMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/ProgressWorkflowActionMessageProcessor.html">ProgressWorkflowActionMessageProcessor</a></li>
@@ -524,7 +526,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>GetAllPermissionsMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraCloudConnector.html#getAllPermissions(java.lang.String)">getAllPermissions(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraCloudConnector.html">JiraCloudConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>GetAllPermissionsMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html#getAllPermissions(java.lang.String)">getAllPermissions(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  
 </p>
 
@@ -758,7 +760,7 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          <a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorLifecycleAdapter.html">JiraCloudConnectorLifecycleAdapter</a></nobr></td>
+          <a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a></nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAllPermissionsMessageProcessor.html#moduleObject">moduleObject</a></td>
           <td class="jd-descrcol" width="100%">Module object
  
@@ -927,7 +929,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAllPermissionsMessageProcessor.html#setModuleObject(org.mule.module.jira.config.JiraCloudConnectorLifecycleAdapter)">setModuleObject</a></span>(<a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorLifecycleAdapter.html">JiraCloudConnectorLifecycleAdapter</a> moduleObject)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAllPermissionsMessageProcessor.html#setModuleObject(org.mule.module.jira.config.JiraConnectorLifecycleAdapter)">setModuleObject</a></span>(<a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a> moduleObject)</nobr>
         
         <div class="jd-descrdiv">Sets the instance of the object under which the processor will execute</div>
   
@@ -1646,7 +1648,7 @@ From interface
         private 
          
          
-        <a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorLifecycleAdapter.html">JiraCloudConnectorLifecycleAdapter</a>
+        <a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a>
       </span>
         moduleObject
     </h4>
@@ -1980,7 +1982,7 @@ From interface
 </div>
 
 
-<A NAME="setModuleObject(org.mule.module.jira.config.JiraCloudConnectorLifecycleAdapter)"></A>
+<A NAME="setModuleObject(org.mule.module.jira.config.JiraConnectorLifecycleAdapter)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1993,7 +1995,7 @@ From interface
         void
       </span>
       <span class="sympad">setModuleObject</span>
-      <span class="normal">(<a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorLifecycleAdapter.html">JiraCloudConnectorLifecycleAdapter</a> moduleObject)</span>
+      <span class="normal">(<a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a> moduleObject)</span>
     </h4>
       <div class="api-level">
         <div>
