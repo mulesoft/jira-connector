@@ -29,7 +29,6 @@ import com.atlassian.jira.rpc.soap.beans.RemoteServerInfo;
 import com.atlassian.jira.rpc.soap.beans.RemoteUser;
 import com.atlassian.jira.rpc.soap.beans.RemoteVersion;
 import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.param.Optional;
@@ -37,6 +36,7 @@ import org.mule.module.jira.api.JiraClient;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 /**
  * JIRA is a proprietary issue tracking product, developed by Atlassian, commonly used for bug tracking, issue
@@ -295,8 +295,7 @@ public class JiraConnector {
      * @param reporter          the reporter of the new issue
      * @param type              the type of the new issue
      * @param votes             the votes of the new issue
-     * @param customFieldKeys   the custom field keys of the new issue (must contain same number of elements as custom field values array)
-     * @param customFieldValues the custome field values  (must contain same number of elements as custom field keys array)
+     * @param customFields      the custom fields of the new issue, the keys of the map are the field ids
      * @return the new created issue
      */
     @Processor
@@ -311,9 +310,8 @@ public class JiraConnector {
                                    @Optional String reporter,
                                    String type,
                                    @Optional Long votes,
-                                   @Optional List<String> customFieldKeys,
-                                   @Optional List<String> customFieldValues) {
-        return getClient().createIssue(createTokenIfNecessary(token), assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFieldKeys, customFieldValues);
+                                   @Optional Map<String, List<String>> customFields) {
+        return getClient().createIssue(createTokenIfNecessary(token), assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields);
     }
 
     /**
@@ -332,8 +330,7 @@ public class JiraConnector {
      * @param reporter          the reporter of the new issue
      * @param type              the type of the new issue
      * @param votes             the votes of the new issue
-     * @param customFieldKeys   the custom field keys of the new issue (must contain same number of elements as custom field values array)
-     * @param customFieldValues the custome field values  (must contain same number of elements as custom field keys array)
+     * @param customFields      the custom fields of the new issue, the keys of the map are the field ids
      * @param securityLevelId   the id of the security level to use
      * @return the new created issue
      */
@@ -349,10 +346,9 @@ public class JiraConnector {
                                                     @Optional String reporter,
                                                     String type,
                                                     @Optional Long votes,
-                                                    @Optional List<String> customFieldKeys,
-                                                    @Optional List<String> customFieldValues,
+                                                    @Optional Map<String, List<String>> customFields,
                                                     Long securityLevelId) {
-        return getClient().createIssueWithSecurityLevel(createTokenIfNecessary(token), assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFieldKeys, customFieldValues, securityLevelId);
+        return getClient().createIssueWithSecurityLevel(createTokenIfNecessary(token), assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields, securityLevelId);
     }
 
     /**
@@ -363,16 +359,14 @@ public class JiraConnector {
      *
      * @param token       optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey    the issue to update.
-     * @param fieldIds    the ids of the custom fields
-     * @param fieldValues the values for each custom field id
+     * @param fields      the fields to be updated, the key of the map is the field id and the value is a list of values for that field.
      * @return the updated RemoteIssue
      */
     @Processor
     public RemoteIssue updateIssue(@Optional String token,
                                    String issueKey,
-                                   List<String> fieldIds,
-                                   List<String> fieldValues) {
-        return getClient().updateIssue(createTokenIfNecessary(token), issueKey, fieldIds, fieldValues);
+                                   Map<String, List<String>> fields) {
+        return getClient().updateIssue(createTokenIfNecessary(token), issueKey, fields);
     }
 
     /**
@@ -1727,17 +1721,15 @@ public class JiraConnector {
      * @param token          optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey       the issue to update.
      * @param actionIdString the workflow action to progress to
-     * @param fieldIds       the ids of the remote fields
-     * @param fieldsValues   the values of the remote fields
+     * @param fields         the fields to be updated, the key of the map is the field id and the value is a list of values for that field.
      * @return the updated RemoteIssue
      */
     @Processor
     public RemoteIssue progressWorkflowAction(@Optional String token,
                                               String issueKey,
                                               String actionIdString,
-                                              @Optional List<String> fieldIds,
-                                              @Optional List<String> fieldsValues) {
-        return getClient().progressWorkflowAction(createTokenIfNecessary(token), issueKey, actionIdString, fieldIds, fieldsValues);
+                                              @Optional Map<String, List<String>> fields) {
+        return getClient().progressWorkflowAction(createTokenIfNecessary(token), issueKey, actionIdString, fields);
     }
 
     /**

@@ -27,6 +27,7 @@ import com.atlassian.jira.rpc.soap.beans.RemoteVersion;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public interface JiraClient<CollectionType>
 {
@@ -71,8 +72,7 @@ public interface JiraClient<CollectionType>
                             String reporter,
                             String type,
                             Long votes,
-                            List<String> customFieldKeys,
-                            List<String> customerFieldValues);
+                            Map<String, List<String>> customFields);
 
     RemoteIssue createIssueWithSecurityLevel(String token,
                                              String asignee,
@@ -85,8 +85,7 @@ public interface JiraClient<CollectionType>
                                              String reporter,
                                              String type,
                                              Long votes,
-                                             List<String> customFieldKeys,
-                                             List<String> customFieldValues,
+                                             Map<String, List<String>> customFields,
                                              Long securityLevelId);
 
     void deleteIssue(String token, String issueKey);
@@ -298,7 +297,7 @@ public interface JiraClient<CollectionType>
                              Boolean released,
                              String releaseDate);
 
-    RemoteIssue updateIssue(String token, String issueKey, List<String> fieldIds, List<String> fieldValues);
+    RemoteIssue updateIssue(String token, String issueKey, Map<String, List<String>> fields);
 
     RemotePermissionScheme addPermissionTo(String token,
                                            String permissionSchemeName,
@@ -313,6 +312,5 @@ public interface JiraClient<CollectionType>
     RemoteIssue progressWorkflowAction(String token,
                                        String issueKey,
                                        String actionIdString,
-                                       List<String> fieldIds,
-                                       List<String> fieldsValues);
+                                       Map<String, List<String>> fields);
 }

@@ -10,8 +10,6 @@
 
 package org.mule.module.jira.api;
 
-import org.mule.module.jira.JiraConnectorException;
-
 import com.atlassian.jira.rpc.soap.beans.RemoteAttachment;
 import com.atlassian.jira.rpc.soap.beans.RemoteAvatar;
 import com.atlassian.jira.rpc.soap.beans.RemoteComment;
@@ -40,14 +38,14 @@ import com.atlassian.jira.rpc.soap.beans.RemoteUser;
 import com.atlassian.jira.rpc.soap.beans.RemoteVersion;
 import com.atlassian.jira.rpc.soap.beans.RemoteWorklog;
 import com.atlassian.jira.rpc.soap.jirasoapservice_v2.JiraSoapService;
+import org.apache.commons.lang.Validate;
+import org.mule.module.jira.JiraConnectorException;
 
+import javax.validation.constraints.NotNull;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.List;
-
-import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang.Validate;
+import java.util.Map;
 
 public class AxisJiraClient implements JiraClient<Object[]> {
 
@@ -158,8 +156,8 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         }
     }
 
-    public RemoteIssue createIssue(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, List<String> customFieldKeys, List<String> customFieldValues) {
-        RemoteIssue issue = helper.createIssue(assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, toStringArray(customFieldKeys), toStringArray(customFieldValues));
+    public RemoteIssue createIssue(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map<String, List<String>> customFields) {
+        RemoteIssue issue = helper.createIssue(assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields);
         try {
             return getService().createIssue(token, issue);
         } catch (RemoteException e) {
@@ -167,9 +165,9 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         }
     }
 
-    public RemoteIssue updateIssue(String token, String issueKey, List<String> fieldIds, List<String> fieldValues) {
+    public RemoteIssue updateIssue(String token, String issueKey, Map<String, List<String>> fields) {
         try {
-            return getService().updateIssue(token, issueKey, helper.createFieldValues(toStringArray(fieldIds), toStringArray(fieldValues)));
+            return getService().updateIssue(token, issueKey, helper.createRemoteFieldValues(fields));
         } catch (RemoteException e) {
             throw new JiraConnectorException(e);
         }
@@ -552,9 +550,9 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         }
     }
 
-    public RemoteIssue progressWorkflowAction(String token, String issueKey, String actionIdString, List<String> fieldIds, List<String> fieldsValues) {
+    public RemoteIssue progressWorkflowAction(String token, String issueKey, String actionIdString, Map<String, List<String>> fields) {
         try {
-            return getService().progressWorkflowAction(token, issueKey, actionIdString, helper.createFieldValues(toStringArray(fieldIds), toStringArray(fieldsValues)));
+            return getService().progressWorkflowAction(token, issueKey, actionIdString, helper.createRemoteFieldValues(fields));
         } catch (RemoteException e) {
             throw new JiraConnectorException(e);
         }
@@ -833,8 +831,8 @@ public class AxisJiraClient implements JiraClient<Object[]> {
 
     public RemoteIssue createIssueWithSecurityLevel(String token, String asignee, String summary, String description,
                                                     String dueDate, String environment, String priority, String project,
-                                                    String reporter, String type, Long votes, List<String> customFieldKeys, List<String> customFieldValues, Long securityLevelId) {
-        RemoteIssue issue = createIssue(token, asignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFieldKeys, customFieldValues);
+                                                    String reporter, String type, Long votes, Map<String, List<String>> customFields, Long securityLevelId) {
+        RemoteIssue issue = createIssue(token, asignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields);
         try {
             return getService().createIssueWithSecurityLevel(token, issue, securityLevelId);
         } catch (RemoteException e) {
@@ -894,6 +892,10 @@ public class AxisJiraClient implements JiraClient<Object[]> {
     }
     
     private String[] toStringArray(List<String> list) {
-        return list.toArray(new String[list.size()]);
+        if(list == null) {
+            return new String[0];
+        } else {
+            return list.toArray(new String[list.size()]);
+        }
     }
 }

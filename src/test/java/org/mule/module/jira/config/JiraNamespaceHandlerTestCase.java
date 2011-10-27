@@ -14,17 +14,18 @@
 
 package org.mule.module.jira.config;
 
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mule.api.processor.MessageProcessor;
 import org.mule.module.jira.JiraClientFactory;
 import org.mule.module.jira.api.JiraClient;
 import org.mule.tck.FunctionalTestCase;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import java.util.Map;
 
 public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
 
@@ -46,18 +47,20 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
     private static final int OFFSET = 12;
     private static final int MAX_NUM_RESULTS = 10;
     private static final List<String> ACTORS = Arrays.asList( "actor1", "actor2" );
-    private static final List<String> FIELD_KEYS = Arrays.asList("key1", "key2" );
-    private static final List<String> FIELD_VALUES = Arrays.asList("value1", "value2");
-    private static final List<String> FIELD_IDS = Arrays.asList("fieldId1", "fieldId2");
     private static final String COMMENT = "someComment";
     @Mock
     private JiraClient mockJiraClient;
+    private Map<String,List<String>> fields;
 
     @Override
     protected void doSetUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        Mockito.when(mockJiraClient.login("fede", "1024")).thenReturn(TOKEN);
+        Mockito.when(mockJiraClient.login("fede", "fede")).thenReturn(TOKEN);
         JiraClientFactory.setDefaultClient(mockJiraClient);
+
+        fields = new LinkedHashMap<String, List<String>>(2);
+        fields.put("field1Id", Arrays.asList("value1"));
+        fields.put("field2Id", Arrays.asList("value21", "value22"));
     }
 
     @Override
@@ -134,19 +137,19 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
     public void testCreateIssue() throws Exception {
         lookupFlowConstruct("createIssue").process(getTestEvent(""));
         Mockito.verify(mockJiraClient).createIssue(TOKEN, USER_NAME, "someSummary", "someDescription", "someDueDate",
-                "someEnvironment", "somePriority", "someProject", USER_NAME, "someType", 10L, FIELD_KEYS, FIELD_VALUES);
+                "someEnvironment", "somePriority", "someProject", USER_NAME, "someType", 10L, fields);
     }
 
     public void testCreateIssueWithSecurityLevel() throws Exception {
         lookupFlowConstruct("createIssueWithSecurityLevel").process(getTestEvent(""));
         Mockito.verify(mockJiraClient).createIssueWithSecurityLevel(TOKEN, USER_NAME, "someSummary", "someDescription",
                 "someDueDate", "someEnvironment", "somePriority", "someProject", USER_NAME, "someType", 10L,
-                Arrays.asList("key1", "key2"), Arrays.asList("value1", "value2"), 1L);
+                fields, 1L);
     }
 
     public void testUpdateIssue() throws Exception {
         lookupFlowConstruct("updateIssue").process(getTestEvent(""));
-        Mockito.verify(mockJiraClient).updateIssue(TOKEN, ISSUE_KEY, FIELD_IDS, Arrays.asList("value1", "value2"));
+        Mockito.verify(mockJiraClient).updateIssue(TOKEN, ISSUE_KEY, fields);
     }
 
 
@@ -555,7 +558,7 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
 
     public void testProgressWorkflowAction() throws Exception {
         lookupFlowConstruct("progressWorkflowAction").process(getTestEvent(""));
-        Mockito.verify(mockJiraClient).progressWorkflowAction(TOKEN, ISSUE_KEY, "someActionIdString", FIELD_IDS, FIELD_VALUES);
+        Mockito.verify(mockJiraClient).progressWorkflowAction(TOKEN, ISSUE_KEY, "someActionIdString", fields);
     }
 
     private MessageProcessor lookupFlowConstruct(String name) {

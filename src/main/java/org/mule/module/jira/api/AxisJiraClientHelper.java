@@ -10,18 +10,40 @@
 
 package org.mule.module.jira.api;
 
-import com.atlassian.jira.rpc.soap.beans.*;
+import com.atlassian.jira.rpc.soap.beans.RemoteComment;
+import com.atlassian.jira.rpc.soap.beans.RemoteCustomFieldValue;
+import com.atlassian.jira.rpc.soap.beans.RemoteEntity;
+import com.atlassian.jira.rpc.soap.beans.RemoteFieldValue;
+import com.atlassian.jira.rpc.soap.beans.RemoteGroup;
+import com.atlassian.jira.rpc.soap.beans.RemoteIssue;
+import com.atlassian.jira.rpc.soap.beans.RemotePermission;
+import com.atlassian.jira.rpc.soap.beans.RemotePermissionScheme;
+import com.atlassian.jira.rpc.soap.beans.RemoteProject;
+import com.atlassian.jira.rpc.soap.beans.RemoteProjectRole;
+import com.atlassian.jira.rpc.soap.beans.RemoteScheme;
+import com.atlassian.jira.rpc.soap.beans.RemoteUser;
+import com.atlassian.jira.rpc.soap.beans.RemoteVersion;
+import com.atlassian.jira.rpc.soap.beans.RemoteWorklog;
 import org.mule.module.jira.JiraConnectorException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class AxisJiraClientHelper {
 
     private static final String DATE_FORMAT = "MM-dd-yyy'T'HH:mm:ss";
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
+    private static final String EMPTY_PARENT_KEY = "";
+    private static final RemoteCustomFieldValue[] EMPTY_REMOTE_CUSTOM_FIELDS = new RemoteCustomFieldValue[0];
     private AxisJiraClient axisJiraClient;
+    private static final RemoteFieldValue[] EMPTY_FIELDS = new RemoteFieldValue[0];
 
     public AxisJiraClientHelper(AxisJiraClient axisJiraClient) {
         this.axisJiraClient = axisJiraClient;
@@ -37,7 +59,7 @@ public class AxisJiraClientHelper {
     }
 
     protected RemoteIssue createIssue(String assignee, String summary, String description, String dueDate, String environment,
-                                      String priority, String project, String reporter, String type, Long votes, String[] customFieldKeys, String[] customerFieldValues) {
+                                      String priority, String project, String reporter, String type, Long votes, Map<String, List<String>> customFields) {
         RemoteIssue remoteIssue = new RemoteIssue();
         remoteIssue.setAssignee(assignee);
         remoteIssue.setSummary(summary);
@@ -49,20 +71,34 @@ public class AxisJiraClientHelper {
         remoteIssue.setReporter(reporter);
         remoteIssue.setType(type);
         remoteIssue.setVotes(votes);
-        remoteIssue.setCustomFieldValues(getRemoteCustomFieldValues(customFieldKeys, customerFieldValues));
+        remoteIssue.setCustomFieldValues(getRemoteCustomFieldValues(customFields));
         return remoteIssue;
     }
 
-    protected RemoteCustomFieldValue[] getRemoteCustomFieldValues(String[] customFieldKeys, String[] customFieldValues) {
-        if (customFieldKeys == null || customFieldValues == null) {
-            return null;
+    protected RemoteCustomFieldValue[] getRemoteCustomFieldValues(Map<String, List<String>> customFields) {
+        if (customFields == null) {
+            return EMPTY_REMOTE_CUSTOM_FIELDS;
         }
-        if (customFieldKeys.length != customFieldValues.length) {
-            throw new JiraConnectorException("The number of keys provided does not match the number of value sets");
+        RemoteCustomFieldValue[] result = new RemoteCustomFieldValue[customFields.size()];
+        int i = 0;
+        for(Entry<String, List<String>> entry : customFields.entrySet()) {
+            String customeFieldId = entry.getKey();
+            List<String> fieldValues = entry.getValue();
+            result[i++] = new RemoteCustomFieldValue(customeFieldId, EMPTY_PARENT_KEY, (String[]) fieldValues.toArray());
         }
-        RemoteCustomFieldValue[] result = new RemoteCustomFieldValue[customFieldKeys.length];
-        for (int i = 0; i < customFieldKeys.length; i++) {
-            result[i] = new RemoteCustomFieldValue(customFieldKeys[i], "", new String[]{customFieldValues[i]});
+        return result;
+    }
+
+    protected RemoteFieldValue[] createRemoteFieldValues(Map<String, List<String>> fields) {
+        if (fields == null) {
+            return EMPTY_FIELDS;
+        }
+        RemoteFieldValue[] result = new RemoteFieldValue[fields.size()];
+        int i = 0;
+        for(Entry<String, List<String>> entry : fields.entrySet()) {
+            String customeFieldId = entry.getKey();
+            List<String> fieldValues = entry.getValue();
+            result[i++] = new RemoteFieldValue(customeFieldId, (String[]) fieldValues.toArray());
         }
         return result;
     }
@@ -237,20 +273,6 @@ public class AxisJiraClientHelper {
         version.setReleased(released);
         version.setReleaseDate(getCalendar(releaseDate));
         return version;
-    }
-
-    protected RemoteFieldValue[] createFieldValues(String[] fieldIds, String[] fieldValues) {
-        if (fieldIds == null || fieldValues == null) {
-            return null;
-        }
-        if (fieldIds.length != fieldValues.length) {
-            throw new JiraConnectorException("The number of field ids provided does not match the number of value sets");
-        }
-        RemoteFieldValue[] result = new RemoteFieldValue[fieldIds.length];
-        for (int i = 0; i < fieldIds.length; i++) {
-            result[i] = new RemoteFieldValue(fieldIds[i], new String[]{fieldValues[i]});
-        }
-        return result;
     }
 
     protected RemoteEntity getUserOrUserGroupByName(String token, String entityName) {

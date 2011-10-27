@@ -21,7 +21,36 @@
                           http://www.mulesoft.org/schema/mule/jira http://www.mulesoft.org/schema/mule/jira/2.0/mule-jira.xsd">
 
 
-    <jira:config name="default" username="fede" password="1024"
+    <spring:bean id="value1" class="java.lang.String">
+        <spring:constructor-arg value="value1"/>
+    </spring:bean>
+
+    <spring:bean id="value21" class="java.lang.String">
+        <spring:constructor-arg value="value21"/>
+    </spring:bean>
+
+    <spring:bean id="value22" class="java.lang.String">
+        <spring:constructor-arg value="value22"/>
+    </spring:bean>
+
+    <spring:bean id="field1Values" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <spring:property name="sourceList">
+            <spring:list>
+                <spring:ref bean="value1"/>
+            </spring:list>
+        </spring:property>
+    </spring:bean>
+
+    <spring:bean id="field2Values" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <spring:property name="sourceList">
+            <spring:list>
+                <spring:ref bean="value21"/>
+                <spring:ref bean="value22"/>
+            </spring:list>
+        </spring:property>
+    </spring:bean>
+
+    <jira:config name="default" username="fede" password="fede"
                  address="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
 
     <flow name="getComment">
@@ -85,14 +114,10 @@
                            reporter="someUserName"
                            dueDate="someDueDate" description="someDescription" environment="someEnvironment"
                            priority="somePriority" votes="10">
-            <jira:custom-field-keys>
-                <jira:custom-field-key>key1</jira:custom-field-key>
-                <jira:custom-field-key>key2</jira:custom-field-key>
-            </jira:custom-field-keys>
-            <jira:custom-field-values>
-                <jira:custom-field-value>value1</jira:custom-field-value>
-                <jira:custom-field-value>value2</jira:custom-field-value>
-            </jira:custom-field-values>
+            <jira:custom-fields>
+                <jira:custom-field key="field1Id" value-ref="field1Values" />
+                <jira:custom-field key="field2Id" value-ref="field2Values" />
+            </jira:custom-fields>
         </jira:create-issue>
     </flow>
 
@@ -102,27 +127,19 @@
                                                dueDate="someDueDate" description="someDescription"
                                                environment="someEnvironment" priority="somePriority" votes="10"
                                                securityLevelId="1">
-            <jira:custom-field-keys>
-                <jira:custom-field-key>key1</jira:custom-field-key>
-                <jira:custom-field-key>key2</jira:custom-field-key>
-            </jira:custom-field-keys>
-            <jira:custom-field-values>
-                <jira:custom-field-value>value1</jira:custom-field-value>
-                <jira:custom-field-value>value2</jira:custom-field-value>
-            </jira:custom-field-values>
+            <jira:custom-fields>
+                <jira:custom-field key="field1Id" value-ref="field1Values" />
+                <jira:custom-field key="field2Id" value-ref="field2Values" />
+            </jira:custom-fields>
         </jira:create-issue-with-security-level>
     </flow>
 
     <flow name="updateIssue">
         <jira:update-issue issueKey="someIssueKey">
-            <jira:field-ids>
-                <jira:field-id>fieldId1</jira:field-id>
-                <jira:field-id>fieldId2</jira:field-id>
-            </jira:field-ids>
-            <jira:field-values>
-                <jira:field-value>value1</jira:field-value>
-                <jira:field-value>value2</jira:field-value>
-            </jira:field-values>
+            <jira:fields>
+                <jira:field key="field1Id" value-ref="field1Values" />
+                <jira:field key="field2Id" value-ref="field2Values" />
+            </jira:fields>
         </jira:update-issue>
     </flow>
 
@@ -501,14 +518,10 @@
 
     <flow name="progressWorkflowAction">
         <jira:progress-workflow-action issueKey="someIssueKey" actionIdString="someActionIdString">
-            <jira:field-ids>
-                <jira:field-id>fieldId1</jira:field-id>
-                <jira:field-id>fieldId2</jira:field-id>
-            </jira:field-ids>
-            <jira:fields-values>
-                <jira:fields-value>value1</jira:fields-value>
-                <jira:fields-value>value2</jira:fields-value>
-            </jira:fields-values>
+            <jira:fields>
+                <jira:field key="field1Id" value-ref="field1Values" />
+                <jira:field key="field2Id" value-ref="field2Values" />
+            </jira:fields>
         </jira:progress-workflow-action>
     </flow>
 </mule>
