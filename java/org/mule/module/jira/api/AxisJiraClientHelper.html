@@ -408,6 +408,13 @@ Summary:
     </tr>
     
     
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClientHelper.html#EMPTY_PARENT_KEY">EMPTY_PARENT_KEY</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
 
 </table>
 
@@ -421,6 +428,28 @@ Summary:
 <table id="lfields" class="jd-sumtable"><tr><th colspan="12">Fields</th></tr>
 
 
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          static
+          final
+          <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteFieldValue.html">RemoteFieldValue[]</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClientHelper.html#EMPTY_FIELDS">EMPTY_FIELDS</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          static
+          final
+          <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteCustomFieldValue.html">RemoteCustomFieldValue[]</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClientHelper.html#EMPTY_REMOTE_CUSTOM_FIELDS">EMPTY_REMOTE_CUSTOM_FIELDS</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
     
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
@@ -513,10 +542,10 @@ Summary:
             
             
             
-            <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteFieldValue.html">RemoteFieldValue[]</a></nobr>
+            <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClientHelper.html#createFieldValues(java.lang.String[], java.lang.String[])">createFieldValues</a></span>(String[] fieldIds, String[] fieldValues)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClientHelper.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">createIssue</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</nobr>
         
   </td></tr>
 
@@ -529,10 +558,10 @@ Summary:
             
             
             
-            <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
+            <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteFieldValue.html">RemoteFieldValue[]</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClientHelper.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.lang.String[], java.lang.String[])">createIssue</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, String[] customFieldKeys, String[] customerFieldValues)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClientHelper.html#createRemoteFieldValues(java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">createRemoteFieldValues</a></span>(Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields)</nobr>
         
   </td></tr>
 
@@ -628,7 +657,7 @@ Summary:
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteCustomFieldValue.html">RemoteCustomFieldValue[]</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClientHelper.html#getRemoteCustomFieldValues(java.lang.String[], java.lang.String[])">getRemoteCustomFieldValues</a></span>(String[] customFieldKeys, String[] customFieldValues)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClientHelper.html#getRemoteCustomFieldValues(java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">getRemoteCustomFieldValues</a></span>(Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</nobr>
         
   </td></tr>
 
@@ -1171,6 +1200,45 @@ From class
 
 
 
+<A NAME="EMPTY_PARENT_KEY"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+        static 
+        final 
+        String
+      </span>
+        EMPTY_PARENT_KEY
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                ""
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
+
 
 <!-- Fields -->
 
@@ -1178,6 +1246,66 @@ From class
 <!-- ========= FIELD DETAIL ======== -->
 <h2>Fields</h2>
 
+
+
+
+<A NAME="EMPTY_FIELDS"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+        static 
+        final 
+        <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteFieldValue.html">RemoteFieldValue[]</a>
+      </span>
+        EMPTY_FIELDS
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="EMPTY_REMOTE_CUSTOM_FIELDS"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+        static 
+        final 
+        <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteCustomFieldValue.html">RemoteCustomFieldValue[]</a>
+      </span>
+        EMPTY_REMOTE_CUSTOM_FIELDS
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
 
 
 
@@ -1361,51 +1489,7 @@ From class
 </div>
 
 
-<A NAME="createFieldValues(java.lang.String[], java.lang.String[])"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-         
-         
-        <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteFieldValue.html">RemoteFieldValue[]</a>
-      </span>
-      <span class="sympad">createFieldValues</span>
-      <span class="normal">(String[] fieldIds, String[] fieldValues)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>fieldIds</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>fieldValues</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.lang.String[], java.lang.String[])"></A>
+<A NAME="createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1418,7 +1502,7 @@ From class
         <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>
       </span>
       <span class="sympad">createIssue</span>
-      <span class="normal">(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, String[] customFieldKeys, String[] customerFieldValues)</span>
+      <span class="normal">(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1475,11 +1559,47 @@ From class
           <td></td>
         </tr>
         <tr>
-          <th>customFieldKeys</td>
+          <th>customFields</td>
           <td></td>
         </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createRemoteFieldValues(java.util.Map<java.lang.String, java.util.List<java.lang.String>>)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+         
+         
+        <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteFieldValue.html">RemoteFieldValue[]</a>
+      </span>
+      <span class="sympad">createRemoteFieldValues</span>
+      <span class="normal">(Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
         <tr>
-          <th>customerFieldValues</td>
+          <th>fields</td>
           <td></td>
         </tr>
       </table>
@@ -1713,7 +1833,7 @@ From class
 </div>
 
 
-<A NAME="getRemoteCustomFieldValues(java.lang.String[], java.lang.String[])"></A>
+<A NAME="getRemoteCustomFieldValues(java.util.Map<java.lang.String, java.util.List<java.lang.String>>)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1726,7 +1846,7 @@ From class
         <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteCustomFieldValue.html">RemoteCustomFieldValue[]</a>
       </span>
       <span class="sympad">getRemoteCustomFieldValues</span>
-      <span class="normal">(String[] customFieldKeys, String[] customFieldValues)</span>
+      <span class="normal">(Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1743,11 +1863,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>customFieldKeys</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>customFieldValues</td>
+          <th>customFields</td>
           <td></td>
         </tr>
       </table>

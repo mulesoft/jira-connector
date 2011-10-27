@@ -635,7 +635,7 @@ Summary:
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClient.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.List<java.lang.String>, java.util.List<java.lang.String>)">createIssue</a></span>(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, List&lt;String&gt; customFieldKeys, List&lt;String&gt; customFieldValues)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClient.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">createIssue</a></span>(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</nobr>
         
   </td></tr>
 
@@ -651,7 +651,7 @@ Summary:
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClient.html#createIssueWithSecurityLevel(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.List<java.lang.String>, java.util.List<java.lang.String>, java.lang.Long)">createIssueWithSecurityLevel</a></span>(String token, String asignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, List&lt;String&gt; customFieldKeys, List&lt;String&gt; customFieldValues, Long securityLevelId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClient.html#createIssueWithSecurityLevel(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Long)">createIssueWithSecurityLevel</a></span>(String token, String asignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, Long securityLevelId)</nobr>
         
   </td></tr>
 
@@ -1819,7 +1819,7 @@ Summary:
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClient.html#progressWorkflowAction(java.lang.String, java.lang.String, java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>)">progressWorkflowAction</a></span>(String token, String issueKey, String actionIdString, List&lt;String&gt; fieldIds, List&lt;String&gt; fieldsValues)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClient.html#progressWorkflowAction(java.lang.String, java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">progressWorkflowAction</a></span>(String token, String issueKey, String actionIdString, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields)</nobr>
         
   </td></tr>
 
@@ -1995,7 +1995,7 @@ Summary:
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClient.html#updateIssue(java.lang.String, java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>)">updateIssue</a></span>(String token, String issueKey, List&lt;String&gt; fieldIds, List&lt;String&gt; fieldValues)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClient.html#updateIssue(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">updateIssue</a></span>(String token, String issueKey, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields)</nobr>
         
   </td></tr>
 
@@ -2439,7 +2439,7 @@ From interface
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/JiraClient.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.List<java.lang.String>, java.util.List<java.lang.String>)">createIssue</a></span>(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, List&lt;String&gt; customFieldKeys, List&lt;String&gt; customerFieldValues)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/JiraClient.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">createIssue</a></span>(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</nobr>
         
   </td></tr>
 
@@ -2455,7 +2455,7 @@ From interface
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/JiraClient.html#createIssueWithSecurityLevel(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.List<java.lang.String>, java.util.List<java.lang.String>, java.lang.Long)">createIssueWithSecurityLevel</a></span>(String token, String asignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, List&lt;String&gt; customFieldKeys, List&lt;String&gt; customFieldValues, Long securityLevelId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/JiraClient.html#createIssueWithSecurityLevel(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Long)">createIssueWithSecurityLevel</a></span>(String token, String asignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, Long securityLevelId)</nobr>
         
   </td></tr>
 
@@ -3623,7 +3623,7 @@ From interface
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/JiraClient.html#progressWorkflowAction(java.lang.String, java.lang.String, java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>)">progressWorkflowAction</a></span>(String token, String issueKey, String actionIdString, List&lt;String&gt; fieldIds, List&lt;String&gt; fieldsValues)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/JiraClient.html#progressWorkflowAction(java.lang.String, java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">progressWorkflowAction</a></span>(String token, String issueKey, String actionIdString, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields)</nobr>
         
   </td></tr>
 
@@ -3799,7 +3799,7 @@ From interface
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/JiraClient.html#updateIssue(java.lang.String, java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>)">updateIssue</a></span>(String token, String issueKey, List&lt;String&gt; fieldIds, List&lt;String&gt; fieldValues)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/JiraClient.html#updateIssue(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">updateIssue</a></span>(String token, String issueKey, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields)</nobr>
         
   </td></tr>
 
@@ -4494,7 +4494,7 @@ From interface
 </div>
 
 
-<A NAME="createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.List<java.lang.String>, java.util.List<java.lang.String>)"></A>
+<A NAME="createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4507,7 +4507,7 @@ From interface
         <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>
       </span>
       <span class="sympad">createIssue</span>
-      <span class="normal">(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, List&lt;String&gt; customFieldKeys, List&lt;String&gt; customFieldValues)</span>
+      <span class="normal">(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4568,11 +4568,7 @@ From interface
           <td></td>
         </tr>
         <tr>
-          <th>customFieldKeys</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>customFieldValues</td>
+          <th>customFields</td>
           <td></td>
         </tr>
       </table>
@@ -4582,7 +4578,7 @@ From interface
 </div>
 
 
-<A NAME="createIssueWithSecurityLevel(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.List<java.lang.String>, java.util.List<java.lang.String>, java.lang.Long)"></A>
+<A NAME="createIssueWithSecurityLevel(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Long)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4595,7 +4591,7 @@ From interface
         <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>
       </span>
       <span class="sympad">createIssueWithSecurityLevel</span>
-      <span class="normal">(String token, String asignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, List&lt;String&gt; customFieldKeys, List&lt;String&gt; customFieldValues, Long securityLevelId)</span>
+      <span class="normal">(String token, String asignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, Long securityLevelId)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4656,11 +4652,7 @@ From interface
           <td></td>
         </tr>
         <tr>
-          <th>customFieldKeys</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>customFieldValues</td>
+          <th>customFields</td>
           <td></td>
         </tr>
         <tr>
@@ -7894,7 +7886,7 @@ From interface
 </div>
 
 
-<A NAME="progressWorkflowAction(java.lang.String, java.lang.String, java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>)"></A>
+<A NAME="progressWorkflowAction(java.lang.String, java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -7907,7 +7899,7 @@ From interface
         <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>
       </span>
       <span class="sympad">progressWorkflowAction</span>
-      <span class="normal">(String token, String issueKey, String actionIdString, List&lt;String&gt; fieldIds, List&lt;String&gt; fieldsValues)</span>
+      <span class="normal">(String token, String issueKey, String actionIdString, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -7936,11 +7928,7 @@ From interface
           <td></td>
         </tr>
         <tr>
-          <th>fieldIds</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>fieldsValues</td>
+          <th>fields</td>
           <td></td>
         </tr>
       </table>
@@ -8434,7 +8422,7 @@ From interface
 </div>
 
 
-<A NAME="updateIssue(java.lang.String, java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>)"></A>
+<A NAME="updateIssue(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -8447,7 +8435,7 @@ From interface
         <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>
       </span>
       <span class="sympad">updateIssue</span>
-      <span class="normal">(String token, String issueKey, List&lt;String&gt; fieldIds, List&lt;String&gt; fieldValues)</span>
+      <span class="normal">(String token, String issueKey, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -8472,11 +8460,7 @@ From interface
           <td></td>
         </tr>
         <tr>
-          <th>fieldIds</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>fieldValues</td>
+          <th>fields</td>
           <td></td>
         </tr>
       </table>

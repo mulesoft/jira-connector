@@ -526,7 +526,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>UpdateIssueMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html#updateIssue(java.lang.String, java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>)">updateIssue(java.lang.String, java.lang.String, java.util.List, java.util.List)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>UpdateIssueMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html#updateIssue(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">updateIssue(java.lang.String, java.lang.String, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  
 </p>
 
@@ -723,24 +723,13 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          List&lt;String&gt;</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/UpdateIssueMessageProcessor.html#_fieldIdsType">_fieldIdsType</a></td>
+          Map&lt;String,&nbsp;List&lt;String&gt;&gt;</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/UpdateIssueMessageProcessor.html#_fieldsType">_fieldsType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
       <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          List&lt;String&gt;</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/UpdateIssueMessageProcessor.html#_fieldValuesType">_fieldValuesType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -751,7 +740,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -762,7 +751,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -775,24 +764,13 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/UpdateIssueMessageProcessor.html#fieldIds">fieldIds</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/UpdateIssueMessageProcessor.html#fieldValues">fieldValues</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/UpdateIssueMessageProcessor.html#fields">fields</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -977,33 +955,15 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/UpdateIssueMessageProcessor.html#setFieldIds(java.lang.Object)">setFieldIds</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/UpdateIssueMessageProcessor.html#setFields(java.lang.Object)">setFields</a></span>(Object value)</nobr>
         
-        <div class="jd-descrdiv">Sets fieldIds</div>
+        <div class="jd-descrdiv">Sets fields</div>
   
   </td></tr>
 
 
 	 
     <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/UpdateIssueMessageProcessor.html#setFieldValues(java.lang.Object)">setFieldValues</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets fieldValues</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1021,7 +981,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1039,7 +999,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1057,7 +1017,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1075,7 +1035,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1093,7 +1053,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1109,7 +1069,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1666,7 +1626,7 @@ From interface
 
 
 
-<A NAME="_fieldIdsType"></A>
+<A NAME="_fieldsType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1674,39 +1634,9 @@ From interface
         private 
          
          
-        List&lt;String&gt;
+        Map&lt;String,&nbsp;List&lt;String&gt;&gt;
       </span>
-        _fieldIdsType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="_fieldValuesType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        List&lt;String&gt;
-      </span>
-        _fieldValuesType
+        _fieldsType
     </h4>
       <div class="api-level">
         
@@ -1818,7 +1748,7 @@ From interface
 
 
 
-<A NAME="fieldIds"></A>
+<A NAME="fields"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1828,37 +1758,7 @@ From interface
          
         Object
       </span>
-        fieldIds
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="fieldValues"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        fieldValues
+        fields
     </h4>
       <div class="api-level">
         
@@ -2241,7 +2141,7 @@ From interface
 </div>
 
 
-<A NAME="setFieldIds(java.lang.Object)"></A>
+<A NAME="setFields(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2253,7 +2153,7 @@ From interface
          
         void
       </span>
-      <span class="sympad">setFieldIds</span>
+      <span class="sympad">setFields</span>
       <span class="normal">(Object value)</span>
     </h4>
       <div class="api-level">
@@ -2266,48 +2166,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets fieldIds</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setFieldValues(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setFieldValues</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets fieldValues</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets fields</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">

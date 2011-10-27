@@ -526,7 +526,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>CreateIssueMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.List<java.lang.String>, java.util.List<java.lang.String>)">createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.List, java.util.List)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>CreateIssueMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  
 </p>
 
@@ -734,24 +734,13 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          List&lt;String&gt;</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueMessageProcessor.html#_customFieldKeysType">_customFieldKeysType</a></td>
+          Map&lt;String,&nbsp;List&lt;String&gt;&gt;</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueMessageProcessor.html#_customFieldsType">_customFieldsType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
       <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          List&lt;String&gt;</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueMessageProcessor.html#_customFieldValuesType">_customFieldValuesType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -762,7 +751,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -773,7 +762,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -784,7 +773,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -795,7 +784,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -806,7 +795,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -817,7 +806,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -828,7 +817,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -839,7 +828,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -850,7 +839,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -861,7 +850,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -872,24 +861,13 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueMessageProcessor.html#customFieldKeys">customFieldKeys</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
       <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueMessageProcessor.html#customFieldValues">customFieldValues</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueMessageProcessor.html#customFields">customFields</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -1193,33 +1171,15 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueMessageProcessor.html#setCustomFieldKeys(java.lang.Object)">setCustomFieldKeys</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueMessageProcessor.html#setCustomFields(java.lang.Object)">setCustomFields</a></span>(Object value)</nobr>
         
-        <div class="jd-descrdiv">Sets customFieldKeys</div>
+        <div class="jd-descrdiv">Sets customFields</div>
   
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueMessageProcessor.html#setCustomFieldValues(java.lang.Object)">setCustomFieldValues</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets customFieldValues</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1237,7 +1197,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1255,7 +1215,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1273,7 +1233,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1291,7 +1251,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1309,7 +1269,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1327,7 +1287,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1345,7 +1305,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1363,7 +1323,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1381,7 +1341,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1399,7 +1359,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1417,7 +1377,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1435,7 +1395,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1453,7 +1413,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1469,7 +1429,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2056,7 +2016,7 @@ From interface
 
 
 
-<A NAME="_customFieldKeysType"></A>
+<A NAME="_customFieldsType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2064,39 +2024,9 @@ From interface
         private 
          
          
-        List&lt;String&gt;
+        Map&lt;String,&nbsp;List&lt;String&gt;&gt;
       </span>
-        _customFieldKeysType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="_customFieldValuesType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        List&lt;String&gt;
-      </span>
-        _customFieldValuesType
+        _customFieldsType
     </h4>
       <div class="api-level">
         
@@ -2446,7 +2376,7 @@ From interface
 
 
 
-<A NAME="customFieldKeys"></A>
+<A NAME="customFields"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2456,37 +2386,7 @@ From interface
          
         Object
       </span>
-        customFieldKeys
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="customFieldValues"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        customFieldValues
+        customFields
     </h4>
       <div class="api-level">
         
@@ -3182,7 +3082,7 @@ From interface
 </div>
 
 
-<A NAME="setCustomFieldKeys(java.lang.Object)"></A>
+<A NAME="setCustomFields(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3194,7 +3094,7 @@ From interface
          
         void
       </span>
-      <span class="sympad">setCustomFieldKeys</span>
+      <span class="sympad">setCustomFields</span>
       <span class="normal">(Object value)</span>
     </h4>
       <div class="api-level">
@@ -3207,48 +3107,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets customFieldKeys</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setCustomFieldValues(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setCustomFieldValues</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets customFieldValues</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets customFields</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
