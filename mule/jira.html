@@ -1447,6 +1447,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -1546,6 +1554,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -1657,6 +1673,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -1753,6 +1777,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -1840,6 +1872,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -1922,6 +1962,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -2026,6 +2074,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -2122,6 +2178,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -2200,6 +2264,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -2243,17 +2315,15 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Creates an issue.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;jira:create-issue summary="someSummary" project="someProject" type="someType" assignee="someUserName" reporter="someUserName"
-                                  dueDate="someDueDate" description="someDescription" environment="someEnvironment" priority="somePriority" votes="voteCount" &gt;
-                  &lt;jira:customFieldKeys&gt;
-                     &lt;jira:customFieldKey&gt;key1&lt;/jira:customFieldKey&gt;
-                     &lt;jira:customFieldKey&gt;key2&lt;/jira:customFieldKey&gt;
-                  &lt;/jira:customFieldKeys&gt;
-                  &lt;jira:customFieldValues&gt;
-                     &lt;jira:customFieldValue&gt;value1&lt;/jira:customFieldValue&gt;
-                     &lt;jira:customFieldValue&gt;value2&lt;/jira:customFieldValue&gt;
-                  &lt;/jira:customFieldValues&gt;
-              &lt;/jira:create-issue&gt;   /&gt;</pre></div></p></div>
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;jira:create-issue summary="someSummary" project="someProject" type="someType" assignee="someUserName"
+                   reporter="someUserName"
+                   dueDate="someDueDate" description="someDescription" environment="someEnvironment"
+                   priority="somePriority" votes="10"&gt;
+    &lt;jira:custom-fields&gt;
+        &lt;jira:custom-field key="customfield_10000" value-ref="field1Values" /&gt;
+        &lt;jira:custom-field key="customfield_20000" value-ref="field2Values" /&gt;
+    &lt;/jira:custom-fields&gt;
+&lt;/jira:create-issue&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2371,6 +2441,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -2433,19 +2511,15 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Creates an issue using the the security level denoted by the given id.
  <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;jira:create-issue-with-security-level summary="someSummary" project="someProject" type="someType"
-                                               assignee="someUserName" reporter="someUserName"
-                                               dueDate="someDueDate" description="someDescription"
-                                               environment="someEnvironment" priority="somePriority" votes="voteCount"
-                                               securityLevelId="someSecurityLevelId"&gt;
-                    &lt;jira:customFieldKeys&gt;
-                        &lt;jira:customFieldKey&gt;key1&lt;/jira:customFieldKey&gt;
-                        &lt;jira:customFieldKey&gt;key2&lt;/jira:customFieldKey&gt;
-                    &lt;/jira:customFieldKeys&gt;
-                    &lt;jira:customFieldValues&gt;
-                        &lt;jira:customFieldValue&gt;value1&lt;/jira:customFieldValue&gt;
-                        &lt;jira:customFieldValue&gt;value2&lt;/jira:customFieldValue&gt;
-                    &lt;/jira:customFieldValues&gt;
-              &lt;/jira:create-issue-with-security-level&gt; /&gt;</pre></div></p></div>
+                                       assignee="someUserName" reporter="someUserName"
+                                       dueDate="someDueDate" description="someDescription"
+                                       environment="someEnvironment" priority="somePriority" votes="10"
+                                       securityLevelId="1"&gt;
+    &lt;jira:custom-fields&gt;
+        &lt;jira:custom-field key="customfield_10000" value-ref="field1Values" /&gt;
+        &lt;jira:custom-field key="customfield_20000" value-ref="field2Values" /&gt;
+    &lt;/jira:custom-fields&gt;
+&lt;/jira:create-issue-with-security-level&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2572,6 +2646,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -2671,6 +2753,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -2809,6 +2899,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -2901,6 +2999,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -3000,6 +3106,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -3085,6 +3199,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -3151,6 +3273,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -3235,6 +3365,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -3309,6 +3447,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -3374,6 +3520,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -3438,6 +3592,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -3513,6 +3675,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -3579,6 +3749,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -3647,6 +3825,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -3712,6 +3898,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -3786,6 +3980,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -3871,6 +4073,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -3934,6 +4144,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -4001,6 +4219,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -4071,6 +4297,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -4139,6 +4373,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -4209,6 +4451,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -4277,6 +4527,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -4347,6 +4605,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -4416,6 +4682,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -4476,6 +4750,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -4533,6 +4815,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -4601,6 +4891,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -4660,6 +4958,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -4737,6 +5043,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -4808,6 +5122,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -4876,6 +5198,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -4946,6 +5276,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -5014,6 +5352,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -5084,6 +5430,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -5143,6 +5497,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -5210,6 +5572,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -5308,6 +5678,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -5395,6 +5773,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -5497,6 +5883,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -5605,6 +5999,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -5669,6 +6071,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -5727,6 +6137,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -5784,6 +6202,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -5851,6 +6277,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -5932,6 +6366,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -6003,6 +6445,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -6072,6 +6522,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -6140,6 +6598,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -6219,6 +6685,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -6280,6 +6754,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -6348,6 +6830,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -6407,6 +6897,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -6475,6 +6973,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -6546,6 +7052,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -6605,6 +7119,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -6672,6 +7194,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -6742,6 +7272,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -6802,6 +7340,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -6859,6 +7405,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -6918,6 +7472,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -6975,6 +7537,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -7042,6 +7612,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -7112,6 +7690,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -7180,6 +7766,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -7250,6 +7844,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -7319,6 +7921,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -7393,6 +8003,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -7461,6 +8079,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -7535,6 +8161,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -7603,6 +8237,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -7673,6 +8315,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -7732,6 +8382,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -7818,6 +8476,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -7882,6 +8548,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -7954,6 +8628,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -8054,6 +8736,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -8134,6 +8824,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -8200,6 +8898,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -8289,6 +8995,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -8366,6 +9080,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -8456,6 +9178,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -8533,6 +9263,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -8613,6 +9351,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -8658,15 +9404,11 @@ specify which configuration to use.</p>
  NOTE : You cannot update the 'status' field of the issue via this method.
  <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;jira:update-issue issueKey="someIssueKey"&gt;
-                 &lt;jira:fieldIds&gt;
-                    &lt;jira:fieldId&gt;fieldId1&lt;/jira:fieldId&gt;
-                    &lt;jira:fieldId&gt;fieldId2&lt;/jira:fieldId&gt;
-                &lt;/jira:fieldIds&gt;
-                &lt;jira:fieldValues&gt;
-                    &lt;jira:fieldValue&gt;value1&lt;/jira:fieldValue&gt;
-                    &lt;jira:fieldValue&gt;value2&lt;/jira:fieldValue&gt;
-                &lt;/jira:fieldValues&gt;
-              &lt;/jira:update-issue&gt; /&gt;</pre></div></p></div>
+    &lt;jira:fields&gt;
+        &lt;jira:field key="customfield_10000" value-ref="field1Values" /&gt;
+        &lt;jira:field key="customfield_20000" value-ref="field2Values" /&gt;
+    &lt;/jira:fields&gt;
+&lt;/jira:update-issue&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -8702,6 +9444,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -8831,6 +9581,14 @@ specify which configuration to use.</p>
                 
                 
           
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
         
       </table>
   </div>
@@ -8931,6 +9689,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class=" api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
@@ -9050,6 +9816,14 @@ specify which configuration to use.</p>
                 </tr>
                 
                 
+          
+          
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
           
         
       </table>
