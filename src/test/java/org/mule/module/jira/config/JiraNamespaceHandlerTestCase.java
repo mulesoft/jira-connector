@@ -59,8 +59,8 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
         JiraClientFactory.setDefaultClient(mockJiraClient);
 
         fields = new LinkedHashMap<String, List<String>>(2);
-        fields.put("field1Id", Arrays.asList("value1"));
-        fields.put("field2Id", Arrays.asList("value21", "value22"));
+        fields.put("customfield_10000", Arrays.asList("value1"));
+        fields.put("customfield_20000", Arrays.asList("value21", "value22"));
     }
 
     @Override

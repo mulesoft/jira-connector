@@ -230,7 +230,6 @@
 <jira:create-permission-scheme name="somePermissionSchemeName" description="somePermissionSchemeDesc"/>
 <!-- END_INCLUDE(jira:create-permission-scheme) -->
 
-
 <!-- BEGIN_INCLUDE(jira:set-project-avatar) -->
 <jira:set-project-avatar projectKey="someProjectKey" avatarId="123"/>
 <!-- END_INCLUDE(jira:set-project-avatar) -->
@@ -240,8 +239,6 @@
                           releaseDate="someDate"/>
 <!-- END_INCLUDE(jira:add-version) -->
 
-
-
  <!-- BEGIN_INCLUDE(jira:remove-default-actors-from-project-role) -->
 <jira:remove-default-actors-from-project-role remoteProjectRoleId="123" type="someType">
                           <jira:actors>
@@ -250,6 +247,7 @@
                           </jira:actors>
                       </jira:remove-default-actors-from-project-role>
 <!-- END_INCLUDE(jira:remove-default-actors-from-project-role) -->
+
 <!-- BEGIN_INCLUDE(jira:add-default-actors-to-project-role) -->
 <jira:add-default-actors-to-project-role projectRoleId="123" type="someType">
                           <jira:actors>
@@ -295,47 +293,37 @@
 <!-- END_INCLUDE(jira:get-available-actions) -->
 
 <!-- BEGIN_INCLUDE(jira:update-issue) -->
-<jira:update-issue issueKey="someIssueKey">
-                 <jira:fieldIds>
-                    <jira:fieldId>fieldId1</jira:fieldId>
-                    <jira:fieldId>fieldId2</jira:fieldId>
-                </jira:fieldIds>
-                <jira:fieldValues>
-                    <jira:fieldValue>value1</jira:fieldValue>
-                    <jira:fieldValue>value2</jira:fieldValue>
-                </jira:fieldValues>
-              </jira:update-issue> />
+        <jira:update-issue issueKey="someIssueKey">
+            <jira:fields>
+                <jira:field key="customfield_10000" value-ref="field1Values" />
+                <jira:field key="customfield_20000" value-ref="field2Values" />
+            </jira:fields>
+        </jira:update-issue>
 <!-- END_INCLUDE(jira:update-issue) -->
 
  <!-- BEGIN_INCLUDE(jira:create-issue-with-security-level) -->
-<jira:create-issue-with-security-level summary="someSummary" project="someProject" type="someType"
+        <jira:create-issue-with-security-level summary="someSummary" project="someProject" type="someType"
                                                assignee="someUserName" reporter="someUserName"
                                                dueDate="someDueDate" description="someDescription"
-                                               environment="someEnvironment" priority="somePriority" votes="voteCount"
-                                               securityLevelId="someSecurityLevelId">
-                    <jira:customFieldKeys>
-                        <jira:customFieldKey>key1</jira:customFieldKey>
-                        <jira:customFieldKey>key2</jira:customFieldKey>
-                    </jira:customFieldKeys>
-                    <jira:customFieldValues>
-                        <jira:customFieldValue>value1</jira:customFieldValue>
-                        <jira:customFieldValue>value2</jira:customFieldValue>
-                    </jira:customFieldValues>
-              </jira:create-issue-with-security-level> />
+                                               environment="someEnvironment" priority="somePriority" votes="10"
+                                               securityLevelId="1">
+            <jira:custom-fields>
+                <jira:custom-field key="customfield_10000" value-ref="field1Values" />
+                <jira:custom-field key="customfield_20000" value-ref="field2Values" />
+            </jira:custom-fields>
+        </jira:create-issue-with-security-level>
 <!-- END_INCLUDE(jira:create-issue-with-security-level) -->
 
  <!-- BEGIN_INCLUDE(jira:create-issue) -->
-<jira:create-issue summary="someSummary" project="someProject" type="someType" assignee="someUserName" reporter="someUserName"
-                                  dueDate="someDueDate" description="someDescription" environment="someEnvironment" priority="somePriority" votes="voteCount" >
-                  <jira:customFieldKeys>
-                     <jira:customFieldKey>key1</jira:customFieldKey>
-                     <jira:customFieldKey>key2</jira:customFieldKey>
-                  </jira:customFieldKeys>
-                  <jira:customFieldValues>
-                     <jira:customFieldValue>value1</jira:customFieldValue>
-                     <jira:customFieldValue>value2</jira:customFieldValue>
-                  </jira:customFieldValues>
-              </jira:create-issue>   />
+        <jira:create-issue summary="someSummary" project="someProject" type="someType" assignee="someUserName"
+                           reporter="someUserName"
+                           dueDate="someDueDate" description="someDescription" environment="someEnvironment"
+                           priority="somePriority" votes="10">
+            <jira:custom-fields>
+                <jira:custom-field key="customfield_10000" value-ref="field1Values" />
+                <jira:custom-field key="customfield_20000" value-ref="field2Values" />
+            </jira:custom-fields>
+        </jira:create-issue>
 <!-- END_INCLUDE(jira:create-issue) -->
 
 <!-- BEGIN_INCLUDE(jira:update-worklog-with-new-remaining-estimate) -->
@@ -474,16 +462,12 @@
 <!-- END_INCLUDE(jira:add-base64-encoded-attachments-to-issue) -->
                                 
 <!-- BEGIN_INCLUDE(jira:progress-workflow-action) -->
-<jira:progress-workflow-action issueKey="someIssueKey" actionIdString="someActionIdString">
-                          <jira:fieldIds>
-                              <jira:fieldId>fieldId1</jira:fieldId>
-                              <jira:fieldId>fieldId2</jira:fieldId>
-                          </jira:fieldIds>
-                          <jira:fieldsValues>
-                              <jira:fieldsValue>value1</jira:fieldsValue>
-                              <jira:fieldsValue>value2</jira:fieldsValue>
-                          </jira:fieldsValues>
-                      </jira:progress-workflow-action> 
+        <jira:progress-workflow-action issueKey="someIssueKey" actionIdString="someActionIdString">
+            <jira:fields>
+                <jira:field key="customfield_10000" value-ref="field1Values" />
+                <jira:field key="customfield_20000" value-ref="field2Values" />
+            </jira:fields>
+        </jira:progress-workflow-action>
 <!-- END_INCLUDE(jira:progress-workflow-action ) -->
 
 

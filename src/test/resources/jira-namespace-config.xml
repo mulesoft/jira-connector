@@ -115,8 +115,8 @@
                            dueDate="someDueDate" description="someDescription" environment="someEnvironment"
                            priority="somePriority" votes="10">
             <jira:custom-fields>
-                <jira:custom-field key="field1Id" value-ref="field1Values" />
-                <jira:custom-field key="field2Id" value-ref="field2Values" />
+                <jira:custom-field key="customfield_10000" value-ref="field1Values" />
+                <jira:custom-field key="customfield_20000" value-ref="field2Values" />
             </jira:custom-fields>
         </jira:create-issue>
     </flow>
@@ -128,8 +128,8 @@
                                                environment="someEnvironment" priority="somePriority" votes="10"
                                                securityLevelId="1">
             <jira:custom-fields>
-                <jira:custom-field key="field1Id" value-ref="field1Values" />
-                <jira:custom-field key="field2Id" value-ref="field2Values" />
+                <jira:custom-field key="customfield_10000" value-ref="field1Values" />
+                <jira:custom-field key="customfield_20000" value-ref="field2Values" />
             </jira:custom-fields>
         </jira:create-issue-with-security-level>
     </flow>
@@ -137,8 +137,8 @@
     <flow name="updateIssue">
         <jira:update-issue issueKey="someIssueKey">
             <jira:fields>
-                <jira:field key="field1Id" value-ref="field1Values" />
-                <jira:field key="field2Id" value-ref="field2Values" />
+                <jira:field key="customfield_10000" value-ref="field1Values" />
+                <jira:field key="customfield_20000" value-ref="field2Values" />
             </jira:fields>
         </jira:update-issue>
     </flow>
@@ -519,8 +519,8 @@
     <flow name="progressWorkflowAction">
         <jira:progress-workflow-action issueKey="someIssueKey" actionIdString="someActionIdString">
             <jira:fields>
-                <jira:field key="field1Id" value-ref="field1Values" />
-                <jira:field key="field2Id" value-ref="field2Values" />
+                <jira:field key="customfield_10000" value-ref="field1Values" />
+                <jira:field key="customfield_20000" value-ref="field2Values" />
             </jira:fields>
         </jira:progress-workflow-action>
     </flow>
