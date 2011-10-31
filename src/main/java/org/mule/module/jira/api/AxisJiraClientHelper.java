@@ -84,7 +84,11 @@ public class AxisJiraClientHelper {
         for(Entry<String, List<String>> entry : customFields.entrySet()) {
             String customeFieldId = entry.getKey();
             List<String> fieldValues = entry.getValue();
-            result[i++] = new RemoteCustomFieldValue(customeFieldId, EMPTY_PARENT_KEY, (String[]) fieldValues.toArray());
+            if(fieldValues != null) {
+                result[i++] = new RemoteCustomFieldValue(customeFieldId, EMPTY_PARENT_KEY, (String[]) fieldValues.toArray());
+            } else {
+                result[i++] = new RemoteCustomFieldValue(customeFieldId, EMPTY_PARENT_KEY, new String[0]);
+            }
         }
         return result;
     }
@@ -98,7 +102,11 @@ public class AxisJiraClientHelper {
         for(Entry<String, List<String>> entry : fields.entrySet()) {
             String customeFieldId = entry.getKey();
             List<String> fieldValues = entry.getValue();
-            result[i++] = new RemoteFieldValue(customeFieldId, (String[]) fieldValues.toArray());
+            if(fieldValues != null) {
+                result[i++] = new RemoteFieldValue(customeFieldId, (String[]) fieldValues.toArray());
+            } else {
+                result[i++] = new RemoteFieldValue(customeFieldId, new String[0]);
+            }
         }
         return result;
     }
