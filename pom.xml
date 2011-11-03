@@ -28,4 +28,13 @@
     <url>http://github.com/mulesoft/jira-connector</url>
   </scm>
 
+  <repositories>
+      <repository>
+          <id>mulesoft-releases</id>
+          <name>MuleSoft Releases Repository</name>
+          <url>http://repository.mulesoft.org/releases/</url>
+          <layout>default</layout>
+      </repository>
+  </repositories>
+
 </project>
