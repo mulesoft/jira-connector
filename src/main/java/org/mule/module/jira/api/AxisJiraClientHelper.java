@@ -85,7 +85,7 @@ public class AxisJiraClientHelper {
             String customeFieldId = entry.getKey();
             List<String> fieldValues = entry.getValue();
             if(fieldValues != null) {
-                result[i++] = new RemoteCustomFieldValue(customeFieldId, EMPTY_PARENT_KEY, (String[]) fieldValues.toArray());
+                result[i++] = new RemoteCustomFieldValue(customeFieldId, EMPTY_PARENT_KEY, fieldValues.toArray(new String[fieldValues.size()]));
             } else {
                 result[i++] = new RemoteCustomFieldValue(customeFieldId, EMPTY_PARENT_KEY, new String[0]);
             }
@@ -103,7 +103,7 @@ public class AxisJiraClientHelper {
             String customeFieldId = entry.getKey();
             List<String> fieldValues = entry.getValue();
             if(fieldValues != null) {
-                result[i++] = new RemoteFieldValue(customeFieldId, (String[]) fieldValues.toArray());
+                result[i++] = new RemoteFieldValue(customeFieldId, fieldValues.toArray(new String[fieldValues.size()]));
             } else {
                 result[i++] = new RemoteFieldValue(customeFieldId, new String[0]);
             }
