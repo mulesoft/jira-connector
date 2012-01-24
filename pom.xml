@@ -12,7 +12,7 @@
     <artifactId>mule-module-jira</artifactId>
     <packaging>mule-module</packaging>
     <name>Mule Jira Connector</name>
-    <version>2.1-SNAPSHOT</version>
+    <version>2.2-SNAPSHOT</version>
     <url>http://www.muleforge.org/projects/mule-module-jira</url>
 
     <properties>
@@ -21,9 +21,25 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.transports</groupId>
-            <artifactId>mule-transport-axis</artifactId>
-            <version>${mule.version}</version>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jaxrpc_1.1_spec</artifactId>
+            <version>1.1-osgi</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis</groupId>
+            <artifactId>axis</artifactId>
+            <version>1.4-osgi</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>commons-discovery</groupId>
+            <artifactId>commons-discovery</artifactId>
+            <version>0.4-osgi</version>
         </dependency>
     </dependencies>
 
