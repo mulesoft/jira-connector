@@ -72,7 +72,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
 
-  GetAssociatedPermissionSchemesMessageProcessor
+  JiraConnectorConnectionManager
 
 
 | Mule Jira Connector
@@ -231,7 +231,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/EditCommentMessageProcessor.html">EditCommentMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAllPermissionsMessageProcessor.html">GetAllPermissionsMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAssociatedNotificationSchemesMessageProcessor.html">GetAssociatedNotificationSchemesMessageProcessor</a></li>
-          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html">GetAssociatedPermissionSchemesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html">GetAssociatedPermissionSchemesMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAttachmentsFromIssueMessageProcessor.html">GetAttachmentsFromIssueMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAvailableActionsMessageProcessor.html">GetAvailableActionsMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetCommentMessageProcessor.html">GetCommentMessageProcessor</a></li>
@@ -286,7 +286,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorCapabilitiesAdapter.html">JiraCloudConnectorCapabilitiesAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorLifecycleAdapter.html">JiraCloudConnectorLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorCapabilitiesAdapter.html">JiraConnectorCapabilitiesAdapter</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.html">JiraConnectorConnectionManager</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.html">JiraConnectorConnectionManager</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.ConnectionParameters.html">JiraConnectorConnectionManager.ConnectionParameters</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/LoginMessageProcessor.html">LoginMessageProcessor</a></li>
@@ -381,52 +381,21 @@
   
   
 
-  
-   
-  
-  
-   
-  
-  
-  
-
-  
-   
-  
-  
-   
-  
-  
-  
-
-  
-   
-  
-  
-   
-  
-  
-  
-
-  
-   
-  
-  
-  
-  
-
 
 <div class="sum-details-links">
 
 
 Summary:
 
+  <a href="#nestedclasses">Nested Classes</a>
+  
 
 
 
 
 
-  <a href="#inhconstants">Inherited Constants</a>
+
+  &#124; <a href="#inhconstants">Inherited Constants</a>
   
 
 
@@ -469,7 +438,7 @@ Summary:
      
     
     class
-<h1>GetAssociatedPermissionSchemesMessageProcessor</h1>
+<h1>JiraConnectorConnectionManager</h1>
 
 
 
@@ -483,19 +452,11 @@ Summary:
   
       implements 
       
-        FlowConstructAware 
+        Capabilities 
       
-        MuleContextAware 
-      
-        Disposable 
+        ConnectionManager&lt;K,&nbsp;C&gt; 
       
         Initialisable 
-      
-        Startable 
-      
-        Stoppable 
-      
-        MessageProcessor 
       
   
   
@@ -519,7 +480,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.module.jira.config.GetAssociatedPermissionSchemesMessageProcessor</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.module.jira.config.JiraConnectorConnectionManager</td>
     </tr>
     
 
@@ -535,7 +496,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>GetAssociatedPermissionSchemesMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html#getAssociatedPermissionSchemes(java.lang.Long)">getAssociatedPermissionSchemes(java.lang.Long)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>A <code>JiraConnectorConnectionManager</code> is a wrapper around <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code> that adds connection management capabilities to the pojo.
  
 </p>
 
@@ -567,6 +528,26 @@ Summary:
 
 
 
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<table id="nestedclasses" class="jd-sumtable"><tr><th colspan="12">Nested Classes</th></tr>
+
+
+  
+    <tr class="alt-color api apilevel-" >
+      <td class="jd-typecol"><nobr>
+        
+        
+        
+        
+        class</nobr></td>
+      <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.ConnectionParameters.html">JiraConnectorConnectionManager.ConnectionParameters</a></td>
+      <td class="jd-descrcol" width="100%">&nbsp;</td>
+    </tr>
+    
+    
+
+
+
 
 
 
@@ -589,37 +570,6 @@ Summary:
 
 
 
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.api.lifecycle.Disposable" class="jd-expando-trigger closed"
-          ><img id="inherited-constants-org.mule.api.lifecycle.Disposable-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>From interface
-org.mule.api.lifecycle.Disposable
-<div id="inherited-constants-org.mule.api.lifecycle.Disposable">
-  <div id="inherited-constants-org.mule.api.lifecycle.Disposable-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-constants-org.mule.api.lifecycle.Disposable-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">String</td>
-        <td class="jd-linkcol">PHASE_NAME</td>
-        <td class="jd-descrcol" width="100%"></td>
-    </tr>
-    
-    
-</table>
-  </div>
-</div>
-</td></tr>
 
 
 
@@ -653,70 +603,6 @@ org.mule.api.lifecycle.Initialisable
 </td></tr>
 
 
-
-<tr class="api apilevel-" >
-<td colspan="12">
-
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.api.lifecycle.Startable" class="jd-expando-trigger closed"
-          ><img id="inherited-constants-org.mule.api.lifecycle.Startable-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>From interface
-org.mule.api.lifecycle.Startable
-<div id="inherited-constants-org.mule.api.lifecycle.Startable">
-  <div id="inherited-constants-org.mule.api.lifecycle.Startable-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-constants-org.mule.api.lifecycle.Startable-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">String</td>
-        <td class="jd-linkcol">PHASE_NAME</td>
-        <td class="jd-descrcol" width="100%"></td>
-    </tr>
-    
-    
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.api.lifecycle.Stoppable" class="jd-expando-trigger closed"
-          ><img id="inherited-constants-org.mule.api.lifecycle.Stoppable-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>From interface
-org.mule.api.lifecycle.Stoppable
-<div id="inherited-constants-org.mule.api.lifecycle.Stoppable">
-  <div id="inherited-constants-org.mule.api.lifecycle.Stoppable-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-constants-org.mule.api.lifecycle.Stoppable-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">String</td>
-        <td class="jd-linkcol">PHASE_NAME</td>
-        <td class="jd-descrcol" width="100%"></td>
-    </tr>
-    
-    
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-
 </table>
 
 
@@ -733,7 +619,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#_addressType">_addressType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#address">address</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -743,53 +629,9 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#_passType">_passType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Long</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#_projectRoleIdType">_projectRoleIdType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#_userType">_userType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#address">address</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          ExpressionManager</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#expressionManager">expressionManager</a></td>
-          <td class="jd-descrcol" width="100%">Mule Expression Manager
+          GenericKeyedObjectPool</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#connectionPool">connectionPool</a></td>
+          <td class="jd-descrcol" width="100%">Connector Pool
  
 </td>
       </tr>
@@ -797,38 +639,36 @@ org.mule.api.lifecycle.Stoppable
     
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          PoolingProfile</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#connectionPoolingProfile">connectionPoolingProfile</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
           private
           
           
           FlowConstruct</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#flowConstruct">flowConstruct</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#flowConstruct">flowConstruct</a></td>
           <td class="jd-descrcol" width="100%">Flow construct
  
 </td>
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           static
           
           Logger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#logger">logger</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#logger">logger</a></td>
           <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#moduleObject">moduleObject</a></td>
-          <td class="jd-descrcol" width="100%">Module object
- 
-</td>
       </tr>
       
     
@@ -838,7 +678,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           MuleContext</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#muleContext">muleContext</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#muleContext">muleContext</a></td>
           <td class="jd-descrcol" width="100%">Mule Context
  
 </td>
@@ -850,8 +690,8 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#pass">pass</a></td>
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#pass">pass</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -861,56 +701,8 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          TemplateParser.PatternInfo</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#patternInfo">patternInfo</a></td>
-          <td class="jd-descrcol" width="100%">Mule Pattern Info
- 
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#projectRoleId">projectRoleId</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          AtomicInteger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#retryCount">retryCount</a></td>
-          <td class="jd-descrcol" width="100%">Variable used to track how many retries we have attempted on this message processor
- 
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          int</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#retryMax">retryMax</a></td>
-          <td class="jd-descrcol" width="100%">Maximum number of retries that can be attempted.</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#user">user</a></td>
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#user">user</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -940,7 +732,7 @@ org.mule.api.lifecycle.Stoppable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#GetAssociatedPermissionSchemesMessageProcessor()">GetAssociatedPermissionSchemesMessageProcessor</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#JiraConnectorConnectionManager()">JiraConnectorConnectionManager</a></span>()</nobr>
         
   </td></tr>
 
@@ -966,10 +758,10 @@ org.mule.api.lifecycle.Stoppable
             
             
             
-            void</nobr>
+            <a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#acquireConnection(org.mule.module.jira.config.JiraConnectorConnectionManager.ConnectionParameters)">acquireConnection</a></span>(<a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.ConnectionParameters.html">JiraConnectorConnectionManager.ConnectionParameters</a> key)</nobr>
         
   </td></tr>
 
@@ -985,9 +777,47 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#destroyConnection(org.mule.module.jira.config.JiraConnectorConnectionManager.ConnectionParameters, org.mule.module.jira.config.JiraConnectorLifecycleAdapter)">destroyConnection</a></span>(<a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.ConnectionParameters.html">JiraConnectorConnectionManager.ConnectionParameters</a> key, <a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a> connection)</nobr>
         
-        <div class="jd-descrdiv">Obtains the expression manager from the Mule context and initialises the connector.</div>
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#getAddress()">getAddress</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves address
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            PoolingProfile</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#getConnectionPoolingProfile()">getConnectionPoolingProfile</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves connectionPoolingProfile
+ 
+</div>
   
   </td></tr>
 
@@ -1000,13 +830,87 @@ org.mule.api.lifecycle.Stoppable
             
             
             
-            MuleEvent</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#getPass()">getPass</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Invokes the MessageProcessor.</div>
+        <div class="jd-descrdiv">Retrieves pass
+ 
+</div>
   
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#getUser()">getUser</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves user
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#initialise()">initialise</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#isCapableOf(org.mule.api.Capability)">isCapableOf</a></span>(Capability capability)</nobr>
+        
+        <div class="jd-descrdiv">Returns true if this module implements such capability
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#releaseConnection(org.mule.module.jira.config.JiraConnectorConnectionManager.ConnectionParameters, org.mule.module.jira.config.JiraConnectorLifecycleAdapter)">releaseConnection</a></span>(<a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.ConnectionParameters.html">JiraConnectorConnectionManager.ConnectionParameters</a> key, <a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a> connection)</nobr>
+        
   </td></tr>
 
 
@@ -1021,7 +925,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#setAddress(java.lang.Object)">setAddress</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setAddress(java.lang.String)">setAddress</a></span>(String value)</nobr>
         
         <div class="jd-descrdiv">Sets address</div>
   
@@ -1039,9 +943,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setConnectionPoolingProfile(org.mule.config.PoolingProfile)">setConnectionPoolingProfile</a></span>(PoolingProfile value)</nobr>
         
-        <div class="jd-descrdiv">Sets flow construct</div>
+        <div class="jd-descrdiv">Sets connectionPoolingProfile</div>
   
   </td></tr>
 
@@ -1057,9 +961,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
         
-        <div class="jd-descrdiv">Sets the instance of the object under which the processor will execute</div>
+        <div class="jd-descrdiv">Sets flow construct</div>
   
   </td></tr>
 
@@ -1075,7 +979,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
         
         <div class="jd-descrdiv">Set the Mule context</div>
   
@@ -1093,7 +997,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#setPass(java.lang.Object)">setPass</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setPass(java.lang.String)">setPass</a></span>(String value)</nobr>
         
         <div class="jd-descrdiv">Sets pass</div>
   
@@ -1111,78 +1015,10 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#setProjectRoleId(java.lang.Object)">setProjectRoleId</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets projectRoleId</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#setRetryMax(int)">setRetryMax</a></span>(int value)</nobr>
-        
-        <div class="jd-descrdiv">Sets retryMax</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#setUser(java.lang.Object)">setUser</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setUser(java.lang.String)">setUser</a></span>(String value)</nobr>
         
         <div class="jd-descrdiv">Sets user</div>
   
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#start()">start</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html#stop()">stop</a></span>()</nobr>
-        
   </td></tr>
 
 
@@ -1405,19 +1241,19 @@ From class
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.construct.FlowConstructAware" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.construct.FlowConstructAware-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.Capabilities" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.Capabilities-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From interface
 
-  org.mule.api.construct.FlowConstructAware
+  org.mule.api.Capabilities
 
-<div id="inherited-methods-org.mule.api.construct.FlowConstructAware">
-  <div id="inherited-methods-org.mule.api.construct.FlowConstructAware-list"
+<div id="inherited-methods-org.mule.api.Capabilities">
+  <div id="inherited-methods-org.mule.api.Capabilities-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.mule.api.construct.FlowConstructAware-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.api.Capabilities-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -1430,10 +1266,10 @@ From interface
             
             
             
-            void</nobr>
+            boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setFlowConstruct</span>(FlowConstruct arg0)</nobr>
+        <span class="sympad">isCapableOf</span>(Capability arg0)</nobr>
         
   </td></tr>
 
@@ -1447,19 +1283,19 @@ From interface
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.context.MuleContextAware" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.context.MuleContextAware-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.ConnectionManager" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.ConnectionManager-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From interface
 
-  org.mule.api.context.MuleContextAware
+  org.mule.api.ConnectionManager
 
-<div id="inherited-methods-org.mule.api.context.MuleContextAware">
-  <div id="inherited-methods-org.mule.api.context.MuleContextAware-list"
+<div id="inherited-methods-org.mule.api.ConnectionManager">
+  <div id="inherited-methods-org.mule.api.ConnectionManager-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.mule.api.context.MuleContextAware-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.api.ConnectionManager-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -1472,38 +1308,60 @@ From interface
             
             
             
-            void</nobr>
+            C</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setMuleContext</span>(MuleContext arg0)</nobr>
+        <span class="sympad">acquireConnection</span>(K arg0)</nobr>
         
   </td></tr>
 
 
-</table>
-  </div>
-</div>
-</td></tr>
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">destroyConnection</span>(K arg0, C arg1)</nobr>
+        
+  </td></tr>
 
 
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            PoolingProfile</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">getConnectionPoolingProfile</span>()</nobr>
+        
+  </td></tr>
 
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.lifecycle.Disposable" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.lifecycle.Disposable-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
 
-  org.mule.api.lifecycle.Disposable
-
-<div id="inherited-methods-org.mule.api.lifecycle.Disposable">
-  <div id="inherited-methods-org.mule.api.lifecycle.Disposable-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.lifecycle.Disposable-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">releaseConnection</span>(K arg0, C arg1)</nobr>
+        
+  </td></tr>
 
 
 	 
@@ -1517,7 +1375,7 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">dispose</span>()</nobr>
+        <span class="sympad">setConnectionPoolingProfile</span>(PoolingProfile arg0)</nobr>
         
   </td></tr>
 
@@ -1570,132 +1428,6 @@ From interface
 </td></tr>
 
 
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.lifecycle.Startable" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.lifecycle.Startable-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.api.lifecycle.Startable
-
-<div id="inherited-methods-org.mule.api.lifecycle.Startable">
-  <div id="inherited-methods-org.mule.api.lifecycle.Startable-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.lifecycle.Startable-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">start</span>()</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.lifecycle.Stoppable" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.lifecycle.Stoppable-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.api.lifecycle.Stoppable
-
-<div id="inherited-methods-org.mule.api.lifecycle.Stoppable">
-  <div id="inherited-methods-org.mule.api.lifecycle.Stoppable-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.lifecycle.Stoppable-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">stop</span>()</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.processor.MessageProcessor" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.processor.MessageProcessor-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.api.processor.MessageProcessor
-
-<div id="inherited-methods-org.mule.api.processor.MessageProcessor">
-  <div id="inherited-methods-org.mule.api.processor.MessageProcessor-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.processor.MessageProcessor-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            MuleEvent</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">process</span>(MuleEvent arg0)</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
 </table>
 
 
@@ -1728,126 +1460,6 @@ From interface
 
 
 
-<A NAME="_addressType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        _addressType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="_passType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        _passType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="_projectRoleIdType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Long
-      </span>
-        _projectRoleIdType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="_userType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        _userType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="address"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1856,7 +1468,7 @@ From interface
         private 
          
          
-        Object
+        String
       </span>
         address
     </h4>
@@ -1878,7 +1490,7 @@ From interface
 
 
 
-<A NAME="expressionManager"></A>
+<A NAME="connectionPool"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1886,9 +1498,9 @@ From interface
         private 
          
          
-        ExpressionManager
+        GenericKeyedObjectPool
       </span>
-        expressionManager
+        connectionPool
     </h4>
       <div class="api-level">
         
@@ -1900,9 +1512,39 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Mule Expression Manager
+  <div class="jd-tagdata jd-tagdescr"><p>Connector Pool
  
 </p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="connectionPoolingProfile"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        PoolingProfile
+      </span>
+        connectionPoolingProfile
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     
     </div>
@@ -1972,38 +1614,6 @@ From interface
 
 
 
-<A NAME="moduleObject"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        moduleObject
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Module object
- 
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="muleContext"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2044,7 +1654,7 @@ From interface
         private 
          
          
-        Object
+        String
       </span>
         pass
     </h4>
@@ -2066,132 +1676,6 @@ From interface
 
 
 
-<A NAME="patternInfo"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        TemplateParser.PatternInfo
-      </span>
-        patternInfo
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Mule Pattern Info
- 
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="projectRoleId"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        projectRoleId
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="retryCount"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        AtomicInteger
-      </span>
-        retryCount
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Variable used to track how many retries we have attempted on this message processor
- 
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="retryMax"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        int
-      </span>
-        retryMax
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Maximum number of retries that can be attempted.
- 
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="user"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2200,7 +1684,7 @@ From interface
         private 
          
          
-        Object
+        String
       </span>
         user
     </h4>
@@ -2231,7 +1715,7 @@ From interface
 
 
 
-<A NAME="GetAssociatedPermissionSchemesMessageProcessor()"></A>
+<A NAME="JiraConnectorConnectionManager()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2243,7 +1727,7 @@ From interface
          
         
       </span>
-      <span class="sympad">GetAssociatedPermissionSchemesMessageProcessor</span>
+      <span class="sympad">JiraConnectorConnectionManager</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -2277,7 +1761,7 @@ From interface
 
 
 
-<A NAME="dispose()"></A>
+<A NAME="acquireConnection(org.mule.module.jira.config.JiraConnectorConnectionManager.ConnectionParameters)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2287,10 +1771,10 @@ From interface
          
          
          
-        void
+        <a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a>
       </span>
-      <span class="sympad">dispose</span>
-      <span class="normal">()</span>
+      <span class="sympad">acquireConnection</span>
+      <span class="normal">(<a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.ConnectionParameters.html">JiraConnectorConnectionManager.ConnectionParameters</a> key)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2303,6 +1787,209 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>key</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="destroyConnection(org.mule.module.jira.config.JiraConnectorConnectionManager.ConnectionParameters, org.mule.module.jira.config.JiraConnectorLifecycleAdapter)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">destroyConnection</span>
+      <span class="normal">(<a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.ConnectionParameters.html">JiraConnectorConnectionManager.ConnectionParameters</a> key, <a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a> connection)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>key</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>connection</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getAddress()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getAddress</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves address
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getConnectionPoolingProfile()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        PoolingProfile
+      </span>
+      <span class="sympad">getConnectionPoolingProfile</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves connectionPoolingProfile
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getPass()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getPass</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves pass
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getUser()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getUser</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves user
+ 
+</p></div>
 
     </div>
 </div>
@@ -2333,22 +2020,13 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Obtains the expression manager from the Mule context and initialises the connector. If a target object  has not been set already it will search the Mule registry for a default one.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>InitialisationException</td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
 
 
-<A NAME="process(org.mule.api.MuleEvent)"></A>
+<A NAME="isCapableOf(org.mule.api.Capability)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2358,10 +2036,10 @@ From interface
          
          
          
-        MuleEvent
+        boolean
       </span>
-      <span class="sympad">process</span>
-      <span class="normal">(MuleEvent event)</span>
+      <span class="sympad">isCapableOf</span>
+      <span class="normal">(Capability capability)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2373,13 +2051,59 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Invokes the MessageProcessor.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns true if this module implements such capability
+ 
+</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>event</td>
-          <td>MuleEvent to be processed</td>
+          <th>capability</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="releaseConnection(org.mule.module.jira.config.JiraConnectorConnectionManager.ConnectionParameters, org.mule.module.jira.config.JiraConnectorLifecycleAdapter)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">releaseConnection</span>
+      <span class="normal">(<a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.ConnectionParameters.html">JiraConnectorConnectionManager.ConnectionParameters</a> key, <a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a> connection)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>key</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>connection</td>
+          <td></td>
         </tr>
       </table>
   </div>
@@ -2387,7 +2111,7 @@ From interface
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th>MuleException</td>
+            <th>Exception</td>
             <td></td>
         </tr>
       </table>
@@ -2397,7 +2121,7 @@ From interface
 </div>
 
 
-<A NAME="setAddress(java.lang.Object)"></A>
+<A NAME="setAddress(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2410,7 +2134,7 @@ From interface
         void
       </span>
       <span class="sympad">setAddress</span>
-      <span class="normal">(Object value)</span>
+      <span class="normal">(String value)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2423,6 +2147,47 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Sets address</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setConnectionPoolingProfile(org.mule.config.PoolingProfile)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setConnectionPoolingProfile</span>
+      <span class="normal">(PoolingProfile value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets connectionPoolingProfile</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -2479,47 +2244,6 @@ From interface
 </div>
 
 
-<A NAME="setModuleObject(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setModuleObject</span>
-      <span class="normal">(Object moduleObject)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets the instance of the object under which the processor will execute</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>moduleObject</td>
-          <td>Instace of the module
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="setMuleContext(org.mule.api.MuleContext)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2561,7 +2285,7 @@ From interface
 </div>
 
 
-<A NAME="setPass(java.lang.Object)"></A>
+<A NAME="setPass(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2574,7 +2298,7 @@ From interface
         void
       </span>
       <span class="sympad">setPass</span>
-      <span class="normal">(Object value)</span>
+      <span class="normal">(String value)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2602,89 +2326,7 @@ From interface
 </div>
 
 
-<A NAME="setProjectRoleId(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setProjectRoleId</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets projectRoleId</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setRetryMax(int)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setRetryMax</span>
-      <span class="normal">(int value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets retryMax</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setUser(java.lang.Object)"></A>
+<A NAME="setUser(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2697,7 +2339,7 @@ From interface
         void
       </span>
       <span class="sympad">setUser</span>
-      <span class="normal">(Object value)</span>
+      <span class="normal">(String value)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2717,86 +2359,6 @@ From interface
           <th>value</td>
           <td>Value to set
 </td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="start()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">start</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>MuleException</td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="stop()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">stop</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>MuleException</td>
-            <td></td>
         </tr>
       </table>
   </div>

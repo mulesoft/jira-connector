@@ -286,6 +286,8 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorCapabilitiesAdapter.html">JiraCloudConnectorCapabilitiesAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorLifecycleAdapter.html">JiraCloudConnectorLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorCapabilitiesAdapter.html">JiraConnectorCapabilitiesAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.html">JiraConnectorConnectionManager</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.ConnectionParameters.html">JiraConnectorConnectionManager.ConnectionParameters</a></li>
           <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/LoginMessageProcessor.html">LoginMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/LogoutMessageProcessor.html">LogoutMessageProcessor</a></li>
@@ -779,9 +781,9 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#address">address</a></td>
-          <td class="jd-descrcol" width="100%">The JIRA Server Soap address.</td>
+          <a href="../../../../../../java/org/mule/module/jira/api/JiraClient.html">JiraClient</a>&lt;List&lt;Object&gt;&gt;</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#client">client</a></td>
+          <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
@@ -790,8 +792,8 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          <a href="../../../../../../java/org/mule/module/jira/api/JiraClient.html">JiraClient</a>&lt;List&lt;Object&gt;&gt;</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#client">client</a></td>
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#pass">pass</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -802,9 +804,8 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#password">password</a></td>
-          <td class="jd-descrcol" width="100%">The user login password
-</td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#token">token</a></td>
+          <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
@@ -814,9 +815,8 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#username">username</a></td>
-          <td class="jd-descrcol" width="100%">The user login username
-</td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#user">user</a></td>
+          <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
@@ -1032,7 +1032,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addActorsToProjectRole(java.lang.String, java.util.List<java.lang.String>, java.lang.Long, java.lang.String, java.lang.String)">addActorsToProjectRole</a></span>(String token, List&lt;String&gt; actors, Long projectRoleId, String projectKey, String actorType)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addActorsToProjectRole(java.util.List<java.lang.String>, java.lang.Long, java.lang.String, java.lang.String)">addActorsToProjectRole</a></span>(List&lt;String&gt; actors, Long projectRoleId, String projectKey, String actorType)</nobr>
         
         <div class="jd-descrdiv">Adds the given actors to the project role.</div>
   
@@ -1050,7 +1050,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addBase64EncodedAttachmentsToIssue(java.lang.String, java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>)">addBase64EncodedAttachmentsToIssue</a></span>(String token, String issueKey, List&lt;String&gt; fileNames, List&lt;String&gt; base64EncodedAttachmentData)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addBase64EncodedAttachmentsToIssue(java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>)">addBase64EncodedAttachmentsToIssue</a></span>(String issueKey, List&lt;String&gt; fileNames, List&lt;String&gt; base64EncodedAttachmentData)</nobr>
         
         <div class="jd-descrdiv">An alternative mechanism for adding attachments to an issue.</div>
   
@@ -1068,7 +1068,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addComment(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">addComment</a></span>(String token, String issueKey, String commentAuthor, String commentBody, String commentGroupLevel, String commentRoleLevel)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addComment(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">addComment</a></span>(String issueKey, String commentAuthor, String commentBody, String commentGroupLevel, String commentRoleLevel)</nobr>
         
         <div class="jd-descrdiv">Adds a new comment to the issue.</div>
   
@@ -1086,7 +1086,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addDefaultActorsToProjectRole(java.lang.String, java.util.List<java.lang.String>, java.lang.Long, java.lang.String)">addDefaultActorsToProjectRole</a></span>(String token, List&lt;String&gt; actors, Long projectRoleId, String type)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addDefaultActorsToProjectRole(java.util.List<java.lang.String>, java.lang.Long, java.lang.String)">addDefaultActorsToProjectRole</a></span>(List&lt;String&gt; actors, Long projectRoleId, String type)</nobr>
         
         <div class="jd-descrdiv">Adds the default actors to the project role denoted by this id.</div>
   
@@ -1104,7 +1104,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemotePermissionScheme.html">RemotePermissionScheme</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addPermissionTo(java.lang.String, java.lang.String, java.lang.Long, java.lang.String)">addPermissionTo</a></span>(String token, String permissionSchemeName, Long permissionCode, String entityName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addPermissionTo(java.lang.String, java.lang.Long, java.lang.String)">addPermissionTo</a></span>(String permissionSchemeName, Long permissionCode, String entityName)</nobr>
         
         <div class="jd-descrdiv">Adds the permission to the given entity name (username or group name)
  <p/>
@@ -1124,7 +1124,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addUserToGroup(java.lang.String, java.lang.String, java.lang.String)">addUserToGroup</a></span>(String token, String groupName, String userName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addUserToGroup(java.lang.String, java.lang.String)">addUserToGroup</a></span>(String groupName, String userName)</nobr>
         
         <div class="jd-descrdiv">Adds a user to the given group name.</div>
   
@@ -1142,7 +1142,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteVersion.html">RemoteVersion</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addVersion(java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.Boolean, java.lang.String)">addVersion</a></span>(String token, String projectKey, String versionName, Boolean archived, Boolean released, String releaseDate)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#addVersion(java.lang.String, java.lang.String, java.lang.Boolean, java.lang.Boolean, java.lang.String)">addVersion</a></span>(String projectKey, String versionName, Boolean archived, Boolean released, String releaseDate)</nobr>
         
         <div class="jd-descrdiv">Adds a new version
  <p/>
@@ -1162,7 +1162,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#archiveVersion(java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean)">archiveVersion</a></span>(String token, String projectKey, String versionName, Boolean archive)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#archiveVersion(java.lang.String, java.lang.String, java.lang.Boolean)">archiveVersion</a></span>(String projectKey, String versionName, Boolean archive)</nobr>
         
         <div class="jd-descrdiv">Archieves the given version/
  <p/>
@@ -1179,10 +1179,28 @@ From class
             
             
             
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#connect(java.lang.String, java.lang.String, java.lang.String)">connect</a></span>(String user, String pass, String address)</nobr>
+        
+        <div class="jd-descrdiv">Creates a connection to Jira by making a login call with the given credentials to the specified address.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteGroup.html">RemoteGroup</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createGroup(java.lang.String, java.lang.String, java.lang.String)">createGroup</a></span>(String token, String groupName, String userName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createGroup(java.lang.String, java.lang.String)">createGroup</a></span>(String groupName, String userName)</nobr>
         
         <div class="jd-descrdiv">Creates a group with the given name optionally adding the given user to it.</div>
   
@@ -1190,6 +1208,24 @@ From class
 
 
 	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">createIssue</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</nobr>
+        
+        <div class="jd-descrdiv">Creates an issue.</div>
+  
+  </td></tr>
+
+
+	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -1200,7 +1236,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">createIssue</a></span>(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createIssueSingleValueFields(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.lang.String>)">createIssueSingleValueFields</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;String&gt; customFields)</nobr>
         
         <div class="jd-descrdiv">Creates an issue.</div>
   
@@ -1218,25 +1254,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createIssueSingleValueFields(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.lang.String>)">createIssueSingleValueFields</a></span>(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;String&gt; customFields)</nobr>
-        
-        <div class="jd-descrdiv">Creates an issue.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createIssueWithSecurityLevel(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Long)">createIssueWithSecurityLevel</a></span>(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, Long securityLevelId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createIssueWithSecurityLevel(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Long)">createIssueWithSecurityLevel</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, Long securityLevelId)</nobr>
         
         <div class="jd-descrdiv">Creates an issue using the the security level denoted by the given id.</div>
   
@@ -1244,7 +1262,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1254,7 +1272,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemotePermissionScheme.html">RemotePermissionScheme</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createPermissionScheme(java.lang.String, java.lang.String, java.lang.String)">createPermissionScheme</a></span>(String token, String name, String description)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createPermissionScheme(java.lang.String, java.lang.String)">createPermissionScheme</a></span>(String name, String description)</nobr>
         
         <div class="jd-descrdiv">Creates a new permission schema using the given name and description.</div>
   
@@ -1262,7 +1280,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1272,7 +1290,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteProject.html">RemoteProject</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createProject(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">createProject</a></span>(String token, String key, String name, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createProject(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">createProject</a></span>(String key, String name, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName)</nobr>
         
         <div class="jd-descrdiv">Creates a new project
  <p/>
@@ -1282,7 +1300,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1292,7 +1310,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteProjectRole.html">RemoteProjectRole</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createProjectRole(java.lang.String, java.lang.String, java.lang.String)">createProjectRole</a></span>(String token, String projectRoleName, String projectRoleDescription)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createProjectRole(java.lang.String, java.lang.String)">createProjectRole</a></span>(String projectRoleName, String projectRoleDescription)</nobr>
         
         <div class="jd-descrdiv">Creates a new project role.</div>
   
@@ -1300,7 +1318,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1310,7 +1328,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteUser.html">RemoteUser</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">createUser</a></span>(String token, String username, String password, String fullName, String email)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#createUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String)">createUser</a></span>(String username, String password, String fullName, String email)</nobr>
         
         <div class="jd-descrdiv">Creates a user in JIRA with the specified user details
  <p/>
@@ -1320,24 +1338,6 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteGroup(java.lang.String, java.lang.String, java.lang.String)">deleteGroup</a></span>(String token, String groupName, String swapGroupName)</nobr>
-        
-        <div class="jd-descrdiv">Deletes the group denoted by the given group name.</div>
-  
-  </td></tr>
-
-
-	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -1348,7 +1348,25 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteIssue(java.lang.String, java.lang.String)">deleteIssue</a></span>(String token, String issueKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteGroup(java.lang.String, java.lang.String)">deleteGroup</a></span>(String groupName, String swapGroupName)</nobr>
+        
+        <div class="jd-descrdiv">Deletes the group denoted by the given group name.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteIssue(java.lang.String)">deleteIssue</a></span>(String issueKey)</nobr>
         
         <div class="jd-descrdiv">Deletes the issue with the given key
  <p/>
@@ -1358,7 +1376,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1368,7 +1386,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemotePermissionScheme.html">RemotePermissionScheme</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deletePermissionFrom(java.lang.String, java.lang.String, java.lang.Long, java.lang.String)">deletePermissionFrom</a></span>(String token, String permissionSchemeName, Long permissionCode, String entityName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deletePermissionFrom(java.lang.String, java.lang.Long, java.lang.String)">deletePermissionFrom</a></span>(String permissionSchemeName, Long permissionCode, String entityName)</nobr>
         
         <div class="jd-descrdiv">Removes the permission to the given entity name (username or group name)
  <p/>
@@ -1378,7 +1396,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1388,7 +1406,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deletePermissionScheme(java.lang.String, java.lang.String)">deletePermissionScheme</a></span>(String token, String permissionSchemeName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deletePermissionScheme(java.lang.String)">deletePermissionScheme</a></span>(String permissionSchemeName)</nobr>
         
         <div class="jd-descrdiv">Deletes the permission scheme denoted by the given name
  <p/>
@@ -1398,7 +1416,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1408,7 +1426,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteProject(java.lang.String, java.lang.String)">deleteProject</a></span>(String token, String projectKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteProject(java.lang.String)">deleteProject</a></span>(String projectKey)</nobr>
         
         <div class="jd-descrdiv">Deletes the project represented by the given project key.</div>
   
@@ -1416,7 +1434,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1426,7 +1444,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteProjectAvatar(java.lang.String, java.lang.Long)">deleteProjectAvatar</a></span>(String token, Long avatarId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteProjectAvatar(java.lang.Long)">deleteProjectAvatar</a></span>(Long avatarId)</nobr>
         
         <div class="jd-descrdiv">Deletes the given custom Avatar from the system.</div>
   
@@ -1434,6 +1452,24 @@ From class
 
 
 	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteProjectRole(java.lang.Long, java.lang.Boolean)">deleteProjectRole</a></span>(Long projectRoleId, Boolean confirm)</nobr>
+        
+        <div class="jd-descrdiv">Deletes the project role denoted by the given project role id.</div>
+  
+  </td></tr>
+
+
+	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -1444,9 +1480,9 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteProjectRole(java.lang.String, java.lang.Long, java.lang.Boolean)">deleteProjectRole</a></span>(String token, Long projectRoleId, Boolean confirm)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteUser(java.lang.String)">deleteUser</a></span>(String username)</nobr>
         
-        <div class="jd-descrdiv">Deletes the project role denoted by the given project role id.</div>
+        <div class="jd-descrdiv">Deletes a user in JIRA with the specified username.</div>
   
   </td></tr>
 
@@ -1462,25 +1498,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteUser(java.lang.String, java.lang.String)">deleteUser</a></span>(String token, String username)</nobr>
-        
-        <div class="jd-descrdiv">Deletes a user in JIRA with the specified username.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteWorklogAndAutoAdjustRemainingEstimate(java.lang.String, java.lang.String)">deleteWorklogAndAutoAdjustRemainingEstimate</a></span>(String token, String worklogId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteWorklogAndAutoAdjustRemainingEstimate(java.lang.String)">deleteWorklogAndAutoAdjustRemainingEstimate</a></span>(String worklogId)</nobr>
         
         <div class="jd-descrdiv">Deletes the worklog with the given id and updates the remaining estimate field on the isssue by increasing it
  by the time spent amount on the worklog being deleted.</div>
@@ -1489,6 +1507,24 @@ From class
 
 
 	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteWorklogAndRetainRemainingEstimate(java.lang.String)">deleteWorklogAndRetainRemainingEstimate</a></span>(String worklogId)</nobr>
+        
+        <div class="jd-descrdiv">Deletes the worklog with the given id but leaves the remaining estimate field on the isssue unchanged.</div>
+  
+  </td></tr>
+
+
+	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -1499,9 +1535,9 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteWorklogAndRetainRemainingEstimate(java.lang.String, java.lang.String)">deleteWorklogAndRetainRemainingEstimate</a></span>(String token, String worklogId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteWorklogWithNewRemainingEstimate(java.lang.String, java.lang.String)">deleteWorklogWithNewRemainingEstimate</a></span>(String workLogId, String newRemainingEstimate)</nobr>
         
-        <div class="jd-descrdiv">Deletes the worklog with the given id but leaves the remaining estimate field on the isssue unchanged.</div>
+        <div class="jd-descrdiv">Deletes the worklog with the given id and sets the remaining estimate field on the isssue to the given value.</div>
   
   </td></tr>
 
@@ -1517,9 +1553,9 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#deleteWorklogWithNewRemainingEstimate(java.lang.String, java.lang.String, java.lang.String)">deleteWorklogWithNewRemainingEstimate</a></span>(String token, String workLogId, String newRemainingEstimate)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#disconnect()">disconnect</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Deletes the worklog with the given id and sets the remaining estimate field on the isssue to the given value.</div>
+        <div class="jd-descrdiv">Performs a logout call to Jira.</div>
   
   </td></tr>
 
@@ -1535,7 +1571,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteComment.html">RemoteComment</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#editComment(java.lang.String, java.lang.Long, java.lang.String, java.lang.String)">editComment</a></span>(String token, Long commentId, String body, String updateAuthor)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#editComment(java.lang.Long, java.lang.String, java.lang.String)">editComment</a></span>(Long commentId, String body, String updateAuthor)</nobr>
         
         <div class="jd-descrdiv">Edits the comment denoted by the given id
  <p/>
@@ -1552,26 +1588,10 @@ From class
             
             
             
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getAddress()">getAddress</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getAllPermissions(java.lang.String)">getAllPermissions</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getAllPermissions()">getAllPermissions</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns all the permissions.</div>
   
@@ -1579,7 +1599,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1589,7 +1609,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getAssociatedNotificationSchemes(java.lang.String, java.lang.Long)">getAssociatedNotificationSchemes</a></span>(String token, Long projectRoleId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getAssociatedNotificationSchemes(java.lang.Long)">getAssociatedNotificationSchemes</a></span>(Long projectRoleId)</nobr>
         
         <div class="jd-descrdiv">Returns the associated notification schemes for the given project role.</div>
   
@@ -1597,7 +1617,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1607,7 +1627,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getAssociatedPermissionSchemes(java.lang.String, java.lang.Long)">getAssociatedPermissionSchemes</a></span>(String token, Long projectRoleId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getAssociatedPermissionSchemes(java.lang.Long)">getAssociatedPermissionSchemes</a></span>(Long projectRoleId)</nobr>
         
         <div class="jd-descrdiv">Returns the associated permission schemas for the given project role.</div>
   
@@ -1615,24 +1635,6 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            List&lt;Object&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getAttachmentsFromIssue(java.lang.String, java.lang.String)">getAttachmentsFromIssue</a></span>(String token, String issueKey)</nobr>
-        
-        <div class="jd-descrdiv">Returns the attachments for the issue denoted by the given key.</div>
-  
-  </td></tr>
-
-
-	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -1643,11 +1645,9 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getAvailableActions(java.lang.String, java.lang.String)">getAvailableActions</a></span>(String token, String issueKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getAttachmentsFromIssue(java.lang.String)">getAttachmentsFromIssue</a></span>(String issueKey)</nobr>
         
-        <div class="jd-descrdiv">Finds the available actions for the given issue key
- <p/>
- </div>
+        <div class="jd-descrdiv">Returns the attachments for the issue denoted by the given key.</div>
   
   </td></tr>
 
@@ -1656,15 +1656,19 @@ From class
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
-            synchronized
             
             
             
-            <a href="../../../../../../java/org/mule/module/jira/api/JiraClient.html">JiraClient</a>&lt;List&lt;Object&gt;&gt;</nobr>
+            
+            List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getClient()">getClient</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getAvailableActions(java.lang.String)">getAvailableActions</a></span>(String issueKey)</nobr>
         
+        <div class="jd-descrdiv">Finds the available actions for the given issue key
+ <p/>
+ </div>
+  
   </td></tr>
 
 
@@ -1679,7 +1683,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteComment.html">RemoteComment</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getComment(java.lang.String, java.lang.Long)">getComment</a></span>(String token, Long commentId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getComment(java.lang.Long)">getComment</a></span>(Long commentId)</nobr>
         
         <div class="jd-descrdiv">Finds a comment.</div>
   
@@ -1697,7 +1701,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getComments(java.lang.String, java.lang.String)">getComments</a></span>(String token, String issueKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getComments(java.lang.String)">getComments</a></span>(String issueKey)</nobr>
         
         <div class="jd-descrdiv">Returns the comments for the issue denoted by the given key.</div>
   
@@ -1715,7 +1719,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getComponents(java.lang.String, java.lang.String)">getComponents</a></span>(String token, String projectKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getComponents(java.lang.String)">getComponents</a></span>(String projectKey)</nobr>
         
         <div class="jd-descrdiv">Returns an array of all the components for the specified project key.</div>
   
@@ -1733,7 +1737,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteConfiguration.html">RemoteConfiguration</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getConfiguration(java.lang.String)">getConfiguration</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getConfiguration()">getConfiguration</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns information about the current configuration of JIRA.</div>
   
@@ -1751,7 +1755,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getCustomFields(java.lang.String)">getCustomFields</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getCustomFields()">getCustomFields</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns the custom fields for the current user
  <p/>
@@ -1771,7 +1775,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteRoleActors.html">RemoteRoleActors</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getDefaultRoleActors(java.lang.String, java.lang.Long)">getDefaultRoleActors</a></span>(String token, Long projectRoleId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getDefaultRoleActors(java.lang.Long)">getDefaultRoleActors</a></span>(Long projectRoleId)</nobr>
         
         <div class="jd-descrdiv">Returns the default role actors for the given project role id.</div>
   
@@ -1789,7 +1793,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getFavouriteFilters(java.lang.String)">getFavouriteFilters</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getFavouriteFilters()">getFavouriteFilters</a></span>()</nobr>
         
         <div class="jd-descrdiv">This retreives a list of the currently logged in user's favourite fitlers.</div>
   
@@ -1807,7 +1811,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getFieldsForAction(java.lang.String, java.lang.String, java.lang.String)">getFieldsForAction</a></span>(String token, String issueKey, String actionIdString)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getFieldsForAction(java.lang.String, java.lang.String)">getFieldsForAction</a></span>(String issueKey, String actionIdString)</nobr>
         
         <div class="jd-descrdiv">Returns the fields for the given action.</div>
   
@@ -1825,7 +1829,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getFieldsForEdit(java.lang.String, java.lang.String)">getFieldsForEdit</a></span>(String token, String issueKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getFieldsForEdit(java.lang.String)">getFieldsForEdit</a></span>(String issueKey)</nobr>
         
         <div class="jd-descrdiv">Returns the fields for edit for the given issue key
  <p/>
@@ -1845,7 +1849,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteGroup.html">RemoteGroup</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getGroup(java.lang.String, java.lang.String)">getGroup</a></span>(String token, String groupName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getGroup(java.lang.String)">getGroup</a></span>(String groupName)</nobr>
         
         <div class="jd-descrdiv">Find the group with the specified name in JIRA.</div>
   
@@ -1863,7 +1867,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssue(java.lang.String, java.lang.String)">getIssue</a></span>(String token, String issueKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssue(java.lang.String)">getIssue</a></span>(String issueKey)</nobr>
         
         <div class="jd-descrdiv">Finds an issue by key.</div>
   
@@ -1881,7 +1885,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssueById(java.lang.String, java.lang.String)">getIssueById</a></span>(String token, String issueId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssueById(java.lang.String)">getIssueById</a></span>(String issueId)</nobr>
         
         <div class="jd-descrdiv">Returns the issue for the given issue id.</div>
   
@@ -1899,7 +1903,7 @@ From class
             long</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssueCountForFilter(java.lang.String, java.lang.String)">getIssueCountForFilter</a></span>(String token, String filterId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssueCountForFilter(java.lang.String)">getIssueCountForFilter</a></span>(String filterId)</nobr>
         
         <div class="jd-descrdiv">Returns the issue count for the filter denoted by this id.</div>
   
@@ -1917,7 +1921,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssueTypes(java.lang.String)">getIssueTypes</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssueTypes()">getIssueTypes</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns an array of all the issue types for all projects in JIRA.</div>
   
@@ -1935,7 +1939,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssueTypesForProject(java.lang.String, java.lang.String)">getIssueTypesForProject</a></span>(String token, String projectId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssueTypesForProject(java.lang.String)">getIssueTypesForProject</a></span>(String projectId)</nobr>
         
         <div class="jd-descrdiv">Returns an array of all the (non-sub task) issue types for the specified project id.</div>
   
@@ -1953,7 +1957,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssuesFromFilterWithLimit(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)">getIssuesFromFilterWithLimit</a></span>(String token, String filterId, Integer offset, Integer maxNumResults)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssuesFromFilterWithLimit(java.lang.String, java.lang.Integer, java.lang.Integer)">getIssuesFromFilterWithLimit</a></span>(String filterId, Integer offset, Integer maxNumResults)</nobr>
         
         <div class="jd-descrdiv">Returns issues that match the saved filter specified by the filterId.</div>
   
@@ -1971,7 +1975,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssuesFromJqlSearch(java.lang.String, java.lang.String, java.lang.Integer)">getIssuesFromJqlSearch</a></span>(String token, String jqlSearch, Integer maxNumResults)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssuesFromJqlSearch(java.lang.String, java.lang.Integer)">getIssuesFromJqlSearch</a></span>(String jqlSearch, Integer maxNumResults)</nobr>
         
         <div class="jd-descrdiv">Execute a specified JQL query and return the resulting issues.</div>
   
@@ -1989,7 +1993,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssuesFromTextSearchWithLimit(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)">getIssuesFromTextSearchWithLimit</a></span>(String token, String searchTerms, Integer offset, Integer maxNumResults)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssuesFromTextSearchWithLimit(java.lang.String, java.lang.Integer, java.lang.Integer)">getIssuesFromTextSearchWithLimit</a></span>(String searchTerms, Integer offset, Integer maxNumResults)</nobr>
         
         <div class="jd-descrdiv">Returns issues containing searchTerms.</div>
   
@@ -2007,7 +2011,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssuesFromTextSearchWithProject(java.lang.String, java.util.List<java.lang.String>, java.lang.String, java.lang.Integer)">getIssuesFromTextSearchWithProject</a></span>(String token, List&lt;String&gt; projectKeys, String searchTerms, Integer maxNumResults)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getIssuesFromTextSearchWithProject(java.util.List<java.lang.String>, java.lang.String, java.lang.Integer)">getIssuesFromTextSearchWithProject</a></span>(List&lt;String&gt; projectKeys, String searchTerms, Integer maxNumResults)</nobr>
         
         <div class="jd-descrdiv">Returns issues containing searchTerms that are within the specified projects.</div>
   
@@ -2025,7 +2029,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getNotificationSchemes(java.lang.String)">getNotificationSchemes</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getNotificationSchemes()">getNotificationSchemes</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns notification schemes.</div>
   
@@ -2043,7 +2047,7 @@ From class
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getPassword()">getPassword</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getPass()">getPass</a></span>()</nobr>
         
   </td></tr>
 
@@ -2059,7 +2063,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getPermissionSchemes(java.lang.String)">getPermissionSchemes</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getPermissionSchemes()">getPermissionSchemes</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns the permission schemes.</div>
   
@@ -2077,7 +2081,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getPriorities(java.lang.String)">getPriorities</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getPriorities()">getPriorities</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns an array of all the issue statuses in JIRA.</div>
   
@@ -2095,7 +2099,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteAvatar.html">RemoteAvatar</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectAvatar(java.lang.String, java.lang.String)">getProjectAvatar</a></span>(String token, String projectKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectAvatar(java.lang.String)">getProjectAvatar</a></span>(String projectKey)</nobr>
         
         <div class="jd-descrdiv">Retrieves the current avatar for the given project.</div>
   
@@ -2113,7 +2117,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectAvatars(java.lang.String, java.lang.String, java.lang.Boolean)">getProjectAvatars</a></span>(String token, String projectKey, Boolean includeSystemAvatars)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectAvatars(java.lang.String, java.lang.Boolean)">getProjectAvatars</a></span>(String projectKey, Boolean includeSystemAvatars)</nobr>
         
         <div class="jd-descrdiv">Retrieves avatars for the given project.</div>
   
@@ -2131,7 +2135,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteProject.html">RemoteProject</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectById(java.lang.String, java.lang.Long)">getProjectById</a></span>(String token, Long projectId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectById(java.lang.Long)">getProjectById</a></span>(Long projectId)</nobr>
         
         <div class="jd-descrdiv">Returns the Project with the matching id (if the user has permission to browse it).</div>
   
@@ -2149,7 +2153,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteProject.html">RemoteProject</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectByKey(java.lang.String, java.lang.String)">getProjectByKey</a></span>(String token, String projectKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectByKey(java.lang.String)">getProjectByKey</a></span>(String projectKey)</nobr>
         
         <div class="jd-descrdiv">Returns the Project with the matching key (if the user has permission to browse it).</div>
   
@@ -2167,7 +2171,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteProjectRole.html">RemoteProjectRole</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectRole(java.lang.String, java.lang.Long)">getProjectRole</a></span>(String token, Long projectRoleId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectRole(java.lang.Long)">getProjectRole</a></span>(Long projectRoleId)</nobr>
         
         <div class="jd-descrdiv">Returns the project role by projectRoleId.</div>
   
@@ -2185,7 +2189,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteProjectRoleActors.html">RemoteProjectRoleActors</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectRoleActors(java.lang.String, java.lang.Long, java.lang.String)">getProjectRoleActors</a></span>(String token, Long projectRoleId, String projectKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectRoleActors(java.lang.Long, java.lang.String)">getProjectRoleActors</a></span>(Long projectRoleId, String projectKey)</nobr>
         
         <div class="jd-descrdiv">Returns the project role actors for the given project
  <p/>
@@ -2205,7 +2209,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectRoles(java.lang.String)">getProjectRoles</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectRoles()">getProjectRoles</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns the project roles.</div>
   
@@ -2223,7 +2227,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteProject.html">RemoteProject</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectWithSchemesById(java.lang.String, java.lang.Long)">getProjectWithSchemesById</a></span>(String token, Long projectId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectWithSchemesById(java.lang.Long)">getProjectWithSchemesById</a></span>(Long projectId)</nobr>
         
         <div class="jd-descrdiv">Returns the Project with the matching id (if the user has permission to browse it) with notification, issue security and permission schemes attached.</div>
   
@@ -2241,7 +2245,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectsNoSchemes(java.lang.String)">getProjectsNoSchemes</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getProjectsNoSchemes()">getProjectsNoSchemes</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns an array of all the Projects defined in JIRA.</div>
   
@@ -2259,7 +2263,7 @@ From class
             Calendar</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getResolutionDateById(java.lang.String, java.lang.Long)">getResolutionDateById</a></span>(String token, Long issueId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getResolutionDateById(java.lang.Long)">getResolutionDateById</a></span>(Long issueId)</nobr>
         
         <div class="jd-descrdiv">Given an issue id, this method returns the resolution date for this issue.</div>
   
@@ -2277,7 +2281,7 @@ From class
             Calendar</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getResolutionDateByKey(java.lang.String, java.lang.String)">getResolutionDateByKey</a></span>(String token, String issueKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getResolutionDateByKey(java.lang.String)">getResolutionDateByKey</a></span>(String issueKey)</nobr>
         
         <div class="jd-descrdiv">Given an issue key, this method returns the resolution date for this issue.</div>
   
@@ -2295,7 +2299,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getResolutions(java.lang.String)">getResolutions</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getResolutions()">getResolutions</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns an array of all the issue resolutions in JIRA.</div>
   
@@ -2313,7 +2317,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteSecurityLevel.html">RemoteSecurityLevel</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getSecurityLevel(java.lang.String, java.lang.String)">getSecurityLevel</a></span>(String token, String issueKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getSecurityLevel(java.lang.String)">getSecurityLevel</a></span>(String issueKey)</nobr>
         
         <div class="jd-descrdiv">Returns the current security level for given issue
  <p/>
@@ -2333,7 +2337,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getSecurityLevels(java.lang.String, java.lang.String)">getSecurityLevels</a></span>(String token, String projectKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getSecurityLevels(java.lang.String)">getSecurityLevels</a></span>(String projectKey)</nobr>
         
         <div class="jd-descrdiv">Returns an array of all security levels for a given project.</div>
   
@@ -2351,7 +2355,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getSecuritySchemes(java.lang.String)">getSecuritySchemes</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getSecuritySchemes()">getSecuritySchemes</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns the security schemes.</div>
   
@@ -2369,7 +2373,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteServerInfo.html">RemoteServerInfo</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getServerInfo(java.lang.String)">getServerInfo</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getServerInfo()">getServerInfo</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns information about the server JIRA is running on including build number and base URL.</div>
   
@@ -2387,7 +2391,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getStatuses(java.lang.String)">getStatuses</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getStatuses()">getStatuses</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns an array of all the issue statuses in JIRA.</div>
   
@@ -2405,7 +2409,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getSubTaskIssueTypes(java.lang.String)">getSubTaskIssueTypes</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getSubTaskIssueTypes()">getSubTaskIssueTypes</a></span>()</nobr>
         
         <div class="jd-descrdiv">Returns an array of all the sub task issue types in JIRA.</div>
   
@@ -2423,7 +2427,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getSubTaskIssueTypesForProject(java.lang.String, java.lang.String)">getSubTaskIssueTypesForProject</a></span>(String token, String projectId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getSubTaskIssueTypesForProject(java.lang.String)">getSubTaskIssueTypesForProject</a></span>(String projectId)</nobr>
         
         <div class="jd-descrdiv">Returns an array of all the sub task issue types for the specified project id.</div>
   
@@ -2441,7 +2445,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteUser.html">RemoteUser</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getUser(java.lang.String, java.lang.String)">getUser</a></span>(String token, String username)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getUser(java.lang.String)">getUser</a></span>(String username)</nobr>
         
         <div class="jd-descrdiv">Returns information about a user defined to JIRA.</div>
   
@@ -2459,7 +2463,7 @@ From class
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getUsername()">getUsername</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getUser()">getUser</a></span>()</nobr>
         
   </td></tr>
 
@@ -2475,7 +2479,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getVersions(java.lang.String, java.lang.String)">getVersions</a></span>(String token, String projectKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getVersions(java.lang.String)">getVersions</a></span>(String projectKey)</nobr>
         
         <div class="jd-descrdiv">Returns an array of all the versions for the specified project key.</div>
   
@@ -2493,7 +2497,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getWorklogs(java.lang.String, java.lang.String)">getWorklogs</a></span>(String token, String issueKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#getWorklogs(java.lang.String)">getWorklogs</a></span>(String issueKey)</nobr>
         
         <div class="jd-descrdiv">Returns all worklogs for the given issue.</div>
   
@@ -2511,7 +2515,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#hasPermissionToCreateWorklog(java.lang.String, java.lang.String)">hasPermissionToCreateWorklog</a></span>(String token, String issueKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#hasPermissionToCreateWorklog(java.lang.String)">hasPermissionToCreateWorklog</a></span>(String issueKey)</nobr>
         
         <div class="jd-descrdiv">Determines if the user has the permission to add worklogs to the specified issue, that timetracking is enabled
  in JIRA and that the specified issue is in an editable workflow state.</div>
@@ -2530,7 +2534,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#hasPermissionToDeleteWorklog(java.lang.String, java.lang.String)">hasPermissionToDeleteWorklog</a></span>(String token, String worklogId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#hasPermissionToDeleteWorklog(java.lang.String)">hasPermissionToDeleteWorklog</a></span>(String worklogId)</nobr>
         
         <div class="jd-descrdiv">Determine whether the current user has the permission to delete the supplied worklog, that timetracking is enabled in JIRA and that the associated issue is in an editable workflow state.</div>
   
@@ -2548,7 +2552,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#hasPermissionToEditComment(java.lang.String, java.lang.Long)">hasPermissionToEditComment</a></span>(String token, Long commentId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#hasPermissionToEditComment(java.lang.Long)">hasPermissionToEditComment</a></span>(Long commentId)</nobr>
         
         <div class="jd-descrdiv">Returns whether the current user has permissions to edit the comment denoted by the given id.</div>
   
@@ -2566,7 +2570,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#hasPermissionToUpdateWorklog(java.lang.String, java.lang.String)">hasPermissionToUpdateWorklog</a></span>(String token, String worklogId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#hasPermissionToUpdateWorklog(java.lang.String)">hasPermissionToUpdateWorklog</a></span>(String worklogId)</nobr>
         
         <div class="jd-descrdiv">Determine whether the current user has the permission to update the supplied worklog, that timetracking is enabled in JIRA and that the associated issue is in an editable workflow state.</div>
   
@@ -2584,7 +2588,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#isProjectRoleNameUnique(java.lang.String, java.lang.String)">isProjectRoleNameUnique</a></span>(String token, String name)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#isProjectRoleNameUnique(java.lang.String)">isProjectRoleNameUnique</a></span>(String name)</nobr>
         
         <div class="jd-descrdiv">Checks if the given project role name is unique.</div>
   
@@ -2640,7 +2644,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#progressWorkflowAction(java.lang.String, java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">progressWorkflowAction</a></span>(String token, String issueKey, String actionIdString, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#progressWorkflowAction(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">progressWorkflowAction</a></span>(String issueKey, String actionIdString, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields)</nobr>
         
         <div class="jd-descrdiv">This will progress an issue through a workflow.</div>
   
@@ -2658,7 +2662,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#progressWorkflowActionSingleValueFields(java.lang.String, java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">progressWorkflowActionSingleValueFields</a></span>(String token, String issueKey, String actionIdString, Map&lt;String,&nbsp;String&gt; fields)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#progressWorkflowActionSingleValueFields(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">progressWorkflowActionSingleValueFields</a></span>(String issueKey, String actionIdString, Map&lt;String,&nbsp;String&gt; fields)</nobr>
         
         <div class="jd-descrdiv">This will progress an issue through a workflow.</div>
   
@@ -2676,7 +2680,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#refreshCustomFields(java.lang.String)">refreshCustomFields</a></span>(String token)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#refreshCustomFields()">refreshCustomFields</a></span>()</nobr>
         
         <div class="jd-descrdiv">Refreshs custom fields for the current user.</div>
   
@@ -2694,7 +2698,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#releaseVersion(java.lang.String, java.lang.String, java.lang.String)">releaseVersion</a></span>(String token, String projectKey, String versionName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#releaseVersion(java.lang.String, java.lang.String)">releaseVersion</a></span>(String projectKey, String versionName)</nobr>
         
         <div class="jd-descrdiv">Releases the version denoted by the given name
  <p/>
@@ -2714,7 +2718,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#removeActorsFromProjectRole(java.lang.String, java.util.List<java.lang.String>, java.lang.Long, java.lang.String, java.lang.String)">removeActorsFromProjectRole</a></span>(String token, List&lt;String&gt; actors, Long projectRoleId, String projectKey, String actorType)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#removeActorsFromProjectRole(java.util.List<java.lang.String>, java.lang.Long, java.lang.String, java.lang.String)">removeActorsFromProjectRole</a></span>(List&lt;String&gt; actors, Long projectRoleId, String projectKey, String actorType)</nobr>
         
         <div class="jd-descrdiv">Removes the given actors from the project role
  <p/>
@@ -2734,7 +2738,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#removeAllRoleActorsByNameAndType(java.lang.String, java.lang.String, java.lang.String)">removeAllRoleActorsByNameAndType</a></span>(String token, String name, String type)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#removeAllRoleActorsByNameAndType(java.lang.String, java.lang.String)">removeAllRoleActorsByNameAndType</a></span>(String name, String type)</nobr>
         
         <div class="jd-descrdiv">Removes all role actors using the given name and type.</div>
   
@@ -2752,7 +2756,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#removeAllRoleActorsByProject(java.lang.String, java.lang.String)">removeAllRoleActorsByProject</a></span>(String token, String projectKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#removeAllRoleActorsByProject(java.lang.String)">removeAllRoleActorsByProject</a></span>(String projectKey)</nobr>
         
         <div class="jd-descrdiv">Removes all role actors for the given project key.</div>
   
@@ -2770,7 +2774,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#removeDefaultActorsFromProjectRole(java.lang.String, java.util.List<java.lang.String>, java.lang.Long, java.lang.String)">removeDefaultActorsFromProjectRole</a></span>(String token, List&lt;String&gt; actors, Long remoteProjectRoleId, String type)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#removeDefaultActorsFromProjectRole(java.util.List<java.lang.String>, java.lang.Long, java.lang.String)">removeDefaultActorsFromProjectRole</a></span>(List&lt;String&gt; actors, Long remoteProjectRoleId, String type)</nobr>
         
         <div class="jd-descrdiv">Removes the default actors from the project role denoted by this id.</div>
   
@@ -2788,7 +2792,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#removeUserFromGroup(java.lang.String, java.lang.String, java.lang.String)">removeUserFromGroup</a></span>(String token, String groupName, String userName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#removeUserFromGroup(java.lang.String, java.lang.String)">removeUserFromGroup</a></span>(String groupName, String userName)</nobr>
         
         <div class="jd-descrdiv">Removes a user from the group name.</div>
   
@@ -2806,7 +2810,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#setAddress(java.lang.String)">setAddress</a></span>(String address)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#setClient(org.mule.module.jira.api.JiraClient<?>)">setClient</a></span>(<a href="../../../../../../java/org/mule/module/jira/api/JiraClient.html">JiraClient</a>&lt;?&gt; client)</nobr>
         
   </td></tr>
 
@@ -2822,23 +2826,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#setClient(org.mule.module.jira.api.JiraClient<?>)">setClient</a></span>(<a href="../../../../../../java/org/mule/module/jira/api/JiraClient.html">JiraClient</a>&lt;?&gt; client)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#setNewProjectAvatar(java.lang.String, java.lang.String, java.lang.String, java.lang.String)">setNewProjectAvatar</a></span>(String token, String projectKey, String contentType, String base64ImageData)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#setNewProjectAvatar(java.lang.String, java.lang.String, java.lang.String)">setNewProjectAvatar</a></span>(String projectKey, String contentType, String base64ImageData)</nobr>
         
         <div class="jd-descrdiv">Creates a new custom avatar for the given project and sets it to be current for the project.</div>
   
@@ -2846,6 +2834,22 @@ From class
 
 
 	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#setPass(java.lang.String)">setPass</a></span>(String pass)</nobr>
+        
+  </td></tr>
+
+
+	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -2856,8 +2860,10 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#setPassword(java.lang.String)">setPassword</a></span>(String password)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#setProjectAvatar(java.lang.String, java.lang.Long)">setProjectAvatar</a></span>(String projectKey, Long avatarId)</nobr>
         
+        <div class="jd-descrdiv">Sets the current avatar for the given project to that with the given id.</div>
+  
   </td></tr>
 
 
@@ -2872,10 +2878,8 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#setProjectAvatar(java.lang.String, java.lang.String, java.lang.Long)">setProjectAvatar</a></span>(String token, String projectKey, Long avatarId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#setUser(java.lang.String)">setUser</a></span>(String user)</nobr>
         
-        <div class="jd-descrdiv">Sets the current avatar for the given project to that with the given id.</div>
-  
   </td></tr>
 
 
@@ -2887,11 +2891,13 @@ From class
             
             
             
-            void</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#setUsername(java.lang.String)">setUsername</a></span>(String username)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#toString()">toString</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Returns a connection identifier.</div>
+  
   </td></tr>
 
 
@@ -2906,7 +2912,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteGroup.html">RemoteGroup</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateGroup(java.lang.String, java.lang.String, java.util.List<java.lang.String>)">updateGroup</a></span>(String token, String groupName, List&lt;String&gt; usernames)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateGroup(java.lang.String, java.util.List<java.lang.String>)">updateGroup</a></span>(String groupName, List&lt;String&gt; usernames)</nobr>
         
         <div class="jd-descrdiv">Updates the given group name with the provided users.</div>
   
@@ -2924,7 +2930,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateIssue(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">updateIssue</a></span>(String token, String issueKey, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateIssue(java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">updateIssue</a></span>(String issueKey, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields)</nobr>
         
         <div class="jd-descrdiv">This will update an issue with new values.</div>
   
@@ -2942,7 +2948,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateIssueSingleValueFields(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">updateIssueSingleValueFields</a></span>(String token, String issueKey, Map&lt;String,&nbsp;String&gt; fields)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateIssueSingleValueFields(java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">updateIssueSingleValueFields</a></span>(String issueKey, Map&lt;String,&nbsp;String&gt; fields)</nobr>
         
         <div class="jd-descrdiv">This will update an issue with new values.</div>
   
@@ -2960,7 +2966,7 @@ From class
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteProject.html">RemoteProject</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateProject(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">updateProject</a></span>(String token, String key, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateProject(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">updateProject</a></span>(String key, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName)</nobr>
         
         <div class="jd-descrdiv">Updates the project denoted by the given key.</div>
   
@@ -2978,7 +2984,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateProjectRole(java.lang.String, java.lang.Long, java.lang.String, java.lang.String)">updateProjectRole</a></span>(String token, Long projectRoleId, String projectRoleName, String projectRoleDescription)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateProjectRole(java.lang.Long, java.lang.String, java.lang.String)">updateProjectRole</a></span>(Long projectRoleId, String projectRoleName, String projectRoleDescription)</nobr>
         
         <div class="jd-descrdiv">Updates the project role with the given id.</div>
   
@@ -2996,10 +3002,28 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateWorklogWithNewRemainingEstimate(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">updateWorklogWithNewRemainingEstimate</a></span>(String token, String issueKey, String worklogId, String newRemainingEstimate, String comment, String groupLevel, String roleLevelId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateWorklogWithNewRemainingEstimate(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">updateWorklogWithNewRemainingEstimate</a></span>(String issueKey, String worklogId, String newRemainingEstimate, String comment, String groupLevel, String roleLevelId)</nobr>
         
         <div class="jd-descrdiv">Modifies the worklog with the id of the given worklog, updating its fields to match the given worklog and sets
  the remaining estimate field on the relevant issue to the given value.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#validateConnection()">validateConnection</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns whether the current user is authenticated.</div>
   
   </td></tr>
 

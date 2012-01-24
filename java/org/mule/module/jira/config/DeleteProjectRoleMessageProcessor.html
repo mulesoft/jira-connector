@@ -286,6 +286,8 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorCapabilitiesAdapter.html">JiraCloudConnectorCapabilitiesAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorLifecycleAdapter.html">JiraCloudConnectorLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorCapabilitiesAdapter.html">JiraConnectorCapabilitiesAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.html">JiraConnectorConnectionManager</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.ConnectionParameters.html">JiraConnectorConnectionManager.ConnectionParameters</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/LoginMessageProcessor.html">LoginMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/LogoutMessageProcessor.html">LogoutMessageProcessor</a></li>
@@ -533,7 +535,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>DeleteProjectRoleMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html#deleteProjectRole(java.lang.String, java.lang.Long, java.lang.Boolean)">deleteProjectRole(java.lang.String, java.lang.Long, java.lang.Boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>DeleteProjectRoleMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html#deleteProjectRole(java.lang.Long, java.lang.Boolean)">deleteProjectRole(java.lang.Long, java.lang.Boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  
 </p>
 
@@ -730,8 +732,30 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#_addressType">_addressType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
           Boolean</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#_confirmType">_confirmType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#_passType">_passType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -753,7 +777,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#_tokenType">_tokenType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#_userType">_userType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -764,12 +788,23 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#confirm">confirm</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#address">address</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
       <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#confirm">confirm</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -782,7 +817,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -795,7 +830,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           static
@@ -806,7 +841,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -819,7 +854,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -829,6 +864,17 @@ org.mule.api.lifecycle.Stoppable
           <td class="jd-descrcol" width="100%">Mule Context
  
 </td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#pass">pass</a></td>
+          <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
@@ -886,7 +932,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#token">token</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#user">user</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -997,6 +1043,24 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#setAddress(java.lang.Object)">setAddress</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets address</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#setConfirm(java.lang.Object)">setConfirm</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets confirm</div>
@@ -1005,7 +1069,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1023,7 +1087,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1041,7 +1105,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1054,6 +1118,24 @@ org.mule.api.lifecycle.Stoppable
         <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
         
         <div class="jd-descrdiv">Set the Mule context</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#setPass(java.lang.Object)">setPass</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets pass</div>
   
   </td></tr>
 
@@ -1105,9 +1187,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#setToken(java.lang.Object)">setToken</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html#setUser(java.lang.Object)">setUser</a></span>(Object value)</nobr>
         
-        <div class="jd-descrdiv">Sets token</div>
+        <div class="jd-descrdiv">Sets user</div>
   
   </td></tr>
 
@@ -1686,6 +1768,36 @@ From interface
 
 
 
+<A NAME="_addressType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        String
+      </span>
+        _addressType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="_confirmType"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1697,6 +1809,36 @@ From interface
         Boolean
       </span>
         _confirmType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="_passType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        String
+      </span>
+        _passType
     </h4>
       <div class="api-level">
         
@@ -1746,7 +1888,7 @@ From interface
 
 
 
-<A NAME="_tokenType"></A>
+<A NAME="_userType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1756,7 +1898,37 @@ From interface
          
         String
       </span>
-        _tokenType
+        _userType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="address"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Object
+      </span>
+        address
     </h4>
       <div class="api-level">
         
@@ -1964,6 +2136,36 @@ From interface
 
 
 
+<A NAME="pass"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Object
+      </span>
+        pass
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="patternInfo"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2090,7 +2292,7 @@ From interface
 
 
 
-<A NAME="token"></A>
+<A NAME="user"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2100,7 +2302,7 @@ From interface
          
         Object
       </span>
-        token
+        user
     </h4>
       <div class="api-level">
         
@@ -2295,6 +2497,47 @@ From interface
 </div>
 
 
+<A NAME="setAddress(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setAddress</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets address</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="setConfirm(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2459,6 +2702,47 @@ From interface
 </div>
 
 
+<A NAME="setPass(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setPass</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets pass</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="setProjectRoleId(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2541,7 +2825,7 @@ From interface
 </div>
 
 
-<A NAME="setToken(java.lang.Object)"></A>
+<A NAME="setUser(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2553,7 +2837,7 @@ From interface
          
         void
       </span>
-      <span class="sympad">setToken</span>
+      <span class="sympad">setUser</span>
       <span class="normal">(Object value)</span>
     </h4>
       <div class="api-level">
@@ -2566,7 +2850,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets token</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets user</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
