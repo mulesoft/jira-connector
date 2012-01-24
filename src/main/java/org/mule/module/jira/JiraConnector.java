@@ -14,6 +14,7 @@
 
 package org.mule.module.jira;
 
+import com.atlassian.jira.rpc.exception.RemoteAuthenticationException;
 import com.atlassian.jira.rpc.soap.beans.RemoteAvatar;
 import com.atlassian.jira.rpc.soap.beans.RemoteComment;
 import com.atlassian.jira.rpc.soap.beans.RemoteConfiguration;
@@ -28,11 +29,16 @@ import com.atlassian.jira.rpc.soap.beans.RemoteSecurityLevel;
 import com.atlassian.jira.rpc.soap.beans.RemoteServerInfo;
 import com.atlassian.jira.rpc.soap.beans.RemoteUser;
 import com.atlassian.jira.rpc.soap.beans.RemoteVersion;
-import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.Module;
+import org.mule.api.ConnectionException;
+import org.mule.api.annotations.Connect;
+import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.InvalidateConnectionOn;
 import org.mule.api.annotations.Processor;
-import org.mule.api.annotations.display.Password;
+import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.Placement;
+import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Optional;
 import org.mule.module.jira.api.JiraClient;
 
@@ -48,47 +54,26 @@ import java.util.Map;
  *
  * @author MuleSoft, Inc.
  */
-@Module(name = "jira", schemaVersion = "2.0")
+@Connector(name = "jira", schemaVersion = "2.0")
 public class JiraConnector {
 
     private JiraClient<List<Object>> client;
-    /**
-     * The user login username
-     */
-    @Configurable
-    @Placement(order = 1)
-    private String username;
-
-    /**
-     * The user login password
-     */
-    @Configurable
-    @Password
-    @Placement(order = 2)
-    private String password;
-
-    /**
-     * The JIRA Server Soap address. It usually looks like
-     * https://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2
-     * or http://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2
-     */
-    @Configurable
-    @Placement(order = 3)
-    private String address;
+    private String token;
+    private String user;
+    private String pass;
 
     /**
      * Finds a comment.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-comment}
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param commentId the commentId of the comment
      * @return the RemoteComment
      */
     @Processor
-    public RemoteComment getComment(@Optional String token,
-                                    Long commentId) {
-        return getClient().getComment(createTokenIfNecessary(token), commentId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteComment getComment(Long commentId) {
+        return client.getComment(token, commentId);
     }
 
     /**
@@ -96,12 +81,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-configuration}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return a RemoteConfiguration object which contains information about the current configuration of JIRA.
      */
     @Processor
-    public RemoteConfiguration getConfiguration(@Optional String token) {
-        return getClient().getConfiguration(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteConfiguration getConfiguration() {
+        return client.getConfiguration(token);
     }
 
     /**
@@ -110,16 +95,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-group}
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param groupName the name of the group to create.
      * @param userName  the user to add to the group (if null, no user will be added).
      * @return the RemoteGroup created
      */
     @Processor
-    public RemoteGroup createGroup(@Optional String token,
-                                   String groupName,
-                                   @Optional String userName) {
-        return getClient().createGroup(createTokenIfNecessary(token), groupName, userName);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteGroup createGroup(String groupName, @Optional String userName) {
+        return client.createGroup(token, groupName, userName);
     }
 
     /**
@@ -127,12 +110,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-server-info}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return information about the server JIRA is running on including build number and base URL.
      */
     @Processor
-    public RemoteServerInfo getServerInfo(@Optional String token) {
-        return getClient().getServerInfo(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteServerInfo getServerInfo() {
+        return client.getServerInfo(token);
     }
 
     /**
@@ -140,14 +123,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-group}
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param groupName the name of the group to find
      * @return a RemoteGroup object for the found group or null if it cant be found.
      */
     @Processor
-    public RemoteGroup getGroup(@Optional String token,
-                                String groupName) {
-        return getClient().getGroup(createTokenIfNecessary(token), groupName);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteGroup getGroup(String groupName) {
+        return client.getGroup(token, groupName);
     }
 
     /**
@@ -155,7 +137,6 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-user}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param username the user name to create
      * @param password the password for the new user
      * @param fullName the full name of the new user
@@ -163,12 +144,9 @@ public class JiraConnector {
      * @return the newly created RemoteUser
      */
     @Processor
-    public RemoteUser createUser(@Optional String token,
-                                 String username,
-                                 String password,
-                                 String fullName,
-                                 String email) {
-        return getClient().createUser(createTokenIfNecessary(token), username, password, fullName, email);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteUser createUser(String username, String password, String fullName, String email) {
+        return client.createUser(token, username, password, fullName, email);
     }
 
     /**
@@ -176,7 +154,6 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-comment}
      *
-     * @param token             optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey          the key of the issue
      * @param commentAuthor     the author of the comment
      * @param commentBody       the body of the comment
@@ -184,13 +161,9 @@ public class JiraConnector {
      * @param commentRoleLevel  the role level of the comment
      */
     @Processor
-    public void addComment(@Optional String token,
-                           String issueKey,
-                           String commentAuthor,
-                           String commentBody,
-                           @Optional String commentGroupLevel,
-                           @Optional String commentRoleLevel) {
-        getClient().addComment(createTokenIfNecessary(token), issueKey, commentAuthor, commentBody, commentGroupLevel, commentRoleLevel);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void addComment(String issueKey, String commentAuthor, String commentBody, @Optional String commentGroupLevel, @Optional String commentRoleLevel) {
+        client.addComment(token, issueKey, commentAuthor, commentBody, commentGroupLevel, commentRoleLevel);
     }
 
     /**
@@ -198,14 +171,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-components}
      *
-     * @param token      optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey the key of the requested project
      * @return an array of RemoteComponent objects
      */
     @Processor
-    public List<Object> getComponents(@Optional String token,
-                                      String projectKey) {
-        return getClient().getComponents(createTokenIfNecessary(token), projectKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getComponents(String projectKey) {
+        return client.getComponents(token, projectKey);
     }
 
     /**
@@ -213,14 +185,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-user}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param username the user name to look up
      * @return a RemoteUser or null if it cant be found
      */
     @Processor
-    public RemoteUser getUser(@Optional String token,
-                              String username) {
-        return getClient().getUser(createTokenIfNecessary(token), username);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteUser getUser(String username) {
+        return client.getUser(token, username);
     }
 
     /**
@@ -228,16 +199,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-group}
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param groupName the group name to update
      * @param usernames the updated usernames
      * @return the updated group
      */
     @Processor
-    public RemoteGroup updateGroup(@Optional String token,
-                                   String groupName,
-                                   List<String> usernames) {
-        return getClient().updateGroup(createTokenIfNecessary(token), groupName, usernames);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteGroup updateGroup(String groupName, List<String> usernames) {
+        return client.updateGroup(token, groupName, usernames);
     }
 
     /**
@@ -245,15 +214,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-user-to-group}
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param groupName the group name
      * @param userName  the user name
      */
     @Processor
-    public void addUserToGroup(@Optional String token,
-                               String groupName,
-                               String userName) {
-        getClient().addUserToGroup(createTokenIfNecessary(token), groupName, userName);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void addUserToGroup(String groupName, String userName) {
+        client.addUserToGroup(token, groupName, userName);
     }
 
     /**
@@ -261,15 +228,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-user-from-group}
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param groupName the group name for which to remove the user
      * @param userName  the username to remove
      */
     @Processor
-    public void removeUserFromGroup(@Optional String token,
-                                    String groupName,
-                                    String userName) {
-        getClient().removeUserFromGroup(createTokenIfNecessary(token), groupName, userName);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void removeUserFromGroup(String groupName, String userName) {
+        client.removeUserFromGroup(token, groupName, userName);
     }
 
     /**
@@ -277,14 +242,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey the key of the issue to find.
      * @return the issue matching the given key.
      */
     @Processor
-    public RemoteIssue getIssue(@Optional String token,
-                                String issueKey) {
-        return getClient().getIssue(createTokenIfNecessary(token), issueKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteIssue getIssue(String issueKey) {
+        return client.getIssue(token, issueKey);
     }
 
     /**
@@ -292,7 +256,6 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue}
      *
-     * @param token        optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param assignee     the assignee of the new issue
      * @param summary      the summary of the new issue
      * @param description  the description of the new issue
@@ -307,8 +270,8 @@ public class JiraConnector {
      * @return the new created issue
      */
     @Processor
-    public RemoteIssue createIssue(@Optional String token,
-                                   @Optional String assignee,
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteIssue createIssue(@Optional String assignee,
                                    @Placement(group = "Basic", order = 3) String summary,
                                    @Placement(group = "Basic", order = 4) @Optional String description,
                                    @Optional String dueDate,
@@ -319,7 +282,7 @@ public class JiraConnector {
                                    @Placement(group = "Basic", order = 2) String type,
                                    @Optional Long votes,
                                    @Placement(group = "Custom Fields") @Optional Map<String, List<String>> customFields) {
-        return getClient().createIssue(createTokenIfNecessary(token), assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields);
+        return client.createIssue(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields);
     }
 
     /**
@@ -327,7 +290,6 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue}
      *
-     * @param token        optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param assignee     the assignee of the new issue
      * @param summary      the summary of the new issue
      * @param description  the description of the new issue
@@ -342,8 +304,8 @@ public class JiraConnector {
      * @return the new created issue
      */
     @Processor
-    public RemoteIssue createIssueSingleValueFields(@Optional String token,
-                                                    @Optional String assignee,
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteIssue createIssueSingleValueFields(@Optional String assignee,
                                                     @Placement(group = "Basic", order = 3) String summary,
                                                     @Placement(group = "Basic", order = 4) @Optional String description,
                                                     @Optional String dueDate,
@@ -360,7 +322,7 @@ public class JiraConnector {
                 multiValueFields.put(field.getKey(), Arrays.asList(field.getValue()));
             }
         }
-        return getClient().createIssue(createTokenIfNecessary(token), assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, multiValueFields);
+        return client.createIssue(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, multiValueFields);
     }
 
     /**
@@ -368,7 +330,6 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue-with-security-level}
      *
-     * @param token           optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param assignee        the assignee of the new issue
      * @param summary         the summary of the new issue
      * @param description     the description of the new issue
@@ -384,8 +345,8 @@ public class JiraConnector {
      * @return the new created issue
      */
     @Processor
-    public RemoteIssue createIssueWithSecurityLevel(@Optional String token,
-                                                    @Optional String assignee,
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteIssue createIssueWithSecurityLevel(@Optional String assignee,
                                                     String summary,
                                                     @Optional String description,
                                                     @Optional String dueDate,
@@ -397,7 +358,7 @@ public class JiraConnector {
                                                     @Optional Long votes,
                                                     @Optional Map<String, List<String>> customFields,
                                                     Long securityLevelId) {
-        return getClient().createIssueWithSecurityLevel(createTokenIfNecessary(token), assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields, securityLevelId);
+        return client.createIssueWithSecurityLevel(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields, securityLevelId);
     }
 
     /**
@@ -406,16 +367,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-issue}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey the issue to update.
      * @param fields   the fields to be updated, the key of the map is the field id and the value is a list of values for that field.
      * @return the updated RemoteIssue
      */
     @Processor
-    public RemoteIssue updateIssue(@Optional String token,
-                                   String issueKey,
-                                   Map<String, List<String>> fields) {
-        return getClient().updateIssue(createTokenIfNecessary(token), issueKey, fields);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteIssue updateIssue(String issueKey, Map<String, List<String>> fields) {
+        return client.updateIssue(token, issueKey, fields);
     }
 
     /**
@@ -424,22 +383,20 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-issue}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey the issue to update.
      * @param fields   the fields to be updated, the key of the map is the field id and the value is a list of values for that field.
      * @return the updated RemoteIssue
      */
     @Processor
-    public RemoteIssue updateIssueSingleValueFields(@Optional String token,
-                                                    String issueKey,
-                                                    Map<String, String> fields) {
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteIssue updateIssueSingleValueFields(String issueKey, Map<String, String> fields) {
         Map<String, List<String>> multiValueFields = new HashMap<String, List<String>>();
         if (fields != null) {
             for (Map.Entry<String, String> field : fields.entrySet()) {
                 multiValueFields.put(field.getKey(), Arrays.asList(field.getValue()));
             }
         }
-        return getClient().updateIssue(createTokenIfNecessary(token), issueKey, multiValueFields);
+        return client.updateIssue(token, issueKey, multiValueFields);
     }
 
     /**
@@ -447,13 +404,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-issue}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey the key of the issue to delete
      */
     @Processor
-    public void deleteIssue(@Optional String token,
-                            String issueKey) {
-        getClient().deleteIssue(createTokenIfNecessary(token), issueKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void deleteIssue(String issueKey) {
+        client.deleteIssue(token, issueKey);
     }
 
     /**
@@ -461,14 +417,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-available-actions}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey the key of the issue
      * @return the available actions for the given issue key
      */
     @Processor
-    public List<Object> getAvailableActions(@Optional String token,
-                                            String issueKey) {
-        return getClient().getAvailableActions(createTokenIfNecessary(token), issueKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getAvailableActions(String issueKey) {
+        return client.getAvailableActions(token, issueKey);
     }
 
     /**
@@ -476,12 +431,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-sub-task-issue-types}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    public List<Object> getSubTaskIssueTypes(@Optional String token) {
-        return getClient().getSubTaskIssueTypes(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getSubTaskIssueTypes() {
+        return client.getSubTaskIssueTypes(token);
     }
 
     /**
@@ -489,7 +444,6 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-project}
      *
-     * @param token                  optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param key                    the key for the new project
      * @param name                   the name for the new project
      * @param description            the description for the new project
@@ -501,8 +455,8 @@ public class JiraConnector {
      * @return the new project
      */
     @Processor
-    public RemoteProject createProject(@Optional String token,
-                                       String key,
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteProject createProject(String key,
                                        String name,
                                        String description,
                                        @Optional String url,
@@ -510,7 +464,7 @@ public class JiraConnector {
                                        @Optional String permissionSchemeName,
                                        @Optional String notificationSchemeName,
                                        @Optional String securityShemeName) {
-        return getClient().createProject(createTokenIfNecessary(token), key, name, description, url, lead, permissionSchemeName, notificationSchemeName, securityShemeName);
+        return client.createProject(token, key, name, description, url, lead, permissionSchemeName, notificationSchemeName, securityShemeName);
     }
 
     /**
@@ -518,7 +472,6 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-project}
      *
-     * @param token                  optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param key                    the key of the project to update
      * @param description            the new description
      * @param url                    the new url
@@ -529,15 +482,15 @@ public class JiraConnector {
      * @return the updated project
      */
     @Processor
-    public RemoteProject updateProject(@Optional String token,
-                                       String key,
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteProject updateProject(String key,
                                        String description,
                                        @Optional String url,
                                        String lead,
                                        @Optional String permissionSchemeName,
                                        @Optional String notificationSchemeName,
                                        @Optional String securityShemeName) {
-        return getClient().updateProject(createTokenIfNecessary(token), key, description, url, lead, permissionSchemeName, notificationSchemeName, securityShemeName);
+        return client.updateProject(token, key, description, url, lead, permissionSchemeName, notificationSchemeName, securityShemeName);
     }
 
     /**
@@ -545,14 +498,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-by-key}
      *
-     * @param token      optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey the key of the requested projec
      * @return the RemoteProject object specified by the key, if it exists and the user has the BROWSE permission for it
      */
     @Processor
-    public RemoteProject getProjectByKey(@Optional String token,
-                                         String projectKey) {
-        return getClient().getProjectByKey(createTokenIfNecessary(token), projectKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteProject getProjectByKey(String projectKey) {
+        return client.getProjectByKey(token, projectKey);
     }
 
     /**
@@ -560,13 +512,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-all-role-actors-by-project}
      *
-     * @param token      optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey the project key for which to remove all role actors
      */
     @Processor
-    public void removeAllRoleActorsByProject(@Optional String token,
-                                             String projectKey) {
-        getClient().removeAllRoleActorsByProject(createTokenIfNecessary(token), projectKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void removeAllRoleActorsByProject(String projectKey) {
+        client.removeAllRoleActorsByProject(token, projectKey);
     }
 
     /**
@@ -574,12 +525,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-priorities}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return an array of RemoteStatus objects
      */
     @Processor
-    public List<Object> getPriorities(@Optional String token) {
-        return getClient().getPriorities(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getPriorities() {
+        return client.getPriorities(token);
     }
 
     /**
@@ -587,12 +538,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-resolutions}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return an array of RemoteResolution objects
      */
     @Processor
-    public List<Object> getResolutions(@Optional String token) {
-        return getClient().getResolutions(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getResolutions() {
+        return client.getResolutions(token);
     }
 
     /**
@@ -600,12 +551,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue-types}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    public List<Object> getIssueTypes(@Optional String token) {
-        return getClient().getIssueTypes(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getIssueTypes() {
+        return client.getIssueTypes(token);
     }
 
 
@@ -614,12 +565,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-statuses}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return an array of RemoteStatus objects
      */
     @Processor
-    public List<Object> getStatuses(@Optional String token) {
-        return getClient().getStatuses(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getStatuses() {
+        return client.getStatuses(token);
     }
 
 
@@ -628,14 +579,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue-types-for-project}
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectId id of the project
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    public List<Object> getIssueTypesForProject(@Optional String token,
-                                                String projectId) {
-        return getClient().getIssueTypesForProject(createTokenIfNecessary(token), projectId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getIssueTypesForProject(String projectId) {
+        return client.getIssueTypesForProject(token, projectId);
     }
 
     /**
@@ -643,12 +593,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-roles}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return the project roles.
      */
     @Processor
-    public List<Object> getProjectRoles(@Optional String token) {
-        return getClient().getProjectRoles(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getProjectRoles() {
+        return client.getProjectRoles(token);
     }
 
     /**
@@ -656,14 +606,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-role}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectRoleId the projectRoleId of the project role
      * @return the project role by projectRoleId.
      */
     @Processor
-    public RemoteProjectRole getProjectRole(@Optional String token,
-                                            Long projectRoleId) {
-        return getClient().getProjectRole(createTokenIfNecessary(token), projectRoleId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteProjectRole getProjectRole(Long projectRoleId) {
+        return client.getProjectRole(token, projectRoleId);
     }
 
     /**
@@ -671,16 +620,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-role-actors}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectRoleId the project role id to use
      * @param projectKey    the project key to use
      * @return the project role actors for the given project
      */
     @Processor
-    public RemoteProjectRoleActors getProjectRoleActors(@Optional String token,
-                                                        Long projectRoleId,
-                                                        String projectKey) {
-        return getClient().getProjectRoleActors(createTokenIfNecessary(token), projectRoleId, projectKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteProjectRoleActors getProjectRoleActors(Long projectRoleId, String projectKey) {
+        return client.getProjectRoleActors(token, projectRoleId, projectKey);
     }
 
     /**
@@ -688,14 +635,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-default-role-actors}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectRoleId the id of the project role
      * @return the default role actors for the given project role id.
      */
     @Processor
-    public RemoteRoleActors getDefaultRoleActors(@Optional String token,
-                                                 Long projectRoleId) {
-        return getClient().getDefaultRoleActors(createTokenIfNecessary(token), projectRoleId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteRoleActors getDefaultRoleActors(Long projectRoleId) {
+        return client.getDefaultRoleActors(token, projectRoleId);
     }
 
     /**
@@ -703,15 +649,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-all-role-actors-by-name-and-type}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
-     * @param name  the name to delete
-     * @param type  the type to delete
+     * @param name the name to delete
+     * @param type the type to delete
      */
     @Processor
-    public void removeAllRoleActorsByNameAndType(@Optional String token,
-                                                 String name,
-                                                 String type) {
-        getClient().removeAllRoleActorsByNameAndType(createTokenIfNecessary(token), name, type);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void removeAllRoleActorsByNameAndType(String name, String type) {
+        client.removeAllRoleActorsByNameAndType(token, name, type);
     }
 
     /**
@@ -719,15 +663,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-project-role}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectRoleId the id of the project role to delete
      * @param confirm       whether confirm
      */
     @Processor
-    public void deleteProjectRole(@Optional String token,
-                                  Long projectRoleId,
-                                  Boolean confirm) {
-        getClient().deleteProjectRole(createTokenIfNecessary(token), projectRoleId, confirm);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void deleteProjectRole(Long projectRoleId, Boolean confirm) {
+        client.deleteProjectRole(token, projectRoleId, confirm);
     }
 
     /**
@@ -735,17 +677,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-project-role}
      *
-     * @param token                  optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectRoleId          the id of the project role to update
      * @param projectRoleName        the new project role name
      * @param projectRoleDescription the new project role description
      */
     @Processor
-    public void updateProjectRole(@Optional String token,
-                                  Long projectRoleId,
-                                  @Optional String projectRoleName,
-                                  @Optional String projectRoleDescription) {
-        getClient().updateProjectRole(createTokenIfNecessary(token), projectRoleId, projectRoleName, projectRoleDescription);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void updateProjectRole(Long projectRoleId, @Optional String projectRoleName, @Optional String projectRoleDescription) {
+        client.updateProjectRole(token, projectRoleId, projectRoleName, projectRoleDescription);
     }
 
     /**
@@ -753,16 +692,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-project-role}
      *
-     * @param token                  optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectRoleName        the name of the new project role
      * @param projectRoleDescription the description of the new project role
      * @return the created project role
      */
     @Processor
-    public RemoteProjectRole createProjectRole(@Optional String token,
-                                               String projectRoleName,
-                                               String projectRoleDescription) {
-        return getClient().createProjectRole(createTokenIfNecessary(token), projectRoleName, projectRoleDescription);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteProjectRole createProjectRole(String projectRoleName, String projectRoleDescription) {
+        return client.createProjectRole(token, projectRoleName, projectRoleDescription);
     }
 
     /**
@@ -770,14 +707,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:is-project-role-name-unique}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
-     * @param name  the project role name to check for uniqueness
+     * @param name the project role name to check for uniqueness
      * @return true if the given project role name is unique, false otherwise.
      */
     @Processor
-    public boolean isProjectRoleNameUnique(@Optional String token,
-                                           String name) {
-        return getClient().isProjectRoleNameUnique(createTokenIfNecessary(token), name);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public boolean isProjectRoleNameUnique(String name) {
+        return client.isProjectRoleNameUnique(token, name);
     }
 
     /**
@@ -785,15 +721,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:release-version}
      *
-     * @param token       optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey  the project key to use
      * @param versionName the version name to release
      */
     @Processor
-    public void releaseVersion(@Optional String token,
-                               String projectKey,
-                               String versionName) {
-        getClient().releaseVersion(createTokenIfNecessary(token), projectKey, versionName);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void releaseVersion(String projectKey, String versionName) {
+        client.releaseVersion(token, projectKey, versionName);
     }
 
     /**
@@ -801,19 +735,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-default-actors-to-project-role}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param actors        the actors to add
      * @param projectRoleId the id of the project role to use
      * @param projectKey    the key of project to use
      * @param actorType     the actor type to use
      */
     @Processor
-    public void addActorsToProjectRole(@Optional String token,
-                                       List<String> actors,
-                                       Long projectRoleId,
-                                       String projectKey,
-                                       @Optional String actorType) {
-        getClient().addActorsToProjectRole(createTokenIfNecessary(token), actors, projectRoleId, projectKey, actorType);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void addActorsToProjectRole(List<String> actors, Long projectRoleId, String projectKey, @Optional String actorType) {
+        client.addActorsToProjectRole(token, actors, projectRoleId, projectKey, actorType);
     }
 
     /**
@@ -821,19 +751,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-default-actors-from-project-role}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param actors        the actors to remove
      * @param projectRoleId the id of the project role to use
      * @param projectKey    the key of project to use
      * @param actorType     the actor type to use
      */
     @Processor
-    public void removeActorsFromProjectRole(@Optional String token,
-                                            List<String> actors,
-                                            Long projectRoleId,
-                                            String projectKey,
-                                            @Optional String actorType) {
-        getClient().removeActorsFromProjectRole(createTokenIfNecessary(token), actors, projectRoleId, projectKey, actorType);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void removeActorsFromProjectRole(List<String> actors, Long projectRoleId, String projectKey, @Optional String actorType) {
+        client.removeActorsFromProjectRole(token, actors, projectRoleId, projectKey, actorType);
     }
 
     /**
@@ -841,17 +767,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-default-actors-to-project-role}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param actors        the actors to add
      * @param projectRoleId the id of the project role
      * @param type          the type
      */
     @Processor
-    public void addDefaultActorsToProjectRole(@Optional String token,
-                                              List<String> actors,
-                                              Long projectRoleId,
-                                              @Optional String type) {
-        getClient().addDefaultActorsToProjectRole(createTokenIfNecessary(token), actors, projectRoleId, type);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void addDefaultActorsToProjectRole(List<String> actors, Long projectRoleId, @Optional String type) {
+        client.addDefaultActorsToProjectRole(token, actors, projectRoleId, type);
     }
 
     /**
@@ -859,17 +782,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-default-actors-from-project-role}
      *
-     * @param token               optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param actors              the actors to remove
      * @param remoteProjectRoleId the id of the project role
      * @param type                the type
      */
     @Processor
-    public void removeDefaultActorsFromProjectRole(@Optional String token,
-                                                   List<String> actors,
-                                                   Long remoteProjectRoleId,
-                                                   @Optional String type) {
-        getClient().removeDefaultActorsFromProjectRole(createTokenIfNecessary(token), actors, remoteProjectRoleId, type);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void removeDefaultActorsFromProjectRole(List<String> actors, Long remoteProjectRoleId, @Optional String type) {
+        client.removeDefaultActorsFromProjectRole(token, actors, remoteProjectRoleId, type);
     }
 
     /**
@@ -877,14 +797,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-associated-notification-schemes}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectRoleId the project role to search
      * @return the associated notification schemes for the given project role.
      */
     @Processor
-    public List<Object> getAssociatedNotificationSchemes(@Optional String token,
-                                                         Long projectRoleId) {
-        return getClient().getAssociatedNotificationSchemes(createTokenIfNecessary(token), projectRoleId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getAssociatedNotificationSchemes(Long projectRoleId) {
+        return client.getAssociatedNotificationSchemes(token, projectRoleId);
     }
 
     /**
@@ -892,14 +811,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-associated-permission-schemes}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectRoleId the project role to search
      * @return the associated permission schemas for the given project role.
      */
     @Processor
-    public List<Object> getAssociatedPermissionSchemes(@Optional String token,
-                                                       Long projectRoleId) {
-        return getClient().getAssociatedPermissionSchemes(createTokenIfNecessary(token), projectRoleId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getAssociatedPermissionSchemes(Long projectRoleId) {
+        return client.getAssociatedPermissionSchemes(token, projectRoleId);
     }
 
     /**
@@ -907,13 +825,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-project}
      *
-     * @param token      optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey the key of the project to delete
      */
     @Processor
-    public void deleteProject(@Optional String token,
-                              String projectKey) {
-        getClient().deleteProject(createTokenIfNecessary(token), projectKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void deleteProject(String projectKey) {
+        client.deleteProject(token, projectKey);
     }
 
     /**
@@ -921,14 +838,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-by-id}
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectId the id of the requested project
      * @return the RemoteProject object specified by the key, if it exists and the user has the BROWSE permission for it
      */
     @Processor
-    public RemoteProject getProjectById(@Optional String token,
-                                        Long projectId) {
-        return getClient().getProjectById(createTokenIfNecessary(token), projectId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteProject getProjectById(Long projectId) {
+        return client.getProjectById(token, projectId);
     }
 
     /**
@@ -936,14 +852,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-versions}
      *
-     * @param token      optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey the key of the requested project
      * @return an array of RemoteVersion objects
      */
     @Processor
-    public List<Object> getVersions(@Optional String token,
-                                    String projectKey) {
-        return getClient().getVersions(createTokenIfNecessary(token), projectKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getVersions(String projectKey) {
+        return client.getVersions(token, projectKey);
     }
 
     /**
@@ -951,14 +866,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-comments}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey the key of the issue to get the comments for
      * @return the comments for the issue denoted by the given key.
      */
     @Processor
-    public List<Object> getComments(@Optional String token,
-                                    String issueKey) {
-        return getClient().getComments(createTokenIfNecessary(token), issueKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getComments(
+            String issueKey) {
+        return client.getComments(token, issueKey);
     }
 
     /**
@@ -966,12 +881,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-favourite-filters}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return a list of the currently logged in user's favourite fitlers.
      */
     @Processor
-    public List<Object> getFavouriteFilters(@Optional String token) {
-        return getClient().getFavouriteFilters(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getFavouriteFilters() {
+        return client.getFavouriteFilters(token);
     }
 
     /**
@@ -979,17 +894,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:archive-version}
      *
-     * @param token       optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey  the project key to use
      * @param versionName the version name to use
      * @param archive     whether it should be archived
      */
     @Processor
-    public void archiveVersion(@Optional String token,
-                               String projectKey,
-                               String versionName,
-                               Boolean archive) {
-        getClient().archiveVersion(createTokenIfNecessary(token), projectKey, versionName, archive);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void archiveVersion(String projectKey, String versionName, Boolean archive) {
+        client.archiveVersion(token, projectKey, versionName, archive);
     }
 
     /**
@@ -997,14 +909,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-fields-for-edit}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey the issue key to get the fields for
      * @return the fields for edit
      */
     @Processor
-    public List<Object> getFieldsForEdit(@Optional String token,
-                                         String issueKey) {
-        return getClient().getFieldsForEdit(createTokenIfNecessary(token), issueKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getFieldsForEdit(String issueKey) {
+        return client.getFieldsForEdit(token, issueKey);
     }
 
     /**
@@ -1012,14 +923,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-sub-task-issue-types-for-project}
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectId id of the project
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    public List<Object> getSubTaskIssueTypesForProject(@Optional String token,
-                                                       String projectId) {
-        return getClient().getSubTaskIssueTypesForProject(createTokenIfNecessary(token), projectId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getSubTaskIssueTypesForProject(String projectId) {
+        return client.getSubTaskIssueTypesForProject(token, projectId);
     }
 
     /**
@@ -1032,9 +942,9 @@ public class JiraConnector {
      * @return the authentication token
      */
     @Processor
-    public String login(String username,
-                        String password) {
-        return getClient().login(username, password);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public String login(String username, String password) {
+        return client.login(username, password);
     }
 
     /**
@@ -1042,14 +952,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-security-level}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey the issue key
      * @return issue security level
      */
     @Processor
-    public RemoteSecurityLevel getSecurityLevel(@Optional String token,
-                                                String issueKey) {
-        return getClient().getSecurityLevel(createTokenIfNecessary(token), issueKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteSecurityLevel getSecurityLevel(String issueKey) {
+        return client.getSecurityLevel(token, issueKey);
     }
 
     /**
@@ -1057,12 +966,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-custom-fields}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return the custom fields for the current user
      */
     @Processor
-    public List<Object> getCustomFields(@Optional String token) {
-        return getClient().getCustomFields(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getCustomFields() {
+        return client.getCustomFields(token);
     }
 
     /**
@@ -1074,8 +983,9 @@ public class JiraConnector {
      * @return true if the logout succeeded
      */
     @Processor
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
     public boolean logout(String token) {
-        return getClient().logout(token);
+        return client.logout(token);
     }
 
     /**
@@ -1083,14 +993,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-with-schemes-by-id}
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectId the id of the requested project
      * @return the RemoteProject object specified by the key, if it exists and the user has the BROWSE permission for it
      */
     @Processor
-    public RemoteProject getProjectWithSchemesById(@Optional String token,
-                                                   Long projectId) {
-        return getClient().getProjectWithSchemesById(createTokenIfNecessary(token), projectId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteProject getProjectWithSchemesById(Long projectId) {
+        return client.getProjectWithSchemesById(token, projectId);
     }
 
     /**
@@ -1098,14 +1007,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-security-levels}
      *
-     * @param token      optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey the key for the project
      * @return array of RemoteSecurityLevels for the project
      */
     @Processor
-    public List<Object> getSecurityLevels(@Optional String token,
-                                          String projectKey) {
-        return getClient().getSecurityLevels(createTokenIfNecessary(token), projectKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getSecurityLevels(String projectKey) {
+        return client.getSecurityLevels(token, projectKey);
     }
 
     /**
@@ -1115,16 +1023,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-avatars}
      *
-     * @param token                optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey           the key for the project.
      * @param includeSystemAvatars if false, only custom avatars will be included in the returned array.
      * @return the avatars for the project, possibly empty.
      */
     @Processor
-    public List<Object> getProjectAvatars(@Optional String token,
-                                          String projectKey,
-                                          Boolean includeSystemAvatars) {
-        return getClient().getProjectAvatars(createTokenIfNecessary(token), projectKey, includeSystemAvatars);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getProjectAvatars(String projectKey, Boolean includeSystemAvatars) {
+        return client.getProjectAvatars(token, projectKey, includeSystemAvatars);
     }
 
     /**
@@ -1132,15 +1038,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:set-project-avatar}
      *
-     * @param token      optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey the key for the project.
      * @param avatarId   the id of an existing avatar to use for the project or null for the default avatar.
      */
     @Processor
-    public void setProjectAvatar(@Optional String token,
-                                 String projectKey,
-                                 Long avatarId) {
-        getClient().setProjectAvatar(createTokenIfNecessary(token), projectKey, avatarId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void setProjectAvatar(String projectKey, Long avatarId) {
+        client.setProjectAvatar(token, projectKey, avatarId);
     }
 
     /**
@@ -1148,14 +1052,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-avatar}
      *
-     * @param token      optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey the key for the project.
      * @return the current avatar for the project.
      */
     @Processor
-    public RemoteAvatar getProjectAvatar(@Optional String token,
-                                         String projectKey) {
-        return getClient().getProjectAvatar(createTokenIfNecessary(token), projectKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteAvatar getProjectAvatar(String projectKey) {
+        return client.getProjectAvatar(token, projectKey);
     }
 
     /**
@@ -1163,13 +1066,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-project-avatar}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param avatarId id of the custom avatar to delete.
      */
     @Processor
-    public void deleteProjectAvatar(@Optional String token,
-                                    Long avatarId) {
-        getClient().deleteProjectAvatar(createTokenIfNecessary(token), avatarId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void deleteProjectAvatar(Long avatarId) {
+        client.deleteProjectAvatar(token, avatarId);
     }
 
     /**
@@ -1177,12 +1079,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-notification-schemes}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return the notification schemes.
      */
     @Processor
-    public List<Object> getNotificationSchemes(@Optional String token) {
-        return getClient().getNotificationSchemes(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getNotificationSchemes() {
+        return client.getNotificationSchemes(token);
     }
 
     /**
@@ -1190,12 +1092,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-permission-schemes}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return the permission schemes.
      */
     @Processor
-    public List<Object> getPermissionSchemes(@Optional String token) {
-        return getClient().getPermissionSchemes(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getPermissionSchemes() {
+        return client.getPermissionSchemes(token);
     }
 
     /**
@@ -1203,12 +1105,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-all-permissions}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return all the permissions
      */
     @Processor
-    public List<Object> getAllPermissions(@Optional String token) {
-        return getClient().getAllPermissions(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getAllPermissions() {
+        return client.getAllPermissions(token);
     }
 
     /**
@@ -1216,16 +1118,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-permission-scheme}
      *
-     * @param token       optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param name        the name of the new permission scheme
      * @param description the description of the new permission scheme
      * @return the created permission scheme
      */
     @Processor
-    public RemotePermissionScheme createPermissionScheme(@Optional String token,
-                                                         String name,
-                                                         String description) {
-        return getClient().createPermissionScheme(createTokenIfNecessary(token), name, description);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemotePermissionScheme createPermissionScheme(String name, String description) {
+        return client.createPermissionScheme(token, name, description);
     }
 
     /**
@@ -1233,18 +1133,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-permission-to}
      *
-     * @param token                optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param permissionSchemeName the name of the permission scheme to use
      * @param permissionCode       the permission code to use
      * @param entityName           the entity name, username or group name
      * @return the modified permission scheme
      */
     @Processor
-    public RemotePermissionScheme addPermissionTo(@Optional String token,
-                                                  String permissionSchemeName,
-                                                  Long permissionCode,
-                                                  String entityName) {
-        return getClient().addPermissionTo(createTokenIfNecessary(token), permissionSchemeName, permissionCode, entityName);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemotePermissionScheme addPermissionTo(String permissionSchemeName, Long permissionCode, String entityName) {
+        return client.addPermissionTo(token, permissionSchemeName, permissionCode, entityName);
     }
 
     /**
@@ -1252,18 +1149,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-permission-from}
      *
-     * @param token                optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param permissionSchemeName the name of the permission scheme to use
      * @param permissionCode       the permission code to use
      * @param entityName           the entity name, username or group name
      * @return the modified permission scheme
      */
     @Processor
-    public RemotePermissionScheme deletePermissionFrom(@Optional String token,
-                                                       String permissionSchemeName,
-                                                       Long permissionCode,
-                                                       String entityName) {
-        return getClient().deletePermissionFrom(createTokenIfNecessary(token), permissionSchemeName, permissionCode, entityName);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemotePermissionScheme deletePermissionFrom(String permissionSchemeName, Long permissionCode, String entityName) {
+        return client.deletePermissionFrom(token, permissionSchemeName, permissionCode, entityName);
     }
 
     /**
@@ -1271,13 +1165,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-permission-scheme}
      *
-     * @param token                optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param permissionSchemeName the name of the permission scheme to delete
      */
     @Processor
-    public void deletePermissionScheme(@Optional String token,
-                                       String permissionSchemeName) {
-        getClient().deletePermissionScheme(createTokenIfNecessary(token), permissionSchemeName);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void deletePermissionScheme(String permissionSchemeName) {
+        client.deletePermissionScheme(token, permissionSchemeName);
     }
 
     /**
@@ -1285,14 +1178,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-attachments-from-issue}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey the issue key to use
      * @return the attachments for the issue denoted by the given key.
      */
     @Processor
-    public List<Object> getAttachmentsFromIssue(@Optional String token,
-                                                String issueKey) {
-        return getClient().getAttachmentsFromIssue(createTokenIfNecessary(token), issueKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getAttachmentsFromIssue(String issueKey) {
+        return client.getAttachmentsFromIssue(token, issueKey);
     }
 
     /**
@@ -1300,14 +1192,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:has-permission-to-edit-comment}
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param commentId the comment id to use
      * @return whether the current user has permissions to edit the comment denoted by the given id.
      */
     @Processor
-    public boolean hasPermissionToEditComment(@Optional String token,
-                                              Long commentId) {
-        return getClient().hasPermissionToEditComment(createTokenIfNecessary(token), commentId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public boolean hasPermissionToEditComment(Long commentId) {
+        return client.hasPermissionToEditComment(token, commentId);
     }
 
     /**
@@ -1315,18 +1206,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:edit-comment}
      *
-     * @param token        optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param commentId    the id of the comment to edit
      * @param body         the updated body comment
      * @param updateAuthor the update author
      * @return the edited comment
      */
     @Processor
-    public RemoteComment editComment(@Optional String token,
-                                     Long commentId,
-                                     @Optional String body,
-                                     @Optional String updateAuthor) {
-        return getClient().editComment(createTokenIfNecessary(token), commentId, body, updateAuthor);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteComment editComment(Long commentId, @Optional String body, @Optional String updateAuthor) {
+        return client.editComment(token, commentId, body, updateAuthor);
     }
 
     /**
@@ -1334,16 +1222,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-fields-for-action}
      *
-     * @param token          optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey       the issue key to use
      * @param actionIdString the action id to use
      * @return the fields for the given action
      */
     @Processor
-    public List<Object> getFieldsForAction(@Optional String token,
-                                           String issueKey,
-                                           String actionIdString) {
-        return getClient().getFieldsForAction(createTokenIfNecessary(token), issueKey, actionIdString);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getFieldsForAction(String issueKey, String actionIdString) {
+        return client.getFieldsForAction(token, issueKey, actionIdString);
     }
 
     /**
@@ -1351,30 +1237,29 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue-by-id}
      *
-     * @param token   optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueId the issue id to use
      * @return the issue for the given issue id.
      */
     @Processor
-    public RemoteIssue getIssueById(@Optional String token,
-                                    String issueId) {
-        return getClient().getIssueById(createTokenIfNecessary(token), issueId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteIssue getIssueById(String issueId) {
+        return client.getIssueById(token, issueId);
     }
 
     /**
      * Deletes the worklog with the given id and sets the remaining estimate field on the isssue to the given value. The time spent field of the issue is reduced by the time spent amount on the worklog being deleted.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-worklog-with-new-remaining-estimate}
+     * <p/>
+     * the SOAP auth token.
      *
-     * @param token                optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used                the SOAP auth token.
      * @param workLogId            the id of the worklog to delete.
      * @param newRemainingEstimate the new value for the issue's remaining estimate as a duration string, eg 1d 2h.
      */
     @Processor
-    public void deleteWorklogWithNewRemainingEstimate(@Optional String token,
-                                                      String workLogId,
-                                                      String newRemainingEstimate) {
-        getClient().deleteWorklogWithNewRemainingEstimate(createTokenIfNecessary(token), workLogId, newRemainingEstimate);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void deleteWorklogWithNewRemainingEstimate(String workLogId, String newRemainingEstimate) {
+        client.deleteWorklogWithNewRemainingEstimate(token, workLogId, newRemainingEstimate);
     }
 
     /**
@@ -1383,14 +1268,15 @@ public class JiraConnector {
      * time spent amount on the worklog being deleted.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-worklog-and-auto-adjust-remaining-estimate}
+     * <p/>
+     * the SOAP auth token.
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used     the SOAP auth token.
      * @param worklogId the id of the worklog to delete.
      */
     @Processor
-    public void deleteWorklogAndAutoAdjustRemainingEstimate(@Optional String token,
-                                                            String worklogId) {
-        getClient().deleteWorklogAndAutoAdjustRemainingEstimate(createTokenIfNecessary(token), worklogId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void deleteWorklogAndAutoAdjustRemainingEstimate(String worklogId) {
+        client.deleteWorklogAndAutoAdjustRemainingEstimate(token, worklogId);
     }
 
     /**
@@ -1398,29 +1284,31 @@ public class JiraConnector {
      * spent field of the issue is reduced by the time spent amount on the worklog being deleted.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-worklog-and-retain-remaining-estimate}
+     * <p/>
+     * the SOAP auth token.
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used     the SOAP auth token.
      * @param worklogId the id of the worklog to delete.
      */
     @Processor
-    public void deleteWorklogAndRetainRemainingEstimate(@Optional String token,
-                                                        String worklogId) {
-        getClient().deleteWorklogAndRetainRemainingEstimate(createTokenIfNecessary(token), worklogId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void deleteWorklogAndRetainRemainingEstimate(String worklogId) {
+        client.deleteWorklogAndRetainRemainingEstimate(token, worklogId);
     }
 
     /**
      * Returns all worklogs for the given issue.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-worklogs}
+     * <p/>
+     * the SOAP auth token.
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used    the SOAP auth token.
      * @param issueKey the key of the issue.
      * @return all the worklogs of the issue.
      */
     @Processor
-    public List<Object> getWorklogs(@Optional String token,
-                                    String issueKey) {
-        return getClient().getWorklogs(createTokenIfNecessary(token), issueKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getWorklogs(String issueKey) {
+        return client.getWorklogs(token, issueKey);
     }
 
     /**
@@ -1428,15 +1316,16 @@ public class JiraConnector {
      * in JIRA and that the specified issue is in an editable workflow state.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:has-permission-to-create-worklog}
+     * <p/>
+     * the SOAP auth token.
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used    the SOAP auth token.
      * @param issueKey the key of the issue.
      * @return true if the user has permission to create a worklog on the specified issue, false otherwise
      */
     @Processor
-    public boolean hasPermissionToCreateWorklog(@Optional String token,
-                                                String issueKey) {
-        return getClient().hasPermissionToCreateWorklog(createTokenIfNecessary(token), issueKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public boolean hasPermissionToCreateWorklog(String issueKey) {
+        return client.hasPermissionToCreateWorklog(token, issueKey);
     }
 
     /**
@@ -1447,15 +1336,16 @@ public class JiraConnector {
      * and false otherwise.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:has-permission-to-delete-worklog}
+     * <p/>
+     * the SOAP auth token.
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used     the SOAP auth token.
      * @param worklogId the id of the worklog wishes to delete.
      * @return true if the user has permission to delete the supplied worklog, false otherwise
      */
     @Processor
-    public boolean hasPermissionToDeleteWorklog(@Optional String token,
-                                                String worklogId) {
-        return getClient().hasPermissionToDeleteWorklog(createTokenIfNecessary(token), worklogId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public boolean hasPermissionToDeleteWorklog(String worklogId) {
+        return client.hasPermissionToDeleteWorklog(token, worklogId);
     }
 
     /**
@@ -1467,14 +1357,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:has-permission-to-update-worklog}
      *
-     * @param token     optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param worklogId the ide of the worklog wishes to update.
      * @return true if the user has permission to update the supplied worklog, false otherwise
      */
     @Processor
-    public boolean hasPermissionToUpdateWorklog(@Optional String token,
-                                                String worklogId) {
-        return getClient().hasPermissionToUpdateWorklog(createTokenIfNecessary(token), worklogId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public boolean hasPermissionToUpdateWorklog(String worklogId) {
+        return client.hasPermissionToUpdateWorklog(token, worklogId);
     }
 
     /**
@@ -1485,7 +1374,6 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-worklog-with-new-remaining-estimate}
      *
-     * @param token                optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey             the issue key to use
      * @param worklogId            the worklog id to use
      * @param newRemainingEstimate the new value for the issue's remaining estimate as a duration string, eg 1d 2h.
@@ -1494,14 +1382,9 @@ public class JiraConnector {
      * @param roleLevelId          the new role level id
      */
     @Processor
-    public void updateWorklogWithNewRemainingEstimate(@Optional String token,
-                                                      String issueKey,
-                                                      String worklogId,
-                                                      String newRemainingEstimate,
-                                                      @Optional String comment,
-                                                      @Optional String groupLevel,
-                                                      @Optional String roleLevelId) {
-        getClient().updateWorklogWithNewRemainingEstimate(createTokenIfNecessary(token), issueKey, worklogId, comment, groupLevel, roleLevelId, newRemainingEstimate);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void updateWorklogWithNewRemainingEstimate(String issueKey, String worklogId, String newRemainingEstimate, @Optional String comment, @Optional String groupLevel, @Optional String roleLevelId) {
+        client.updateWorklogWithNewRemainingEstimate(token, issueKey, worklogId, comment, groupLevel, roleLevelId, newRemainingEstimate);
     }
 
     /**
@@ -1509,7 +1392,6 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-version}
      *
-     * @param token       optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey  the project key to use
      * @param versionName the version name to use
      * @param archived    whether is archived
@@ -1518,13 +1400,9 @@ public class JiraConnector {
      * @return the new version
      */
     @Processor
-    public RemoteVersion addVersion(@Optional String token,
-                                    String projectKey,
-                                    String versionName,
-                                    Boolean archived,
-                                    Boolean released,
-                                    String releaseDate) {
-        return getClient().addVersion(createTokenIfNecessary(token), projectKey, versionName, archived, released, releaseDate);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteVersion addVersion(String projectKey, String versionName, Boolean archived, Boolean released, String releaseDate) {
+        return client.addVersion(token, projectKey, versionName, archived, released, releaseDate);
     }
 
     /**
@@ -1533,14 +1411,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-resolution-date-by-key}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey the key of the issue
      * @return The resolution date of the issue. May be null
      */
     @Processor
-    public Calendar getResolutionDateByKey(@Optional String token,
-                                           String issueKey) {
-        return getClient().getResolutionDateByKey(createTokenIfNecessary(token), issueKey);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public Calendar getResolutionDateByKey(String issueKey) {
+        return client.getResolutionDateByKey(token, issueKey);
     }
 
     /**
@@ -1549,14 +1426,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-resolution-date-by-id}
      *
-     * @param token   optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueId the id of the issue
      * @return The resolution date of the issue. May be null
      */
     @Processor
-    public Calendar getResolutionDateById(@Optional String token,
-                                          Long issueId) {
-        return getClient().getResolutionDateById(createTokenIfNecessary(token), issueId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public Calendar getResolutionDateById(Long issueId) {
+        return client.getResolutionDateById(token, issueId);
     }
 
     /**
@@ -1564,14 +1440,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue-count-for-filter}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param filterId the fiter id to use
      * @return the issue count for the filter denoted by this id.
      */
     @Processor
-    public long getIssueCountForFilter(@Optional String token,
-                                       String filterId) {
-        return getClient().getIssueCountForFilter(createTokenIfNecessary(token), filterId);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public long getIssueCountForFilter(String filterId) {
+        return client.getIssueCountForFilter(token, filterId);
     }
 
     /**
@@ -1590,18 +1465,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issues-from-text-search-with-project}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKeys   the project keys to use
      * @param searchTerms   earch terms
      * @param maxNumResults the maximum number of results that this method will return.
      * @return issues matching the search terms
      */
     @Processor
-    public List<Object> getIssuesFromTextSearchWithProject(@Optional String token,
-                                                           List<String> projectKeys,
-                                                           String searchTerms,
-                                                           Integer maxNumResults) {
-        return getClient().getIssuesFromTextSearchWithProject(createTokenIfNecessary(token), projectKeys, searchTerms, maxNumResults);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getIssuesFromTextSearchWithProject(List<String> projectKeys, String searchTerms, Integer maxNumResults) {
+        return client.getIssuesFromTextSearchWithProject(token, projectKeys, searchTerms, maxNumResults);
     }
 
     /**
@@ -1615,16 +1487,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issues-from-jql-search}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param jqlSearch     JQL query string to execute
      * @param maxNumResults the maximum number of results that this method will return
      * @return issues matching the JQL query
      */
     @Processor
-    public List<Object> getIssuesFromJqlSearch(@Optional String token,
-                                               String jqlSearch,
-                                               Integer maxNumResults) {
-        return getClient().getIssuesFromJqlSearch(createTokenIfNecessary(token), jqlSearch, maxNumResults);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getIssuesFromJqlSearch(String jqlSearch, Integer maxNumResults) {
+        return client.getIssuesFromJqlSearch(token, jqlSearch, maxNumResults);
     }
 
     /**
@@ -1632,13 +1502,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-user}
      *
-     * @param token    optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param username the user name to delete
      */
     @Processor
-    public void deleteUser(@Optional String token,
-                           String username) {
-        getClient().deleteUser(createTokenIfNecessary(token), username);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void deleteUser(
+            String username) {
+        client.deleteUser(token, username);
     }
 
     /**
@@ -1646,27 +1516,26 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-group}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param groupName     the group name to use
      * @param swapGroupName the swap group name to use
      */
     @Processor
-    public void deleteGroup(@Optional String token,
-                            String groupName,
-                            @Optional String swapGroupName) {
-        getClient().deleteGroup(createTokenIfNecessary(token), groupName, swapGroupName);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void deleteGroup(
+            String groupName,
+            @Optional String swapGroupName) {
+        client.deleteGroup(token, groupName, swapGroupName);
     }
 
     /**
      * Refreshs custom fields for the current user.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:refresh-custom-fields}
-     *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      */
     @Processor
-    public void refreshCustomFields(@Optional String token) {
-        getClient().refreshCustomFields(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void refreshCustomFields() {
+        client.refreshCustomFields(token);
     }
 
     /**
@@ -1677,18 +1546,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-base64-encoded-attachments-to-issue}
      *
-     * @param token                       optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey                    the issue to attach to
      * @param fileNames                   an array of filenames; each element names an attachment to be uploaded
      * @param base64EncodedAttachmentData an array of Base 64 encoded Strings; each element contains the data of the attachment to be uploaded
      * @return true if attachments were successfully added; if the operation was not successful, an exception would be thrown
      */
     @Processor
-    public boolean addBase64EncodedAttachmentsToIssue(@Optional String token,
-                                                      String issueKey,
-                                                      List<String> fileNames,
-                                                      List<String> base64EncodedAttachmentData) {
-        return getClient().addBase64EncodedAttachmentsToIssue(createTokenIfNecessary(token), issueKey, fileNames, base64EncodedAttachmentData);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public boolean addBase64EncodedAttachmentsToIssue(String issueKey, List<String> fileNames, List<String> base64EncodedAttachmentData) {
+        return client.addBase64EncodedAttachmentsToIssue(token, issueKey, fileNames, base64EncodedAttachmentData);
     }
 
     /**
@@ -1706,18 +1572,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issues-from-filter-with-limit}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param filterId      identifies the saved filter to use for the search.
      * @param offset        the place in the result set to use as the first result returned
      * @param maxNumResults the maximum number of results that this method will return.
      * @return issues matching the saved filter
      */
     @Processor
-    public List<Object> getIssuesFromFilterWithLimit(@Optional String token,
-                                                     String filterId,
-                                                     Integer offset,
-                                                     Integer maxNumResults) {
-        return getClient().getIssuesFromFilterWithLimit(createTokenIfNecessary(token), filterId, offset, maxNumResults);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getIssuesFromFilterWithLimit(String filterId, Integer offset, Integer maxNumResults) {
+        return client.getIssuesFromFilterWithLimit(token, filterId, offset, maxNumResults);
     }
 
     /**
@@ -1738,18 +1601,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issues-from-text-search-with-limit}
      *
-     * @param token         optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param searchTerms   search terms
      * @param offset        the place in the result set to use as the first result returned
      * @param maxNumResults the maximum number of results that this method will return.
      * @return issues matching the search terms
      */
     @Processor
-    public List<Object> getIssuesFromTextSearchWithLimit(@Optional String token,
-                                                         String searchTerms,
-                                                         Integer offset,
-                                                         Integer maxNumResults) {
-        return getClient().getIssuesFromTextSearchWithLimit(createTokenIfNecessary(token), searchTerms, offset, maxNumResults);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getIssuesFromTextSearchWithLimit(String searchTerms, Integer offset, Integer maxNumResults) {
+        return client.getIssuesFromTextSearchWithLimit(token, searchTerms, offset, maxNumResults);
     }
 
     /**
@@ -1757,12 +1617,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-projects-no-schemes}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return an array of RemoteProject objects.
      */
     @Processor
-    public List<Object> getProjectsNoSchemes(@Optional String token) {
-        return getClient().getProjectsNoSchemes(createTokenIfNecessary(token));
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getProjectsNoSchemes() {
+        return client.getProjectsNoSchemes(token);
     }
 
     /**
@@ -1773,17 +1633,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:set-new-project-avatar}
      *
-     * @param token           optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param projectKey      the key for the project.
      * @param contentType     the MIME type of the image provided, e.g. image/gif, image/jpeg, image/png.
      * @param base64ImageData a base 64 encoded image, 48 pixels square.
      */
     @Processor
-    public void setNewProjectAvatar(@Optional String token,
-                                    String projectKey,
-                                    String contentType,
-                                    String base64ImageData) {
-        getClient().setNewProjectAvatar(createTokenIfNecessary(token), projectKey, contentType, base64ImageData);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public void setNewProjectAvatar(String projectKey, String contentType, String base64ImageData) {
+        client.setNewProjectAvatar(token, projectKey, contentType, base64ImageData);
     }
 
     /**
@@ -1791,18 +1648,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:progress-workflow-action }
      *
-     * @param token          optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey       the issue to update.
      * @param actionIdString the workflow action to progress to
      * @param fields         the fields to be updated, the key of the map is the field id and the value is a list of values for that field.
      * @return the updated RemoteIssue
      */
     @Processor
-    public RemoteIssue progressWorkflowAction(@Optional String token,
-                                              String issueKey,
-                                              String actionIdString,
-                                              @Optional Map<String, List<String>> fields) {
-        return getClient().progressWorkflowAction(createTokenIfNecessary(token), issueKey, actionIdString, fields);
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteIssue progressWorkflowAction(String issueKey, String actionIdString, @Optional Map<String, List<String>> fields) {
+        return client.progressWorkflowAction(token, issueKey, actionIdString, fields);
     }
 
     /**
@@ -1810,24 +1664,21 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:progress-workflow-action }
      *
-     * @param token          optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @param issueKey       the issue to update.
      * @param actionIdString the workflow action to progress to
      * @param fields         the fields to be updated, the key of the map is the field id and the value is a list of values for that field.
      * @return the updated RemoteIssue
      */
     @Processor
-    public RemoteIssue progressWorkflowActionSingleValueFields(@Optional String token,
-                                                               String issueKey,
-                                                               String actionIdString,
-                                                               @Optional Map<String, String> fields) {
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteIssue progressWorkflowActionSingleValueFields(String issueKey, String actionIdString, @Optional Map<String, String> fields) {
         Map<String, List<String>> multiValueFields = new HashMap<String, List<String>>();
         if (fields != null) {
             for (Map.Entry<String, String> field : fields.entrySet()) {
                 multiValueFields.put(field.getKey(), Arrays.asList(field.getValue()));
             }
         }
-        return getClient().progressWorkflowAction(createTokenIfNecessary(token), issueKey, actionIdString, multiValueFields);
+        return client.progressWorkflowAction(token, issueKey, actionIdString, multiValueFields);
     }
 
     /**
@@ -1835,53 +1686,78 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-security-schemes}
      *
-     * @param token optionally provide a token to use, if not provided {@link JiraConnector#username} and {@link JiraConnector#password} will be used
      * @return the security schemes.
      */
     @Processor
-    public List<Object> getSecuritySchemes(@Optional String token) {
-        return getClient().getSecuritySchemes(createTokenIfNecessary(token));
-    }
-
-    public synchronized JiraClient<List<Object>> getClient() {
-        if (client == null) {
-            setClient(JiraClientFactory.getClient(address));
-        }
-        return client;
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<Object> getSecuritySchemes() {
+        return client.getSecuritySchemes(token);
     }
 
     public void setClient(JiraClient<?> client) {
         this.client = JiraClientAdaptor.adapt(client);
     }
 
-    public String getUsername() {
-        return username;
+    public String getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPass() {
+        return pass;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
-    public String getAddress() {
-        return address;
+    /**
+     * Creates a connection to Jira by making a login call with the given credentials to the specified address.
+     * The login call, if successfull, returns a token which will be used in the subsequent calls to Jira.
+     *
+     * @param user the user login user
+     * @param pass the user login pass
+     * @param address  the JIRA Server Soap address. It usually looks like https://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2 or http://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2
+     */
+    @Connect
+    public void connect(@ConnectionKey String user, String pass, String address) throws ConnectionException {
+        setClient(JiraClientFactory.getClient(address));
+        token = login(user, pass);
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    private String createTokenIfNecessary(String token) {
+    /**
+     * Performs a logout call to Jira.
+     */
+    @Disconnect
+    public void disconnect() {
         if (token != null) {
-            return token;
+            String oldToken = token;
+            token = null;
+            client = null;
+            logout(oldToken);
         }
-        return login(username, password);
+    }
+
+    /**
+     * Returns whether the current user is authenticated. It does not mean tell anything whether the current session
+     * has expired
+     */
+    @ValidateConnection
+    public boolean validateConnection() {
+        return token != null;
+    }
+
+    /**
+     * Returns a connection identifier.
+     */
+    @Override
+    @ConnectionIdentifier
+    public String toString() {
+        return "username='" + user + '\'' +
+                ", address='" + pass + '\'' +
+                '}';
     }
 }
