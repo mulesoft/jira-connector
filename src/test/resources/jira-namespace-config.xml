@@ -50,7 +50,7 @@
         </spring:property>
     </spring:bean>
 
-    <jira:config name="default" user="fede" pass="fede" address="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
+    <jira:config name="default" connectionUser="fede" connectionPassword="fede" connectionAddress="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
 
     <flow name="getComment">
         <jira:get-comment commentId="123"/>

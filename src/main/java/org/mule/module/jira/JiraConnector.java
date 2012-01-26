@@ -59,8 +59,8 @@ public class JiraConnector {
 
     private JiraClient<List<Object>> client;
     private String token;
-    private String user;
-    private String pass;
+    private String connectionUser;
+    private String connectionAddress;
 
     /**
      * Finds a comment.
@@ -1698,34 +1698,36 @@ public class JiraConnector {
         this.client = JiraClientAdaptor.adapt(client);
     }
 
-    public String getUser() {
-        return user;
+    public String getConnectionUser() {
+        return connectionUser;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setConnectionUser(String connectionUser) {
+        this.connectionUser = connectionUser;
     }
 
-    public String getPass() {
-        return pass;
+    public String getConnectionAddress() {
+        return connectionAddress;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setConnectionAddress(String connectionAddress) {
+        this.connectionAddress = connectionAddress;
     }
 
     /**
      * Creates a connection to Jira by making a login call with the given credentials to the specified address.
      * The login call, if successfull, returns a token which will be used in the subsequent calls to Jira.
      *
-     * @param user the user login user
-     * @param pass the user login pass
-     * @param address  the JIRA Server Soap address. It usually looks like https://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2 or http://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2
+     * @param connectionUser     the user login user
+     * @param connectionPassword the user login pass
+     * @param connectionAddress  the JIRA Server Soap address. It usually looks like https://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2 or http://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2
      */
     @Connect
-    public void connect(@ConnectionKey String user, String pass, String address) throws ConnectionException {
-        setClient(JiraClientFactory.getClient(address));
-        token = login(user, pass);
+    public void connect(@ConnectionKey String connectionUser, String connectionPassword, String connectionAddress) throws ConnectionException {
+        this.connectionUser = connectionUser;
+        this.connectionAddress = connectionAddress;
+        setClient(JiraClientFactory.getClient(connectionAddress));
+        token = login(connectionUser, connectionPassword);
     }
 
     /**
@@ -1756,8 +1758,8 @@ public class JiraConnector {
     @Override
     @ConnectionIdentifier
     public String toString() {
-        return "username='" + user + '\'' +
-                ", address='" + pass + '\'' +
+        return "username='" + connectionUser + '\'' +
+                ", address='" + connectionAddress + '\'' +
                 '}';
     }
 }
