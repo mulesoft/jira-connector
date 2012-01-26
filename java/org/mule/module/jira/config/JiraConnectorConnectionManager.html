@@ -619,12 +619,23 @@ org.mule.api.lifecycle.Initialisable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#address">address</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#connectionAddress">connectionAddress</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
       <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#connectionPassword">connectionPassword</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -637,13 +648,24 @@ org.mule.api.lifecycle.Initialisable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
           
           PoolingProfile</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#connectionPoolingProfile">connectionPoolingProfile</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#connectionUser">connectionUser</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -682,28 +704,6 @@ org.mule.api.lifecycle.Initialisable
           <td class="jd-descrcol" width="100%">Mule Context
  
 </td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#pass">pass</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#user">user</a></td>
-          <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
@@ -793,9 +793,9 @@ org.mule.api.lifecycle.Initialisable
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#getAddress()">getAddress</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#getConnectionAddress()">getConnectionAddress</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Retrieves address
+        <div class="jd-descrdiv">Retrieves connectionAddress
  
 </div>
   
@@ -804,6 +804,26 @@ org.mule.api.lifecycle.Initialisable
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#getConnectionPassword()">getConnectionPassword</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves connectionPassword
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -823,26 +843,6 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#getPass()">getPass</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves pass
- 
-</div>
-  
-  </td></tr>
-
-
-	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -853,9 +853,9 @@ org.mule.api.lifecycle.Initialisable
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#getUser()">getUser</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#getConnectionUser()">getConnectionUser</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Retrieves user
+        <div class="jd-descrdiv">Retrieves connectionUser
  
 </div>
   
@@ -925,9 +925,9 @@ org.mule.api.lifecycle.Initialisable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setAddress(java.lang.String)">setAddress</a></span>(String value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setConnectionAddress(java.lang.String)">setConnectionAddress</a></span>(String value)</nobr>
         
-        <div class="jd-descrdiv">Sets address</div>
+        <div class="jd-descrdiv">Sets connectionAddress</div>
   
   </td></tr>
 
@@ -943,9 +943,45 @@ org.mule.api.lifecycle.Initialisable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setConnectionPassword(java.lang.String)">setConnectionPassword</a></span>(String value)</nobr>
+        
+        <div class="jd-descrdiv">Sets connectionPassword</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setConnectionPoolingProfile(org.mule.config.PoolingProfile)">setConnectionPoolingProfile</a></span>(PoolingProfile value)</nobr>
         
         <div class="jd-descrdiv">Sets connectionPoolingProfile</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setConnectionUser(java.lang.String)">setConnectionUser</a></span>(String value)</nobr>
+        
+        <div class="jd-descrdiv">Sets connectionUser</div>
   
   </td></tr>
 
@@ -982,42 +1018,6 @@ org.mule.api.lifecycle.Initialisable
         <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
         
         <div class="jd-descrdiv">Set the Mule context</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setPass(java.lang.String)">setPass</a></span>(String value)</nobr>
-        
-        <div class="jd-descrdiv">Sets pass</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/JiraConnectorConnectionManager.html#setUser(java.lang.String)">setUser</a></span>(String value)</nobr>
-        
-        <div class="jd-descrdiv">Sets user</div>
   
   </td></tr>
 
@@ -1460,7 +1460,7 @@ From interface
 
 
 
-<A NAME="address"></A>
+<A NAME="connectionAddress"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1470,7 +1470,37 @@ From interface
          
         String
       </span>
-        address
+        connectionAddress
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="connectionPassword"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        String
+      </span>
+        connectionPassword
     </h4>
       <div class="api-level">
         
@@ -1533,6 +1563,36 @@ From interface
         PoolingProfile
       </span>
         connectionPoolingProfile
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="connectionUser"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        String
+      </span>
+        connectionUser
     </h4>
       <div class="api-level">
         
@@ -1639,66 +1699,6 @@ From interface
   <div class="jd-tagdata jd-tagdescr"><p>Mule Context
  
 </p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="pass"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        pass
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="user"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        user
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     
     </div>
@@ -1863,7 +1863,7 @@ From interface
 </div>
 
 
-<A NAME="getAddress()"></A>
+<A NAME="getConnectionAddress()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1875,7 +1875,7 @@ From interface
          
         String
       </span>
-      <span class="sympad">getAddress</span>
+      <span class="sympad">getConnectionAddress</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1888,7 +1888,40 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieves address
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves connectionAddress
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getConnectionPassword()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getConnectionPassword</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves connectionPassword
  
 </p></div>
 
@@ -1929,7 +1962,7 @@ From interface
 </div>
 
 
-<A NAME="getPass()"></A>
+<A NAME="getConnectionUser()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1941,7 +1974,7 @@ From interface
          
         String
       </span>
-      <span class="sympad">getPass</span>
+      <span class="sympad">getConnectionUser</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1954,40 +1987,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieves pass
- 
-</p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getUser()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getUser</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieves user
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves connectionUser
  
 </p></div>
 
@@ -2121,7 +2121,7 @@ From interface
 </div>
 
 
-<A NAME="setAddress(java.lang.String)"></A>
+<A NAME="setConnectionAddress(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2133,7 +2133,7 @@ From interface
          
         void
       </span>
-      <span class="sympad">setAddress</span>
+      <span class="sympad">setConnectionAddress</span>
       <span class="normal">(String value)</span>
     </h4>
       <div class="api-level">
@@ -2146,7 +2146,48 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets address</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets connectionAddress</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setConnectionPassword(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setConnectionPassword</span>
+      <span class="normal">(String value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets connectionPassword</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -2188,6 +2229,47 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Sets connectionPoolingProfile</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setConnectionUser(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setConnectionUser</span>
+      <span class="normal">(String value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets connectionUser</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -2276,88 +2358,6 @@ From interface
         <tr>
           <th>context</td>
           <td>Mule context to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setPass(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setPass</span>
-      <span class="normal">(String value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets pass</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setUser(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setUser</span>
-      <span class="normal">(String value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets user</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
 </td>
         </tr>
       </table>
