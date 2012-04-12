@@ -17,7 +17,7 @@
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:jira="http://www.mulesoft.org/schema/mule/jira"
       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+                          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.2/mule.xsd
                           http://www.mulesoft.org/schema/mule/jira http://www.mulesoft.org/schema/mule/jira/2.0/mule-jira.xsd">
 
 
@@ -50,8 +50,7 @@
         </spring:property>
     </spring:bean>
 
-    <jira:config name="default" username="fede" password="fede"
-                 address="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
+    <jira:config name="default" connectionUser="fede" connectionPassword="fede" connectionAddress="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
 
     <flow name="getComment">
         <jira:get-comment commentId="123"/>
