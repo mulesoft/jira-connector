@@ -72,7 +72,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
 
-  AddCommentMessageProcessor
+  CreateIssueUsingObjectMessageProcessor
 
 
 | Mule Jira Connector
@@ -203,7 +203,7 @@
       <ul>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddActorsToProjectRoleMessageProcessor.html">AddActorsToProjectRoleMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddBase64EncodedAttachmentsToIssueMessageProcessor.html">AddBase64EncodedAttachmentsToIssueMessageProcessor</a></li>
-          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddCommentMessageProcessor.html">AddCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddCommentMessageProcessor.html">AddCommentMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddDefaultActorsToProjectRoleMessageProcessor.html">AddDefaultActorsToProjectRoleMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddPermissionToMessageProcessor.html">AddPermissionToMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddUserToGroupMessageProcessor.html">AddUserToGroupMessageProcessor</a></li>
@@ -212,7 +212,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateGroupMessageProcessor.html">CreateGroupMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueMessageProcessor.html">CreateIssueMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueSingleValueFieldsMessageProcessor.html">CreateIssueSingleValueFieldsMessageProcessor</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html">CreateIssueUsingObjectMessageProcessor</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html">CreateIssueUsingObjectMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueWithSecurityLevelMessageProcessor.html">CreateIssueWithSecurityLevelMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreatePermissionSchemeMessageProcessor.html">CreatePermissionSchemeMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateProjectMessageProcessor.html">CreateProjectMessageProcessor</a></li>
@@ -470,7 +470,7 @@ Summary:
      
     
     class
-<h1>AddCommentMessageProcessor</h1>
+<h1>CreateIssueUsingObjectMessageProcessor</h1>
 
 
 
@@ -520,7 +520,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.module.jira.config.AddCommentMessageProcessor</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.module.jira.config.CreateIssueUsingObjectMessageProcessor</td>
     </tr>
     
 
@@ -536,7 +536,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>AddCommentMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html#addComment(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">addComment(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>CreateIssueUsingObjectMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html#createIssueUsingObject(com.atlassian.jira.rpc.soap.beans.RemoteIssue)">createIssueUsingObject(com.atlassian.jira.rpc.soap.beans.RemoteIssue)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  
 </p>
 
@@ -734,7 +734,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#_commentAuthorType">_commentAuthorType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#_connectionAddressType">_connectionAddressType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -745,7 +745,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#_commentBodyType">_commentBodyType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#_connectionPasswordType">_connectionPasswordType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -756,7 +756,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#_commentGroupLevelType">_commentGroupLevelType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#_connectionUserType">_connectionUserType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -766,52 +766,8 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#_commentRoleLevelType">_commentRoleLevelType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#_connectionAddressType">_connectionAddressType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#_connectionPasswordType">_connectionPasswordType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#_connectionUserType">_connectionUserType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#_issueKeyType">_issueKeyType</a></td>
+          <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#_issueType">_issueType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -822,7 +778,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#commentAuthor">commentAuthor</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#connectionAddress">connectionAddress</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -833,7 +789,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#commentBody">commentBody</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#connectionPassword">connectionPassword</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -844,51 +800,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#commentGroupLevel">commentGroupLevel</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#commentRoleLevel">commentRoleLevel</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#connectionAddress">connectionAddress</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#connectionPassword">connectionPassword</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#connectionUser">connectionUser</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#connectionUser">connectionUser</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -899,7 +811,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           ExpressionManager</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#expressionManager">expressionManager</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#expressionManager">expressionManager</a></td>
           <td class="jd-descrcol" width="100%">Mule Expression Manager
  
 </td>
@@ -912,7 +824,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           FlowConstruct</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#flowConstruct">flowConstruct</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#flowConstruct">flowConstruct</a></td>
           <td class="jd-descrcol" width="100%">Flow construct
  
 </td>
@@ -925,7 +837,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#issueKey">issueKey</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#issue">issue</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -936,7 +848,7 @@ org.mule.api.lifecycle.Stoppable
           static
           
           Logger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#logger">logger</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#logger">logger</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -947,7 +859,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#moduleObject">moduleObject</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#moduleObject">moduleObject</a></td>
           <td class="jd-descrcol" width="100%">Module object
  
 </td>
@@ -960,7 +872,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           MuleContext</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#muleContext">muleContext</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#muleContext">muleContext</a></td>
           <td class="jd-descrcol" width="100%">Mule Context
  
 </td>
@@ -973,7 +885,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           TemplateParser.PatternInfo</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#patternInfo">patternInfo</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#patternInfo">patternInfo</a></td>
           <td class="jd-descrcol" width="100%">Mule Pattern Info
  
 </td>
@@ -986,7 +898,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           AtomicInteger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#retryCount">retryCount</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#retryCount">retryCount</a></td>
           <td class="jd-descrcol" width="100%">Variable used to track how many retries we have attempted on this message processor
  
 </td>
@@ -999,7 +911,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           int</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#retryMax">retryMax</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#retryMax">retryMax</a></td>
           <td class="jd-descrcol" width="100%">Maximum number of retries that can be attempted.</td>
       </tr>
       
@@ -1029,7 +941,7 @@ org.mule.api.lifecycle.Stoppable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#AddCommentMessageProcessor()">AddCommentMessageProcessor</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#CreateIssueUsingObjectMessageProcessor()">CreateIssueUsingObjectMessageProcessor</a></span>()</nobr>
         
   </td></tr>
 
@@ -1058,7 +970,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
         
   </td></tr>
 
@@ -1074,7 +986,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
         
         <div class="jd-descrdiv">Obtains the expression manager from the Mule context and initialises the connector.</div>
   
@@ -1092,7 +1004,7 @@ org.mule.api.lifecycle.Stoppable
             MuleEvent</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
         
         <div class="jd-descrdiv">Invokes the MessageProcessor.</div>
   
@@ -1110,79 +1022,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#setCommentAuthor(java.lang.Object)">setCommentAuthor</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets commentAuthor</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#setCommentBody(java.lang.Object)">setCommentBody</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets commentBody</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#setCommentGroupLevel(java.lang.Object)">setCommentGroupLevel</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets commentGroupLevel</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#setCommentRoleLevel(java.lang.Object)">setCommentRoleLevel</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets commentRoleLevel</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#setConnectionAddress(java.lang.Object)">setConnectionAddress</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#setConnectionAddress(java.lang.Object)">setConnectionAddress</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets connectionAddress</div>
   
@@ -1200,7 +1040,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#setConnectionPassword(java.lang.Object)">setConnectionPassword</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#setConnectionPassword(java.lang.Object)">setConnectionPassword</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets connectionPassword</div>
   
@@ -1218,7 +1058,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#setConnectionUser(java.lang.Object)">setConnectionUser</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#setConnectionUser(java.lang.Object)">setConnectionUser</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets connectionUser</div>
   
@@ -1236,7 +1076,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
         
         <div class="jd-descrdiv">Sets flow construct</div>
   
@@ -1254,9 +1094,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#setIssueKey(java.lang.Object)">setIssueKey</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#setIssue(java.lang.Object)">setIssue</a></span>(Object value)</nobr>
         
-        <div class="jd-descrdiv">Sets issueKey</div>
+        <div class="jd-descrdiv">Sets issue</div>
   
   </td></tr>
 
@@ -1272,7 +1112,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
         
         <div class="jd-descrdiv">Sets the instance of the object under which the processor will execute</div>
   
@@ -1290,7 +1130,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
         
         <div class="jd-descrdiv">Set the Mule context</div>
   
@@ -1308,7 +1148,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#setRetryMax(int)">setRetryMax</a></span>(int value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#setRetryMax(int)">setRetryMax</a></span>(int value)</nobr>
         
         <div class="jd-descrdiv">Sets retryMax</div>
   
@@ -1326,7 +1166,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#start()">start</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#start()">start</a></span>()</nobr>
         
   </td></tr>
 
@@ -1342,7 +1182,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/AddCommentMessageProcessor.html#stop()">stop</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html#stop()">stop</a></span>()</nobr>
         
   </td></tr>
 
@@ -1889,126 +1729,6 @@ From interface
 
 
 
-<A NAME="_commentAuthorType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        _commentAuthorType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="_commentBodyType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        _commentBodyType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="_commentGroupLevelType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        _commentGroupLevelType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="_commentRoleLevelType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        _commentRoleLevelType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="_connectionAddressType"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2099,7 +1819,7 @@ From interface
 
 
 
-<A NAME="_issueKeyType"></A>
+<A NAME="_issueType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2107,129 +1827,9 @@ From interface
         private 
          
          
-        String
+        <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>
       </span>
-        _issueKeyType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="commentAuthor"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        commentAuthor
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="commentBody"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        commentBody
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="commentGroupLevel"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        commentGroupLevel
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="commentRoleLevel"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        commentRoleLevel
+        _issueType
     </h4>
       <div class="api-level">
         
@@ -2403,7 +2003,7 @@ From interface
 
 
 
-<A NAME="issueKey"></A>
+<A NAME="issue"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2413,7 +2013,7 @@ From interface
          
         Object
       </span>
-        issueKey
+        issue
     </h4>
       <div class="api-level">
         
@@ -2632,7 +2232,7 @@ From interface
 
 
 
-<A NAME="AddCommentMessageProcessor()"></A>
+<A NAME="CreateIssueUsingObjectMessageProcessor()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2644,7 +2244,7 @@ From interface
          
         
       </span>
-      <span class="sympad">AddCommentMessageProcessor</span>
+      <span class="sympad">CreateIssueUsingObjectMessageProcessor</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -2790,170 +2390,6 @@ From interface
         <tr>
             <th>MuleException</td>
             <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setCommentAuthor(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setCommentAuthor</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets commentAuthor</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setCommentBody(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setCommentBody</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets commentBody</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setCommentGroupLevel(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setCommentGroupLevel</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets commentGroupLevel</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setCommentRoleLevel(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setCommentRoleLevel</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets commentRoleLevel</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
         </tr>
       </table>
   </div>
@@ -3126,7 +2562,7 @@ From interface
 </div>
 
 
-<A NAME="setIssueKey(java.lang.Object)"></A>
+<A NAME="setIssue(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3138,7 +2574,7 @@ From interface
          
         void
       </span>
-      <span class="sympad">setIssueKey</span>
+      <span class="sympad">setIssue</span>
       <span class="normal">(Object value)</span>
     </h4>
       <div class="api-level">
@@ -3151,7 +2587,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets issueKey</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets issue</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
