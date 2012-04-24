@@ -326,6 +326,11 @@
         </jira:create-issue>
 <!-- END_INCLUDE(jira:create-issue) -->
 
+<!-- BEGIN_INCLUDE(jira:create-issue-using-object) -->
+        <jira:create-issue issue-ref="#[payload]"/>
+<!-- END_INCLUDE(jira:create-issue) -->
+
+
 <!-- BEGIN_INCLUDE(jira:update-worklog-with-new-remaining-estimate) -->
 <jira:update-worklog-with-new-remaining-estimate issueKey="someIssueKey" worklogId="someWorklogId"
                                                          newRemainingEstimate="1d" comment="someComment"

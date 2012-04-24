@@ -74,6 +74,8 @@ public interface JiraClient<CollectionType>
                             Long votes,
                             Map<String, List<String>> customFields);
 
+    RemoteIssue createIssue(String token, RemoteIssue issue);
+
     RemoteIssue createIssueWithSecurityLevel(String token,
                                              String asignee,
                                              String summary,

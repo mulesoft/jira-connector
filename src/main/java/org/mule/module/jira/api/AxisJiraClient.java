@@ -165,6 +165,14 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         }
     }
 
+    public RemoteIssue createIssue(String token, RemoteIssue issue) {
+        try {
+            return getService().createIssue(token, issue);
+        } catch (RemoteException e) {
+            throw new JiraConnectorException(e);
+        }
+    }
+
     public RemoteIssue updateIssue(String token, String issueKey, Map<String, List<String>> fields) {
         try {
             return getService().updateIssue(token, issueKey, helper.createRemoteFieldValues(fields));

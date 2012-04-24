@@ -39,6 +39,7 @@ import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
+import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.module.jira.api.JiraClient;
 
@@ -283,6 +284,20 @@ public class JiraConnector {
                                    @Optional Long votes,
                                    @Placement(group = "Custom Fields") @Optional Map<String, List<String>> customFields) {
         return client.createIssue(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields);
+    }
+
+    /**
+     * Creates an issue.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue-using-object}
+     *
+     * @param issue JIRA issue to be created
+     * @return the new created issue
+     */
+    @Processor(name="create-issue-using-object")
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteIssue createIssueUsingObject(@Optional @Default("#[payload]") RemoteIssue issue) {
+        return client.createIssue(token, issue);
     }
 
     /**
