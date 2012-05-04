@@ -756,7 +756,7 @@ Summary:
             <a href="../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/jira/JiraConnector.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">createIssue</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/jira/JiraConnector.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.String, java.lang.String)">createIssue</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, String componentName, String componentId)</nobr>
         
         <div class="jd-descrdiv">Creates an issue.</div>
   
@@ -774,7 +774,7 @@ Summary:
             <a href="../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/jira/JiraConnector.html#createIssueSingleValueFields(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.lang.String>)">createIssueSingleValueFields</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;String&gt; customFields)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/jira/JiraConnector.html#createIssueSingleValueFields(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.lang.String>, java.lang.String, java.lang.String)">createIssueSingleValueFields</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;String&gt; customFields, String componentName, String componentId)</nobr>
         
         <div class="jd-descrdiv">Creates an issue.</div>
   
@@ -810,7 +810,7 @@ Summary:
             <a href="../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/jira/JiraConnector.html#createIssueWithSecurityLevel(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Long)">createIssueWithSecurityLevel</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, Long securityLevelId)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/jira/JiraConnector.html#createIssueWithSecurityLevel(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Long, java.lang.String, java.lang.String)">createIssueWithSecurityLevel</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, Long securityLevelId, String componentName, String componentId)</nobr>
         
         <div class="jd-descrdiv">Creates an issue using the the security level denoted by the given id.</div>
   
@@ -3557,7 +3557,7 @@ From class
 </div>
 
 
-<A NAME="createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)"></A>
+<A NAME="createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3570,7 +3570,7 @@ From class
         <a href="../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>
       </span>
       <span class="sympad">createIssue</span>
-      <span class="normal">(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</span>
+      <span class="normal">(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, String componentName, String componentId)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3631,6 +3631,14 @@ From class
         <tr>
           <th>customFields</td>
           <td>The custom fields of the new issue, the keys of the map are the field ids</td>
+        </tr>
+        <tr>
+          <th>componentName</td>
+          <td>The component name</td>
+        </tr>
+        <tr>
+          <th>componentId</td>
+          <td>The componentId</td>
         </tr>
       </table>
   </div>
@@ -3644,7 +3652,7 @@ From class
 </div>
 
 
-<A NAME="createIssueSingleValueFields(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.lang.String>)"></A>
+<A NAME="createIssueSingleValueFields(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.lang.String>, java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3657,7 +3665,7 @@ From class
         <a href="../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>
       </span>
       <span class="sympad">createIssueSingleValueFields</span>
-      <span class="normal">(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;String&gt; customFields)</span>
+      <span class="normal">(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;String&gt; customFields, String componentName, String componentId)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3718,6 +3726,14 @@ From class
         <tr>
           <th>customFields</td>
           <td>The custom fields of the new issue, the keys of the map are the field ids</td>
+        </tr>
+        <tr>
+          <th>componentName</td>
+          <td>The component name</td>
+        </tr>
+        <tr>
+          <th>componentId</td>
+          <td>The componentId</td>
         </tr>
       </table>
   </div>
@@ -3778,7 +3794,7 @@ From class
 </div>
 
 
-<A NAME="createIssueWithSecurityLevel(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Long)"></A>
+<A NAME="createIssueWithSecurityLevel(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Long, java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3791,7 +3807,7 @@ From class
         <a href="../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>
       </span>
       <span class="sympad">createIssueWithSecurityLevel</span>
-      <span class="normal">(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, Long securityLevelId)</span>
+      <span class="normal">(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, Long securityLevelId, String componentName, String componentId)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3856,6 +3872,14 @@ From class
         <tr>
           <th>securityLevelId</td>
           <td>The id of the security level to use</td>
+        </tr>
+        <tr>
+          <th>componentName</td>
+          <td>The component name</td>
+        </tr>
+        <tr>
+          <th>componentId</td>
+          <td>The componentId</td>
         </tr>
       </table>
   </div>

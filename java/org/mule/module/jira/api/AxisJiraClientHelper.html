@@ -549,7 +549,7 @@ Summary:
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClientHelper.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">createIssue</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/api/AxisJiraClientHelper.html#createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.String, java.lang.String)">createIssue</a></span>(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, String componentName, String componentId)</nobr>
         
   </td></tr>
 
@@ -1493,7 +1493,7 @@ From class
 </div>
 
 
-<A NAME="createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)"></A>
+<A NAME="createIssue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Long, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1506,7 +1506,7 @@ From class
         <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>
       </span>
       <span class="sympad">createIssue</span>
-      <span class="normal">(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields)</span>
+      <span class="normal">(String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map&lt;String,&nbsp;List&lt;String&gt;&gt; customFields, String componentName, String componentId)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1564,6 +1564,14 @@ From class
         </tr>
         <tr>
           <th>customFields</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>componentName</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>componentId</td>
           <td></td>
         </tr>
       </table>
