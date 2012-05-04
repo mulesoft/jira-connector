@@ -137,14 +137,14 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
     public void testCreateIssue() throws Exception {
         lookupFlowConstruct("createIssue").process(getTestEvent(""));
         Mockito.verify(mockJiraClient).createIssue(TOKEN, USER_NAME, "someSummary", "someDescription", "someDueDate",
-                "someEnvironment", "somePriority", "someProject", USER_NAME, "someType", 10L, fields);
+                "someEnvironment", "somePriority", "someProject", USER_NAME, "someType", 10L, fields, "someName", "someId");
     }
 
     public void testCreateIssueWithSecurityLevel() throws Exception {
         lookupFlowConstruct("createIssueWithSecurityLevel").process(getTestEvent(""));
         Mockito.verify(mockJiraClient).createIssueWithSecurityLevel(TOKEN, USER_NAME, "someSummary", "someDescription",
                 "someDueDate", "someEnvironment", "somePriority", "someProject", USER_NAME, "someType", 10L,
-                fields, 1L);
+                fields, 1L, "someName", "someId");
     }
 
     public void testUpdateIssue() throws Exception {

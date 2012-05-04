@@ -112,7 +112,7 @@
         <jira:create-issue summary="someSummary" project="someProject" type="someType" assignee="someUserName"
                            reporter="someUserName"
                            dueDate="someDueDate" description="someDescription" environment="someEnvironment"
-                           priority="somePriority" votes="10">
+                           priority="somePriority" votes="10" componentName="someName" componentId="someId">
             <jira:custom-fields>
                 <jira:custom-field key="customfield_10000" value-ref="field1Values" />
                 <jira:custom-field key="customfield_20000" value-ref="field2Values" />
@@ -125,7 +125,7 @@
                                                assignee="someUserName" reporter="someUserName"
                                                dueDate="someDueDate" description="someDescription"
                                                environment="someEnvironment" priority="somePriority" votes="10"
-                                               securityLevelId="1">
+                                               securityLevelId="1" componentName="someName" componentId="someId">
             <jira:custom-fields>
                 <jira:custom-field key="customfield_10000" value-ref="field1Values" />
                 <jira:custom-field key="customfield_20000" value-ref="field2Values" />

@@ -11,6 +11,7 @@
 package org.mule.module.jira.api;
 
 import com.atlassian.jira.rpc.soap.beans.RemoteComment;
+import com.atlassian.jira.rpc.soap.beans.RemoteComponent;
 import com.atlassian.jira.rpc.soap.beans.RemoteCustomFieldValue;
 import com.atlassian.jira.rpc.soap.beans.RemoteEntity;
 import com.atlassian.jira.rpc.soap.beans.RemoteFieldValue;
@@ -59,8 +60,10 @@ public class AxisJiraClientHelper {
     }
 
     protected RemoteIssue createIssue(String assignee, String summary, String description, String dueDate, String environment,
-                                      String priority, String project, String reporter, String type, Long votes, Map<String, List<String>> customFields) {
-        RemoteIssue remoteIssue = new RemoteIssue();
+                                      String priority, String project, String reporter, String type, Long votes, Map<String, List<String>> customFields, String componentName, String componentId) {
+        RemoteComponent remoteComponent = new RemoteComponent(componentId, componentName);
+    	RemoteComponent[] remoteComponentArray = {remoteComponent};
+    	RemoteIssue remoteIssue = new RemoteIssue();
         remoteIssue.setAssignee(assignee);
         remoteIssue.setSummary(summary);
         remoteIssue.setDescription(description);
@@ -72,6 +75,7 @@ public class AxisJiraClientHelper {
         remoteIssue.setType(type);
         remoteIssue.setVotes(votes);
         remoteIssue.setCustomFieldValues(getRemoteCustomFieldValues(customFields));
+        remoteIssue.setComponents(remoteComponentArray);
         return remoteIssue;
     }
 

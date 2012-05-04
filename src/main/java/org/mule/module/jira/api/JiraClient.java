@@ -72,7 +72,9 @@ public interface JiraClient<CollectionType>
                             String reporter,
                             String type,
                             Long votes,
-                            Map<String, List<String>> customFields);
+                            Map<String, List<String>> customFields,
+                            String componentName,
+                            String componentId);
 
     RemoteIssue createIssue(String token, RemoteIssue issue);
 
@@ -88,7 +90,9 @@ public interface JiraClient<CollectionType>
                                              String type,
                                              Long votes,
                                              Map<String, List<String>> customFields,
-                                             Long securityLevelId);
+                                             Long securityLevelId,
+                                             String componentName,
+                                             String componentId);
 
     void deleteIssue(String token, String issueKey);
 

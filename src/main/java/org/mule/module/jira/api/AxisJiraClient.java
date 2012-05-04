@@ -156,8 +156,8 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         }
     }
 
-    public RemoteIssue createIssue(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map<String, List<String>> customFields) {
-        RemoteIssue issue = helper.createIssue(assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields);
+    public RemoteIssue createIssue(String token, String assignee, String summary, String description, String dueDate, String environment, String priority, String project, String reporter, String type, Long votes, Map<String, List<String>> customFields, String componentName, String componentId) {
+        RemoteIssue issue = helper.createIssue(assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields, componentName, componentId);
         try {
             return getService().createIssue(token, issue);
         } catch (RemoteException e) {
@@ -839,8 +839,8 @@ public class AxisJiraClient implements JiraClient<Object[]> {
 
     public RemoteIssue createIssueWithSecurityLevel(String token, String asignee, String summary, String description,
                                                     String dueDate, String environment, String priority, String project,
-                                                    String reporter, String type, Long votes, Map<String, List<String>> customFields, Long securityLevelId) {
-        RemoteIssue issue = createIssue(token, asignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields);
+                                                    String reporter, String type, Long votes, Map<String, List<String>> customFields, Long securityLevelId, String componentName, String componentId) {
+        RemoteIssue issue = createIssue(token, asignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields, componentName, componentId);
         try {
             return getService().createIssueWithSecurityLevel(token, issue, securityLevelId);
         } catch (RemoteException e) {

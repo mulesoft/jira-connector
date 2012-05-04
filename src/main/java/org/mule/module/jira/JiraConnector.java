@@ -268,6 +268,8 @@ public class JiraConnector {
      * @param type         the type of the new issue
      * @param votes        the votes of the new issue
      * @param customFields the custom fields of the new issue, the keys of the map are the field ids
+     * @param componentName the component name
+     * @param componentId   the componentId
      * @return the new created issue
      */
     @Processor
@@ -282,8 +284,10 @@ public class JiraConnector {
                                    @Optional String reporter,
                                    @Placement(group = "Basic", order = 2) String type,
                                    @Optional Long votes,
-                                   @Placement(group = "Custom Fields") @Optional Map<String, List<String>> customFields) {
-        return client.createIssue(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields);
+                                   @Placement(group = "Custom Fields") @Optional Map<String, List<String>> customFields,
+                                   @Optional String componentName,
+                                   @Optional String componentId) {
+        return client.createIssue(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields, componentName, componentId);
     }
 
     /**
@@ -315,6 +319,8 @@ public class JiraConnector {
      * @param reporter     the reporter of the new issue
      * @param type         the type of the new issue
      * @param votes        the votes of the new issue
+     * @param componentName the component name
+     * @param componentId   the componentId
      * @param customFields the custom fields of the new issue, the keys of the map are the field ids
      * @return the new created issue
      */
@@ -330,14 +336,16 @@ public class JiraConnector {
                                                     @Optional String reporter,
                                                     @Placement(group = "Basic", order = 2) String type,
                                                     @Optional Long votes,
-                                                    @Placement(group = "Custom Fields") @Optional Map<String, String> customFields) {
+                                                    @Placement(group = "Custom Fields") @Optional Map<String, String> customFields,
+                                                    @Optional String componentName,
+                                                    @Optional String componentId) {
         Map<String, List<String>> multiValueFields = new HashMap<String, List<String>>();
         if (customFields != null) {
             for (Map.Entry<String, String> field : customFields.entrySet()) {
                 multiValueFields.put(field.getKey(), Arrays.asList(field.getValue()));
             }
         }
-        return client.createIssue(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, multiValueFields);
+        return client.createIssue(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, multiValueFields,componentName, componentId);
     }
 
     /**
@@ -357,6 +365,8 @@ public class JiraConnector {
      * @param votes           the votes of the new issue
      * @param customFields    the custom fields of the new issue, the keys of the map are the field ids
      * @param securityLevelId the id of the security level to use
+     * @param componentName the component name
+     * @param componentId   the componentId
      * @return the new created issue
      */
     @Processor
@@ -372,8 +382,10 @@ public class JiraConnector {
                                                     String type,
                                                     @Optional Long votes,
                                                     @Optional Map<String, List<String>> customFields,
-                                                    Long securityLevelId) {
-        return client.createIssueWithSecurityLevel(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields, securityLevelId);
+                                                    Long securityLevelId,
+                                                    @Optional String componentName,
+                                                    @Optional String componentId) {
+        return client.createIssueWithSecurityLevel(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields, securityLevelId, componentName, componentId);
     }
 
     /**
