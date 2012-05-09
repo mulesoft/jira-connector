@@ -51,6 +51,7 @@ public class AxisJiraClient implements JiraClient<Object[]> {
 
     private AxisJiraSoapServiceProvider serviceProvider;
     private AxisJiraClientHelper helper;
+    private JiraSoapService service;
 
     public AxisJiraClient(@NotNull AxisJiraSoapServiceProvider serviceProvider) {
         Validate.notNull(serviceProvider);
@@ -896,7 +897,11 @@ public class AxisJiraClient implements JiraClient<Object[]> {
     }
 
     private JiraSoapService getService() throws RemoteException {
-        return serviceProvider.getService();
+        if (service == null)
+        {
+            service = serviceProvider.getService();
+        }
+        return service;
     }
     
     private String[] toStringArray(List<String> list) {
