@@ -63,6 +63,8 @@
 
 
 
+
+
 <html>
 <style>
     .jd-hierarchy-spacer {
@@ -93,6 +95,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -111,6 +114,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Jira Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 
@@ -195,11 +219,15 @@
     <li class="api apilevel-">
   <a href="../java/org/mule/module/jira/package-summary.html">org.mule.module.jira</a></li>
     <li class="api apilevel-">
+  <a href="../java/org/mule/module/jira/adapters/package-summary.html">org.mule.module.jira.adapters</a></li>
+    <li class="api apilevel-">
   <a href="../java/org/mule/module/jira/api/package-summary.html">org.mule.module.jira.api</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/module/jira/config/package-summary.html">org.mule.module.jira.config</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/module/jira/config/spring/package-summary.html">org.mule.module.jira.config.spring</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/jira/processors/package-summary.html">org.mule.module.jira.processors</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -1020,6 +1048,58 @@
     <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="3">
     
+        <a href="../java/org/mule/module/jira/adapters/JiraConnectorCapabilitiesAdapter.html">JiraConnectorCapabilitiesAdapter</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Capabilities
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="2">
+    
+        <a href="../java/org/mule/module/jira/adapters/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
         <a href="../java/org/mule/module/jira/config/JiraConnectorCapabilitiesAdapter.html">JiraConnectorCapabilitiesAdapter</a>
     
     </td>
@@ -1066,6 +1146,54 @@
 
 
 
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/adapters/JiraConnectorConnectionManager.html">JiraConnectorConnectionManager</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Capabilities
+         &nbsp;&nbsp;
+    
+        
+            ConnectionManager
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/adapters/JiraConnectorConnectionManager.ConnectionKey.html">JiraConnectorConnectionManager.ConnectionKey</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+    &nbsp;
+    </td>
+</tr>
 
 
 
@@ -1130,6 +1258,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/AddActorsToProjectRoleDefinitionParser.html">AddActorsToProjectRoleDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/AddActorsToProjectRoleMessageProcessor.html">AddActorsToProjectRoleMessageProcessor</a>
     
     </td>
@@ -1161,6 +1309,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/AddBase64EncodedAttachmentsToIssueDefinitionParser.html">AddBase64EncodedAttachmentsToIssueDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -1218,6 +1386,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/AddCommentDefinitionParser.html">AddCommentDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/AddCommentMessageProcessor.html">AddCommentMessageProcessor</a>
     
     </td>
@@ -1249,6 +1437,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/AddDefaultActorsToProjectRoleDefinitionParser.html">AddDefaultActorsToProjectRoleDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -1306,6 +1514,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/AddPermissionToDefinitionParser.html">AddPermissionToDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/AddPermissionToMessageProcessor.html">AddPermissionToMessageProcessor</a>
     
     </td>
@@ -1337,6 +1565,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/AddUserToGroupDefinitionParser.html">AddUserToGroupDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -1394,6 +1642,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/AddVersionDefinitionParser.html">AddVersionDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/AddVersionMessageProcessor.html">AddVersionMessageProcessor</a>
     
     </td>
@@ -1425,6 +1693,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/AddWorklogAndAutoAdjustRemainingEstimateDefinitionParser.html">AddWorklogAndAutoAdjustRemainingEstimateDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -1482,6 +1770,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/AddWorklogAndRetainRemainingEstimateDefinitionParser.html">AddWorklogAndRetainRemainingEstimateDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/AddWorklogAndRetainRemainingEstimateMessageProcessor.html">AddWorklogAndRetainRemainingEstimateMessageProcessor</a>
     
     </td>
@@ -1513,6 +1821,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/AddWorklogWithNewRemainingEstimateDefinitionParser.html">AddWorklogWithNewRemainingEstimateDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -1570,6 +1898,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/ArchiveVersionDefinitionParser.html">ArchiveVersionDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/ArchiveVersionMessageProcessor.html">ArchiveVersionMessageProcessor</a>
     
     </td>
@@ -1601,6 +1949,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/CreateGroupDefinitionParser.html">CreateGroupDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -1658,6 +2026,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/CreateIssueDefinitionParser.html">CreateIssueDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/CreateIssueMessageProcessor.html">CreateIssueMessageProcessor</a>
     
     </td>
@@ -1689,6 +2077,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/CreateIssueSingleValueFieldsDefinitionParser.html">CreateIssueSingleValueFieldsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -1746,6 +2154,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/CreateIssueUsingObjectDefinitionParser.html">CreateIssueUsingObjectDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html">CreateIssueUsingObjectMessageProcessor</a>
     
     </td>
@@ -1777,6 +2205,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/CreateIssueWithSecurityLevelDefinitionParser.html">CreateIssueWithSecurityLevelDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -1834,6 +2282,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/CreatePermissionSchemeDefinitionParser.html">CreatePermissionSchemeDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/CreatePermissionSchemeMessageProcessor.html">CreatePermissionSchemeMessageProcessor</a>
     
     </td>
@@ -1865,6 +2333,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/CreateProjectDefinitionParser.html">CreateProjectDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -1922,6 +2410,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/CreateProjectRoleDefinitionParser.html">CreateProjectRoleDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/CreateProjectRoleMessageProcessor.html">CreateProjectRoleMessageProcessor</a>
     
     </td>
@@ -1953,6 +2461,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/CreateUserDefinitionParser.html">CreateUserDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -2010,6 +2538,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/DeleteGroupDefinitionParser.html">DeleteGroupDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/DeleteGroupMessageProcessor.html">DeleteGroupMessageProcessor</a>
     
     </td>
@@ -2041,6 +2589,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/DeleteIssueDefinitionParser.html">DeleteIssueDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -2098,6 +2666,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/DeletePermissionFromDefinitionParser.html">DeletePermissionFromDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/DeletePermissionFromMessageProcessor.html">DeletePermissionFromMessageProcessor</a>
     
     </td>
@@ -2129,6 +2717,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/DeletePermissionSchemeDefinitionParser.html">DeletePermissionSchemeDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -2186,6 +2794,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/DeleteProjectAvatarDefinitionParser.html">DeleteProjectAvatarDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/DeleteProjectAvatarMessageProcessor.html">DeleteProjectAvatarMessageProcessor</a>
     
     </td>
@@ -2217,6 +2845,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/DeleteProjectDefinitionParser.html">DeleteProjectDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -2274,6 +2922,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/DeleteProjectRoleDefinitionParser.html">DeleteProjectRoleDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html">DeleteProjectRoleMessageProcessor</a>
     
     </td>
@@ -2305,6 +2973,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/DeleteUserDefinitionParser.html">DeleteUserDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -2362,6 +3050,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/DeleteWorklogAndAutoAdjustRemainingEstimateDefinitionParser.html">DeleteWorklogAndAutoAdjustRemainingEstimateDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/DeleteWorklogAndAutoAdjustRemainingEstimateMessageProcessor.html">DeleteWorklogAndAutoAdjustRemainingEstimateMessageProcessor</a>
     
     </td>
@@ -2393,6 +3101,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/DeleteWorklogAndRetainRemainingEstimateDefinitionParser.html">DeleteWorklogAndRetainRemainingEstimateDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -2450,6 +3178,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/DeleteWorklogWithNewRemainingEstimateDefinitionParser.html">DeleteWorklogWithNewRemainingEstimateDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/DeleteWorklogWithNewRemainingEstimateMessageProcessor.html">DeleteWorklogWithNewRemainingEstimateMessageProcessor</a>
     
     </td>
@@ -2481,6 +3229,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/EditCommentDefinitionParser.html">EditCommentDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -2538,6 +3306,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetAllPermissionsDefinitionParser.html">GetAllPermissionsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetAllPermissionsMessageProcessor.html">GetAllPermissionsMessageProcessor</a>
     
     </td>
@@ -2569,6 +3357,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetAssociatedNotificationSchemesDefinitionParser.html">GetAssociatedNotificationSchemesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -2626,6 +3434,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetAssociatedPermissionSchemesDefinitionParser.html">GetAssociatedPermissionSchemesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html">GetAssociatedPermissionSchemesMessageProcessor</a>
     
     </td>
@@ -2657,6 +3485,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetAttachmentsFromIssueDefinitionParser.html">GetAttachmentsFromIssueDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -2714,6 +3562,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetAvailableActionsDefinitionParser.html">GetAvailableActionsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetAvailableActionsMessageProcessor.html">GetAvailableActionsMessageProcessor</a>
     
     </td>
@@ -2745,6 +3613,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetCommentDefinitionParser.html">GetCommentDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -2802,6 +3690,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetCommentsDefinitionParser.html">GetCommentsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetCommentsMessageProcessor.html">GetCommentsMessageProcessor</a>
     
     </td>
@@ -2833,6 +3741,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetComponentsDefinitionParser.html">GetComponentsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -2890,6 +3818,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetConfigurationDefinitionParser.html">GetConfigurationDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetConfigurationMessageProcessor.html">GetConfigurationMessageProcessor</a>
     
     </td>
@@ -2921,6 +3869,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetCustomFieldsDefinitionParser.html">GetCustomFieldsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -2978,6 +3946,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetDefaultRoleActorsDefinitionParser.html">GetDefaultRoleActorsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetDefaultRoleActorsMessageProcessor.html">GetDefaultRoleActorsMessageProcessor</a>
     
     </td>
@@ -3009,6 +3997,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetFavouriteFiltersDefinitionParser.html">GetFavouriteFiltersDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -3066,6 +4074,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetFieldsForActionDefinitionParser.html">GetFieldsForActionDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetFieldsForActionMessageProcessor.html">GetFieldsForActionMessageProcessor</a>
     
     </td>
@@ -3097,6 +4125,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetFieldsForEditDefinitionParser.html">GetFieldsForEditDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -3154,6 +4202,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetGroupDefinitionParser.html">GetGroupDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetGroupMessageProcessor.html">GetGroupMessageProcessor</a>
     
     </td>
@@ -3185,6 +4253,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetIssueByIdDefinitionParser.html">GetIssueByIdDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -3242,6 +4330,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetIssueCountForFilterDefinitionParser.html">GetIssueCountForFilterDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetIssueCountForFilterMessageProcessor.html">GetIssueCountForFilterMessageProcessor</a>
     
     </td>
@@ -3286,6 +4394,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetIssueDefinitionParser.html">GetIssueDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetIssueMessageProcessor.html">GetIssueMessageProcessor</a>
     
     </td>
@@ -3317,6 +4445,46 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetIssueTypesDefinitionParser.html">GetIssueTypesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetIssueTypesForProjectDefinitionParser.html">GetIssueTypesForProjectDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -3418,6 +4586,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetIssuesFromFilterWithLimitDefinitionParser.html">GetIssuesFromFilterWithLimitDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetIssuesFromFilterWithLimitMessageProcessor.html">GetIssuesFromFilterWithLimitMessageProcessor</a>
     
     </td>
@@ -3449,6 +4637,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetIssuesFromJqlSearchDefinitionParser.html">GetIssuesFromJqlSearchDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -3506,6 +4714,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetIssuesFromTextSearchWithLimitDefinitionParser.html">GetIssuesFromTextSearchWithLimitDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetIssuesFromTextSearchWithLimitMessageProcessor.html">GetIssuesFromTextSearchWithLimitMessageProcessor</a>
     
     </td>
@@ -3537,6 +4765,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetIssuesFromTextSearchWithProjectDefinitionParser.html">GetIssuesFromTextSearchWithProjectDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -3594,6 +4842,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetNotificationSchemesDefinitionParser.html">GetNotificationSchemesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetNotificationSchemesMessageProcessor.html">GetNotificationSchemesMessageProcessor</a>
     
     </td>
@@ -3625,6 +4893,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetPermissionSchemesDefinitionParser.html">GetPermissionSchemesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -3682,6 +4970,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetPrioritiesDefinitionParser.html">GetPrioritiesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetPrioritiesMessageProcessor.html">GetPrioritiesMessageProcessor</a>
     
     </td>
@@ -3713,6 +5021,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetProjectAvatarDefinitionParser.html">GetProjectAvatarDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -3770,6 +5098,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetProjectAvatarsDefinitionParser.html">GetProjectAvatarsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetProjectAvatarsMessageProcessor.html">GetProjectAvatarsMessageProcessor</a>
     
     </td>
@@ -3801,6 +5149,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetProjectByIdDefinitionParser.html">GetProjectByIdDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -3858,6 +5226,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetProjectByKeyDefinitionParser.html">GetProjectByKeyDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetProjectByKeyMessageProcessor.html">GetProjectByKeyMessageProcessor</a>
     
     </td>
@@ -3889,6 +5277,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetProjectRoleActorsDefinitionParser.html">GetProjectRoleActorsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -3946,6 +5354,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetProjectRoleDefinitionParser.html">GetProjectRoleDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetProjectRoleMessageProcessor.html">GetProjectRoleMessageProcessor</a>
     
     </td>
@@ -3977,6 +5405,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetProjectRolesDefinitionParser.html">GetProjectRolesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -4034,6 +5482,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetProjectWithSchemesByIdDefinitionParser.html">GetProjectWithSchemesByIdDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetProjectWithSchemesByIdMessageProcessor.html">GetProjectWithSchemesByIdMessageProcessor</a>
     
     </td>
@@ -4065,6 +5533,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetProjectsNoSchemesDefinitionParser.html">GetProjectsNoSchemesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -4122,6 +5610,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetResolutionDateByIdDefinitionParser.html">GetResolutionDateByIdDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetResolutionDateByIdMessageProcessor.html">GetResolutionDateByIdMessageProcessor</a>
     
     </td>
@@ -4153,6 +5661,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetResolutionDateByKeyDefinitionParser.html">GetResolutionDateByKeyDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -4210,6 +5738,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetResolutionsDefinitionParser.html">GetResolutionsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetResolutionsMessageProcessor.html">GetResolutionsMessageProcessor</a>
     
     </td>
@@ -4241,6 +5789,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetSecurityLevelDefinitionParser.html">GetSecurityLevelDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -4298,6 +5866,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetSecurityLevelsDefinitionParser.html">GetSecurityLevelsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetSecurityLevelsMessageProcessor.html">GetSecurityLevelsMessageProcessor</a>
     
     </td>
@@ -4329,6 +5917,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetSecuritySchemesDefinitionParser.html">GetSecuritySchemesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -4386,6 +5994,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetServerInfoDefinitionParser.html">GetServerInfoDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetServerInfoMessageProcessor.html">GetServerInfoMessageProcessor</a>
     
     </td>
@@ -4430,6 +6058,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetStatusesDefinitionParser.html">GetStatusesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetStatusesMessageProcessor.html">GetStatusesMessageProcessor</a>
     
     </td>
@@ -4461,6 +6109,46 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetSubTaskIssueTypesDefinitionParser.html">GetSubTaskIssueTypesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetSubTaskIssueTypesForProjectDefinitionParser.html">GetSubTaskIssueTypesForProjectDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -4562,6 +6250,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetUserDefinitionParser.html">GetUserDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetUserMessageProcessor.html">GetUserMessageProcessor</a>
     
     </td>
@@ -4593,6 +6301,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/GetVersionsDefinitionParser.html">GetVersionsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -4650,6 +6378,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/GetWorklogsDefinitionParser.html">GetWorklogsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/GetWorklogsMessageProcessor.html">GetWorklogsMessageProcessor</a>
     
     </td>
@@ -4681,6 +6429,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/HasPermissionToCreateWorklogDefinitionParser.html">HasPermissionToCreateWorklogDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -4738,6 +6506,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/HasPermissionToDeleteWorklogDefinitionParser.html">HasPermissionToDeleteWorklogDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/HasPermissionToDeleteWorklogMessageProcessor.html">HasPermissionToDeleteWorklogMessageProcessor</a>
     
     </td>
@@ -4769,6 +6557,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/HasPermissionToEditCommentDefinitionParser.html">HasPermissionToEditCommentDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -4826,6 +6634,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/HasPermissionToUpdateWorklogDefinitionParser.html">HasPermissionToUpdateWorklogDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/HasPermissionToUpdateWorklogMessageProcessor.html">HasPermissionToUpdateWorklogMessageProcessor</a>
     
     </td>
@@ -4857,6 +6685,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/IsProjectRoleNameUniqueDefinitionParser.html">IsProjectRoleNameUniqueDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -4914,6 +6762,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/JiraConnectorConfigDefinitionParser.html">JiraConnectorConfigDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/JiraConnectorConnectionManager.html">JiraConnectorConnectionManager</a>
     
     </td>
@@ -4958,6 +6826,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/LoginDefinitionParser.html">LoginDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/LoginMessageProcessor.html">LoginMessageProcessor</a>
     
     </td>
@@ -4989,6 +6877,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/LogoutDefinitionParser.html">LogoutDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -5046,6 +6954,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/ProgressWorkflowActionDefinitionParser.html">ProgressWorkflowActionDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/ProgressWorkflowActionMessageProcessor.html">ProgressWorkflowActionMessageProcessor</a>
     
     </td>
@@ -5077,6 +7005,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/ProgressWorkflowActionSingleValueFieldsDefinitionParser.html">ProgressWorkflowActionSingleValueFieldsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -5134,6 +7082,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/RefreshCustomFieldsDefinitionParser.html">RefreshCustomFieldsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/RefreshCustomFieldsMessageProcessor.html">RefreshCustomFieldsMessageProcessor</a>
     
     </td>
@@ -5165,6 +7133,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/ReleaseVersionDefinitionParser.html">ReleaseVersionDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -5222,6 +7210,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/RemoveActorsFromProjectRoleDefinitionParser.html">RemoveActorsFromProjectRoleDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/RemoveActorsFromProjectRoleMessageProcessor.html">RemoveActorsFromProjectRoleMessageProcessor</a>
     
     </td>
@@ -5253,6 +7261,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/RemoveAllRoleActorsByNameAndTypeDefinitionParser.html">RemoveAllRoleActorsByNameAndTypeDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -5310,6 +7338,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/RemoveAllRoleActorsByProjectDefinitionParser.html">RemoveAllRoleActorsByProjectDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/RemoveAllRoleActorsByProjectMessageProcessor.html">RemoveAllRoleActorsByProjectMessageProcessor</a>
     
     </td>
@@ -5341,6 +7389,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/RemoveDefaultActorsFromProjectRoleDefinitionParser.html">RemoveDefaultActorsFromProjectRoleDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -5398,6 +7466,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/RemoveUserFromGroupDefinitionParser.html">RemoveUserFromGroupDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/RemoveUserFromGroupMessageProcessor.html">RemoveUserFromGroupMessageProcessor</a>
     
     </td>
@@ -5429,6 +7517,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/SetNewProjectAvatarDefinitionParser.html">SetNewProjectAvatarDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -5486,6 +7594,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/SetProjectAvatarDefinitionParser.html">SetProjectAvatarDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/SetProjectAvatarMessageProcessor.html">SetProjectAvatarMessageProcessor</a>
     
     </td>
@@ -5517,6 +7645,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/UpdateGroupDefinitionParser.html">UpdateGroupDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -5574,6 +7722,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/UpdateIssueDefinitionParser.html">UpdateIssueDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/UpdateIssueMessageProcessor.html">UpdateIssueMessageProcessor</a>
     
     </td>
@@ -5605,6 +7773,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/UpdateIssueSingleValueFieldsDefinitionParser.html">UpdateIssueSingleValueFieldsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -5662,6 +7850,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/UpdateProjectDefinitionParser.html">UpdateProjectDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/UpdateProjectMessageProcessor.html">UpdateProjectMessageProcessor</a>
     
     </td>
@@ -5706,6 +7914,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="4">
     
+        <a href="../java/org/mule/module/jira/config/UpdateProjectRoleDefinitionParser.html">UpdateProjectRoleDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
         <a href="../java/org/mule/module/jira/config/UpdateProjectRoleMessageProcessor.html">UpdateProjectRoleMessageProcessor</a>
     
     </td>
@@ -5737,6 +7965,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/config/UpdateWorklogWithNewRemainingEstimateDefinitionParser.html">UpdateWorklogWithNewRemainingEstimateDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -7921,6 +10169,4626 @@
     
         
             BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/AddActorsToProjectRoleMessageProcessor.html">AddActorsToProjectRoleMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/AddBase64EncodedAttachmentsToIssueMessageProcessor.html">AddBase64EncodedAttachmentsToIssueMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/AddCommentMessageProcessor.html">AddCommentMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html">AddDefaultActorsToProjectRoleMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/AddPermissionToMessageProcessor.html">AddPermissionToMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/AddUserToGroupMessageProcessor.html">AddUserToGroupMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/AddVersionMessageProcessor.html">AddVersionMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/AddWorklogAndAutoAdjustRemainingEstimateMessageProcessor.html">AddWorklogAndAutoAdjustRemainingEstimateMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/AddWorklogAndRetainRemainingEstimateMessageProcessor.html">AddWorklogAndRetainRemainingEstimateMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/AddWorklogWithNewRemainingEstimateMessageProcessor.html">AddWorklogWithNewRemainingEstimateMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/ArchiveVersionMessageProcessor.html">ArchiveVersionMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/CreateGroupMessageProcessor.html">CreateGroupMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/CreateIssueMessageProcessor.html">CreateIssueMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/CreateIssueSingleValueFieldsMessageProcessor.html">CreateIssueSingleValueFieldsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/CreateIssueUsingObjectMessageProcessor.html">CreateIssueUsingObjectMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/CreateIssueWithSecurityLevelMessageProcessor.html">CreateIssueWithSecurityLevelMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/CreatePermissionSchemeMessageProcessor.html">CreatePermissionSchemeMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/CreateProjectMessageProcessor.html">CreateProjectMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/CreateProjectRoleMessageProcessor.html">CreateProjectRoleMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/CreateUserMessageProcessor.html">CreateUserMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/DeleteGroupMessageProcessor.html">DeleteGroupMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/DeleteIssueMessageProcessor.html">DeleteIssueMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/DeletePermissionFromMessageProcessor.html">DeletePermissionFromMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/DeletePermissionSchemeMessageProcessor.html">DeletePermissionSchemeMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/DeleteProjectAvatarMessageProcessor.html">DeleteProjectAvatarMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/DeleteProjectMessageProcessor.html">DeleteProjectMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/DeleteProjectRoleMessageProcessor.html">DeleteProjectRoleMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/DeleteUserMessageProcessor.html">DeleteUserMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/DeleteWorklogAndAutoAdjustRemainingEstimateMessageProcessor.html">DeleteWorklogAndAutoAdjustRemainingEstimateMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/DeleteWorklogAndRetainRemainingEstimateMessageProcessor.html">DeleteWorklogAndRetainRemainingEstimateMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/DeleteWorklogWithNewRemainingEstimateMessageProcessor.html">DeleteWorklogWithNewRemainingEstimateMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/EditCommentMessageProcessor.html">EditCommentMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetAllPermissionsMessageProcessor.html">GetAllPermissionsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetAssociatedNotificationSchemesMessageProcessor.html">GetAssociatedNotificationSchemesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetAssociatedPermissionSchemesMessageProcessor.html">GetAssociatedPermissionSchemesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetAttachmentsFromIssueMessageProcessor.html">GetAttachmentsFromIssueMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetAvailableActionsMessageProcessor.html">GetAvailableActionsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetCommentMessageProcessor.html">GetCommentMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetCommentsMessageProcessor.html">GetCommentsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetComponentsMessageProcessor.html">GetComponentsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetConfigurationMessageProcessor.html">GetConfigurationMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetCustomFieldsMessageProcessor.html">GetCustomFieldsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetDefaultRoleActorsMessageProcessor.html">GetDefaultRoleActorsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetFavouriteFiltersMessageProcessor.html">GetFavouriteFiltersMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetFieldsForActionMessageProcessor.html">GetFieldsForActionMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetFieldsForEditMessageProcessor.html">GetFieldsForEditMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetGroupMessageProcessor.html">GetGroupMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetIssueByIdMessageProcessor.html">GetIssueByIdMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetIssueCountForFilterMessageProcessor.html">GetIssueCountForFilterMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetIssueMessageProcessor.html">GetIssueMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetIssueTypesForProjectMessageProcessor.html">GetIssueTypesForProjectMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetIssueTypesMessageProcessor.html">GetIssueTypesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetIssuesFromFilterWithLimitMessageProcessor.html">GetIssuesFromFilterWithLimitMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetIssuesFromJqlSearchMessageProcessor.html">GetIssuesFromJqlSearchMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetIssuesFromTextSearchWithLimitMessageProcessor.html">GetIssuesFromTextSearchWithLimitMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetIssuesFromTextSearchWithProjectMessageProcessor.html">GetIssuesFromTextSearchWithProjectMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetNotificationSchemesMessageProcessor.html">GetNotificationSchemesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetPermissionSchemesMessageProcessor.html">GetPermissionSchemesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetPrioritiesMessageProcessor.html">GetPrioritiesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetProjectAvatarMessageProcessor.html">GetProjectAvatarMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetProjectAvatarsMessageProcessor.html">GetProjectAvatarsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetProjectByIdMessageProcessor.html">GetProjectByIdMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetProjectByKeyMessageProcessor.html">GetProjectByKeyMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetProjectRoleActorsMessageProcessor.html">GetProjectRoleActorsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetProjectRoleMessageProcessor.html">GetProjectRoleMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetProjectRolesMessageProcessor.html">GetProjectRolesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetProjectWithSchemesByIdMessageProcessor.html">GetProjectWithSchemesByIdMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetProjectsNoSchemesMessageProcessor.html">GetProjectsNoSchemesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetResolutionDateByIdMessageProcessor.html">GetResolutionDateByIdMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetResolutionDateByKeyMessageProcessor.html">GetResolutionDateByKeyMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetResolutionsMessageProcessor.html">GetResolutionsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetSecurityLevelMessageProcessor.html">GetSecurityLevelMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetSecurityLevelsMessageProcessor.html">GetSecurityLevelsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetSecuritySchemesMessageProcessor.html">GetSecuritySchemesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetServerInfoMessageProcessor.html">GetServerInfoMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetStatusesMessageProcessor.html">GetStatusesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetSubTaskIssueTypesForProjectMessageProcessor.html">GetSubTaskIssueTypesForProjectMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetSubTaskIssueTypesMessageProcessor.html">GetSubTaskIssueTypesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetUserMessageProcessor.html">GetUserMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetVersionsMessageProcessor.html">GetVersionsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/GetWorklogsMessageProcessor.html">GetWorklogsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/HasPermissionToCreateWorklogMessageProcessor.html">HasPermissionToCreateWorklogMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/HasPermissionToDeleteWorklogMessageProcessor.html">HasPermissionToDeleteWorklogMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/HasPermissionToEditCommentMessageProcessor.html">HasPermissionToEditCommentMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/HasPermissionToUpdateWorklogMessageProcessor.html">HasPermissionToUpdateWorklogMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/IsProjectRoleNameUniqueMessageProcessor.html">IsProjectRoleNameUniqueMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/LoginMessageProcessor.html">LoginMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/LogoutMessageProcessor.html">LogoutMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/ProgressWorkflowActionMessageProcessor.html">ProgressWorkflowActionMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/ProgressWorkflowActionSingleValueFieldsMessageProcessor.html">ProgressWorkflowActionSingleValueFieldsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/RefreshCustomFieldsMessageProcessor.html">RefreshCustomFieldsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/ReleaseVersionMessageProcessor.html">ReleaseVersionMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/RemoveActorsFromProjectRoleMessageProcessor.html">RemoveActorsFromProjectRoleMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/RemoveAllRoleActorsByNameAndTypeMessageProcessor.html">RemoveAllRoleActorsByNameAndTypeMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/RemoveAllRoleActorsByProjectMessageProcessor.html">RemoveAllRoleActorsByProjectMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/RemoveDefaultActorsFromProjectRoleMessageProcessor.html">RemoveDefaultActorsFromProjectRoleMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/RemoveUserFromGroupMessageProcessor.html">RemoveUserFromGroupMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/SetNewProjectAvatarMessageProcessor.html">SetNewProjectAvatarMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/SetProjectAvatarMessageProcessor.html">SetProjectAvatarMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/UpdateGroupMessageProcessor.html">UpdateGroupMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/UpdateIssueMessageProcessor.html">UpdateIssueMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/UpdateIssueSingleValueFieldsMessageProcessor.html">UpdateIssueSingleValueFieldsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/UpdateProjectMessageProcessor.html">UpdateProjectMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/UpdateProjectRoleMessageProcessor.html">UpdateProjectRoleMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="4">
+    
+        <a href="../java/org/mule/module/jira/processors/UpdateWorklogWithNewRemainingEstimateMessageProcessor.html">UpdateWorklogWithNewRemainingEstimateMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
          &nbsp;&nbsp;
     
     &nbsp;

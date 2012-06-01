@@ -64,6 +64,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -85,6 +87,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -101,6 +104,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Jira Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -196,7 +220,6 @@ Summary:
 <div id="jd-header">
     org.mule.modules
 <h1>mule-module-jira</h1>
-    2.3-SNAPSHOT
 
 </div><!-- end header -->
 
@@ -205,15 +228,17 @@ Summary:
 <div id="jd-content" class="api apilevel-">
 
 
+<br/>
+
 <div class="jd-tagdata">
       <table class="jd-tagtable">
         <tbody><tr>
           <th>Namespace</th><td>http://www.mulesoft.org/schema/mule/jira</td>
         </tr><tr>
-          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/jira/2.0/mule-jira.xsd</td>
+          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/jira/current/mule-jira.xsd&nbsp;&nbsp;(<a href="jira-schema.html">View Schema</a>)</td>
         </tr>
 <tr>
-          <th>Version</th><td>2.0</td>
+          <th>Schema Version</th><td>2.0</td>
         </tr>
 <tr>
           <th>Minimum Mule Version</th><td>3.2</td>
@@ -261,7 +286,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#add-actors-to-project-role">&lt;jira:add-actors-to-project-role&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Adds the given actors to the project role.<br/></div>
+        <div class="jd-descrdiv">Adds the given actors to the project role.</div>
         
   </td></tr>
 
@@ -271,7 +296,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#add-base64-encoded-attachments-to-issue">&lt;jira:add-base64-encoded-attachments-to-issue&gt;</a></nobr>
         
-        <div class="jd-descrdiv">An alternative mechanism for adding attachments to an issue.<br/></div>
+        <div class="jd-descrdiv">An alternative mechanism for adding attachments to an issue.</div>
         
   </td></tr>
 
@@ -281,7 +306,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#add-comment">&lt;jira:add-comment&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Adds a new comment to the issue.<br/></div>
+        <div class="jd-descrdiv">Adds a new comment to the issue.</div>
         
   </td></tr>
 
@@ -291,7 +316,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#add-default-actors-to-project-role">&lt;jira:add-default-actors-to-project-role&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Adds the default actors to the project role denoted by this id.<br/></div>
+        <div class="jd-descrdiv">Adds the default actors to the project role denoted by this id.</div>
         
   </td></tr>
 
@@ -303,7 +328,7 @@ Summary:
         
         <div class="jd-descrdiv">Adds the permission to the given entity name (username or group name)
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -313,7 +338,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#add-user-to-group">&lt;jira:add-user-to-group&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Adds a user to the given group name.<br/></div>
+        <div class="jd-descrdiv">Adds a user to the given group name.</div>
         
   </td></tr>
 
@@ -325,7 +350,7 @@ Summary:
         
         <div class="jd-descrdiv">Adds a new version
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -335,7 +360,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#add-worklog-and-auto-adjust-remaining-estimate">&lt;jira:add-worklog-and-auto-adjust-remaining-estimate&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Adds a worklog to the given issue.<br/></div>
+        <div class="jd-descrdiv">Adds a worklog to the given issue.</div>
         
   </td></tr>
 
@@ -345,7 +370,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#add-worklog-and-retain-remaining-estimate">&lt;jira:add-worklog-and-retain-remaining-estimate&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Adds a worklog to the given issue but leaves the issue's remaining estimate field unchanged.<br/></div>
+        <div class="jd-descrdiv">Adds a worklog to the given issue but leaves the issue's remaining estimate field unchanged.</div>
         
   </td></tr>
 
@@ -355,7 +380,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#add-worklog-with-new-remaining-estimate">&lt;jira:add-worklog-with-new-remaining-estimate&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Adds a worklog to the given issue and sets the issue's remaining estimate field to the given value.<br/></div>
+        <div class="jd-descrdiv">Adds a worklog to the given issue and sets the issue's remaining estimate field to the given value.</div>
         
   </td></tr>
 
@@ -367,7 +392,7 @@ Summary:
         
         <div class="jd-descrdiv">Archieves the given version/
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -377,7 +402,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#create-group">&lt;jira:create-group&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates a group with the given name optionally adding the given user to it.<br/></div>
+        <div class="jd-descrdiv">Creates a group with the given name optionally adding the given user to it.</div>
         
   </td></tr>
 
@@ -387,7 +412,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#create-issue">&lt;jira:create-issue&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates an issue.<br/></div>
+        <div class="jd-descrdiv">Creates an issue.</div>
         
   </td></tr>
 
@@ -397,7 +422,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#create-issue-single-value-fields">&lt;jira:create-issue-single-value-fields&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates an issue.<br/></div>
+        <div class="jd-descrdiv">Creates an issue.</div>
         
   </td></tr>
 
@@ -407,7 +432,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#create-issue-using-object">&lt;jira:create-issue-using-object&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates an issue.<br/></div>
+        <div class="jd-descrdiv">Creates an issue.</div>
         
   </td></tr>
 
@@ -417,7 +442,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#create-issue-with-security-level">&lt;jira:create-issue-with-security-level&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates an issue using the the security level denoted by the given id.<br/></div>
+        <div class="jd-descrdiv">Creates an issue using the the security level denoted by the given id.</div>
         
   </td></tr>
 
@@ -427,7 +452,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#create-permission-scheme">&lt;jira:create-permission-scheme&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates a new permission schema using the given name and description.<br/></div>
+        <div class="jd-descrdiv">Creates a new permission schema using the given name and description.</div>
         
   </td></tr>
 
@@ -439,7 +464,7 @@ Summary:
         
         <div class="jd-descrdiv">Creates a new project
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -449,7 +474,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#create-project-role">&lt;jira:create-project-role&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates a new project role.<br/></div>
+        <div class="jd-descrdiv">Creates a new project role.</div>
         
   </td></tr>
 
@@ -461,7 +486,7 @@ Summary:
         
         <div class="jd-descrdiv">Creates a user in JIRA with the specified user details
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -471,7 +496,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#delete-group">&lt;jira:delete-group&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Deletes the group denoted by the given group name.<br/></div>
+        <div class="jd-descrdiv">Deletes the group denoted by the given group name.</div>
         
   </td></tr>
 
@@ -483,7 +508,7 @@ Summary:
         
         <div class="jd-descrdiv">Deletes the issue with the given key
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -495,7 +520,7 @@ Summary:
         
         <div class="jd-descrdiv">Removes the permission to the given entity name (username or group name)
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -507,7 +532,7 @@ Summary:
         
         <div class="jd-descrdiv">Deletes the permission scheme denoted by the given name
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -517,7 +542,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#delete-project">&lt;jira:delete-project&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Deletes the project represented by the given project key.<br/></div>
+        <div class="jd-descrdiv">Deletes the project represented by the given project key.</div>
         
   </td></tr>
 
@@ -527,7 +552,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#delete-project-avatar">&lt;jira:delete-project-avatar&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Deletes the given custom Avatar from the system.<br/></div>
+        <div class="jd-descrdiv">Deletes the given custom Avatar from the system.</div>
         
   </td></tr>
 
@@ -537,7 +562,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#delete-project-role">&lt;jira:delete-project-role&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Deletes the project role denoted by the given project role id.<br/></div>
+        <div class="jd-descrdiv">Deletes the project role denoted by the given project role id.</div>
         
   </td></tr>
 
@@ -547,7 +572,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#delete-user">&lt;jira:delete-user&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Deletes a user in JIRA with the specified username.<br/></div>
+        <div class="jd-descrdiv">Deletes a user in JIRA with the specified username.</div>
         
   </td></tr>
 
@@ -558,7 +583,7 @@ Summary:
         <span class="sympad"><a href="../mule/jira.html#delete-worklog-and-auto-adjust-remaining-estimate">&lt;jira:delete-worklog-and-auto-adjust-remaining-estimate&gt;</a></nobr>
         
         <div class="jd-descrdiv">Deletes the worklog with the given id and updates the remaining estimate field on the isssue by increasing it
- by the time spent amount on the worklog being deleted.<br/></div>
+ by the time spent amount on the worklog being deleted.</div>
         
   </td></tr>
 
@@ -568,7 +593,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#delete-worklog-and-retain-remaining-estimate">&lt;jira:delete-worklog-and-retain-remaining-estimate&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Deletes the worklog with the given id but leaves the remaining estimate field on the isssue unchanged.<br/></div>
+        <div class="jd-descrdiv">Deletes the worklog with the given id but leaves the remaining estimate field on the isssue unchanged.</div>
         
   </td></tr>
 
@@ -578,7 +603,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#delete-worklog-with-new-remaining-estimate">&lt;jira:delete-worklog-with-new-remaining-estimate&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Deletes the worklog with the given id and sets the remaining estimate field on the isssue to the given value.<br/></div>
+        <div class="jd-descrdiv">Deletes the worklog with the given id and sets the remaining estimate field on the isssue to the given value.</div>
         
   </td></tr>
 
@@ -590,7 +615,7 @@ Summary:
         
         <div class="jd-descrdiv">Edits the comment denoted by the given id
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -600,7 +625,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-all-permissions">&lt;jira:get-all-permissions&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns all the permissions.<br/></div>
+        <div class="jd-descrdiv">Returns all the permissions.</div>
         
   </td></tr>
 
@@ -610,7 +635,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-associated-notification-schemes">&lt;jira:get-associated-notification-schemes&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the associated notification schemes for the given project role.<br/></div>
+        <div class="jd-descrdiv">Returns the associated notification schemes for the given project role.</div>
         
   </td></tr>
 
@@ -620,7 +645,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-associated-permission-schemes">&lt;jira:get-associated-permission-schemes&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the associated permission schemas for the given project role.<br/></div>
+        <div class="jd-descrdiv">Returns the associated permission schemas for the given project role.</div>
         
   </td></tr>
 
@@ -630,7 +655,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-attachments-from-issue">&lt;jira:get-attachments-from-issue&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the attachments for the issue denoted by the given key.<br/></div>
+        <div class="jd-descrdiv">Returns the attachments for the issue denoted by the given key.</div>
         
   </td></tr>
 
@@ -642,7 +667,7 @@ Summary:
         
         <div class="jd-descrdiv">Finds the available actions for the given issue key
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -652,7 +677,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-comment">&lt;jira:get-comment&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Finds a comment.<br/></div>
+        <div class="jd-descrdiv">Finds a comment.</div>
         
   </td></tr>
 
@@ -662,7 +687,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-comments">&lt;jira:get-comments&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the comments for the issue denoted by the given key.<br/></div>
+        <div class="jd-descrdiv">Returns the comments for the issue denoted by the given key.</div>
         
   </td></tr>
 
@@ -672,7 +697,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-components">&lt;jira:get-components&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an array of all the components for the specified project key.<br/></div>
+        <div class="jd-descrdiv">Returns an array of all the components for the specified project key.</div>
         
   </td></tr>
 
@@ -682,7 +707,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-configuration">&lt;jira:get-configuration&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns information about the current configuration of JIRA.<br/></div>
+        <div class="jd-descrdiv">Returns information about the current configuration of JIRA.</div>
         
   </td></tr>
 
@@ -694,7 +719,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns the custom fields for the current user
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -704,7 +729,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-default-role-actors">&lt;jira:get-default-role-actors&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the default role actors for the given project role id.<br/></div>
+        <div class="jd-descrdiv">Returns the default role actors for the given project role id.</div>
         
   </td></tr>
 
@@ -714,7 +739,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-favourite-filters">&lt;jira:get-favourite-filters&gt;</a></nobr>
         
-        <div class="jd-descrdiv">This retreives a list of the currently logged in user's favourite fitlers.<br/></div>
+        <div class="jd-descrdiv">This retreives a list of the currently logged in user's favourite fitlers.</div>
         
   </td></tr>
 
@@ -724,7 +749,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-fields-for-action">&lt;jira:get-fields-for-action&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the fields for the given action.<br/></div>
+        <div class="jd-descrdiv">Returns the fields for the given action.</div>
         
   </td></tr>
 
@@ -736,7 +761,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns the fields for edit for the given issue key
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -746,7 +771,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-group">&lt;jira:get-group&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Find the group with the specified name in JIRA.<br/></div>
+        <div class="jd-descrdiv">Find the group with the specified name in JIRA.</div>
         
   </td></tr>
 
@@ -756,7 +781,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-issue">&lt;jira:get-issue&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Finds an issue by key.<br/></div>
+        <div class="jd-descrdiv">Finds an issue by key.</div>
         
   </td></tr>
 
@@ -766,7 +791,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-issue-by-id">&lt;jira:get-issue-by-id&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the issue for the given issue id.<br/></div>
+        <div class="jd-descrdiv">Returns the issue for the given issue id.</div>
         
   </td></tr>
 
@@ -776,7 +801,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-issue-count-for-filter">&lt;jira:get-issue-count-for-filter&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the issue count for the filter denoted by this id.<br/></div>
+        <div class="jd-descrdiv">Returns the issue count for the filter denoted by this id.</div>
         
   </td></tr>
 
@@ -786,7 +811,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-issue-types">&lt;jira:get-issue-types&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an array of all the issue types for all projects in JIRA.<br/></div>
+        <div class="jd-descrdiv">Returns an array of all the issue types for all projects in JIRA.</div>
         
   </td></tr>
 
@@ -796,7 +821,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-issue-types-for-project">&lt;jira:get-issue-types-for-project&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an array of all the (non-sub task) issue types for the specified project id.<br/></div>
+        <div class="jd-descrdiv">Returns an array of all the (non-sub task) issue types for the specified project id.</div>
         
   </td></tr>
 
@@ -806,7 +831,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-issues-from-filter-with-limit">&lt;jira:get-issues-from-filter-with-limit&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns issues that match the saved filter specified by the filterId.<br/></div>
+        <div class="jd-descrdiv">Returns issues that match the saved filter specified by the filterId.</div>
         
   </td></tr>
 
@@ -816,7 +841,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-issues-from-jql-search">&lt;jira:get-issues-from-jql-search&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Execute a specified JQL query and return the resulting issues.<br/></div>
+        <div class="jd-descrdiv">Execute a specified JQL query and return the resulting issues.</div>
         
   </td></tr>
 
@@ -826,7 +851,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-issues-from-text-search-with-limit">&lt;jira:get-issues-from-text-search-with-limit&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns issues containing searchTerms.<br/></div>
+        <div class="jd-descrdiv">Returns issues containing searchTerms.</div>
         
   </td></tr>
 
@@ -836,7 +861,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-issues-from-text-search-with-project">&lt;jira:get-issues-from-text-search-with-project&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns issues containing searchTerms that are within the specified projects.<br/></div>
+        <div class="jd-descrdiv">Returns issues containing searchTerms that are within the specified projects.</div>
         
   </td></tr>
 
@@ -846,7 +871,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-notification-schemes">&lt;jira:get-notification-schemes&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns notification schemes.<br/></div>
+        <div class="jd-descrdiv">Returns notification schemes.</div>
         
   </td></tr>
 
@@ -856,7 +881,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-permission-schemes">&lt;jira:get-permission-schemes&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the permission schemes.<br/></div>
+        <div class="jd-descrdiv">Returns the permission schemes.</div>
         
   </td></tr>
 
@@ -866,7 +891,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-priorities">&lt;jira:get-priorities&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an array of all the issue statuses in JIRA.<br/></div>
+        <div class="jd-descrdiv">Returns an array of all the issue statuses in JIRA.</div>
         
   </td></tr>
 
@@ -876,7 +901,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-project-avatar">&lt;jira:get-project-avatar&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Retrieves the current avatar for the given project.<br/></div>
+        <div class="jd-descrdiv">Retrieves the current avatar for the given project.</div>
         
   </td></tr>
 
@@ -886,7 +911,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-project-avatars">&lt;jira:get-project-avatars&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Retrieves avatars for the given project.<br/></div>
+        <div class="jd-descrdiv">Retrieves avatars for the given project.</div>
         
   </td></tr>
 
@@ -896,7 +921,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-project-by-id">&lt;jira:get-project-by-id&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the Project with the matching id (if the user has permission to browse it).<br/></div>
+        <div class="jd-descrdiv">Returns the Project with the matching id (if the user has permission to browse it).</div>
         
   </td></tr>
 
@@ -906,7 +931,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-project-by-key">&lt;jira:get-project-by-key&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the Project with the matching key (if the user has permission to browse it).<br/></div>
+        <div class="jd-descrdiv">Returns the Project with the matching key (if the user has permission to browse it).</div>
         
   </td></tr>
 
@@ -916,7 +941,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-project-role">&lt;jira:get-project-role&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the project role by projectRoleId.<br/></div>
+        <div class="jd-descrdiv">Returns the project role by projectRoleId.</div>
         
   </td></tr>
 
@@ -928,7 +953,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns the project role actors for the given project
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -938,7 +963,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-project-roles">&lt;jira:get-project-roles&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the project roles.<br/></div>
+        <div class="jd-descrdiv">Returns the project roles.</div>
         
   </td></tr>
 
@@ -948,7 +973,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-project-with-schemes-by-id">&lt;jira:get-project-with-schemes-by-id&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the Project with the matching id (if the user has permission to browse it) with notification, issue security and permission schemes attached.<br/></div>
+        <div class="jd-descrdiv">Returns the Project with the matching id (if the user has permission to browse it) with notification, issue security and permission schemes attached.</div>
         
   </td></tr>
 
@@ -958,7 +983,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-projects-no-schemes">&lt;jira:get-projects-no-schemes&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an array of all the Projects defined in JIRA.<br/></div>
+        <div class="jd-descrdiv">Returns an array of all the Projects defined in JIRA.</div>
         
   </td></tr>
 
@@ -968,7 +993,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-resolution-date-by-id">&lt;jira:get-resolution-date-by-id&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Given an issue id, this method returns the resolution date for this issue.<br/></div>
+        <div class="jd-descrdiv">Given an issue id, this method returns the resolution date for this issue.</div>
         
   </td></tr>
 
@@ -978,7 +1003,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-resolution-date-by-key">&lt;jira:get-resolution-date-by-key&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Given an issue key, this method returns the resolution date for this issue.<br/></div>
+        <div class="jd-descrdiv">Given an issue key, this method returns the resolution date for this issue.</div>
         
   </td></tr>
 
@@ -988,7 +1013,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-resolutions">&lt;jira:get-resolutions&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an array of all the issue resolutions in JIRA.<br/></div>
+        <div class="jd-descrdiv">Returns an array of all the issue resolutions in JIRA.</div>
         
   </td></tr>
 
@@ -1000,7 +1025,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns the current security level for given issue
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1010,7 +1035,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-security-levels">&lt;jira:get-security-levels&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an array of all security levels for a given project.<br/></div>
+        <div class="jd-descrdiv">Returns an array of all security levels for a given project.</div>
         
   </td></tr>
 
@@ -1020,7 +1045,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-security-schemes">&lt;jira:get-security-schemes&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns the security schemes.<br/></div>
+        <div class="jd-descrdiv">Returns the security schemes.</div>
         
   </td></tr>
 
@@ -1030,7 +1055,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-server-info">&lt;jira:get-server-info&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns information about the server JIRA is running on including build number and base URL.<br/></div>
+        <div class="jd-descrdiv">Returns information about the server JIRA is running on including build number and base URL.</div>
         
   </td></tr>
 
@@ -1040,7 +1065,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-statuses">&lt;jira:get-statuses&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an array of all the issue statuses in JIRA.<br/></div>
+        <div class="jd-descrdiv">Returns an array of all the issue statuses in JIRA.</div>
         
   </td></tr>
 
@@ -1050,7 +1075,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-sub-task-issue-types">&lt;jira:get-sub-task-issue-types&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an array of all the sub task issue types in JIRA.<br/></div>
+        <div class="jd-descrdiv">Returns an array of all the sub task issue types in JIRA.</div>
         
   </td></tr>
 
@@ -1060,7 +1085,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-sub-task-issue-types-for-project">&lt;jira:get-sub-task-issue-types-for-project&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an array of all the sub task issue types for the specified project id.<br/></div>
+        <div class="jd-descrdiv">Returns an array of all the sub task issue types for the specified project id.</div>
         
   </td></tr>
 
@@ -1070,7 +1095,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-user">&lt;jira:get-user&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns information about a user defined to JIRA.<br/></div>
+        <div class="jd-descrdiv">Returns information about a user defined to JIRA.</div>
         
   </td></tr>
 
@@ -1080,7 +1105,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-versions">&lt;jira:get-versions&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns an array of all the versions for the specified project key.<br/></div>
+        <div class="jd-descrdiv">Returns an array of all the versions for the specified project key.</div>
         
   </td></tr>
 
@@ -1090,7 +1115,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#get-worklogs">&lt;jira:get-worklogs&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns all worklogs for the given issue.<br/></div>
+        <div class="jd-descrdiv">Returns all worklogs for the given issue.</div>
         
   </td></tr>
 
@@ -1101,7 +1126,7 @@ Summary:
         <span class="sympad"><a href="../mule/jira.html#has-permission-to-create-worklog">&lt;jira:has-permission-to-create-worklog&gt;</a></nobr>
         
         <div class="jd-descrdiv">Determines if the user has the permission to add worklogs to the specified issue, that timetracking is enabled
- in JIRA and that the specified issue is in an editable workflow state.<br/></div>
+ in JIRA and that the specified issue is in an editable workflow state.</div>
         
   </td></tr>
 
@@ -1111,7 +1136,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#has-permission-to-delete-worklog">&lt;jira:has-permission-to-delete-worklog&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Determine whether the current user has the permission to delete the supplied worklog, that timetracking is enabled in JIRA and that the associated issue is in an editable workflow state.<br/></div>
+        <div class="jd-descrdiv">Determine whether the current user has the permission to delete the supplied worklog, that timetracking is enabled in JIRA and that the associated issue is in an editable workflow state.</div>
         
   </td></tr>
 
@@ -1121,7 +1146,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#has-permission-to-edit-comment">&lt;jira:has-permission-to-edit-comment&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Returns whether the current user has permissions to edit the comment denoted by the given id.<br/></div>
+        <div class="jd-descrdiv">Returns whether the current user has permissions to edit the comment denoted by the given id.</div>
         
   </td></tr>
 
@@ -1131,7 +1156,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#has-permission-to-update-worklog">&lt;jira:has-permission-to-update-worklog&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Determine whether the current user has the permission to update the supplied worklog, that timetracking is enabled in JIRA and that the associated issue is in an editable workflow state.<br/></div>
+        <div class="jd-descrdiv">Determine whether the current user has the permission to update the supplied worklog, that timetracking is enabled in JIRA and that the associated issue is in an editable workflow state.</div>
         
   </td></tr>
 
@@ -1141,7 +1166,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#is-project-role-name-unique">&lt;jira:is-project-role-name-unique&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Checks if the given project role name is unique.<br/></div>
+        <div class="jd-descrdiv">Checks if the given project role name is unique.</div>
         
   </td></tr>
 
@@ -1151,7 +1176,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#login">&lt;jira:login&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Log in using the given credentials, it returns the authentication token.<br/></div>
+        <div class="jd-descrdiv">Log in using the given credentials, it returns the authentication token.</div>
         
   </td></tr>
 
@@ -1163,7 +1188,7 @@ Summary:
         
         <div class="jd-descrdiv">Cleans up an authentication token that was previously created with a call to login
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1173,7 +1198,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#progress-workflow-action">&lt;jira:progress-workflow-action&gt;</a></nobr>
         
-        <div class="jd-descrdiv">This will progress an issue through a workflow.<br/></div>
+        <div class="jd-descrdiv">This will progress an issue through a workflow.</div>
         
   </td></tr>
 
@@ -1183,7 +1208,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#progress-workflow-action-single-value-fields">&lt;jira:progress-workflow-action-single-value-fields&gt;</a></nobr>
         
-        <div class="jd-descrdiv">This will progress an issue through a workflow.<br/></div>
+        <div class="jd-descrdiv">This will progress an issue through a workflow.</div>
         
   </td></tr>
 
@@ -1193,7 +1218,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#refresh-custom-fields">&lt;jira:refresh-custom-fields&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Refreshs custom fields for the current user.<br/></div>
+        <div class="jd-descrdiv">Refreshs custom fields for the current user.</div>
         
   </td></tr>
 
@@ -1205,7 +1230,7 @@ Summary:
         
         <div class="jd-descrdiv">Releases the version denoted by the given name
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1217,7 +1242,7 @@ Summary:
         
         <div class="jd-descrdiv">Removes the given actors from the project role
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1227,7 +1252,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#remove-all-role-actors-by-name-and-type">&lt;jira:remove-all-role-actors-by-name-and-type&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Removes all role actors using the given name and type.<br/></div>
+        <div class="jd-descrdiv">Removes all role actors using the given name and type.</div>
         
   </td></tr>
 
@@ -1237,7 +1262,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#remove-all-role-actors-by-project">&lt;jira:remove-all-role-actors-by-project&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Removes all role actors for the given project key.<br/></div>
+        <div class="jd-descrdiv">Removes all role actors for the given project key.</div>
         
   </td></tr>
 
@@ -1247,7 +1272,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#remove-default-actors-from-project-role">&lt;jira:remove-default-actors-from-project-role&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Removes the default actors from the project role denoted by this id.<br/></div>
+        <div class="jd-descrdiv">Removes the default actors from the project role denoted by this id.</div>
         
   </td></tr>
 
@@ -1257,7 +1282,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#remove-user-from-group">&lt;jira:remove-user-from-group&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Removes a user from the group name.<br/></div>
+        <div class="jd-descrdiv">Removes a user from the group name.</div>
         
   </td></tr>
 
@@ -1267,7 +1292,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#set-new-project-avatar">&lt;jira:set-new-project-avatar&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates a new custom avatar for the given project and sets it to be current for the project.<br/></div>
+        <div class="jd-descrdiv">Creates a new custom avatar for the given project and sets it to be current for the project.</div>
         
   </td></tr>
 
@@ -1277,7 +1302,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#set-project-avatar">&lt;jira:set-project-avatar&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Sets the current avatar for the given project to that with the given id.<br/></div>
+        <div class="jd-descrdiv">Sets the current avatar for the given project to that with the given id.</div>
         
   </td></tr>
 
@@ -1287,7 +1312,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#update-group">&lt;jira:update-group&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Updates the given group name with the provided users.<br/></div>
+        <div class="jd-descrdiv">Updates the given group name with the provided users.</div>
         
   </td></tr>
 
@@ -1297,7 +1322,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#update-issue">&lt;jira:update-issue&gt;</a></nobr>
         
-        <div class="jd-descrdiv">This will update an issue with new values.<br/></div>
+        <div class="jd-descrdiv">This will update an issue with new values.</div>
         
   </td></tr>
 
@@ -1307,7 +1332,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#update-issue-single-value-fields">&lt;jira:update-issue-single-value-fields&gt;</a></nobr>
         
-        <div class="jd-descrdiv">This will update an issue with new values.<br/></div>
+        <div class="jd-descrdiv">This will update an issue with new values.</div>
         
   </td></tr>
 
@@ -1317,7 +1342,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#update-project">&lt;jira:update-project&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Updates the project denoted by the given key.<br/></div>
+        <div class="jd-descrdiv">Updates the project denoted by the given key.</div>
         
   </td></tr>
 
@@ -1327,7 +1352,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#update-project-role">&lt;jira:update-project-role&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Updates the project role with the given id.<br/></div>
+        <div class="jd-descrdiv">Updates the project role with the given id.</div>
         
   </td></tr>
 
@@ -1338,7 +1363,7 @@ Summary:
         <span class="sympad"><a href="../mule/jira.html#update-worklog-with-new-remaining-estimate">&lt;jira:update-worklog-with-new-remaining-estimate&gt;</a></nobr>
         
         <div class="jd-descrdiv">Modifies the worklog with the id of the given worklog, updating its fields to match the given worklog and sets
- the remaining estimate field on the relevant issue to the given value.<br/></div>
+ the remaining estimate field on the relevant issue to the given value.</div>
         
   </td></tr>
 
@@ -1355,6 +1380,26 @@ Summary:
 
 </div><!-- jd-descr (summary) -->
 
+
+<!-- ========= CONFIGURATION DETAIL ======== -->
+<A NAME="config"></A>
+<h2>Configuration</h2>
+<p>To use the this module within a flow the namespace to the module must be included. The resulting flow will look
+similar to the following:</p>
+<pre>
+&lt;mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:jira="http://www.mulesoft.org/schema/mule/jira"
+      xsi:schemaLocation="
+               http://www.mulesoft.org/schema/mule/core
+               http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+               http://www.mulesoft.org/schema/mule/jira
+               http://www.mulesoft.org/schema/mule/jira/current/mule-jira.xsd"&gt;
+
+      &lt;!-- here goes your flows and configuration elements --&gt;
+
+&lt;/mule&gt;
+</pre>
 
 
 
@@ -1645,12 +1690,12 @@ attribute on each operation.</p>
             
           
             
-            <tr><th colspan="12"><nobr>&lt;jira:fileNames&gt;</nobr></br><span style="font-weight: normal;">An array of filenames; each element names an attachment to be uploaded</span></th></tr>
+            <tr><th colspan="12"><nobr>&lt;jira:file-names&gt;</nobr></br><span style="font-weight: normal;">An array of filenames; each element names an attachment to be uploaded</span></th></tr>
             
             
           
             
-            <tr><th colspan="12"><nobr>&lt;jira:base64EncodedAttachmentData&gt;</nobr></br><span style="font-weight: normal;">An array of Base 64 encoded Strings; each element contains the data of the attachment to be uploaded</span></th></tr>
+            <tr><th colspan="12"><nobr>&lt;jira:base64-encoded-attachment-data&gt;</nobr></br><span style="font-weight: normal;">An array of Base 64 encoded Strings; each element contains the data of the attachment to be uploaded</span></th></tr>
             
             
           
@@ -3205,7 +3250,7 @@ attribute on each operation.</p>
             
           
             
-            <tr><th colspan="12"><nobr>&lt;jira:customFields&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>The custom fields of the new issue, the keys of the map are the field ids</span></th></tr>
+            <tr><th colspan="12"><nobr>&lt;jira:custom-fields&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>The custom fields of the new issue, the keys of the map are the field ids</span></th></tr>
             
             
           
@@ -3438,7 +3483,7 @@ attribute on each operation.</p>
             
           
             
-            <tr><th colspan="12"><nobr>&lt;jira:customFields&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>The custom fields of the new issue, the keys of the map are the field ids</span></th></tr>
+            <tr><th colspan="12"><nobr>&lt;jira:custom-fields&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>The custom fields of the new issue, the keys of the map are the field ids</span></th></tr>
             
             
           
@@ -3491,7 +3536,7 @@ attribute on each operation.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>issue</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">#[payload]</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>JIRA issue to be created</td>
                 </tr>
                 
@@ -3778,7 +3823,7 @@ attribute on each operation.</p>
             
           
             
-            <tr><th colspan="12"><nobr>&lt;jira:customFields&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>The custom fields of the new issue, the keys of the map are the field ids</span></th></tr>
+            <tr><th colspan="12"><nobr>&lt;jira:custom-fields&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>The custom fields of the new issue, the keys of the map are the field ids</span></th></tr>
             
             
           
@@ -7917,7 +7962,7 @@ attribute on each operation.</p>
           
           
             
-            <tr><th colspan="12"><nobr>&lt;jira:projectKeys&gt;</nobr></br><span style="font-weight: normal;">The project keys to use</span></th></tr>
+            <tr><th colspan="12"><nobr>&lt;jira:project-keys&gt;</nobr></br><span style="font-weight: normal;">The project keys to use</span></th></tr>
             
             
           

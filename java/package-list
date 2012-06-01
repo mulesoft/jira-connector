@@ -2,7 +2,9 @@ com.atlassian.jira.rpc.exception
 com.atlassian.jira.rpc.soap.beans
 com.atlassian.jira.rpc.soap.jirasoapservice_v2
 org.mule.module.jira
+org.mule.module.jira.adapters
 org.mule.module.jira.api
 org.mule.module.jira.config
 org.mule.module.jira.config.spring
+org.mule.module.jira.processors
 

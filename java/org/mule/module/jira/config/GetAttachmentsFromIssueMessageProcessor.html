@@ -63,6 +63,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -84,6 +86,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../../../../../../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../../../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../../../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../../../../../../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../../../../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -102,6 +105,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Jira Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -187,11 +211,15 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/jira/package-summary.html">org.mule.module.jira</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/jira/adapters/package-summary.html">org.mule.module.jira.adapters</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/jira/api/package-summary.html">org.mule.module.jira.api</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/module/jira/config/package-summary.html">org.mule.module.jira.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/jira/config/spring/package-summary.html">org.mule.module.jira.config.spring</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/jira/processors/package-summary.html">org.mule.module.jira.processors</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -201,116 +229,223 @@
               
     <li><h2>Classes</h2>
       <ul>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddActorsToProjectRoleDefinitionParser.html">AddActorsToProjectRoleDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddActorsToProjectRoleMessageProcessor.html">AddActorsToProjectRoleMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddBase64EncodedAttachmentsToIssueDefinitionParser.html">AddBase64EncodedAttachmentsToIssueDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddBase64EncodedAttachmentsToIssueMessageProcessor.html">AddBase64EncodedAttachmentsToIssueMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddCommentDefinitionParser.html">AddCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddCommentMessageProcessor.html">AddCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddDefaultActorsToProjectRoleDefinitionParser.html">AddDefaultActorsToProjectRoleDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddDefaultActorsToProjectRoleMessageProcessor.html">AddDefaultActorsToProjectRoleMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddPermissionToDefinitionParser.html">AddPermissionToDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddPermissionToMessageProcessor.html">AddPermissionToMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddUserToGroupDefinitionParser.html">AddUserToGroupDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddUserToGroupMessageProcessor.html">AddUserToGroupMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddVersionDefinitionParser.html">AddVersionDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddVersionMessageProcessor.html">AddVersionMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddWorklogAndAutoAdjustRemainingEstimateDefinitionParser.html">AddWorklogAndAutoAdjustRemainingEstimateDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddWorklogAndAutoAdjustRemainingEstimateMessageProcessor.html">AddWorklogAndAutoAdjustRemainingEstimateMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddWorklogAndRetainRemainingEstimateDefinitionParser.html">AddWorklogAndRetainRemainingEstimateDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddWorklogAndRetainRemainingEstimateMessageProcessor.html">AddWorklogAndRetainRemainingEstimateMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddWorklogWithNewRemainingEstimateDefinitionParser.html">AddWorklogWithNewRemainingEstimateDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/AddWorklogWithNewRemainingEstimateMessageProcessor.html">AddWorklogWithNewRemainingEstimateMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/ArchiveVersionDefinitionParser.html">ArchiveVersionDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/ArchiveVersionMessageProcessor.html">ArchiveVersionMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateGroupDefinitionParser.html">CreateGroupDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateGroupMessageProcessor.html">CreateGroupMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueDefinitionParser.html">CreateIssueDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueMessageProcessor.html">CreateIssueMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueSingleValueFieldsDefinitionParser.html">CreateIssueSingleValueFieldsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueSingleValueFieldsMessageProcessor.html">CreateIssueSingleValueFieldsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueUsingObjectDefinitionParser.html">CreateIssueUsingObjectDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueUsingObjectMessageProcessor.html">CreateIssueUsingObjectMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueWithSecurityLevelDefinitionParser.html">CreateIssueWithSecurityLevelDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateIssueWithSecurityLevelMessageProcessor.html">CreateIssueWithSecurityLevelMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreatePermissionSchemeDefinitionParser.html">CreatePermissionSchemeDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreatePermissionSchemeMessageProcessor.html">CreatePermissionSchemeMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateProjectDefinitionParser.html">CreateProjectDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateProjectMessageProcessor.html">CreateProjectMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateProjectRoleDefinitionParser.html">CreateProjectRoleDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateProjectRoleMessageProcessor.html">CreateProjectRoleMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateUserDefinitionParser.html">CreateUserDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/CreateUserMessageProcessor.html">CreateUserMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteGroupDefinitionParser.html">DeleteGroupDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteGroupMessageProcessor.html">DeleteGroupMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteIssueDefinitionParser.html">DeleteIssueDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteIssueMessageProcessor.html">DeleteIssueMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeletePermissionFromDefinitionParser.html">DeletePermissionFromDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeletePermissionFromMessageProcessor.html">DeletePermissionFromMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeletePermissionSchemeDefinitionParser.html">DeletePermissionSchemeDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeletePermissionSchemeMessageProcessor.html">DeletePermissionSchemeMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteProjectAvatarDefinitionParser.html">DeleteProjectAvatarDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteProjectAvatarMessageProcessor.html">DeleteProjectAvatarMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteProjectDefinitionParser.html">DeleteProjectDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteProjectMessageProcessor.html">DeleteProjectMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteProjectRoleDefinitionParser.html">DeleteProjectRoleDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteProjectRoleMessageProcessor.html">DeleteProjectRoleMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteUserDefinitionParser.html">DeleteUserDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteUserMessageProcessor.html">DeleteUserMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteWorklogAndAutoAdjustRemainingEstimateDefinitionParser.html">DeleteWorklogAndAutoAdjustRemainingEstimateDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteWorklogAndAutoAdjustRemainingEstimateMessageProcessor.html">DeleteWorklogAndAutoAdjustRemainingEstimateMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteWorklogAndRetainRemainingEstimateDefinitionParser.html">DeleteWorklogAndRetainRemainingEstimateDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteWorklogAndRetainRemainingEstimateMessageProcessor.html">DeleteWorklogAndRetainRemainingEstimateMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteWorklogWithNewRemainingEstimateDefinitionParser.html">DeleteWorklogWithNewRemainingEstimateDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/DeleteWorklogWithNewRemainingEstimateMessageProcessor.html">DeleteWorklogWithNewRemainingEstimateMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/EditCommentDefinitionParser.html">EditCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/EditCommentMessageProcessor.html">EditCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAllPermissionsDefinitionParser.html">GetAllPermissionsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAllPermissionsMessageProcessor.html">GetAllPermissionsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAssociatedNotificationSchemesDefinitionParser.html">GetAssociatedNotificationSchemesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAssociatedNotificationSchemesMessageProcessor.html">GetAssociatedNotificationSchemesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAssociatedPermissionSchemesDefinitionParser.html">GetAssociatedPermissionSchemesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAssociatedPermissionSchemesMessageProcessor.html">GetAssociatedPermissionSchemesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAttachmentsFromIssueDefinitionParser.html">GetAttachmentsFromIssueDefinitionParser</a></li>
           <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAttachmentsFromIssueMessageProcessor.html">GetAttachmentsFromIssueMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAvailableActionsDefinitionParser.html">GetAvailableActionsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetAvailableActionsMessageProcessor.html">GetAvailableActionsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetCommentDefinitionParser.html">GetCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetCommentMessageProcessor.html">GetCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetCommentsDefinitionParser.html">GetCommentsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetCommentsMessageProcessor.html">GetCommentsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetComponentsDefinitionParser.html">GetComponentsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetComponentsMessageProcessor.html">GetComponentsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetConfigurationDefinitionParser.html">GetConfigurationDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetConfigurationMessageProcessor.html">GetConfigurationMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetCustomFieldsDefinitionParser.html">GetCustomFieldsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetCustomFieldsMessageProcessor.html">GetCustomFieldsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetDefaultRoleActorsDefinitionParser.html">GetDefaultRoleActorsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetDefaultRoleActorsMessageProcessor.html">GetDefaultRoleActorsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetFavouriteFiltersDefinitionParser.html">GetFavouriteFiltersDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetFavouriteFiltersMessageProcessor.html">GetFavouriteFiltersMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetFieldsForActionDefinitionParser.html">GetFieldsForActionDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetFieldsForActionMessageProcessor.html">GetFieldsForActionMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetFieldsForEditDefinitionParser.html">GetFieldsForEditDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetFieldsForEditMessageProcessor.html">GetFieldsForEditMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetGroupDefinitionParser.html">GetGroupDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetGroupMessageProcessor.html">GetGroupMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssueByIdDefinitionParser.html">GetIssueByIdDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssueByIdMessageProcessor.html">GetIssueByIdMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssueCountForFilterDefinitionParser.html">GetIssueCountForFilterDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssueCountForFilterMessageProcessor.html">GetIssueCountForFilterMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssueDefinitionParser.html">GetIssueDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssueMessageProcessor.html">GetIssueMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssuesFromFilterWithLimitDefinitionParser.html">GetIssuesFromFilterWithLimitDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssuesFromFilterWithLimitMessageProcessor.html">GetIssuesFromFilterWithLimitMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssuesFromJqlSearchDefinitionParser.html">GetIssuesFromJqlSearchDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssuesFromJqlSearchMessageProcessor.html">GetIssuesFromJqlSearchMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssuesFromTextSearchWithLimitDefinitionParser.html">GetIssuesFromTextSearchWithLimitDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssuesFromTextSearchWithLimitMessageProcessor.html">GetIssuesFromTextSearchWithLimitMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssuesFromTextSearchWithProjectDefinitionParser.html">GetIssuesFromTextSearchWithProjectDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssuesFromTextSearchWithProjectMessageProcessor.html">GetIssuesFromTextSearchWithProjectMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssueTypesDefinitionParser.html">GetIssueTypesDefinitionParser</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssueTypesForProjectDefinitionParser.html">GetIssueTypesForProjectDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssueTypesForProjectMessageProcessor.html">GetIssueTypesForProjectMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetIssueTypesMessageProcessor.html">GetIssueTypesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetNotificationSchemesDefinitionParser.html">GetNotificationSchemesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetNotificationSchemesMessageProcessor.html">GetNotificationSchemesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetPermissionSchemesDefinitionParser.html">GetPermissionSchemesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetPermissionSchemesMessageProcessor.html">GetPermissionSchemesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetPrioritiesDefinitionParser.html">GetPrioritiesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetPrioritiesMessageProcessor.html">GetPrioritiesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectAvatarDefinitionParser.html">GetProjectAvatarDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectAvatarMessageProcessor.html">GetProjectAvatarMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectAvatarsDefinitionParser.html">GetProjectAvatarsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectAvatarsMessageProcessor.html">GetProjectAvatarsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectByIdDefinitionParser.html">GetProjectByIdDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectByIdMessageProcessor.html">GetProjectByIdMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectByKeyDefinitionParser.html">GetProjectByKeyDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectByKeyMessageProcessor.html">GetProjectByKeyMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectRoleActorsDefinitionParser.html">GetProjectRoleActorsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectRoleActorsMessageProcessor.html">GetProjectRoleActorsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectRoleDefinitionParser.html">GetProjectRoleDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectRoleMessageProcessor.html">GetProjectRoleMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectRolesDefinitionParser.html">GetProjectRolesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectRolesMessageProcessor.html">GetProjectRolesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectsNoSchemesDefinitionParser.html">GetProjectsNoSchemesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectsNoSchemesMessageProcessor.html">GetProjectsNoSchemesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectWithSchemesByIdDefinitionParser.html">GetProjectWithSchemesByIdDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetProjectWithSchemesByIdMessageProcessor.html">GetProjectWithSchemesByIdMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetResolutionDateByIdDefinitionParser.html">GetResolutionDateByIdDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetResolutionDateByIdMessageProcessor.html">GetResolutionDateByIdMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetResolutionDateByKeyDefinitionParser.html">GetResolutionDateByKeyDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetResolutionDateByKeyMessageProcessor.html">GetResolutionDateByKeyMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetResolutionsDefinitionParser.html">GetResolutionsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetResolutionsMessageProcessor.html">GetResolutionsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetSecurityLevelDefinitionParser.html">GetSecurityLevelDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetSecurityLevelMessageProcessor.html">GetSecurityLevelMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetSecurityLevelsDefinitionParser.html">GetSecurityLevelsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetSecurityLevelsMessageProcessor.html">GetSecurityLevelsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetSecuritySchemesDefinitionParser.html">GetSecuritySchemesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetSecuritySchemesMessageProcessor.html">GetSecuritySchemesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetServerInfoDefinitionParser.html">GetServerInfoDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetServerInfoMessageProcessor.html">GetServerInfoMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetStatusesDefinitionParser.html">GetStatusesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetStatusesMessageProcessor.html">GetStatusesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetSubTaskIssueTypesDefinitionParser.html">GetSubTaskIssueTypesDefinitionParser</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetSubTaskIssueTypesForProjectDefinitionParser.html">GetSubTaskIssueTypesForProjectDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetSubTaskIssueTypesForProjectMessageProcessor.html">GetSubTaskIssueTypesForProjectMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetSubTaskIssueTypesMessageProcessor.html">GetSubTaskIssueTypesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetUserDefinitionParser.html">GetUserDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetUserMessageProcessor.html">GetUserMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetVersionsDefinitionParser.html">GetVersionsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetVersionsMessageProcessor.html">GetVersionsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetWorklogsDefinitionParser.html">GetWorklogsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/GetWorklogsMessageProcessor.html">GetWorklogsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/HasPermissionToCreateWorklogDefinitionParser.html">HasPermissionToCreateWorklogDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/HasPermissionToCreateWorklogMessageProcessor.html">HasPermissionToCreateWorklogMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/HasPermissionToDeleteWorklogDefinitionParser.html">HasPermissionToDeleteWorklogDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/HasPermissionToDeleteWorklogMessageProcessor.html">HasPermissionToDeleteWorklogMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/HasPermissionToEditCommentDefinitionParser.html">HasPermissionToEditCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/HasPermissionToEditCommentMessageProcessor.html">HasPermissionToEditCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/HasPermissionToUpdateWorklogDefinitionParser.html">HasPermissionToUpdateWorklogDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/HasPermissionToUpdateWorklogMessageProcessor.html">HasPermissionToUpdateWorklogMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/IsProjectRoleNameUniqueDefinitionParser.html">IsProjectRoleNameUniqueDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/IsProjectRoleNameUniqueMessageProcessor.html">IsProjectRoleNameUniqueMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorCapabilitiesAdapter.html">JiraCloudConnectorCapabilitiesAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraCloudConnectorLifecycleAdapter.html">JiraCloudConnectorLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorCapabilitiesAdapter.html">JiraConnectorCapabilitiesAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConfigDefinitionParser.html">JiraConnectorConfigDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.html">JiraConnectorConnectionManager</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorConnectionManager.ConnectionParameters.html">JiraConnectorConnectionManager.ConnectionParameters</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorLifecycleAdapter.html">JiraConnectorLifecycleAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/JiraConnectorNamespaceHandler.html">JiraConnectorNamespaceHandler</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/LoginDefinitionParser.html">LoginDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/LoginMessageProcessor.html">LoginMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/LogoutDefinitionParser.html">LogoutDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/LogoutMessageProcessor.html">LogoutMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/ProgressWorkflowActionDefinitionParser.html">ProgressWorkflowActionDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/ProgressWorkflowActionMessageProcessor.html">ProgressWorkflowActionMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/ProgressWorkflowActionSingleValueFieldsDefinitionParser.html">ProgressWorkflowActionSingleValueFieldsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/ProgressWorkflowActionSingleValueFieldsMessageProcessor.html">ProgressWorkflowActionSingleValueFieldsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/RefreshCustomFieldsDefinitionParser.html">RefreshCustomFieldsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/RefreshCustomFieldsMessageProcessor.html">RefreshCustomFieldsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/ReleaseVersionDefinitionParser.html">ReleaseVersionDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/ReleaseVersionMessageProcessor.html">ReleaseVersionMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/RemoveActorsFromProjectRoleDefinitionParser.html">RemoveActorsFromProjectRoleDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/RemoveActorsFromProjectRoleMessageProcessor.html">RemoveActorsFromProjectRoleMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/RemoveAllRoleActorsByNameAndTypeDefinitionParser.html">RemoveAllRoleActorsByNameAndTypeDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/RemoveAllRoleActorsByNameAndTypeMessageProcessor.html">RemoveAllRoleActorsByNameAndTypeMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/RemoveAllRoleActorsByProjectDefinitionParser.html">RemoveAllRoleActorsByProjectDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/RemoveAllRoleActorsByProjectMessageProcessor.html">RemoveAllRoleActorsByProjectMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/RemoveDefaultActorsFromProjectRoleDefinitionParser.html">RemoveDefaultActorsFromProjectRoleDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/RemoveDefaultActorsFromProjectRoleMessageProcessor.html">RemoveDefaultActorsFromProjectRoleMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/RemoveUserFromGroupDefinitionParser.html">RemoveUserFromGroupDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/RemoveUserFromGroupMessageProcessor.html">RemoveUserFromGroupMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/SetNewProjectAvatarDefinitionParser.html">SetNewProjectAvatarDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/SetNewProjectAvatarMessageProcessor.html">SetNewProjectAvatarMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/SetProjectAvatarDefinitionParser.html">SetProjectAvatarDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/SetProjectAvatarMessageProcessor.html">SetProjectAvatarMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateGroupDefinitionParser.html">UpdateGroupDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateGroupMessageProcessor.html">UpdateGroupMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateIssueDefinitionParser.html">UpdateIssueDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateIssueMessageProcessor.html">UpdateIssueMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateIssueSingleValueFieldsDefinitionParser.html">UpdateIssueSingleValueFieldsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateIssueSingleValueFieldsMessageProcessor.html">UpdateIssueSingleValueFieldsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateProjectDefinitionParser.html">UpdateProjectDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateProjectMessageProcessor.html">UpdateProjectMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateProjectRoleDefinitionParser.html">UpdateProjectRoleDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateProjectRoleMessageProcessor.html">UpdateProjectRoleMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateWorklogWithNewRemainingEstimateDefinitionParser.html">UpdateWorklogWithNewRemainingEstimateDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateWorklogWithNewRemainingEstimateMessageProcessor.html">UpdateWorklogWithNewRemainingEstimateMessageProcessor</a></li>
       </ul>
     </li>
