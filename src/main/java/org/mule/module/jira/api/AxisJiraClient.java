@@ -896,6 +896,39 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         }
     }
 
+    public RemoteWorklog addWorklogAndAutoAdjustRemainingEstimate(String token, String issueKey, String timeSpent, 
+                                                                  String startDate, String comment, 
+                                                                  String groupLevel, String roleLevelId) {
+        RemoteWorklog remoteWorklog = helper.createRemoteWorklog(timeSpent, startDate, comment, groupLevel, roleLevelId);
+        try {
+            return getService().addWorklogAndAutoAdjustRemainingEstimate(token, issueKey, remoteWorklog);
+        } catch (RemoteException e) {
+            throw new JiraConnectorException(e);
+        }
+    }
+
+    public RemoteWorklog addWorklogWithNewRemainingEstimate(String token, String issueKey, String timeSpent, 
+                                                            String startDate, String newRemainingEstimate, 
+                                                            String comment, String groupLevel, String roleLevelId) {
+        RemoteWorklog remoteWorklog = helper.createRemoteWorklog(timeSpent, startDate, comment, groupLevel, roleLevelId);
+        try {
+            return getService().addWorklogWithNewRemainingEstimate(token, issueKey, remoteWorklog, newRemainingEstimate);
+        } catch (RemoteException e) {
+            throw new JiraConnectorException(e);
+        }
+    }
+
+    public RemoteWorklog addWorklogAndRetainRemainingEstimate(String token, String issueKey, String timeSpent, 
+                                                              String startDate, String comment,
+                                                              String groupLevel, String roleLevelId) {
+        RemoteWorklog remoteWorklog = helper.createRemoteWorklog(timeSpent, startDate, comment, groupLevel, roleLevelId);
+        try {
+            return getService().addWorklogAndRetainRemainingEstimate(token, issueKey, remoteWorklog);
+        } catch (RemoteException e) {
+            throw new JiraConnectorException(e);
+        }
+    }
+
     private JiraSoapService getService() throws RemoteException {
         if (service == null)
         {

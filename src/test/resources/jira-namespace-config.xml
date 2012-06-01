@@ -50,7 +50,7 @@
         </spring:property>
     </spring:bean>
 
-    <jira:config name="default" connectionUser="fede" connectionPassword="fede" connectionAddress="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
+    <jira:config name="default" connectionUser="user" connectionPassword="user" connectionAddress="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
 
     <flow name="getComment">
         <jira:get-comment commentId="123"/>
@@ -522,5 +522,33 @@
                 <jira:field key="customfield_20000" value-ref="field2Values" />
             </jira:fields>
         </jira:progress-workflow-action>
+    </flow>
+
+    <flow name="addWorklogAndAutoAdjustRemainingEstimate">
+        <jira:add-worklog-and-auto-adjust-remaining-estimate issueKey="someIssueKey" 
+                                                             timeSpent="1h" 
+                                                             startDate="someStartDate" 
+                                                             comment="someComment" 
+                                                             groupLevel="someGroupLevel"
+                                                             roleLevelId="someRoleLevelId"/>
+    </flow>
+
+    <flow name="addWorklogWithNewRemainingEstimate">
+        <jira:add-worklog-with-new-remaining-estimate issueKey="someIssueKey" 
+                                                      timeSpent="1h" 
+                                                      startDate="someStartDate" 
+                                                      newRemainingEstimate="2d" 
+                                                      comment="someComment"
+                                                      groupLevel="someGroupLevel"
+                                                      roleLevelId="someRoleLevelId"/>
+    </flow>
+
+    <flow name="addWorklogAndRetainRemainingEstimate">
+        <jira:add-worklog-and-retain-remaining-estimate issueKey="someIssueKey" 
+                                                        timeSpent="1h" 
+                                                        startDate="someStartDate" 
+                                                        comment="someComment"
+                                                        groupLevel="someGroupLevel"
+                                                        roleLevelId="someRoleLevelId"/>
     </flow>
 </mule>

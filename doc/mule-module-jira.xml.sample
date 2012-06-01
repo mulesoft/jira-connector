@@ -484,3 +484,31 @@
 <!-- BEGIN_INCLUDE(jira:has-permission-to-edit-comment) -->
 <jira:has-permission-to-edit-comment commentId="123"/>
 <!-- END_INCLUDE(jira:has-permission-to-edit-comment) -->
+
+<!-- BEGIN_INCLUDE(jira:add-worklog-and-auto-adjust-remaining-estimate) -->
+<jira:add-worklog-and-auto-adjust-remaining-estimate issueKey="someIssueKey"
+                                                     timeSpent="1h" 
+                                                     startDate="someStartDate"
+                                                     comment="someComment"
+                                                     groupLevel="someGroupLevel"
+                                                     roleLevelId="someRoleLevelId" />
+<!-- END_INCLUDE(jira:add-worklog-and-auto-adjust-remaining-estimate) -->
+
+<!-- BEGIN_INCLUDE(jira:add-worklog-with-new-remaining-estimate) -->
+<jira:add-worklog-with-new-remaining-estimate issueKey="someIssueKey"
+                                                     timeSpent="1h" 
+                                                     newRemainingEstimate="2d"
+                                                     startDate="someStartDate" 
+                                                     comment="comment"
+                                                     groupLevel="someGroupLevel"
+                                                     roleLevelId="someRoleLevelId" />
+<!-- END_INCLUDE(jira:add-worklog-with-new-remaining-estimate) -->
+
+<!-- BEGIN_INCLUDE(jira:add-worklog-and-retain-remaining-estimate) -->
+<jira:add-worklog-and-retain-remaining-estimate issueKey="someIssueKey"
+                                                     timeSpent="1h" 
+                                                     startDate="someStartDate"
+                                                     comment="comment"
+                                                     groupLevel="someGroupLevel"
+                                                     roleLevelId="someRoleLevelId" />
+<!-- END_INCLUDE(jira:add-worklog-and-retain-remaining-estimate) -->

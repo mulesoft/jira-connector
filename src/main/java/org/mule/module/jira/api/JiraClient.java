@@ -24,6 +24,7 @@ import com.atlassian.jira.rpc.soap.beans.RemoteSecurityLevel;
 import com.atlassian.jira.rpc.soap.beans.RemoteServerInfo;
 import com.atlassian.jira.rpc.soap.beans.RemoteUser;
 import com.atlassian.jira.rpc.soap.beans.RemoteVersion;
+import com.atlassian.jira.rpc.soap.beans.RemoteWorklog;
 
 import java.util.Calendar;
 import java.util.List;
@@ -319,4 +320,29 @@ public interface JiraClient<CollectionType>
                                        String issueKey,
                                        String actionIdString,
                                        Map<String, List<String>> fields);
+
+    RemoteWorklog addWorklogAndAutoAdjustRemainingEstimate(String token,
+                                                           String issueKey,
+                                                           String timeSpent,
+                                                           String startDate,
+                                                           String comment,
+                                                           String groupLevel,
+                                                           String roleLevelId);
+
+    RemoteWorklog addWorklogWithNewRemainingEstimate(String token,
+                                                     String issueKey,
+                                                     String timeSpent,
+                                                     String startDate,
+                                                     String newRemainingEstimate,
+                                                     String comment,
+                                                     String groupLevel,
+                                                     String roleLevelId);
+
+    RemoteWorklog addWorklogAndRetainRemainingEstimate(String token,
+                                                       String issueKey,
+                                                       String timeSpent,
+                                                       String startDate,
+                                                       String comment,
+                                                       String groupLevel,
+                                                       String roleLevelId);
 }

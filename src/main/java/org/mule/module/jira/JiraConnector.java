@@ -29,6 +29,8 @@ import com.atlassian.jira.rpc.soap.beans.RemoteSecurityLevel;
 import com.atlassian.jira.rpc.soap.beans.RemoteServerInfo;
 import com.atlassian.jira.rpc.soap.beans.RemoteUser;
 import com.atlassian.jira.rpc.soap.beans.RemoteVersion;
+import com.atlassian.jira.rpc.soap.beans.RemoteWorklog;
+
 import org.mule.api.ConnectionException;
 import org.mule.api.annotations.Connect;
 import org.mule.api.annotations.ConnectionIdentifier;
@@ -1706,6 +1708,68 @@ public class JiraConnector {
             }
         }
         return client.progressWorkflowAction(token, issueKey, actionIdString, multiValueFields);
+    }
+
+    /**
+     * Adds a worklog to the given issue.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-worklog-and-auto-adjust-remaining-estimate}
+     * 
+     * @param issueKey    the key of the issue.
+     * @param timeSpent   specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h.
+     * @param startDate   the start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss
+     * @param comment     add a comment to the worklog.
+     * @param groupLevel  the new group level.
+     * @param roleLevelId the new role level id.
+     * @return Created worklog with the id set or null if no worklog was created.
+     */
+    @Processor
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteWorklog addWorklogAndAutoAdjustRemainingEstimate(String issueKey, String timeSpent, String startDate, 
+                                                                  @Optional String comment, @Optional String groupLevel, @Optional String roleLevelId) {
+        return client.addWorklogAndAutoAdjustRemainingEstimate(token, issueKey, timeSpent, startDate, comment, groupLevel, roleLevelId);
+    }
+
+    /**
+     * Adds a worklog to the given issue and sets the issue's remaining estimate field to the given value.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-worklog-with-new-remaining-estimate}
+     * 
+     * @param issueKey              the key of the issue.
+     * @param timeSpent             specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h.
+     * @param startDate             the start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss
+     * @param newRemainingEstimate  specifies the issue's remaining estimate as a duration string, eg 1d 2h.
+     * @param comment               add a comment to the worklog.
+     * @param groupLevel            the new group level.
+     * @param roleLevelId           the new role level id.
+     * @return Created worklog with the id set or null if no worklog was created.
+     */
+    @Processor
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteWorklog addWorklogWithNewRemainingEstimate(String issueKey, String timeSpent, String startDate, 
+                                                            String newRemainingEstimate, @Optional String comment, @Optional String groupLevel, 
+                                                            @Optional String roleLevelId) {
+        return client.addWorklogWithNewRemainingEstimate(token, issueKey, timeSpent, startDate, newRemainingEstimate, comment, groupLevel, roleLevelId);
+    }
+
+    /**
+     * Adds a worklog to the given issue but leaves the issue's remaining estimate field unchanged.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-worklog-and-retain-remaining-estimate}
+     * 
+     * @param issueKey    the key of the issue.
+     * @param timeSpent   specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h.
+     * @param startDate   the start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss
+     * @param comment     add a comment to the worklog.
+     * @param groupLevel  the new group level.
+     * @param roleLevelId the new role level id.
+     * @return Created worklog with the id set or null if no worklog was created.
+     */
+    @Processor
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public RemoteWorklog addWorklogAndRetainRemainingEstimate(String issueKey, String timeSpent, String startDate, 
+                                                              @Optional String comment, @Optional String groupLevel, @Optional String roleLevelId) {
+        return client.addWorklogAndRetainRemainingEstimate(token, issueKey, timeSpent, startDate, comment, groupLevel, roleLevelId);
     }
 
     /**

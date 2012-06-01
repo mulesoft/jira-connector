@@ -44,6 +44,8 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
     private static final String PROJECT_ROLE_NAME = "someProjectRoleName";
     private static final String WORKLOG_ID = "someWorklogId";
     private static final String ESTIMATE = "1h";
+    private static final String TIME_SPENT = "1h";
+    private static final String NEW_REMAINING_ESTIMATE = "2d";
     private static final int OFFSET = 12;
     private static final int MAX_NUM_RESULTS = 10;
     private static final List<String> ACTORS = Arrays.asList( "actor1", "actor2" );
@@ -55,7 +57,7 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
     @Override
     protected void doSetUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        Mockito.when(mockJiraClient.login("fede", "fede")).thenReturn(TOKEN);
+        Mockito.when(mockJiraClient.login("user", "user")).thenReturn(TOKEN);
         JiraClientFactory.setDefaultClient(mockJiraClient);
 
         fields = new LinkedHashMap<String, List<String>>(2);
@@ -559,6 +561,24 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
     public void testProgressWorkflowAction() throws Exception {
         lookupFlowConstruct("progressWorkflowAction").process(getTestEvent(""));
         Mockito.verify(mockJiraClient).progressWorkflowAction(TOKEN, ISSUE_KEY, "someActionIdString", fields);
+    }
+
+    public void testAddWorklogAndAutoAdjustRemainingEstimate() throws Exception {
+        lookupFlowConstruct("addWorklogAndAutoAdjustRemainingEstimate").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).addWorklogAndAutoAdjustRemainingEstimate(TOKEN, ISSUE_KEY, TIME_SPENT, 
+                "someStartDate", "someComment", "someGroupLevel", "someRoleLevelId");
+    }
+
+    public void testAddWorklogWithNewRemainingEstimate() throws Exception {
+        lookupFlowConstruct("addWorklogWithNewRemainingEstimate").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).addWorklogWithNewRemainingEstimate(TOKEN, ISSUE_KEY, TIME_SPENT, "someStartDate",
+                NEW_REMAINING_ESTIMATE, "someComment", "someGroupLevel", "someRoleLevelId");
+    }
+
+    public void testAddWorklogAndRetainRemainingEstimate() throws Exception {
+        lookupFlowConstruct("addWorklogAndRetainRemainingEstimate").process(getTestEvent(""));
+        Mockito.verify(mockJiraClient).addWorklogAndRetainRemainingEstimate(TOKEN, ISSUE_KEY, TIME_SPENT, "someStartDate", 
+                "someComment", "someGroupLevel", "someRoleLevelId");
     }
 
     private MessageProcessor lookupFlowConstruct(String name) {

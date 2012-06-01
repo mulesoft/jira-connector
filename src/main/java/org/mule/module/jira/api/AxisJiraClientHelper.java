@@ -308,4 +308,15 @@ public class AxisJiraClientHelper {
         }
         throw new JiraConnectorException("No permission found for code: " + permissionCode);
     }
+
+    protected RemoteWorklog createRemoteWorklog(String timeSpent, String startDate, String comment,
+                                                String groupLevel, String roleLevelId) {
+        RemoteWorklog worklog = new RemoteWorklog();
+        worklog.setTimeSpent(timeSpent);
+        worklog.setStartDate(getCalendar(startDate));
+        worklog.setComment(comment);
+        worklog.setGroupLevel(groupLevel);
+        worklog.setRoleLevelId(roleLevelId);
+        return worklog;
+    }
 }
