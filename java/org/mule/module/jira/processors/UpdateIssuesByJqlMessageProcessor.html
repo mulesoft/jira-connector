@@ -74,7 +74,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
 
-  AddDefaultActorsToProjectRoleMessageProcessor
+  UpdateIssuesByJqlMessageProcessor
 
 
 | Mule Jira Connector
@@ -232,7 +232,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/AddActorsToProjectRoleMessageProcessor.html">AddActorsToProjectRoleMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/AddBase64EncodedAttachmentsToIssueMessageProcessor.html">AddBase64EncodedAttachmentsToIssueMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/AddCommentMessageProcessor.html">AddCommentMessageProcessor</a></li>
-          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html">AddDefaultActorsToProjectRoleMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html">AddDefaultActorsToProjectRoleMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/AddPermissionToMessageProcessor.html">AddPermissionToMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/AddUserToGroupMessageProcessor.html">AddUserToGroupMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/AddVersionMessageProcessor.html">AddVersionMessageProcessor</a></li>
@@ -330,7 +330,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/SetProjectAvatarMessageProcessor.html">SetProjectAvatarMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/UpdateGroupMessageProcessor.html">UpdateGroupMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/UpdateIssueMessageProcessor.html">UpdateIssueMessageProcessor</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html">UpdateIssuesByJqlMessageProcessor</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html">UpdateIssuesByJqlMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/UpdateIssueSingleValueFieldsMessageProcessor.html">UpdateIssueSingleValueFieldsMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/UpdateProjectMessageProcessor.html">UpdateProjectMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/processors/UpdateProjectRoleMessageProcessor.html">UpdateProjectRoleMessageProcessor</a></li>
@@ -496,7 +496,7 @@ Summary:
      
     
     class
-<h1>AddDefaultActorsToProjectRoleMessageProcessor</h1>
+<h1>UpdateIssuesByJqlMessageProcessor</h1>
 
 
 
@@ -546,7 +546,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.module.jira.processors.AddDefaultActorsToProjectRoleMessageProcessor</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.module.jira.processors.UpdateIssuesByJqlMessageProcessor</td>
     </tr>
     
 
@@ -562,7 +562,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>AddDefaultActorsToProjectRoleMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html#addDefaultActorsToProjectRole(java.util.List<java.lang.String>, java.lang.Long, java.lang.String)">addDefaultActorsToProjectRole(java.util.List, java.lang.Long, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>UpdateIssuesByJqlMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html#updateIssuesByJql(java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Integer)">updateIssuesByJql(java.lang.String, java.util.Map, java.lang.Integer)</a></code> method in <code><a href="../../../../../../java/org/mule/module/jira/JiraConnector.html">JiraConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  
 </p>
 
@@ -759,8 +759,8 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          List&lt;String&gt;</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#_actorsType">_actorsType</a></td>
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#_connectionAddressType">_connectionAddressType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -771,7 +771,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#_connectionAddressType">_connectionAddressType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#_connectionPasswordType">_connectionPasswordType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -782,29 +782,29 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#_connectionPasswordType">_connectionPasswordType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#_connectionUserType">_connectionUserType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
       <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Map&lt;String,&nbsp;List&lt;String&gt;&gt;</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#_fieldsType">_fieldsType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#_connectionUserType">_connectionUserType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Long</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#_projectRoleIdType">_projectRoleIdType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#_jqlType">_jqlType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -814,8 +814,8 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#_typeType">_typeType</a></td>
+          Integer</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#_maxIssuesToUpdateType">_maxIssuesToUpdateType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -826,7 +826,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#actors">actors</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#connectionAddress">connectionAddress</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -837,7 +837,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#connectionAddress">connectionAddress</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#connectionPassword">connectionPassword</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -848,32 +848,32 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#connectionPassword">connectionPassword</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#connectionUser">connectionUser</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
       <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#connectionUser">connectionUser</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           ExpressionManager</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#expressionManager">expressionManager</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#expressionManager">expressionManager</a></td>
           <td class="jd-descrcol" width="100%">Mule Expression Manager
  
 </td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#fields">fields</a></td>
+          <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
@@ -883,7 +883,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           FlowConstruct</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#flowConstruct">flowConstruct</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#flowConstruct">flowConstruct</a></td>
           <td class="jd-descrcol" width="100%">Flow construct
  
 </td>
@@ -893,10 +893,32 @@ org.mule.api.lifecycle.Stoppable
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#jql">jql</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
           static
           
           Logger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#logger">logger</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#logger">logger</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#maxIssuesToUpdate">maxIssuesToUpdate</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -907,7 +929,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#moduleObject">moduleObject</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#moduleObject">moduleObject</a></td>
           <td class="jd-descrcol" width="100%">Module object
  
 </td>
@@ -920,7 +942,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           MuleContext</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#muleContext">muleContext</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#muleContext">muleContext</a></td>
           <td class="jd-descrcol" width="100%">Mule Context
  
 </td>
@@ -933,7 +955,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           TemplateParser.PatternInfo</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#patternInfo">patternInfo</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#patternInfo">patternInfo</a></td>
           <td class="jd-descrcol" width="100%">Mule Pattern Info
  
 </td>
@@ -945,44 +967,22 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#projectRoleId">projectRoleId</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
           AtomicInteger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#retryCount">retryCount</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#retryCount">retryCount</a></td>
           <td class="jd-descrcol" width="100%">Variable used to track how many retries we have attempted on this message processor
  
 </td>
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          int</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#retryMax">retryMax</a></td>
-          <td class="jd-descrcol" width="100%">Maximum number of retries that can be attempted.</td>
-      </tr>
-      
-    
       <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#type">type</a></td>
-          <td class="jd-descrcol" width="100%"></td>
+          int</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#retryMax">retryMax</a></td>
+          <td class="jd-descrcol" width="100%">Maximum number of retries that can be attempted.</td>
       </tr>
       
     
@@ -1011,7 +1011,7 @@ org.mule.api.lifecycle.Stoppable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#AddDefaultActorsToProjectRoleMessageProcessor()">AddDefaultActorsToProjectRoleMessageProcessor</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#UpdateIssuesByJqlMessageProcessor()">UpdateIssuesByJqlMessageProcessor</a></span>()</nobr>
         
   </td></tr>
 
@@ -1040,7 +1040,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
         
   </td></tr>
 
@@ -1056,7 +1056,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
         
         <div class="jd-descrdiv">Obtains the expression manager from the Mule context and initialises the connector.</div>
   
@@ -1074,7 +1074,7 @@ org.mule.api.lifecycle.Stoppable
             MuleEvent</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
         
         <div class="jd-descrdiv">Invokes the MessageProcessor.</div>
   
@@ -1092,25 +1092,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#setActors(java.lang.Object)">setActors</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets actors</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#setConnectionAddress(java.lang.Object)">setConnectionAddress</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setConnectionAddress(java.lang.Object)">setConnectionAddress</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets connectionAddress</div>
   
@@ -1118,6 +1100,24 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setConnectionPassword(java.lang.Object)">setConnectionPassword</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets connectionPassword</div>
+  
+  </td></tr>
+
+
+	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -1128,9 +1128,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#setConnectionPassword(java.lang.Object)">setConnectionPassword</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setConnectionUser(java.lang.Object)">setConnectionUser</a></span>(Object value)</nobr>
         
-        <div class="jd-descrdiv">Sets connectionPassword</div>
+        <div class="jd-descrdiv">Sets connectionUser</div>
   
   </td></tr>
 
@@ -1146,9 +1146,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#setConnectionUser(java.lang.Object)">setConnectionUser</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setFields(java.lang.Object)">setFields</a></span>(Object value)</nobr>
         
-        <div class="jd-descrdiv">Sets connectionUser</div>
+        <div class="jd-descrdiv">Sets fields</div>
   
   </td></tr>
 
@@ -1164,7 +1164,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
         
         <div class="jd-descrdiv">Sets flow construct</div>
   
@@ -1182,7 +1182,43 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setJql(java.lang.Object)">setJql</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets jql</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setMaxIssuesToUpdate(java.lang.Object)">setMaxIssuesToUpdate</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets maxIssuesToUpdate</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
         
         <div class="jd-descrdiv">Sets the instance of the object under which the processor will execute</div>
   
@@ -1200,7 +1236,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
         
         <div class="jd-descrdiv">Set the Mule context</div>
   
@@ -1218,25 +1254,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#setProjectRoleId(java.lang.Object)">setProjectRoleId</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets projectRoleId</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#setRetryMax(int)">setRetryMax</a></span>(int value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setRetryMax(int)">setRetryMax</a></span>(int value)</nobr>
         
         <div class="jd-descrdiv">Sets retryMax</div>
   
@@ -1244,24 +1262,6 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#setType(java.lang.Object)">setType</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets type</div>
-  
-  </td></tr>
-
-
-	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -1272,7 +1272,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#start()">start</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#start()">start</a></span>()</nobr>
         
   </td></tr>
 
@@ -1288,7 +1288,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/AddDefaultActorsToProjectRoleMessageProcessor.html#stop()">stop</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#stop()">stop</a></span>()</nobr>
         
   </td></tr>
 
@@ -1835,36 +1835,6 @@ From interface
 
 
 
-<A NAME="_actorsType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        List&lt;String&gt;
-      </span>
-        _actorsType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="_connectionAddressType"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1955,7 +1925,7 @@ From interface
 
 
 
-<A NAME="_projectRoleIdType"></A>
+<A NAME="_fieldsType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1963,9 +1933,9 @@ From interface
         private 
          
          
-        Long
+        Map&lt;String,&nbsp;List&lt;String&gt;&gt;
       </span>
-        _projectRoleIdType
+        _fieldsType
     </h4>
       <div class="api-level">
         
@@ -1985,7 +1955,7 @@ From interface
 
 
 
-<A NAME="_typeType"></A>
+<A NAME="_jqlType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1995,7 +1965,7 @@ From interface
          
         String
       </span>
-        _typeType
+        _jqlType
     </h4>
       <div class="api-level">
         
@@ -2015,7 +1985,7 @@ From interface
 
 
 
-<A NAME="actors"></A>
+<A NAME="_maxIssuesToUpdateType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2023,9 +1993,9 @@ From interface
         private 
          
          
-        Object
+        Integer
       </span>
-        actors
+        _maxIssuesToUpdateType
     </h4>
       <div class="api-level">
         
@@ -2167,6 +2137,36 @@ From interface
 
 
 
+<A NAME="fields"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Object
+      </span>
+        fields
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="flowConstruct"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2199,6 +2199,36 @@ From interface
 
 
 
+<A NAME="jql"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Object
+      </span>
+        jql
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="logger"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2210,6 +2240,36 @@ From interface
         Logger
       </span>
         logger
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="maxIssuesToUpdate"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Object
+      </span>
+        maxIssuesToUpdate
     </h4>
       <div class="api-level">
         
@@ -2325,36 +2385,6 @@ From interface
 
 
 
-<A NAME="projectRoleId"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        projectRoleId
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="retryCount"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2419,36 +2449,6 @@ From interface
 
 
 
-<A NAME="type"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        type
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 
 <!-- Public ctors -->
 
@@ -2458,7 +2458,7 @@ From interface
 
 
 
-<A NAME="AddDefaultActorsToProjectRoleMessageProcessor()"></A>
+<A NAME="UpdateIssuesByJqlMessageProcessor()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2470,7 +2470,7 @@ From interface
          
         
       </span>
-      <span class="sympad">AddDefaultActorsToProjectRoleMessageProcessor</span>
+      <span class="sympad">UpdateIssuesByJqlMessageProcessor</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -2624,47 +2624,6 @@ From interface
 </div>
 
 
-<A NAME="setActors(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setActors</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets actors</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="setConnectionAddress(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2788,6 +2747,47 @@ From interface
 </div>
 
 
+<A NAME="setFields(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setFields</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets fields</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="setFlowConstruct(org.mule.api.construct.FlowConstruct)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2820,6 +2820,88 @@ From interface
         <tr>
           <th>flowConstruct</td>
           <td>Flow construct to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setJql(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setJql</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets jql</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setMaxIssuesToUpdate(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setMaxIssuesToUpdate</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets maxIssuesToUpdate</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
 </td>
         </tr>
       </table>
@@ -2911,47 +2993,6 @@ From interface
 </div>
 
 
-<A NAME="setProjectRoleId(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setProjectRoleId</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets projectRoleId</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="setRetryMax(int)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2978,47 +3019,6 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Sets retryMax</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setType(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setType</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets type</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">

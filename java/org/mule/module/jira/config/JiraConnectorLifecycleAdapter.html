@@ -439,6 +439,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateGroupMessageProcessor.html">UpdateGroupMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateIssueDefinitionParser.html">UpdateIssueDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateIssueMessageProcessor.html">UpdateIssueMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateIssuesByJqlDefinitionParser.html">UpdateIssuesByJqlDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateIssueSingleValueFieldsDefinitionParser.html">UpdateIssueSingleValueFieldsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateIssueSingleValueFieldsMessageProcessor.html">UpdateIssueSingleValueFieldsMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/jira/config/UpdateProjectDefinitionParser.html">UpdateProjectDefinitionParser</a></li>
@@ -3174,6 +3175,25 @@ From class
             
             
             
+            List&lt;<a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/JiraConnector.html#updateIssuesByJql(java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Integer)">updateIssuesByJql</a></span>(String jql, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields, Integer maxIssuesToUpdate)</nobr>
+        
+        <div class="jd-descrdiv">This will update the set of issues that result from the jql search
+ NOTE : You cannot update the 'status' field of the issues via this method.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             <a href="../../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteProject.html">RemoteProject</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -3185,7 +3205,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3203,7 +3223,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3222,7 +3242,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             

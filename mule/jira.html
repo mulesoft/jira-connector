@@ -1340,6 +1340,17 @@ Summary:
 	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/jira.html#update-issues-by-jql">&lt;jira:update-issues-by-jql&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">This will update the set of issues that result from the jql search
+ NOTE : You cannot update the 'status' field of the issues via this method.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#update-project">&lt;jira:update-project&gt;</a></nobr>
         
         <div class="jd-descrdiv">Updates the project denoted by the given key.</div>
@@ -1348,7 +1359,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#update-project-role">&lt;jira:update-project-role&gt;</a></nobr>
         
@@ -1358,7 +1369,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/jira.html#update-worklog-with-new-remaining-estimate">&lt;jira:update-worklog-with-new-remaining-estimate&gt;</a></nobr>
         
@@ -12533,6 +12544,127 @@ attribute on each operation.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>the updated RemoteIssue
+</li></ul>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="update-issues-by-jql"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;jira:update-issues-by-jql&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>This will update the set of issues that result from the jql search
+ NOTE : You cannot update the 'status' field of the issues via this method.
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;jira:update-issues-by-jql jql="status = Open"&gt;
+    &lt;jira:fields&gt;
+        &lt;jira:field key="customfield_10000" value-ref="field1Values" /&gt;
+    &lt;/jira:fields&gt;
+&lt;/jira:update-issues-by-jql&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+          
+          
+                
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>jql</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The jql to search the issues that will be updated if issueKey is not set.</td>
+                </tr>
+                
+                
+          
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
+                    <td class="jd-linkcol"><nobr>maxIssuesToUpdate</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The number of issues you expect the jql search will find. If set,
+ the update will only take place if the number of issues found is the same as this</td>
+                </tr>
+                
+                
+          
+          
+          <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+            
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>connectionUser</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The user login user</td>
+                </tr>
+                
+            
+                <tr class="alt-color api apilevel-" >
+                    <td class="jd-linkcol"><nobr>connectionPassword</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The user login pass</td>
+                </tr>
+                
+            
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>connectionAddress</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The JIRA Server Soap address. It usually looks like https://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2 or http://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2
+</td>
+                </tr>
+                
+            
+          
+          
+          
+            <tr><th colspan="12">Retry and Reconnect<br/><span style="font-weight: 200;">This message processor supports automatic retry and reconnect. If the API call fail for a known error then the API will be automatically retried. This does not happen on every type of error, only a few that has been selected and are known to be recoverable from.</span></th></tr>
+            <tr class="alt-color api apilevel-" >
+                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
+                <td class="jd-descrcol">1</td>
+                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
+            </tr>
+            
+          
+          
+        </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Child Elements</h5>
+        <table id="lconfig" class="jd-sumtable">
+          
+          
+            
+          
+            
+            <tr><th colspan="12"><nobr>&lt;jira:fields&gt;</nobr></br><span style="font-weight: normal;">The fields to be updated, the key of the map is the field id and the value is a list of values for that field.</span></th></tr>
+            
+            
+          
+            
+          
+      </table>
+  </div>
+  
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Return Payload</h5>
+      <ul class="nolist"><li>A List with the updated <code><a href="../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a></code>s
 </li></ul>
   </div>
     
