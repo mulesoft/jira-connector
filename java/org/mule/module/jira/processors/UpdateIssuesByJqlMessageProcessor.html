@@ -815,7 +815,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Integer</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#_maxIssuesToUpdateType">_maxIssuesToUpdateType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#_numberIssuesToUpdateType">_numberIssuesToUpdateType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -918,8 +918,10 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#maxIssuesToUpdate">maxIssuesToUpdate</a></td>
-          <td class="jd-descrcol" width="100%"></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#moduleObject">moduleObject</a></td>
+          <td class="jd-descrcol" width="100%">Module object
+ 
+</td>
       </tr>
       
     
@@ -928,9 +930,9 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#moduleObject">moduleObject</a></td>
-          <td class="jd-descrcol" width="100%">Module object
+          MuleContext</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#muleContext">muleContext</a></td>
+          <td class="jd-descrcol" width="100%">Mule Context
  
 </td>
       </tr>
@@ -941,11 +943,9 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          MuleContext</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#muleContext">muleContext</a></td>
-          <td class="jd-descrcol" width="100%">Mule Context
- 
-</td>
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#numberIssuesToUpdate">numberIssuesToUpdate</a></td>
+          <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
@@ -1200,9 +1200,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setMaxIssuesToUpdate(java.lang.Object)">setMaxIssuesToUpdate</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
         
-        <div class="jd-descrdiv">Sets maxIssuesToUpdate</div>
+        <div class="jd-descrdiv">Sets the instance of the object under which the processor will execute</div>
   
   </td></tr>
 
@@ -1218,9 +1218,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
         
-        <div class="jd-descrdiv">Sets the instance of the object under which the processor will execute</div>
+        <div class="jd-descrdiv">Set the Mule context</div>
   
   </td></tr>
 
@@ -1236,9 +1236,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/jira/processors/UpdateIssuesByJqlMessageProcessor.html#setNumberIssuesToUpdate(java.lang.Object)">setNumberIssuesToUpdate</a></span>(Object value)</nobr>
         
-        <div class="jd-descrdiv">Set the Mule context</div>
+        <div class="jd-descrdiv">Sets numberIssuesToUpdate</div>
   
   </td></tr>
 
@@ -1985,7 +1985,7 @@ From interface
 
 
 
-<A NAME="_maxIssuesToUpdateType"></A>
+<A NAME="_numberIssuesToUpdateType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1995,7 +1995,7 @@ From interface
          
         Integer
       </span>
-        _maxIssuesToUpdateType
+        _numberIssuesToUpdateType
     </h4>
       <div class="api-level">
         
@@ -2259,36 +2259,6 @@ From interface
 
 
 
-<A NAME="maxIssuesToUpdate"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        maxIssuesToUpdate
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="moduleObject"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2346,6 +2316,36 @@ From interface
   <div class="jd-tagdata jd-tagdescr"><p>Mule Context
  
 </p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="numberIssuesToUpdate"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Object
+      </span>
+        numberIssuesToUpdate
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     
     </div>
@@ -2870,47 +2870,6 @@ From interface
 </div>
 
 
-<A NAME="setMaxIssuesToUpdate(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setMaxIssuesToUpdate</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets maxIssuesToUpdate</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="setModuleObject(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2984,6 +2943,47 @@ From interface
         <tr>
           <th>context</td>
           <td>Mule context to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setNumberIssuesToUpdate(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setNumberIssuesToUpdate</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets numberIssuesToUpdate</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
 </td>
         </tr>
       </table>

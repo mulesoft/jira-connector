@@ -2604,7 +2604,7 @@ Summary:
             List&lt;<a href="../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/jira/JiraConnector.html#updateIssuesByJql(java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Integer)">updateIssuesByJql</a></span>(String jql, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields, Integer maxIssuesToUpdate)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/jira/JiraConnector.html#updateIssuesByJql(java.lang.String, java.util.Map<java.lang.String, java.util.List<java.lang.String>>, java.lang.Integer)">updateIssuesByJql</a></span>(String jql, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields, Integer numberIssuesToUpdate)</nobr>
         
         <div class="jd-descrdiv">This will update the set of issues that result from the jql search
  NOTE : You cannot update the 'status' field of the issues via this method.</div>
@@ -8545,7 +8545,7 @@ From class
         List&lt;<a href="../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteIssue.html">RemoteIssue</a>&gt;
       </span>
       <span class="sympad">updateIssuesByJql</span>
-      <span class="normal">(String jql, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields, Integer maxIssuesToUpdate)</span>
+      <span class="normal">(String jql, Map&lt;String,&nbsp;List&lt;String&gt;&gt; fields, Integer numberIssuesToUpdate)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -8573,7 +8573,7 @@ From class
           <td>The fields to be updated, the key of the map is the field id and the value is a list of values for that field.</td>
         </tr>
         <tr>
-          <th>maxIssuesToUpdate</td>
+          <th>numberIssuesToUpdate</td>
           <td>The number of issues you expect the jql search will find. If set,
  the update will only take place if the number of issues found is the same as this</td>
         </tr>
