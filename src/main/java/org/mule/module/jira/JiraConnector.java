@@ -417,22 +417,22 @@ public class JiraConnector {
      *
      * @param fields   The fields to be updated, the key of the map is the field id and the value is a list of values for that field.
      * @param jql      The jql to search the issues that will be updated if issueKey is not set.
-     * @param maxIssuesToUpdate The number of issues you expect the jql search will find. If set,
+     * @param numberIssuesToUpdate The number of issues you expect the jql search will find. If set,
      * the update will only take place if the number of issues found is the same as this
      * 
      * @return A {@link List} with the updated {@link RemoteIssue}s
      */
     @Processor
     @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
-    public List<RemoteIssue> updateIssuesByJql(String jql, Map<String, List<String>> fields, @Optional Integer maxIssuesToUpdate) {
+    public List<RemoteIssue> updateIssuesByJql(String jql, Map<String, List<String>> fields, @Optional Integer numberIssuesToUpdate) {
         List<Object> issuesToUpdate = client.getIssuesFromJqlSearch(token, jql, 10000);
-        if (maxIssuesToUpdate != null)
+        if (issuesToUpdate != null)
         {
-            if (issuesToUpdate.size() != maxIssuesToUpdate)
+            if (issuesToUpdate.size() != numberIssuesToUpdate)
             {
                 throw new JiraConnectorException("Couldn't execute update-issues-by-jql."
                     + "The number of issues find by the jql query (" + issuesToUpdate.size()
-                    + ") was different from the expected (" + maxIssuesToUpdate + ")");
+                    + ") was different from the expected (" + issuesToUpdate + ")");
             }
         }
         if (CollectionUtils.isNotEmpty(issuesToUpdate))
