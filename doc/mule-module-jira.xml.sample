@@ -301,6 +301,14 @@
         </jira:update-issue>
 <!-- END_INCLUDE(jira:update-issue) -->
 
+<!-- BEGIN_INCLUDE(jira:update-issues-by-jql) -->
+        <jira:update-issues-by-jql jql="status = Open">
+            <jira:fields>
+                <jira:field key="customfield_10000" value-ref="field1Values" />
+            </jira:fields>
+        </jira:update-issues-by-jql>
+<!-- END_INCLUDE(jira:update-issues-by-jql) -->
+
  <!-- BEGIN_INCLUDE(jira:create-issue-with-security-level) -->
         <jira:create-issue-with-security-level summary="someSummary" project="someProject" type="someType"
                                                assignee="someUserName" reporter="someUserName"
