@@ -14,6 +14,28 @@
 
 package org.mule.module.jira;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.mule.api.ConnectionException;
+import org.mule.api.annotations.Connect;
+import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.InvalidateConnectionOn;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.ValidateConnection;
+import org.mule.api.annotations.display.Placement;
+import org.mule.api.annotations.param.ConnectionKey;
+import org.mule.api.annotations.param.Default;
+import org.mule.api.annotations.param.Optional;
+import org.mule.module.jira.api.JiraClient;
+
 import com.atlassian.jira.rpc.exception.RemoteAuthenticationException;
 import com.atlassian.jira.rpc.soap.beans.RemoteAvatar;
 import com.atlassian.jira.rpc.soap.beans.RemoteComment;
@@ -30,26 +52,6 @@ import com.atlassian.jira.rpc.soap.beans.RemoteServerInfo;
 import com.atlassian.jira.rpc.soap.beans.RemoteUser;
 import com.atlassian.jira.rpc.soap.beans.RemoteVersion;
 import com.atlassian.jira.rpc.soap.beans.RemoteWorklog;
-
-import org.mule.api.ConnectionException;
-import org.mule.api.annotations.Connect;
-import org.mule.api.annotations.ConnectionIdentifier;
-import org.mule.api.annotations.Connector;
-import org.mule.api.annotations.Disconnect;
-import org.mule.api.annotations.InvalidateConnectionOn;
-import org.mule.api.annotations.Processor;
-import org.mule.api.annotations.ValidateConnection;
-import org.mule.api.annotations.display.Placement;
-import org.mule.api.annotations.param.ConnectionKey;
-import org.mule.api.annotations.param.Default;
-import org.mule.api.annotations.param.Optional;
-import org.mule.module.jira.api.JiraClient;
-
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * JIRA is a proprietary issue tracking product, developed by Atlassian, commonly used for bug tracking, issue
@@ -396,14 +398,55 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-issue}
      *
-     * @param issueKey the issue to update.
-     * @param fields   the fields to be updated, the key of the map is the field id and the value is a list of values for that field.
+     * @param issueKey The issue to update.
+     * @param fields   The fields to be updated, the key of the map is the field id and the value is a list of values for that field.
+     * 
      * @return the updated RemoteIssue
      */
     @Processor
     @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
     public RemoteIssue updateIssue(String issueKey, Map<String, List<String>> fields) {
         return client.updateIssue(token, issueKey, fields);
+    }
+    
+    /**
+     * This will update the set of issues that result from the jql search
+     * NOTE : You cannot update the 'status' field of the issues via this method.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-issues-by-jql}
+     *
+     * @param fields   The fields to be updated, the key of the map is the field id and the value is a list of values for that field.
+     * @param jql      The jql to search the issues that will be updated if issueKey is not set.
+     * @param maxIssuesToUpdate The number of issues you expect the jql search will find. If set,
+     * the update will only take place if the number of issues found is the same as this
+     * 
+     * @return A {@link List} with the updated {@link RemoteIssue}s
+     */
+    @Processor
+    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    public List<RemoteIssue> updateIssuesByJql(String jql, Map<String, List<String>> fields, @Optional Integer maxIssuesToUpdate) {
+        List<Object> issuesToUpdate = client.getIssuesFromJqlSearch(token, jql, 10000);
+        if (maxIssuesToUpdate != null)
+        {
+            if (issuesToUpdate.size() != maxIssuesToUpdate)
+            {
+                throw new JiraConnectorException("Couldn't execute update-issues-by-jql."
+                    + "The number of issues find by the jql query (" + issuesToUpdate.size()
+                    + ") was different from the expected (" + maxIssuesToUpdate + ")");
+            }
+        }
+        if (CollectionUtils.isNotEmpty(issuesToUpdate))
+        {
+            List<RemoteIssue> result = new ArrayList<RemoteIssue>();
+            for (Object issue : issuesToUpdate)
+            {
+                RemoteIssue updatedIssue = client.updateIssue(token, ((RemoteIssue)issue).getKey(), fields);
+                result.add(updatedIssue);
+            }
+            return result;
+        } else {
+            throw new JiraConnectorException("Can't execute update. The jql search returned no issues");
+        }
     }
 
     /**
