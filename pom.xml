@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
         <artifactId>mule-devkit-parent</artifactId>
-        <version>3.3.0-EA</version>
+        <version>3.3.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -17,6 +17,7 @@
 
     <properties>
         <sonar.exclusions>com/atlassian/jira/rpc/**</sonar.exclusions>
+	    <devkit.studio.package.skip>false</devkit.studio.package.skip>
     </properties>
 
     <dependencies>
