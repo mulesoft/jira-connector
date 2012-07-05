@@ -36,7 +36,6 @@ import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.module.jira.api.JiraClient;
 
-import com.atlassian.jira.rpc.exception.RemoteAuthenticationException;
 import com.atlassian.jira.rpc.soap.beans.RemoteAvatar;
 import com.atlassian.jira.rpc.soap.beans.RemoteComment;
 import com.atlassian.jira.rpc.soap.beans.RemoteConfiguration;
@@ -76,7 +75,7 @@ public class JiraConnector {
      * @return the RemoteComment
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteComment getComment(Long commentId) {
         return client.getComment(token, commentId);
     }
@@ -89,7 +88,7 @@ public class JiraConnector {
      * @return a RemoteConfiguration object which contains information about the current configuration of JIRA.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteConfiguration getConfiguration() {
         return client.getConfiguration(token);
     }
@@ -105,7 +104,7 @@ public class JiraConnector {
      * @return the RemoteGroup created
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteGroup createGroup(String groupName, @Optional String userName) {
         return client.createGroup(token, groupName, userName);
     }
@@ -118,7 +117,7 @@ public class JiraConnector {
      * @return information about the server JIRA is running on including build number and base URL.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteServerInfo getServerInfo() {
         return client.getServerInfo(token);
     }
@@ -132,7 +131,7 @@ public class JiraConnector {
      * @return a RemoteGroup object for the found group or null if it cant be found.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteGroup getGroup(String groupName) {
         return client.getGroup(token, groupName);
     }
@@ -149,7 +148,7 @@ public class JiraConnector {
      * @return the newly created RemoteUser
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteUser createUser(String username, String password, String fullName, String email) {
         return client.createUser(token, username, password, fullName, email);
     }
@@ -166,7 +165,7 @@ public class JiraConnector {
      * @param commentRoleLevel  the role level of the comment
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void addComment(String issueKey, String commentAuthor, String commentBody, @Optional String commentGroupLevel, @Optional String commentRoleLevel) {
         client.addComment(token, issueKey, commentAuthor, commentBody, commentGroupLevel, commentRoleLevel);
     }
@@ -180,7 +179,7 @@ public class JiraConnector {
      * @return an array of RemoteComponent objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getComponents(String projectKey) {
         return client.getComponents(token, projectKey);
     }
@@ -194,7 +193,7 @@ public class JiraConnector {
      * @return a RemoteUser or null if it cant be found
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteUser getUser(String username) {
         return client.getUser(token, username);
     }
@@ -209,7 +208,7 @@ public class JiraConnector {
      * @return the updated group
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteGroup updateGroup(String groupName, List<String> usernames) {
         return client.updateGroup(token, groupName, usernames);
     }
@@ -223,7 +222,7 @@ public class JiraConnector {
      * @param userName  the user name
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void addUserToGroup(String groupName, String userName) {
         client.addUserToGroup(token, groupName, userName);
     }
@@ -237,7 +236,7 @@ public class JiraConnector {
      * @param userName  the username to remove
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void removeUserFromGroup(String groupName, String userName) {
         client.removeUserFromGroup(token, groupName, userName);
     }
@@ -251,7 +250,7 @@ public class JiraConnector {
      * @return the issue matching the given key.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue getIssue(String issueKey) {
         return client.getIssue(token, issueKey);
     }
@@ -277,7 +276,7 @@ public class JiraConnector {
      * @return the new created issue
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue createIssue(@Optional String assignee,
                                    @Placement(group = "Basic", order = 3) String summary,
                                    @Placement(group = "Basic", order = 4) @Optional String description,
@@ -303,7 +302,7 @@ public class JiraConnector {
      * @return the new created issue
      */
     @Processor(name="create-issue-using-object")
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue createIssueUsingObject(@Optional @Default("#[payload]") RemoteIssue issue) {
         return client.createIssue(token, issue);
     }
@@ -329,7 +328,7 @@ public class JiraConnector {
      * @return the new created issue
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue createIssueSingleValueFields(@Optional String assignee,
                                                     @Placement(group = "Basic", order = 3) String summary,
                                                     @Placement(group = "Basic", order = 4) @Optional String description,
@@ -374,7 +373,7 @@ public class JiraConnector {
      * @return the new created issue
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue createIssueWithSecurityLevel(@Optional String assignee,
                                                     String summary,
                                                     @Optional String description,
@@ -404,7 +403,7 @@ public class JiraConnector {
      * @return the updated RemoteIssue
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue updateIssue(String issueKey, Map<String, List<String>> fields) {
         return client.updateIssue(token, issueKey, fields);
     }
@@ -423,7 +422,7 @@ public class JiraConnector {
      * @return A {@link List} with the updated {@link RemoteIssue}s
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<RemoteIssue> updateIssuesByJql(String jql, Map<String, List<String>> fields, @Optional Integer numberIssuesToUpdate) {
         List<Object> issuesToUpdate = client.getIssuesFromJqlSearch(token, jql, 10000);
         if (issuesToUpdate != null)
@@ -460,7 +459,7 @@ public class JiraConnector {
      * @return the updated RemoteIssue
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue updateIssueSingleValueFields(String issueKey, Map<String, String> fields) {
         Map<String, List<String>> multiValueFields = new HashMap<String, List<String>>();
         if (fields != null) {
@@ -479,7 +478,7 @@ public class JiraConnector {
      * @param issueKey the key of the issue to delete
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteIssue(String issueKey) {
         client.deleteIssue(token, issueKey);
     }
@@ -493,7 +492,7 @@ public class JiraConnector {
      * @return the available actions for the given issue key
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getAvailableActions(String issueKey) {
         return client.getAvailableActions(token, issueKey);
     }
@@ -506,7 +505,7 @@ public class JiraConnector {
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getSubTaskIssueTypes() {
         return client.getSubTaskIssueTypes(token);
     }
@@ -527,7 +526,7 @@ public class JiraConnector {
      * @return the new project
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProject createProject(String key,
                                        String name,
                                        String description,
@@ -554,7 +553,7 @@ public class JiraConnector {
      * @return the updated project
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProject updateProject(String key,
                                        String description,
                                        @Optional String url,
@@ -574,7 +573,7 @@ public class JiraConnector {
      * @return the RemoteProject object specified by the key, if it exists and the user has the BROWSE permission for it
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProject getProjectByKey(String projectKey) {
         return client.getProjectByKey(token, projectKey);
     }
@@ -587,7 +586,7 @@ public class JiraConnector {
      * @param projectKey the project key for which to remove all role actors
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void removeAllRoleActorsByProject(String projectKey) {
         client.removeAllRoleActorsByProject(token, projectKey);
     }
@@ -600,7 +599,7 @@ public class JiraConnector {
      * @return an array of RemoteStatus objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getPriorities() {
         return client.getPriorities(token);
     }
@@ -613,7 +612,7 @@ public class JiraConnector {
      * @return an array of RemoteResolution objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getResolutions() {
         return client.getResolutions(token);
     }
@@ -626,7 +625,7 @@ public class JiraConnector {
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getIssueTypes() {
         return client.getIssueTypes(token);
     }
@@ -640,7 +639,7 @@ public class JiraConnector {
      * @return an array of RemoteStatus objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getStatuses() {
         return client.getStatuses(token);
     }
@@ -655,7 +654,7 @@ public class JiraConnector {
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getIssueTypesForProject(String projectId) {
         return client.getIssueTypesForProject(token, projectId);
     }
@@ -668,7 +667,7 @@ public class JiraConnector {
      * @return the project roles.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getProjectRoles() {
         return client.getProjectRoles(token);
     }
@@ -682,7 +681,7 @@ public class JiraConnector {
      * @return the project role by projectRoleId.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProjectRole getProjectRole(Long projectRoleId) {
         return client.getProjectRole(token, projectRoleId);
     }
@@ -697,7 +696,7 @@ public class JiraConnector {
      * @return the project role actors for the given project
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProjectRoleActors getProjectRoleActors(Long projectRoleId, String projectKey) {
         return client.getProjectRoleActors(token, projectRoleId, projectKey);
     }
@@ -711,7 +710,7 @@ public class JiraConnector {
      * @return the default role actors for the given project role id.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteRoleActors getDefaultRoleActors(Long projectRoleId) {
         return client.getDefaultRoleActors(token, projectRoleId);
     }
@@ -725,7 +724,7 @@ public class JiraConnector {
      * @param type the type to delete
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void removeAllRoleActorsByNameAndType(String name, String type) {
         client.removeAllRoleActorsByNameAndType(token, name, type);
     }
@@ -739,7 +738,7 @@ public class JiraConnector {
      * @param confirm       whether confirm
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteProjectRole(Long projectRoleId, Boolean confirm) {
         client.deleteProjectRole(token, projectRoleId, confirm);
     }
@@ -754,7 +753,7 @@ public class JiraConnector {
      * @param projectRoleDescription the new project role description
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void updateProjectRole(Long projectRoleId, @Optional String projectRoleName, @Optional String projectRoleDescription) {
         client.updateProjectRole(token, projectRoleId, projectRoleName, projectRoleDescription);
     }
@@ -769,7 +768,7 @@ public class JiraConnector {
      * @return the created project role
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProjectRole createProjectRole(String projectRoleName, String projectRoleDescription) {
         return client.createProjectRole(token, projectRoleName, projectRoleDescription);
     }
@@ -783,7 +782,7 @@ public class JiraConnector {
      * @return true if the given project role name is unique, false otherwise.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean isProjectRoleNameUnique(String name) {
         return client.isProjectRoleNameUnique(token, name);
     }
@@ -797,7 +796,7 @@ public class JiraConnector {
      * @param versionName the version name to release
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void releaseVersion(String projectKey, String versionName) {
         client.releaseVersion(token, projectKey, versionName);
     }
@@ -813,7 +812,7 @@ public class JiraConnector {
      * @param actorType     the actor type to use
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void addActorsToProjectRole(List<String> actors, Long projectRoleId, String projectKey, @Optional String actorType) {
         client.addActorsToProjectRole(token, actors, projectRoleId, projectKey, actorType);
     }
@@ -829,7 +828,7 @@ public class JiraConnector {
      * @param actorType     the actor type to use
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void removeActorsFromProjectRole(List<String> actors, Long projectRoleId, String projectKey, @Optional String actorType) {
         client.removeActorsFromProjectRole(token, actors, projectRoleId, projectKey, actorType);
     }
@@ -844,7 +843,7 @@ public class JiraConnector {
      * @param type          the type
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void addDefaultActorsToProjectRole(List<String> actors, Long projectRoleId, @Optional String type) {
         client.addDefaultActorsToProjectRole(token, actors, projectRoleId, type);
     }
@@ -859,7 +858,7 @@ public class JiraConnector {
      * @param type                the type
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void removeDefaultActorsFromProjectRole(List<String> actors, Long remoteProjectRoleId, @Optional String type) {
         client.removeDefaultActorsFromProjectRole(token, actors, remoteProjectRoleId, type);
     }
@@ -873,7 +872,7 @@ public class JiraConnector {
      * @return the associated notification schemes for the given project role.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getAssociatedNotificationSchemes(Long projectRoleId) {
         return client.getAssociatedNotificationSchemes(token, projectRoleId);
     }
@@ -887,7 +886,7 @@ public class JiraConnector {
      * @return the associated permission schemas for the given project role.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getAssociatedPermissionSchemes(Long projectRoleId) {
         return client.getAssociatedPermissionSchemes(token, projectRoleId);
     }
@@ -900,7 +899,7 @@ public class JiraConnector {
      * @param projectKey the key of the project to delete
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteProject(String projectKey) {
         client.deleteProject(token, projectKey);
     }
@@ -914,7 +913,7 @@ public class JiraConnector {
      * @return the RemoteProject object specified by the key, if it exists and the user has the BROWSE permission for it
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProject getProjectById(Long projectId) {
         return client.getProjectById(token, projectId);
     }
@@ -928,7 +927,7 @@ public class JiraConnector {
      * @return an array of RemoteVersion objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getVersions(String projectKey) {
         return client.getVersions(token, projectKey);
     }
@@ -942,7 +941,7 @@ public class JiraConnector {
      * @return the comments for the issue denoted by the given key.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getComments(
             String issueKey) {
         return client.getComments(token, issueKey);
@@ -956,7 +955,7 @@ public class JiraConnector {
      * @return a list of the currently logged in user's favourite fitlers.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getFavouriteFilters() {
         return client.getFavouriteFilters(token);
     }
@@ -971,7 +970,7 @@ public class JiraConnector {
      * @param archive     whether it should be archived
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void archiveVersion(String projectKey, String versionName, Boolean archive) {
         client.archiveVersion(token, projectKey, versionName, archive);
     }
@@ -985,7 +984,7 @@ public class JiraConnector {
      * @return the fields for edit
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getFieldsForEdit(String issueKey) {
         return client.getFieldsForEdit(token, issueKey);
     }
@@ -999,7 +998,7 @@ public class JiraConnector {
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getSubTaskIssueTypesForProject(String projectId) {
         return client.getSubTaskIssueTypesForProject(token, projectId);
     }
@@ -1014,7 +1013,7 @@ public class JiraConnector {
      * @return the authentication token
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public String login(String username, String password) {
         return client.login(username, password);
     }
@@ -1028,7 +1027,7 @@ public class JiraConnector {
      * @return issue security level
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteSecurityLevel getSecurityLevel(String issueKey) {
         return client.getSecurityLevel(token, issueKey);
     }
@@ -1041,7 +1040,7 @@ public class JiraConnector {
      * @return the custom fields for the current user
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getCustomFields() {
         return client.getCustomFields(token);
     }
@@ -1055,7 +1054,7 @@ public class JiraConnector {
      * @return true if the logout succeeded
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean logout(String token) {
         return client.logout(token);
     }
@@ -1069,7 +1068,7 @@ public class JiraConnector {
      * @return the RemoteProject object specified by the key, if it exists and the user has the BROWSE permission for it
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProject getProjectWithSchemesById(Long projectId) {
         return client.getProjectWithSchemesById(token, projectId);
     }
@@ -1083,7 +1082,7 @@ public class JiraConnector {
      * @return array of RemoteSecurityLevels for the project
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getSecurityLevels(String projectKey) {
         return client.getSecurityLevels(token, projectKey);
     }
@@ -1100,7 +1099,7 @@ public class JiraConnector {
      * @return the avatars for the project, possibly empty.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getProjectAvatars(String projectKey, Boolean includeSystemAvatars) {
         return client.getProjectAvatars(token, projectKey, includeSystemAvatars);
     }
@@ -1114,7 +1113,7 @@ public class JiraConnector {
      * @param avatarId   the id of an existing avatar to use for the project or null for the default avatar.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void setProjectAvatar(String projectKey, Long avatarId) {
         client.setProjectAvatar(token, projectKey, avatarId);
     }
@@ -1128,7 +1127,7 @@ public class JiraConnector {
      * @return the current avatar for the project.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteAvatar getProjectAvatar(String projectKey) {
         return client.getProjectAvatar(token, projectKey);
     }
@@ -1141,7 +1140,7 @@ public class JiraConnector {
      * @param avatarId id of the custom avatar to delete.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteProjectAvatar(Long avatarId) {
         client.deleteProjectAvatar(token, avatarId);
     }
@@ -1154,7 +1153,7 @@ public class JiraConnector {
      * @return the notification schemes.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getNotificationSchemes() {
         return client.getNotificationSchemes(token);
     }
@@ -1167,7 +1166,7 @@ public class JiraConnector {
      * @return the permission schemes.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getPermissionSchemes() {
         return client.getPermissionSchemes(token);
     }
@@ -1180,7 +1179,7 @@ public class JiraConnector {
      * @return all the permissions
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getAllPermissions() {
         return client.getAllPermissions(token);
     }
@@ -1195,7 +1194,7 @@ public class JiraConnector {
      * @return the created permission scheme
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemotePermissionScheme createPermissionScheme(String name, String description) {
         return client.createPermissionScheme(token, name, description);
     }
@@ -1211,7 +1210,7 @@ public class JiraConnector {
      * @return the modified permission scheme
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemotePermissionScheme addPermissionTo(String permissionSchemeName, Long permissionCode, String entityName) {
         return client.addPermissionTo(token, permissionSchemeName, permissionCode, entityName);
     }
@@ -1227,7 +1226,7 @@ public class JiraConnector {
      * @return the modified permission scheme
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemotePermissionScheme deletePermissionFrom(String permissionSchemeName, Long permissionCode, String entityName) {
         return client.deletePermissionFrom(token, permissionSchemeName, permissionCode, entityName);
     }
@@ -1240,7 +1239,7 @@ public class JiraConnector {
      * @param permissionSchemeName the name of the permission scheme to delete
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deletePermissionScheme(String permissionSchemeName) {
         client.deletePermissionScheme(token, permissionSchemeName);
     }
@@ -1254,7 +1253,7 @@ public class JiraConnector {
      * @return the attachments for the issue denoted by the given key.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getAttachmentsFromIssue(String issueKey) {
         return client.getAttachmentsFromIssue(token, issueKey);
     }
@@ -1268,7 +1267,7 @@ public class JiraConnector {
      * @return whether the current user has permissions to edit the comment denoted by the given id.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean hasPermissionToEditComment(Long commentId) {
         return client.hasPermissionToEditComment(token, commentId);
     }
@@ -1284,7 +1283,7 @@ public class JiraConnector {
      * @return the edited comment
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteComment editComment(Long commentId, @Optional String body, @Optional String updateAuthor) {
         return client.editComment(token, commentId, body, updateAuthor);
     }
@@ -1299,7 +1298,7 @@ public class JiraConnector {
      * @return the fields for the given action
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getFieldsForAction(String issueKey, String actionIdString) {
         return client.getFieldsForAction(token, issueKey, actionIdString);
     }
@@ -1313,7 +1312,7 @@ public class JiraConnector {
      * @return the issue for the given issue id.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue getIssueById(String issueId) {
         return client.getIssueById(token, issueId);
     }
@@ -1329,7 +1328,7 @@ public class JiraConnector {
      * @param newRemainingEstimate the new value for the issue's remaining estimate as a duration string, eg 1d 2h.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteWorklogWithNewRemainingEstimate(String workLogId, String newRemainingEstimate) {
         client.deleteWorklogWithNewRemainingEstimate(token, workLogId, newRemainingEstimate);
     }
@@ -1346,7 +1345,7 @@ public class JiraConnector {
      * @param worklogId the id of the worklog to delete.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteWorklogAndAutoAdjustRemainingEstimate(String worklogId) {
         client.deleteWorklogAndAutoAdjustRemainingEstimate(token, worklogId);
     }
@@ -1362,7 +1361,7 @@ public class JiraConnector {
      * @param worklogId the id of the worklog to delete.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteWorklogAndRetainRemainingEstimate(String worklogId) {
         client.deleteWorklogAndRetainRemainingEstimate(token, worklogId);
     }
@@ -1378,7 +1377,7 @@ public class JiraConnector {
      * @return all the worklogs of the issue.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getWorklogs(String issueKey) {
         return client.getWorklogs(token, issueKey);
     }
@@ -1395,7 +1394,7 @@ public class JiraConnector {
      * @return true if the user has permission to create a worklog on the specified issue, false otherwise
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean hasPermissionToCreateWorklog(String issueKey) {
         return client.hasPermissionToCreateWorklog(token, issueKey);
     }
@@ -1415,7 +1414,7 @@ public class JiraConnector {
      * @return true if the user has permission to delete the supplied worklog, false otherwise
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean hasPermissionToDeleteWorklog(String worklogId) {
         return client.hasPermissionToDeleteWorklog(token, worklogId);
     }
@@ -1433,7 +1432,7 @@ public class JiraConnector {
      * @return true if the user has permission to update the supplied worklog, false otherwise
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean hasPermissionToUpdateWorklog(String worklogId) {
         return client.hasPermissionToUpdateWorklog(token, worklogId);
     }
@@ -1454,7 +1453,7 @@ public class JiraConnector {
      * @param roleLevelId          the new role level id
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void updateWorklogWithNewRemainingEstimate(String issueKey, String worklogId, String newRemainingEstimate, @Optional String comment, @Optional String groupLevel, @Optional String roleLevelId) {
         client.updateWorklogWithNewRemainingEstimate(token, issueKey, worklogId, comment, groupLevel, roleLevelId, newRemainingEstimate);
     }
@@ -1472,7 +1471,7 @@ public class JiraConnector {
      * @return the new version
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteVersion addVersion(String projectKey, String versionName, Boolean archived, Boolean released, String releaseDate) {
         return client.addVersion(token, projectKey, versionName, archived, released, releaseDate);
     }
@@ -1487,7 +1486,7 @@ public class JiraConnector {
      * @return The resolution date of the issue. May be null
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public Calendar getResolutionDateByKey(String issueKey) {
         return client.getResolutionDateByKey(token, issueKey);
     }
@@ -1502,7 +1501,7 @@ public class JiraConnector {
      * @return The resolution date of the issue. May be null
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public Calendar getResolutionDateById(Long issueId) {
         return client.getResolutionDateById(token, issueId);
     }
@@ -1516,7 +1515,7 @@ public class JiraConnector {
      * @return the issue count for the filter denoted by this id.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public long getIssueCountForFilter(String filterId) {
         return client.getIssueCountForFilter(token, filterId);
     }
@@ -1543,7 +1542,7 @@ public class JiraConnector {
      * @return issues matching the search terms
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getIssuesFromTextSearchWithProject(List<String> projectKeys, String searchTerms, Integer maxNumResults) {
         return client.getIssuesFromTextSearchWithProject(token, projectKeys, searchTerms, maxNumResults);
     }
@@ -1564,7 +1563,7 @@ public class JiraConnector {
      * @return issues matching the JQL query
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getIssuesFromJqlSearch(String jqlSearch, Integer maxNumResults) {
         return client.getIssuesFromJqlSearch(token, jqlSearch, maxNumResults);
     }
@@ -1577,7 +1576,7 @@ public class JiraConnector {
      * @param username the user name to delete
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteUser(
             String username) {
         client.deleteUser(token, username);
@@ -1592,7 +1591,7 @@ public class JiraConnector {
      * @param swapGroupName the swap group name to use
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteGroup(
             String groupName,
             @Optional String swapGroupName) {
@@ -1605,7 +1604,7 @@ public class JiraConnector {
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:refresh-custom-fields}
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void refreshCustomFields() {
         client.refreshCustomFields(token);
     }
@@ -1624,7 +1623,7 @@ public class JiraConnector {
      * @return true if attachments were successfully added; if the operation was not successful, an exception would be thrown
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean addBase64EncodedAttachmentsToIssue(String issueKey, List<String> fileNames, List<String> base64EncodedAttachmentData) {
         return client.addBase64EncodedAttachmentsToIssue(token, issueKey, fileNames, base64EncodedAttachmentData);
     }
@@ -1650,7 +1649,7 @@ public class JiraConnector {
      * @return issues matching the saved filter
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getIssuesFromFilterWithLimit(String filterId, Integer offset, Integer maxNumResults) {
         return client.getIssuesFromFilterWithLimit(token, filterId, offset, maxNumResults);
     }
@@ -1679,7 +1678,7 @@ public class JiraConnector {
      * @return issues matching the search terms
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getIssuesFromTextSearchWithLimit(String searchTerms, Integer offset, Integer maxNumResults) {
         return client.getIssuesFromTextSearchWithLimit(token, searchTerms, offset, maxNumResults);
     }
@@ -1692,7 +1691,7 @@ public class JiraConnector {
      * @return an array of RemoteProject objects.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getProjectsNoSchemes() {
         return client.getProjectsNoSchemes(token);
     }
@@ -1710,7 +1709,7 @@ public class JiraConnector {
      * @param base64ImageData a base 64 encoded image, 48 pixels square.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void setNewProjectAvatar(String projectKey, String contentType, String base64ImageData) {
         client.setNewProjectAvatar(token, projectKey, contentType, base64ImageData);
     }
@@ -1726,7 +1725,7 @@ public class JiraConnector {
      * @return the updated RemoteIssue
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue progressWorkflowAction(String issueKey, String actionIdString, @Optional Map<String, List<String>> fields) {
         return client.progressWorkflowAction(token, issueKey, actionIdString, fields);
     }
@@ -1742,7 +1741,7 @@ public class JiraConnector {
      * @return the updated RemoteIssue
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue progressWorkflowActionSingleValueFields(String issueKey, String actionIdString, @Optional Map<String, String> fields) {
         Map<String, List<String>> multiValueFields = new HashMap<String, List<String>>();
         if (fields != null) {
@@ -1767,7 +1766,7 @@ public class JiraConnector {
      * @return Created worklog with the id set or null if no worklog was created.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteWorklog addWorklogAndAutoAdjustRemainingEstimate(String issueKey, String timeSpent, String startDate, 
                                                                   @Optional String comment, @Optional String groupLevel, @Optional String roleLevelId) {
         return client.addWorklogAndAutoAdjustRemainingEstimate(token, issueKey, timeSpent, startDate, comment, groupLevel, roleLevelId);
@@ -1788,7 +1787,7 @@ public class JiraConnector {
      * @return Created worklog with the id set or null if no worklog was created.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteWorklog addWorklogWithNewRemainingEstimate(String issueKey, String timeSpent, String startDate, 
                                                             String newRemainingEstimate, @Optional String comment, @Optional String groupLevel, 
                                                             @Optional String roleLevelId) {
@@ -1809,7 +1808,7 @@ public class JiraConnector {
      * @return Created worklog with the id set or null if no worklog was created.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteWorklog addWorklogAndRetainRemainingEstimate(String issueKey, String timeSpent, String startDate, 
                                                               @Optional String comment, @Optional String groupLevel, @Optional String roleLevelId) {
         return client.addWorklogAndRetainRemainingEstimate(token, issueKey, timeSpent, startDate, comment, groupLevel, roleLevelId);
@@ -1823,7 +1822,7 @@ public class JiraConnector {
      * @return the security schemes.
      */
     @Processor
-    @InvalidateConnectionOn(exception = RemoteAuthenticationException.class)
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getSecuritySchemes() {
         return client.getSecuritySchemes(token);
     }
@@ -1872,8 +1871,8 @@ public class JiraConnector {
         if (token != null) {
             String oldToken = token;
             token = null;
-            client = null;
             logout(oldToken);
+            client = null;
         }
     }
 
