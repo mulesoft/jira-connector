@@ -51,6 +51,14 @@
     </spring:bean>
 
     <jira:config name="default" connectionUser="user" connectionPassword="user" connectionAddress="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
+    
+    <flow name="updateIssuesByJQL">
+        <jira:update-issues-by-jql config-ref="Jira" jql="status = Open" maxRecordsToUpdate="100">
+            <jira:fields>
+                <jira:field key="priority">1</jira:field>
+            </jira:fields>
+        </jira:update-issues-by-jql>
+    </flow>
 
     <flow name="getComment">
         <jira:get-comment commentId="123"/>

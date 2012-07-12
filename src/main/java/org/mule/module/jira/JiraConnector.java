@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.mule.api.ConnectionException;
@@ -404,8 +405,13 @@ public class JiraConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteIssue updateIssue(String issueKey, Map<String, List<String>> fields) {
-        return client.updateIssue(token, issueKey, fields);
+    public RemoteIssue updateIssue(String issueKey, Map<String, String> fields) {
+        Map<String, List<String>> multivaluedFields = new HashMap<String, List<String>>(); 
+        for (Entry<String, String> field : fields.entrySet())
+        {
+            multivaluedFields.put(field.getKey(), Arrays.asList(field.getValue()));
+        }
+        return client.updateIssue(token, issueKey, multivaluedFields);
     }
     
     /**
@@ -416,30 +422,35 @@ public class JiraConnector {
      *
      * @param fields   The fields to be updated, the key of the map is the field id and the value is a list of values for that field.
      * @param jql      The jql to search the issues that will be updated if issueKey is not set.
-     * @param numberIssuesToUpdate The number of issues you expect the jql search will find. If set,
+     * @param maxRecordsToUpdate The number of issues you expect the jql search will find. If set,
      * the update will only take place if the number of issues found is the same as this
      * 
      * @return A {@link List} with the updated {@link RemoteIssue}s
      */
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public List<RemoteIssue> updateIssuesByJql(String jql, Map<String, List<String>> fields, @Optional Integer numberIssuesToUpdate) {
+    public List<RemoteIssue> updateIssuesByJql(String jql, Map<String, String> fields, @Optional Integer maxRecordsToUpdate) {
         List<Object> issuesToUpdate = client.getIssuesFromJqlSearch(token, jql, 10000);
-        if (issuesToUpdate != null)
+        if (issuesToUpdate != null && maxRecordsToUpdate != null)
         {
-            if (issuesToUpdate.size() != numberIssuesToUpdate)
+            if (issuesToUpdate.size() > maxRecordsToUpdate)
             {
-                throw new JiraConnectorException("Couldn't execute update-issues-by-jql."
-                    + "The number of issues find by the jql query (" + issuesToUpdate.size()
-                    + ") was different from the expected (" + issuesToUpdate + ")");
+                throw new JiraConnectorException("Couldn't execute update-issues-by-jql. "
+                    + "The number of issues found by the jql query (" + issuesToUpdate.size()
+                    + ") was greater than the maxRecordsToUpdate given (" + maxRecordsToUpdate + ")");
             }
         }
         if (CollectionUtils.isNotEmpty(issuesToUpdate))
         {
             List<RemoteIssue> result = new ArrayList<RemoteIssue>();
+            Map<String, List<String>> multivaluedFields = new HashMap<String, List<String>>(); 
+            for (Entry<String, String> field : fields.entrySet())
+            {
+                multivaluedFields.put(field.getKey(), Arrays.asList(field.getValue()));
+            }
             for (Object issue : issuesToUpdate)
             {
-                RemoteIssue updatedIssue = client.updateIssue(token, ((RemoteIssue)issue).getKey(), fields);
+                RemoteIssue updatedIssue = client.updateIssue(token, ((RemoteIssue)issue).getKey(), multivaluedFields);
                 result.add(updatedIssue);
             }
             return result;

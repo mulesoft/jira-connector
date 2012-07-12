@@ -30,6 +30,7 @@ public class JiraConnectorTestDriver
     private String endpoint = System.getenv("jira.endpoint");
     private String username = System.getenv("jira.username");
     private String password = System.getenv("jira.password");
+
     
     private JiraConnector connector;
 
@@ -51,13 +52,8 @@ public class JiraConnectorTestDriver
     @Ignore
     public void updateIssuesByJql()
     {
-        Map<String, List<String>> fields = new HashMap<String, List<String>>();
-        fields.put("priority", new ArrayList<String>()
-        {
-            {
-                add("1");
-            }
-        });
+        Map<String, String> fields = new HashMap<String, String>();
+        fields.put("priority", "1");
         connector.updateIssuesByJql("status = Open", fields, null);
     }
 
