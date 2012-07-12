@@ -53,9 +53,9 @@
     <jira:config name="default" connectionUser="user" connectionPassword="user" connectionAddress="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
     
     <flow name="updateIssuesByJQL">
-        <jira:update-issues-by-jql config-ref="Jira" jql="status = Open" maxRecordsToUpdate="100">
+        <jira:update-issues-by-jql jql="status = Open" maxRecordsToUpdate="100">
             <jira:fields>
-                <jira:field key="priority">1</jira:field>
+                <field key="priority">1</field>
             </jira:fields>
         </jira:update-issues-by-jql>
     </flow>
@@ -144,8 +144,8 @@
     <flow name="updateIssue">
         <jira:update-issue issueKey="someIssueKey">
             <jira:fields>
-                <jira:field key="customfield_10000" value-ref="field1Values" />
-                <jira:field key="customfield_20000" value-ref="field2Values" />
+                <jira:field key="customfield_10000" value-ref="value1" />
+                <jira:field key="customfield_20000" value-ref="value21" />
             </jira:fields>
         </jira:update-issue>
     </flow>

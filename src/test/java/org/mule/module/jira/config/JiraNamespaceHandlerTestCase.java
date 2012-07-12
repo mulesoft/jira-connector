@@ -52,7 +52,8 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
     private static final String COMMENT = "someComment";
     @Mock
     private JiraClient mockJiraClient;
-    private Map<String,List<String>> fields;
+    private Map<String, List<String>> fields;
+    private Map<String, List<String>> fieldsUpdate;
 
     @Override
     protected void doSetUp() throws Exception {
@@ -63,6 +64,10 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
         fields = new LinkedHashMap<String, List<String>>(2);
         fields.put("customfield_10000", Arrays.asList("value1"));
         fields.put("customfield_20000", Arrays.asList("value21", "value22"));
+        
+        fieldsUpdate = new LinkedHashMap<String, List<String>>(2);
+        fieldsUpdate.put("customfield_10000", Arrays.asList("value1"));
+        fieldsUpdate.put("customfield_20000", Arrays.asList("value21"));
     }
 
     @Override
@@ -151,7 +156,7 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
 
     public void testUpdateIssue() throws Exception {
         lookupFlowConstruct("updateIssue").process(getTestEvent(""));
-        Mockito.verify(mockJiraClient).updateIssue(TOKEN, ISSUE_KEY, fields);
+        Mockito.verify(mockJiraClient).updateIssue(TOKEN, ISSUE_KEY, fieldsUpdate);
     }
 
 
