@@ -66,7 +66,22 @@ public class JiraConnector {
     private String token;
     private String connectionUser;
     private String connectionAddress;
+    private static final String MULTIVALUED_FIELD_SEPARATOR = "\\|";
 
+    private Map<String, List<String>> convertFieldsToMultivalued(Map<String, String> fields) {
+        Map<String, List<String>> multivaluedFields = new HashMap<String, List<String>>();
+        if (fields != null) {
+            for (Entry<String, String> field : fields.entrySet()) {
+                String value = field.getValue();
+                if (value == null) {
+                    value = "";
+                }
+                multivaluedFields.put(field.getKey(), Arrays.asList(value.split(MULTIVALUED_FIELD_SEPARATOR)));
+            }
+        }
+        return multivaluedFields;
+    }
+    
     /**
      * Finds a comment.
      * <p/>
@@ -271,7 +286,7 @@ public class JiraConnector {
      * @param reporter     the reporter of the new issue
      * @param type         the type of the new issue
      * @param votes        the votes of the new issue
-     * @param customFields the custom fields of the new issue, the keys of the map are the field ids
+     * @param customFields the custom fields of the new issue, the keys of the map are the field ids, the values should be separated by a "|" if it is multivalued
      * @param componentName the component name
      * @param componentId   the componentId
      * @return the new created issue
@@ -288,10 +303,11 @@ public class JiraConnector {
                                    @Optional String reporter,
                                    @Placement(group = "Basic", order = 2) String type,
                                    @Optional Long votes,
-                                   @Placement(group = "Custom Fields") @Optional Map<String, List<String>> customFields,
+                                   @Placement(group = "Custom Fields") @Optional Map<String, String> customFields,
                                    @Optional String componentName,
                                    @Optional String componentId) {
-        return client.createIssue(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields, componentName, componentId);
+        Map<String, List<String>> multivaluedFields = convertFieldsToMultivalued(customFields);
+        return client.createIssue(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, multivaluedFields, componentName, componentId);
     }
 
     /**
@@ -309,50 +325,6 @@ public class JiraConnector {
     }
 
     /**
-     * Creates an issue.
-     * <p/>
-     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue}
-     *
-     * @param assignee     the assignee of the new issue
-     * @param summary      the summary of the new issue
-     * @param description  the description of the new issue
-     * @param dueDate      the due date of the new issue using the format MM-dd-yyy'T'HH:mm:ss
-     * @param environment  the environment of the new issue
-     * @param priority     the priority of the new issue
-     * @param project      the project of the new issue
-     * @param reporter     the reporter of the new issue
-     * @param type         the type of the new issue
-     * @param votes        the votes of the new issue
-     * @param componentName the component name
-     * @param componentId   the componentId
-     * @param customFields the custom fields of the new issue, the keys of the map are the field ids
-     * @return the new created issue
-     */
-    @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteIssue createIssueSingleValueFields(@Optional String assignee,
-                                                    @Placement(group = "Basic", order = 3) String summary,
-                                                    @Placement(group = "Basic", order = 4) @Optional String description,
-                                                    @Optional String dueDate,
-                                                    @Optional String environment,
-                                                    @Optional String priority,
-                                                    @Placement(group = "Basic", order = 1) String project,
-                                                    @Optional String reporter,
-                                                    @Placement(group = "Basic", order = 2) String type,
-                                                    @Optional Long votes,
-                                                    @Placement(group = "Custom Fields") @Optional Map<String, String> customFields,
-                                                    @Optional String componentName,
-                                                    @Optional String componentId) {
-        Map<String, List<String>> multiValueFields = new HashMap<String, List<String>>();
-        if (customFields != null) {
-            for (Map.Entry<String, String> field : customFields.entrySet()) {
-                multiValueFields.put(field.getKey(), Arrays.asList(field.getValue()));
-            }
-        }
-        return client.createIssue(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, multiValueFields,componentName, componentId);
-    }
-
-    /**
      * Creates an issue using the the security level denoted by the given id.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue-with-security-level}
@@ -367,7 +339,7 @@ public class JiraConnector {
      * @param reporter        the reporter of the new issue
      * @param type            the type of the new issue
      * @param votes           the votes of the new issue
-     * @param customFields    the custom fields of the new issue, the keys of the map are the field ids
+     * @param customFields    the custom fields of the new issue, the keys of the map are the field ids, the values should be separated by a "|" if it is multivalued
      * @param securityLevelId the id of the security level to use
      * @param componentName the component name
      * @param componentId   the componentId
@@ -385,11 +357,12 @@ public class JiraConnector {
                                                     @Optional String reporter,
                                                     String type,
                                                     @Optional Long votes,
-                                                    @Optional Map<String, List<String>> customFields,
+                                                    @Optional Map<String, String> customFields,
                                                     Long securityLevelId,
                                                     @Optional String componentName,
                                                     @Optional String componentId) {
-        return client.createIssueWithSecurityLevel(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, customFields, securityLevelId, componentName, componentId);
+        Map<String, List<String>> multivaluedFields = convertFieldsToMultivalued(customFields);
+        return client.createIssueWithSecurityLevel(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, multivaluedFields, securityLevelId, componentName, componentId);
     }
 
     /**
@@ -399,18 +372,14 @@ public class JiraConnector {
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-issue}
      *
      * @param issueKey The issue to update.
-     * @param fields   The fields to be updated, the key of the map is the field id and the value is a list of values for that field.
+     * @param fields   The fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a "|" if it is multivalued
      * 
      * @return the updated RemoteIssue
      */
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue updateIssue(String issueKey, Map<String, String> fields) {
-        Map<String, List<String>> multivaluedFields = new HashMap<String, List<String>>(); 
-        for (Entry<String, String> field : fields.entrySet())
-        {
-            multivaluedFields.put(field.getKey(), Arrays.asList(field.getValue()));
-        }
+        Map<String, List<String>> multivaluedFields = convertFieldsToMultivalued(fields);
         return client.updateIssue(token, issueKey, multivaluedFields);
     }
     
@@ -420,7 +389,7 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-issues-by-jql}
      *
-     * @param fields   The fields to be updated, the key of the map is the field id and the value is a list of values for that field.
+     * @param fields   The fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a "|" if it is multivalued
      * @param jql      The jql to search the issues that will be updated if issueKey is not set.
      * @param maxRecordsToUpdate The number of issues you expect the jql search will find. If set,
      * the update will only take place if the number of issues found is the same as this
@@ -443,11 +412,7 @@ public class JiraConnector {
         if (CollectionUtils.isNotEmpty(issuesToUpdate))
         {
             List<RemoteIssue> result = new ArrayList<RemoteIssue>();
-            Map<String, List<String>> multivaluedFields = new HashMap<String, List<String>>(); 
-            for (Entry<String, String> field : fields.entrySet())
-            {
-                multivaluedFields.put(field.getKey(), Arrays.asList(field.getValue()));
-            }
+            Map<String, List<String>> multivaluedFields = convertFieldsToMultivalued(fields);
             for (Object issue : issuesToUpdate)
             {
                 RemoteIssue updatedIssue = client.updateIssue(token, ((RemoteIssue)issue).getKey(), multivaluedFields);
@@ -457,28 +422,6 @@ public class JiraConnector {
         } else {
             throw new JiraConnectorException("Can't execute update. The jql search returned no issues");
         }
-    }
-
-    /**
-     * This will update an issue with new values.
-     * NOTE : You cannot update the 'status' field of the issue via this method.
-     * <p/>
-     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-issue}
-     *
-     * @param issueKey the issue to update.
-     * @param fields   the fields to be updated, the key of the map is the field id and the value is a list of values for that field.
-     * @return the updated RemoteIssue
-     */
-    @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteIssue updateIssueSingleValueFields(String issueKey, Map<String, String> fields) {
-        Map<String, List<String>> multiValueFields = new HashMap<String, List<String>>();
-        if (fields != null) {
-            for (Map.Entry<String, String> field : fields.entrySet()) {
-                multiValueFields.put(field.getKey(), Arrays.asList(field.getValue()));
-            }
-        }
-        return client.updateIssue(token, issueKey, multiValueFields);
     }
 
     /**
@@ -1732,35 +1675,14 @@ public class JiraConnector {
      *
      * @param issueKey       the issue to update.
      * @param actionIdString the workflow action to progress to
-     * @param fields         the fields to be updated, the key of the map is the field id and the value is a list of values for that field.
+     * @param fields         the fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a "|" if it is multivalued
      * @return the updated RemoteIssue
      */
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteIssue progressWorkflowAction(String issueKey, String actionIdString, @Optional Map<String, List<String>> fields) {
-        return client.progressWorkflowAction(token, issueKey, actionIdString, fields);
-    }
-
-    /**
-     * This will progress an issue through a workflow.
-     * <p/>
-     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:progress-workflow-action }
-     *
-     * @param issueKey       the issue to update.
-     * @param actionIdString the workflow action to progress to
-     * @param fields         the fields to be updated, the key of the map is the field id and the value is a list of values for that field.
-     * @return the updated RemoteIssue
-     */
-    @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteIssue progressWorkflowActionSingleValueFields(String issueKey, String actionIdString, @Optional Map<String, String> fields) {
-        Map<String, List<String>> multiValueFields = new HashMap<String, List<String>>();
-        if (fields != null) {
-            for (Map.Entry<String, String> field : fields.entrySet()) {
-                multiValueFields.put(field.getKey(), Arrays.asList(field.getValue()));
-            }
-        }
-        return client.progressWorkflowAction(token, issueKey, actionIdString, multiValueFields);
+    public RemoteIssue progressWorkflowAction(String issueKey, String actionIdString, @Optional Map<String, String> fields) {
+        Map<String, List<String>> multivaluedFields = convertFieldsToMultivalued(fields);
+        return client.progressWorkflowAction(token, issueKey, actionIdString, multivaluedFields);
     }
 
     /**

@@ -295,8 +295,8 @@
 <!-- BEGIN_INCLUDE(jira:update-issue) -->
         <jira:update-issue issueKey="someIssueKey">
             <jira:fields>
-                <jira:field key="customfield_10000" value-ref="field1Values" />
-                <jira:field key="customfield_20000" value-ref="field2Values" />
+                <jira:field key="customfield_10000">value1</jira:field>
+                <jira:field key="customfield_20000">value2</jira:field>
             </jira:fields>
         </jira:update-issue>
 <!-- END_INCLUDE(jira:update-issue) -->
@@ -304,7 +304,7 @@
 <!-- BEGIN_INCLUDE(jira:update-issues-by-jql) -->
         <jira:update-issues-by-jql jql="status = Open">
             <jira:fields>
-                <jira:field key="customfield_10000" value-ref="field1Values" />
+                <jira:field key="customfield_10000">value1</jira:field>
             </jira:fields>
         </jira:update-issues-by-jql>
 <!-- END_INCLUDE(jira:update-issues-by-jql) -->
@@ -316,8 +316,8 @@
                                                environment="someEnvironment" priority="somePriority" votes="10"
                                                securityLevelId="1">
             <jira:custom-fields>
-                <jira:custom-field key="customfield_10000" value-ref="field1Values" />
-                <jira:custom-field key="customfield_20000" value-ref="field2Values" />
+                <jira:custom-field key="customfield_10000">value1</jira:custom-field>
+                <jira:custom-field key="customfield_20000">value2</jira:custom-field>
             </jira:custom-fields>
         </jira:create-issue-with-security-level>
 <!-- END_INCLUDE(jira:create-issue-with-security-level) -->
@@ -328,8 +328,8 @@
                            dueDate="someDueDate" description="someDescription" environment="someEnvironment"
                            priority="somePriority" votes="10">
             <jira:custom-fields>
-                <jira:custom-field key="customfield_10000" value-ref="field1Values" />
-                <jira:custom-field key="customfield_20000" value-ref="field2Values" />
+                <jira:custom-field key="customfield_10000">value1</jira:custom-field>
+                <jira:custom-field key="customfield_20000">value2</jira:custom-field>
             </jira:custom-fields>
         </jira:create-issue>
 <!-- END_INCLUDE(jira:create-issue) -->
@@ -477,8 +477,8 @@
 <!-- BEGIN_INCLUDE(jira:progress-workflow-action) -->
         <jira:progress-workflow-action issueKey="someIssueKey" actionIdString="someActionIdString">
             <jira:fields>
-                <jira:field key="customfield_10000" value-ref="field1Values" />
-                <jira:field key="customfield_20000" value-ref="field2Values" />
+                <jira:field key="customfield_10000">value1</jira:field>
+                <jira:field key="customfield_20000">value2</jira:field>
             </jira:fields>
         </jira:progress-workflow-action>
 <!-- END_INCLUDE(jira:progress-workflow-action ) -->
