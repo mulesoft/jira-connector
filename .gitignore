@@ -7,3 +7,4 @@ bin
 *.ipr
 *.iws
 .idea
+.DS_Store

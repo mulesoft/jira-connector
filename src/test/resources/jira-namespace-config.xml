@@ -29,25 +29,8 @@
         <spring:constructor-arg value="value21"/>
     </spring:bean>
 
-    <spring:bean id="value22" class="java.lang.String">
-        <spring:constructor-arg value="value22"/>
-    </spring:bean>
-
-    <spring:bean id="field1Values" class="org.springframework.beans.factory.config.ListFactoryBean">
-        <spring:property name="sourceList">
-            <spring:list>
-                <spring:ref bean="value1"/>
-            </spring:list>
-        </spring:property>
-    </spring:bean>
-
-    <spring:bean id="field2Values" class="org.springframework.beans.factory.config.ListFactoryBean">
-        <spring:property name="sourceList">
-            <spring:list>
-                <spring:ref bean="value21"/>
-                <spring:ref bean="value22"/>
-            </spring:list>
-        </spring:property>
+    <spring:bean id="value21and22" class="java.lang.String">
+        <spring:constructor-arg value="value21|value22"/>
     </spring:bean>
 
     <jira:config name="default" connectionUser="user" connectionPassword="user" connectionAddress="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
@@ -122,8 +105,8 @@
                            dueDate="someDueDate" description="someDescription" environment="someEnvironment"
                            priority="somePriority" votes="10" componentName="someName" componentId="someId">
             <jira:custom-fields>
-                <jira:custom-field key="customfield_10000" value-ref="field1Values" />
-                <jira:custom-field key="customfield_20000" value-ref="field2Values" />
+                <jira:custom-field key="customfield_10000" value-ref="value1" />
+                <jira:custom-field key="customfield_20000" value-ref="value21and22" />
             </jira:custom-fields>
         </jira:create-issue>
     </flow>
@@ -135,8 +118,8 @@
                                                environment="someEnvironment" priority="somePriority" votes="10"
                                                securityLevelId="1" componentName="someName" componentId="someId">
             <jira:custom-fields>
-                <jira:custom-field key="customfield_10000" value-ref="field1Values" />
-                <jira:custom-field key="customfield_20000" value-ref="field2Values" />
+                <jira:custom-field key="customfield_10000" value-ref="value1" />
+                <jira:custom-field key="customfield_20000" value-ref="value21and22" />
             </jira:custom-fields>
         </jira:create-issue-with-security-level>
     </flow>
@@ -526,8 +509,8 @@
     <flow name="progressWorkflowAction">
         <jira:progress-workflow-action issueKey="someIssueKey" actionIdString="someActionIdString">
             <jira:fields>
-                <jira:field key="customfield_10000" value-ref="field1Values" />
-                <jira:field key="customfield_20000" value-ref="field2Values" />
+                <jira:custom-field key="customfield_10000" value-ref="value1" />
+                <jira:custom-field key="customfield_20000" value-ref="value21and22" />
             </jira:fields>
         </jira:progress-workflow-action>
     </flow>
