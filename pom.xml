@@ -16,6 +16,8 @@
     <url>http://www.muleforge.org/projects/mule-module-jira</url>
 
     <properties>
+        <category>Community</category>
+        <licensePath>LICENSE.md</licensePath>
         <sonar.exclusions>com/atlassian/jira/rpc/**</sonar.exclusions>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
     </properties>
