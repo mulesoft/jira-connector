@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="JiraDemo">
+    <global-element type="http://www.mulesoft.org/schema/mule/jira/config" name="Jira" entity-id="Jira#1">
+        <properties>
+            <property value="Jira" name="name"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="${jira.user}" name="connectionUser"/>
+            <property value="${jira.password}" name="connectionPassword"/>
+            <property value="${jira.connectionAddres}" name="connectionAddress"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.springframework.org/schema/context/property-placeholder" name="Property Placeholder" entity-id="Property Placeholder#1">
+        <properties>
+            <property value="mule.properties" name="location"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="2" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="JiraDemoFlow1" entity-id="17577244-c75b-4bb4-8bc9-912881e03427">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="4" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="4" name="auxiliary;index"/>
+            <property value="4" name="auxiliary;index"/>
+            <property value="4" name="auxiliary;index"/>
+        </properties>
+        <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#1">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="8081" name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/jira/jira-connector" name="Create Issue" entity-id="Jira#2">
+                <properties>
+                    <property value="Jira" name="config-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/jira/create-issue" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="Jira" name="config-ref"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property name="assignee"/>
+                    <property name="dueDate"/>
+                    <property name="environment"/>
+                    <property value="1" name="priority"/>
+                    <property name="reporter"/>
+                    <property name="votes"/>
+                    <property name="componentId"/>
+                    <property name="componentName"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="test issue creation" name="summary"/>
+                    <property name="description"/>
+                    <property value="${jira.project}" name="project"/>
+                    <property value="1" name="type"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property name=""/>
+                    <property name="connectionUser"/>
+                    <property name="connectionPassword"/>
+                    <property name="connectionAddress"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" name="Groovy" entity-id="e396931c-7c4a-4d9e-96a5-e0bbe4041e19">
+                <properties>
+                    <property value="" name="ref"/>
+                    <property value="payload.priority = &quot;3&quot;;&#xA;return payload" name="text"/>
+                    <property name="updated"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/refInterceptorStackType;1133050397">
+                        <property value="" name="ref"/>
+                    </property-collection>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;1096233430">
+                        <property value="payload.priority = &quot;3&quot;;&#xA;return payload" name="text"/>
+                    </property-collection>
+                </properties>
+                <description></description>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="Logger#1">
+                <properties>
+                    <property value="Issue #[payload.key] created" name="message"/>
+                    <property value="INFO" name="level"/>
+                    <property name="category"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property value="8" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/jira/jira-connector" name="Update Issue" entity-id="Jira#3">
+                <properties>
+                    <property value="" name="connectionUser"/>
+                    <property value="" name=""/>
+                    <property value="" name="connectionPassword"/>
+                    <property value="http://www.mulesoft.org/schema/mule/jira/update-issue" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="#[payload.key]" name="issueKey"/>
+                    <property value="" name="connectionAddress"/>
+                    <property value="Jira" name="config-ref"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property name="updated"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/jira/update-issue-fieldss;1">
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/jira/update-issue-fields;574202344">
+                            <property value="#[payload.priority]" name="value"/>
+                            <property value="priority" name="key"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+                <description></description>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="Logger#2">
+                <properties>
+                    <property value="Issue #[payload.key] updated" name="message"/>
+                    <property value="INFO" name="level"/>
+                    <property name="category"/>
+                    <property value="12" name="auxiliary;index"/>
+                    <property value="12" name="auxiliary;index"/>
+                    <property value="12" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/jira/jira-connector" name="Delete Issue" entity-id="Jira#4">
+                <properties>
+                    <property value="Jira" name="config-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/jira/delete-issue" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="Jira" name="config-ref"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="#[payload.key]" name="issueKey"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property name=""/>
+                    <property name="connectionUser"/>
+                    <property name="connectionPassword"/>
+                    <property name="connectionAddress"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="Logger#3">
+                <properties>
+                    <property value="Issue #[payload.key] deleted" name="message"/>
+                    <property value="INFO" name="level"/>
+                    <property name="category"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="14" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

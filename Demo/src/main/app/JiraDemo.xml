@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:debugger="http://www.mulesoft.org/schema/mule/debugger" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:context="http://www.springframework.org/schema/context" xmlns:jira="http://www.mulesoft.org/schema/mule/jira" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd 
+http://www.mulesoft.org/schema/mule/jira http://www.mulesoft.org/schema/mule/jira/2.0/mule-jira.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
+http://www.mulesoft.org/schema/mule/debugger http://www.mulesoft.org/schema/mule/debugger/current/mule-debugger.xsd 
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd ">
+    <jira:config name="Jira" connectionUser="${jira.user}" connectionPassword="${jira.password}" connectionAddress="${jira.connectionAddres}" doc:name="Jira"/>
+    <context:property-placeholder location="mule.properties"/>
+    <flow name="JiraDemoFlow1" doc:name="JiraDemoFlow1">
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8081" doc:name="HTTP"/>
+        <jira:create-issue config-ref="Jira" summary="test issue creation" project="${jira.project}" type="1" doc:name="Create Issue" priority="1"/>
+        <scripting:component doc:name="Groovy">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[payload.priority = "3";
+        return payload]]></scripting:text>
+            </scripting:script>
+        </scripting:component>
+        <logger message="Issue #[payload.key] created" level="INFO" doc:name="Logger"/>
+
+        <jira:update-issue config-ref="Jira" issueKey="#[payload.key]" doc:name="Update Issue">
+            <jira:fields>
+                <jira:field key="priority">#[payload.priority]</jira:field>
+            </jira:fields>
+        </jira:update-issue>
+        <logger message="Issue #[payload.key] updated" level="INFO" doc:name="Logger"/>
+        <jira:delete-issue config-ref="Jira" issueKey="#[payload.key]" doc:name="Delete Issue"/>
+        <logger message="Issue #[payload.key] deleted" level="INFO" doc:name="Logger"/>
+    </flow>
+</mule>
