@@ -12,44 +12,18 @@
 
 package org.mule.module.jira;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
+import com.atlassian.jira.rpc.soap.beans.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.mule.api.ConnectionException;
-import org.mule.api.annotations.Connect;
-import org.mule.api.annotations.ConnectionIdentifier;
-import org.mule.api.annotations.Connector;
-import org.mule.api.annotations.Disconnect;
-import org.mule.api.annotations.InvalidateConnectionOn;
-import org.mule.api.annotations.Processor;
-import org.mule.api.annotations.ValidateConnection;
+import org.mule.api.annotations.*;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.module.jira.api.JiraClient;
-
-import com.atlassian.jira.rpc.soap.beans.RemoteAvatar;
-import com.atlassian.jira.rpc.soap.beans.RemoteComment;
-import com.atlassian.jira.rpc.soap.beans.RemoteConfiguration;
-import com.atlassian.jira.rpc.soap.beans.RemoteGroup;
-import com.atlassian.jira.rpc.soap.beans.RemoteIssue;
-import com.atlassian.jira.rpc.soap.beans.RemotePermissionScheme;
-import com.atlassian.jira.rpc.soap.beans.RemoteProject;
-import com.atlassian.jira.rpc.soap.beans.RemoteProjectRole;
-import com.atlassian.jira.rpc.soap.beans.RemoteProjectRoleActors;
-import com.atlassian.jira.rpc.soap.beans.RemoteRoleActors;
-import com.atlassian.jira.rpc.soap.beans.RemoteSecurityLevel;
-import com.atlassian.jira.rpc.soap.beans.RemoteServerInfo;
-import com.atlassian.jira.rpc.soap.beans.RemoteUser;
-import com.atlassian.jira.rpc.soap.beans.RemoteVersion;
-import com.atlassian.jira.rpc.soap.beans.RemoteWorklog;
 
 /**
  * JIRA is a proprietary issue tracking product, developed by Atlassian, commonly used for bug tracking, issue
@@ -64,17 +38,52 @@ public class JiraConnector {
     private String token;
     private String connectionUser;
     private String connectionAddress;
+    /**
+     * if external custom fields names (instead of internal ids) are used when modifying custom fields
+     */
+    @Configurable
+    @Optional
+    @Default("false")
+    private Boolean useCustomFieldsExternalName;
     private static final String MULTIVALUED_FIELD_SEPARATOR = "\\|";
+    private Map<String, String> customFieldsNamesToIdsMapping = null;
+    private Calendar customFieldsCacheExpiration = null;
 
-    private Map<String, List<String>> convertFieldsToMultivalued(Map<String, String> fields) {
+    private Map<String, String> getCustomFieldsNamesToIdsMapping() {
+        if (customFieldsNamesToIdsMapping == null || new GregorianCalendar().after(customFieldsCacheExpiration)) {
+            customFieldsNamesToIdsMapping = new HashMap<String, String>();
+
+            List<Object> customFields = client.getCustomFields(token);
+            for (Object customField : customFields) {
+                RemoteField remoteField = (RemoteField) customField;
+                customFieldsNamesToIdsMapping.put(remoteField.getName(), remoteField.getId());
+            }
+
+            // cached fields expire after 1 hour
+            customFieldsCacheExpiration = new GregorianCalendar();
+            customFieldsCacheExpiration.add(Calendar.HOUR_OF_DAY, 1);
+        }
+
+        return customFieldsNamesToIdsMapping;
+    }
+
+    private Map<String, List<String>> convertFieldsToMultivaluedAndMapNamesToIds(Map<String, String> fields) {
         Map<String, List<String>> multivaluedFields = new HashMap<String, List<String>>();
         if (fields != null) {
             for (Entry<String, String> field : fields.entrySet()) {
+                String fieldKey = field.getKey();
+                if (useCustomFieldsExternalName) {
+                    Map<String, String> customFields = getCustomFieldsNamesToIdsMapping();
+                    String id = customFields.get(fieldKey);
+                    if (id != null) {
+                        fieldKey = id;
+                    }
+                }
                 String value = field.getValue();
                 if (value == null) {
                     value = "";
                 }
-                multivaluedFields.put(field.getKey(), Arrays.asList(value.split(MULTIVALUED_FIELD_SEPARATOR)));
+                multivaluedFields.put(fieldKey, Arrays.asList(value.split(MULTIVALUED_FIELD_SEPARATOR)));
             }
         }
         return multivaluedFields;
@@ -304,7 +313,7 @@ public class JiraConnector {
                                    @Placement(group = "Custom Fields") @Optional Map<String, String> customFields,
                                    @Optional String componentName,
                                    @Optional String componentId) {
-        Map<String, List<String>> multivaluedFields = convertFieldsToMultivalued(customFields);
+        Map<String, List<String>> multivaluedFields = convertFieldsToMultivaluedAndMapNamesToIds(customFields);
         return client.createIssue(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, multivaluedFields, componentName, componentId);
     }
 
@@ -359,7 +368,7 @@ public class JiraConnector {
                                                     Long securityLevelId,
                                                     @Optional String componentName,
                                                     @Optional String componentId) {
-        Map<String, List<String>> multivaluedFields = convertFieldsToMultivalued(customFields);
+        Map<String, List<String>> multivaluedFields = convertFieldsToMultivaluedAndMapNamesToIds(customFields);
         return client.createIssueWithSecurityLevel(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, multivaluedFields, securityLevelId, componentName, componentId);
     }
 
@@ -377,7 +386,7 @@ public class JiraConnector {
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue updateIssue(String issueKey, Map<String, String> fields) {
-        Map<String, List<String>> multivaluedFields = convertFieldsToMultivalued(fields);
+        Map<String, List<String>> multivaluedFields = convertFieldsToMultivaluedAndMapNamesToIds(fields);
         return client.updateIssue(token, issueKey, multivaluedFields);
     }
     
@@ -410,7 +419,7 @@ public class JiraConnector {
         if (CollectionUtils.isNotEmpty(issuesToUpdate))
         {
             List<RemoteIssue> result = new ArrayList<RemoteIssue>();
-            Map<String, List<String>> multivaluedFields = convertFieldsToMultivalued(fields);
+            Map<String, List<String>> multivaluedFields = convertFieldsToMultivaluedAndMapNamesToIds(fields);
             for (Object issue : issuesToUpdate)
             {
                 RemoteIssue updatedIssue = client.updateIssue(token, ((RemoteIssue)issue).getKey(), multivaluedFields);
@@ -1679,7 +1688,7 @@ public class JiraConnector {
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue progressWorkflowAction(String issueKey, String actionIdString, @Optional Map<String, String> fields) {
-        Map<String, List<String>> multivaluedFields = convertFieldsToMultivalued(fields);
+        Map<String, List<String>> multivaluedFields = convertFieldsToMultivaluedAndMapNamesToIds(fields);
         return client.progressWorkflowAction(token, issueKey, actionIdString, multivaluedFields);
     }
 
@@ -1776,6 +1785,14 @@ public class JiraConnector {
 
     public void setConnectionAddress(String connectionAddress) {
         this.connectionAddress = connectionAddress;
+    }
+
+    public Boolean getUseCustomFieldsExternalName() {
+        return useCustomFieldsExternalName;
+    }
+
+    public void setUseCustomFieldsExternalName(Boolean useCustomFieldsExternalName) {
+        this.useCustomFieldsExternalName = useCustomFieldsExternalName;
     }
 
     /**

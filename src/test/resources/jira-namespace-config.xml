@@ -33,7 +33,7 @@
         <spring:constructor-arg value="value21|value22"/>
     </spring:bean>
 
-    <jira:config name="default" connectionUser="user" connectionPassword="user" connectionAddress="http://localhost:8080/rpc/soap/jirasoapservice-v2"/>
+    <jira:config name="default" connectionUser="user" connectionPassword="user" connectionAddress="http://localhost:8080/rpc/soap/jirasoapservice-v2" useCustomFieldsExternalName="false"/>
     
     <flow name="updateIssuesByJQL">
         <jira:update-issues-by-jql jql="status = Open" maxRecordsToUpdate="100">
