@@ -39,7 +39,8 @@ public class JiraConnector {
     private String connectionUser;
     private String connectionAddress;
     /**
-     * if external custom fields names (instead of internal ids) are used when modifying custom fields
+     * if external custom fields names (instead of internal ids) are used when modifying custom fields, the provided
+     * user must be a Jira administrator in order to be able to use this feature
      */
     @Configurable
     @Optional
