@@ -31,7 +31,7 @@ import org.mule.module.jira.api.JiraClient;
  *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "jira", schemaVersion = "2.0")
+@Connector(name = "jira", schemaVersion = "2.0", friendlyName = "Jira")
 public class JiraConnector {
 
     private JiraClient<List<Object>> client;
@@ -478,7 +478,7 @@ public class JiraConnector {
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-project}
      *
      * @param key                    the key for the new project
-     * @param name                   the name for the new project
+     * @param projectName            the name for the new project
      * @param description            the description for the new project
      * @param url                    the url for the new project
      * @param lead                   the lead of the new project
@@ -490,14 +490,14 @@ public class JiraConnector {
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProject createProject(String key,
-                                       String name,
+                                       String projectName,
                                        String description,
                                        @Optional String url,
                                        String lead,
                                        @Optional String permissionSchemeName,
                                        @Optional String notificationSchemeName,
                                        @Optional String securityShemeName) {
-        return client.createProject(token, key, name, description, url, lead, permissionSchemeName, notificationSchemeName, securityShemeName);
+        return client.createProject(token, key, projectName, description, url, lead, permissionSchemeName, notificationSchemeName, securityShemeName);
     }
 
     /**
@@ -682,13 +682,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-all-role-actors-by-name-and-type}
      *
-     * @param name the name to delete
+     * @param roleName the name to delete
      * @param type the type to delete
      */
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public void removeAllRoleActorsByNameAndType(String name, String type) {
-        client.removeAllRoleActorsByNameAndType(token, name, type);
+    public void removeAllRoleActorsByNameAndType(String roleName, String type) {
+        client.removeAllRoleActorsByNameAndType(token, roleName, type);
     }
 
     /**
@@ -740,13 +740,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:is-project-role-name-unique}
      *
-     * @param name the project role name to check for uniqueness
+     * @param roleName the project role name to check for uniqueness
      * @return true if the given project role name is unique, false otherwise.
      */
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public boolean isProjectRoleNameUnique(String name) {
-        return client.isProjectRoleNameUnique(token, name);
+    public boolean isProjectRoleNameUnique(String roleName) {
+        return client.isProjectRoleNameUnique(token, roleName);
     }
 
     /**
@@ -1151,14 +1151,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-permission-scheme}
      *
-     * @param name        the name of the new permission scheme
+     * @param permissionName        the name of the new permission scheme
      * @param description the description of the new permission scheme
      * @return the created permission scheme
      */
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemotePermissionScheme createPermissionScheme(String name, String description) {
-        return client.createPermissionScheme(token, name, description);
+    public RemotePermissionScheme createPermissionScheme(String permissionName, String description) {
+        return client.createPermissionScheme(token, permissionName, description);
     }
 
     /**

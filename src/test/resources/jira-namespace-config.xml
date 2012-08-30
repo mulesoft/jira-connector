@@ -146,7 +146,7 @@
     </flow>
 
     <flow name="createProject">
-        <jira:create-project key="someProjectKey" name="someProjectName" description="someProjectDescription"
+        <jira:create-project key="someProjectKey" projectName="someProjectName" description="someProjectDescription"
                              lead="someUserName" permissionSchemeName="somePermissionSchemeName"
                              notificationSchemeName="someNotificationSchemeName"
                              securityShemeName="someSecuritySchemeName" url="someUrl"/>
@@ -204,7 +204,7 @@
     </flow>
 
     <flow name="removeAllRoleActorsByNameAndType">
-        <jira:remove-all-role-actors-by-name-and-type name="someName" type="someType"/>
+        <jira:remove-all-role-actors-by-name-and-type roleName="someName" type="someType"/>
     </flow>
 
     <flow name="deleteProjectRole">
@@ -222,7 +222,7 @@
     </flow>
 
     <flow name="isProjectRoleNameUnique">
-        <jira:is-project-role-name-unique name="someProjectRoleName"/>
+        <jira:is-project-role-name-unique roleName="someProjectRoleName"/>
     </flow>
 
     <flow name="releaseVersion">
@@ -485,7 +485,7 @@
     </flow>
 
     <flow name="createPermissionScheme">
-        <jira:create-permission-scheme name="somePermissionSchemeName" description="somePermissionSchemeDesc"/>
+        <jira:create-permission-scheme permissionName="somePermissionSchemeName" description="somePermissionSchemeDesc"/>
     </flow>
 
     <flow name="hasPermissionToEditComment">

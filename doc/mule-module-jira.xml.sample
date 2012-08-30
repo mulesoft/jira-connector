@@ -40,7 +40,7 @@
 
 <!-- BEGIN_INCLUDE(jira:get-resolutions) -->
 <jira:get-resolutions/>
-<!-- END_INCLUDE(jira:get-resolution) -->
+<!-- END_INCLUDE(jira:get-resolutions) -->
 
 
  <!-- BEGIN_INCLUDE(jira:delete-group) -->
@@ -49,10 +49,10 @@
 
 <!-- BEGIN_INCLUDE(jira:get-issues-from-text-search-with-project) -->
 <jira:get-issues-from-text-search-with-project searchTerms="someSearchTerms" maxNumResults="10">
-                         <jira:projectKeys>
-                             <jira:projectKey>projectKey1</jira:projectKey>
-                             <jira:projectKey>projectKey2</jira:projectKey>
-                         </jira:projectKeys>
+                         <jira:project-keys>
+                             <jira:project-key>projectKey1</jira:project-key>
+                             <jira:project-key>projectKey2</jira:project-key>
+                         </jira:project-keys>
                       </jira:get-issues-from-text-search-with-project>
 <!-- END_INCLUDE(jira:get-issues-from-text-search-with-project) -->
 
@@ -92,7 +92,7 @@
 
 
 <!-- BEGIN_INCLUDE(jira:remove-all-role-actors-by-name-and-type) -->
-<jira:remove-all-role-actors-by-name-and-type name="someName" type="someType"/>
+<jira:remove-all-role-actors-by-name-and-type roleName="someName" type="someType"/>
 <!-- END_INCLUDE(jira:remove-all-role-actors-by-name-and-type) -->
 
 
@@ -101,7 +101,7 @@
 <!-- END_INCLUDE(jira:delete-project-role) -->
 
 <!-- BEGIN_INCLUDE(jira:is-project-role-name-unique) -->
-<jira:is-project-role-name-unique name="someProjectRoleName"/>
+<jira:is-project-role-name-unique roleName="someProjectRoleName"/>
 <!-- END_INCLUDE(jira:is-project-role-name-unique) -->
 
 
@@ -227,7 +227,7 @@
 <!-- END_INCLUDE(jira:get-permission-schemes) -->
 
 <!-- BEGIN_INCLUDE(jira:create-permission-scheme) -->
-<jira:create-permission-scheme name="somePermissionSchemeName" description="somePermissionSchemeDesc"/>
+<jira:create-permission-scheme permissionName="somePermissionSchemeName" description="somePermissionSchemeDesc"/>
 <!-- END_INCLUDE(jira:create-permission-scheme) -->
 
 <!-- BEGIN_INCLUDE(jira:set-project-avatar) -->
@@ -282,7 +282,7 @@
 <!-- END_INCLUDE(jira:update-project) -->
 
  <!-- BEGIN_INCLUDE(jira:create-project) -->
-<jira:create-project key="someProjectKey" name="someProjectName" description="someProjectDescription"
+<jira:create-project key="someProjectKey" projectName="someProjectName" description="someProjectDescription"
                                            lead="someUserName" permissionSchemeName="somePermissionSchemeName"
                                            notificationSchemeName="someNotificationSchemeName"
                                            securityShemeName="someSecuritySchemeName" url="someUrl"/> 
@@ -335,8 +335,8 @@
 <!-- END_INCLUDE(jira:create-issue) -->
 
 <!-- BEGIN_INCLUDE(jira:create-issue-using-object) -->
-        <jira:create-issue issue-ref="#[payload]"/>
-<!-- END_INCLUDE(jira:create-issue) -->
+        <jira:create-issue-using-object />
+<!-- END_INCLUDE(jira:create-issue-using-object) -->
 
 
 <!-- BEGIN_INCLUDE(jira:update-worklog-with-new-remaining-estimate) -->
@@ -463,14 +463,14 @@
 
 <!-- BEGIN_INCLUDE(jira:add-base64-encoded-attachments-to-issue) -->
 <jira:add-base64-encoded-attachments-to-issue issueKey="someIssueKey">
-                          <jira:fileNames>
-                              <jira:fileName>fileName1</jira:fileName>
-                              <jira:fileName>fileName2</jira:fileName>
-                          </jira:fileNames>
-                          <jira:base64EncodedAttachmentData>
-                              <jira:base64EncodedAttachmentDatum>base64EncodedAttachment1</jira:base64EncodedAttachmentDatum>
-                              <jira:base64EncodedAttachmentDatum>base64EncodedAttachment2</jira:base64EncodedAttachmentDatum>
-                          </jira:base64EncodedAttachmentData>
+                          <jira:file-names>
+                              <jira:file-name>fileName1</jira:file-name>
+                              <jira:file-name>fileName2</jira:file-name>
+                          </jira:file-names>
+                          <jira:base64-encoded-attachment-data>
+                              <jira:base64-encoded-attachment-datum>base64EncodedAttachment1</jira:base64-encoded-attachment-datum>
+                              <jira:base64-encoded-attachment-datum>base64EncodedAttachment2</jira:base64-encoded-attachment-datum>
+                          </jira:base64-encoded-attachment-data>
                       </jira:add-base64-encoded-attachments-to-issue>
 <!-- END_INCLUDE(jira:add-base64-encoded-attachments-to-issue) -->
                                 
@@ -481,7 +481,7 @@
                 <jira:field key="customfield_20000">value2</jira:field>
             </jira:fields>
         </jira:progress-workflow-action>
-<!-- END_INCLUDE(jira:progress-workflow-action ) -->
+<!-- END_INCLUDE(jira:progress-workflow-action) -->
 
 
 <!-- BEGIN_INCLUDE(jira:edit-comment) -->
