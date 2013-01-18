@@ -19,6 +19,7 @@ import com.atlassian.jira.rpc.soap.beans.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.mule.api.ConnectionException;
 import org.mule.api.annotations.*;
+import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
@@ -1805,7 +1806,7 @@ public class JiraConnector {
      * @param connectionAddress  the JIRA Server Soap address. It usually looks like https://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2 or http://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2
      */
     @Connect
-    public void connect(@ConnectionKey String connectionUser, String connectionPassword, String connectionAddress) throws ConnectionException {
+    public void connect(@ConnectionKey String connectionUser, @Password String connectionPassword, String connectionAddress) throws ConnectionException {
         this.connectionUser = connectionUser;
         this.connectionAddress = connectionAddress;
         setClient(JiraClientFactory.getClient(connectionAddress));
