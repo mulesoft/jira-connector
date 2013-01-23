@@ -106,10 +106,11 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         }
     }
 
-    public void addComment(String token, String issueKey, String commentAuthor, String commentBody, String commentGroupLevel, String commentRoleLevel) {
+    public RemoteComment addComment(String token, String issueKey, String commentAuthor, String commentBody, String commentGroupLevel, String commentRoleLevel) {
         try {
             RemoteComment comment = helper.createComment(commentAuthor, commentBody, commentGroupLevel, commentRoleLevel);
             getService().addComment(token, issueKey, comment);
+            return comment;
         } catch (RemoteException e) {
             throw new JiraConnectorException(e);
         }

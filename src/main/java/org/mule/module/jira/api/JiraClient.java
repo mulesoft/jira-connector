@@ -43,7 +43,7 @@ public interface JiraClient<CollectionType>
 
     RemoteUser createUser(String token, String username, String password, String fullName, String email);
 
-    void addComment(String token,
+    RemoteComment addComment(String token,
                     String issueKey,
                     String commentAuthor,
                     String commentBody,

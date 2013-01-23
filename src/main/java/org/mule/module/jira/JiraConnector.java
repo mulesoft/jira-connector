@@ -188,11 +188,13 @@ public class JiraConnector {
      * @param commentBody       the body of the comment
      * @param commentGroupLevel the group level of the comment
      * @param commentRoleLevel  the role level of the comment
+     * @return Added comment
      */
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public void addComment(String issueKey, String commentAuthor, String commentBody, @Optional String commentGroupLevel, @Optional String commentRoleLevel) {
-        client.addComment(token, issueKey, commentAuthor, commentBody, commentGroupLevel, commentRoleLevel);
+    public RemoteComment addComment(String issueKey, String commentAuthor, String commentBody,
+                                    @Optional String commentGroupLevel, @Optional String commentRoleLevel) {
+        return client.addComment(token, issueKey, commentAuthor, commentBody, commentGroupLevel, commentRoleLevel);
     }
 
     /**
