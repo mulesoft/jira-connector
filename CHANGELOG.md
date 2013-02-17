@@ -1,3 +1,15 @@
+2.3.2
+=====
+
+- Migrated to DevKit 3.3.2
+- Modified addComment to return the Comment object
+- Fixed passwork mask in Mule Studio
+
+2.3.1
+=====
+
+- Migrated to DevKit 3.3.1
+
 2.3
 ===
 
