@@ -2,13 +2,11 @@
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="JiraDemo">
     <global-element type="http://www.mulesoft.org/schema/mule/jira/config" name="Jira" entity-id="Jira#1">
         <properties>
-            <property value="Jira" name="name"/>
-            <property value="1" name="auxiliary;index"/>
             <property value="${jira.user}" name="connectionUser"/>
             <property value="${jira.password}" name="connectionPassword"/>
+            <property name="useCustomFieldsExternalName"/>
+            <property value="Jira" name="name"/>
             <property value="${jira.connectionAddres}" name="connectionAddress"/>
-            <property value="1" name="auxiliary;index"/>
-            <property value="1" name="auxiliary;index"/>
             <property value="1" name="auxiliary;index"/>
         </properties>
     </global-element>
@@ -16,186 +14,283 @@
         <properties>
             <property value="mule.properties" name="location"/>
             <property value="2" name="auxiliary;index"/>
-            <property value="2" name="auxiliary;index"/>
-            <property value="2" name="auxiliary;index"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="JiraDemoFlow1" entity-id="17577244-c75b-4bb4-8bc9-912881e03427">
+    <flow SubFlow="false" name="Execute" entity-id="10bcaee9-8d2b-43df-8971-15a99ec623b5">
         <properties>
-            <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
-            <property value="4" name="auxiliary;index"/>
+            <property name="processingStrategy2"/>
             <property name="bussinessEventsLabel"/>
+            <property value="3" name="auxiliary;index"/>
             <property name="tracking:enable-default-events"/>
-            <property value="4" name="auxiliary;index"/>
-            <property value="4" name="auxiliary;index"/>
-            <property value="4" name="auxiliary;index"/>
         </properties>
-        <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
-            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#1">
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
                 <properties>
-                    <property value="one-way" name="exchange-pattern"/>
-                    <property value="one-way" name="exchange-pattern"/>
-                    <property value="5" name="auxiliary;index"/>
-                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
-                    <property value="5" name="auxiliary;index"/>
-                    <property name="httpLabel"/>
-                    <property value="localhost" name="host"/>
                     <property value="8081" name="port"/>
-                    <property name="path"/>
-                    <property name="method"/>
-                    <property value="5" name="auxiliary;index"/>
-                    <property value="5" name="auxiliary;index"/>
+                    <property value="localhost" name="host"/>
                     <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property value="request-response" name="exchange-pattern"/>
                     <property name="tracking:enable-default-events"/>
-                    <property value="5" name="auxiliary;index"/>
+                    <property name="ref"/>
+                    <property name="httpLabel"/>
+                    <property name="transformer-refs"/>
                     <property name="address"/>
                     <property name="encoding"/>
-                    <property name="disableTransportTransformer"/>
+                    <property value="execute" name="path"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property value="4" name="auxiliary;index"/>
                     <property name="mimeType"/>
                     <property name="responseTimeout"/>
-                    <property name="followRedirects"/>
-                    <property value="5" name="auxiliary;index"/>
-                    <property value="5" name="auxiliary;index"/>
-                    <property value="5" name="auxiliary;index"/>
                     <property name="connector-ref"/>
-                    <property name="ref"/>
-                    <property name="transformer-refs"/>
-                    <property name="responseTransformer-refs"/>
-                    <property value="5" name="auxiliary;index"/>
-                    <property value="5" name="auxiliary;index"/>
-                    <property name="user"/>
-                    <property name="password"/>
-                    <property value="5" name="auxiliary;index"/>
-                    <property name="contentType"/>
-                    <property name="keep-alive"/>
-                    <property value="5" name="auxiliary;index"/>
-                    <property value="5" name="auxiliary;index"/>
-                    <property value="5" name="auxiliary;index"/>
                 </properties>
             </endpoint>
-            <pattern type="http://www.mulesoft.org/schema/mule/jira/jira-connector" name="Create Issue" entity-id="Jira#2">
+            <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Execute Flow" entity-id="Flow Reference#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
                 <properties>
-                    <property value="Jira" name="config-ref"/>
-                    <property value="http://www.mulesoft.org/schema/mule/jira/create-issue" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
-                    <property value="Jira" name="config-ref"/>
-                    <property value="6" name="auxiliary;index"/>
-                    <property name="assignee"/>
-                    <property name="dueDate"/>
-                    <property name="environment"/>
-                    <property value="1" name="priority"/>
-                    <property name="reporter"/>
-                    <property name="votes"/>
-                    <property name="componentId"/>
-                    <property name="componentName"/>
-                    <property value="6" name="auxiliary;index"/>
-                    <property value="test issue creation" name="summary"/>
-                    <property name="description"/>
-                    <property value="${jira.project}" name="project"/>
-                    <property value="1" name="type"/>
-                    <property value="6" name="auxiliary;index"/>
-                    <property value="6" name="auxiliary;index"/>
-                    <property value="6" name="auxiliary;index"/>
-                    <property name=""/>
-                    <property name="connectionUser"/>
-                    <property name="connectionPassword"/>
-                    <property name="connectionAddress"/>
-                    <property value="6" name="auxiliary;index"/>
-                    <property value="6" name="auxiliary;index"/>
-                    <property value="6" name="auxiliary;index"/>
-                    <property value="6" name="auxiliary;index"/>
-                    <property value="6" name="auxiliary;index"/>
-                    <property value="6" name="auxiliary;index"/>
-                    <property value="6" name="auxiliary;index"/>
-                </properties>
-            </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" name="Groovy" entity-id="e396931c-7c4a-4d9e-96a5-e0bbe4041e19">
-                <properties>
-                    <property value="" name="ref"/>
-                    <property value="payload.priority = &quot;3&quot;;&#xA;return payload" name="text"/>
                     <property name="updated"/>
-                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/refInterceptorStackType;1133050397">
-                        <property value="" name="ref"/>
-                    </property-collection>
-                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;1096233430">
-                        <property value="payload.priority = &quot;3&quot;;&#xA;return payload" name="text"/>
-                    </property-collection>
+                    <property value="GetServerInfo" name="name"/>
+                    <property value="5" name="auxiliary;index"/>
                 </properties>
                 <description></description>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="Logger#1">
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="CreateIssue" entity-id="b7650386-37a9-4230-bc9f-fff291ddfbc7">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property value="6" name="auxiliary;index"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#2">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <pattern type="http://www.mulesoft.org/schema/mule/jira/jira-connector" name="Create Issue" entity-id="Jira#2">
+                <graphicalData height="0" width="0" y="0" x="0"/>
                 <properties>
-                    <property value="Issue #[payload.key] created" name="message"/>
-                    <property value="INFO" name="level"/>
-                    <property name="category"/>
-                    <property value="8" name="auxiliary;index"/>
-                    <property value="8" name="auxiliary;index"/>
-                    <property value="8" name="auxiliary;index"/>
+                    <property name=""/>
+                    <property value="Test" name="summary"/>
+                    <property name="connectionPassword"/>
+                    <property value="http://www.mulesoft.org/schema/mule/jira/create-issue" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="votes"/>
+                    <property name="assignee"/>
+                    <property value="1" name="type"/>
+                    <property name="connectionAddress"/>
+                    <property name="componentId"/>
+                    <property name="connectionUser"/>
+                    <property name="reporter"/>
+                    <property value="${jira.project}" name="project"/>
+                    <property name="componentName"/>
+                    <property name="environment"/>
+                    <property name="description"/>
+                    <property value="1" name="priority"/>
+                    <property name="dueDate"/>
+                    <property value="Jira" name="config-ref"/>
+                    <property value="7" name="auxiliary;index"/>
                 </properties>
             </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/json/object-to-json-transformer" name="Object to JSON" entity-id="Object to JSON#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="sourceClass"/>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="mapper-ref"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property name="mimeType"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="UpdateIssue" entity-id="5c991054-f3f9-4c6a-95b1-c3037d9b6ad0">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property value="9" name="auxiliary;index"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#3">
+            <graphicalData height="0" width="0" y="0" x="0"/>
             <pattern type="http://www.mulesoft.org/schema/mule/jira/jira-connector" name="Update Issue" entity-id="Jira#3">
+                <graphicalData height="0" width="0" y="0" x="0"/>
                 <properties>
                     <property value="" name="connectionUser"/>
                     <property value="" name=""/>
                     <property value="" name="connectionPassword"/>
+                    <property name="updated"/>
                     <property value="http://www.mulesoft.org/schema/mule/jira/update-issue" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
-                    <property value="#[payload.key]" name="issueKey"/>
+                    <property value="SANJIRA-82" name="issueKey"/>
                     <property value="" name="connectionAddress"/>
                     <property value="Jira" name="config-ref"/>
-                    <property value="9" name="auxiliary;index"/>
-                    <property name="updated"/>
+                    <property value="10" name="auxiliary;index"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/jira/update-issue-fieldss;1">
-                        <property-collection name="@http://www.mulesoft.org/schema/mule/jira/update-issue-fields;574202344">
-                            <property value="#[payload.priority]" name="value"/>
+                        <property value="11" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/jira/update-issue-fields;1917176271">
+                            <property value="3" name="value"/>
                             <property value="priority" name="key"/>
                         </property-collection>
                     </property-collection>
                 </properties>
                 <description></description>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="Logger#2">
+            <pattern type="http://www.mulesoft.org/schema/mule/json/object-to-json-transformer" name="Object to JSON" entity-id="Object to JSON#2">
+                <graphicalData height="0" width="0" y="0" x="0"/>
                 <properties>
-                    <property value="Issue #[payload.key] updated" name="message"/>
-                    <property value="INFO" name="level"/>
-                    <property name="category"/>
+                    <property name="sourceClass"/>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="mapper-ref"/>
                     <property value="12" name="auxiliary;index"/>
-                    <property value="12" name="auxiliary;index"/>
-                    <property value="12" name="auxiliary;index"/>
-                </properties>
-            </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/jira/jira-connector" name="Delete Issue" entity-id="Jira#4">
-                <properties>
-                    <property value="Jira" name="config-ref"/>
-                    <property value="http://www.mulesoft.org/schema/mule/jira/delete-issue" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
-                    <property value="Jira" name="config-ref"/>
-                    <property value="13" name="auxiliary;index"/>
-                    <property value="#[payload.key]" name="issueKey"/>
-                    <property value="13" name="auxiliary;index"/>
-                    <property value="13" name="auxiliary;index"/>
-                    <property name=""/>
-                    <property name="connectionUser"/>
-                    <property name="connectionPassword"/>
-                    <property name="connectionAddress"/>
-                    <property value="13" name="auxiliary;index"/>
-                    <property value="13" name="auxiliary;index"/>
-                    <property value="13" name="auxiliary;index"/>
-                    <property value="13" name="auxiliary;index"/>
-                    <property value="13" name="auxiliary;index"/>
-                    <property value="13" name="auxiliary;index"/>
-                    <property value="13" name="auxiliary;index"/>
-                </properties>
-            </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="Logger#3">
-                <properties>
-                    <property value="Issue #[payload.key] deleted" name="message"/>
-                    <property value="INFO" name="level"/>
-                    <property name="category"/>
-                    <property value="14" name="auxiliary;index"/>
-                    <property value="14" name="auxiliary;index"/>
-                    <property value="14" name="auxiliary;index"/>
+                    <property name="mimeType"/>
                 </properties>
             </pattern>
         </lane>
     </flow>
-    <description></description>
+    <flow SubFlow="false" name="DeleteIssue" entity-id="5f698ffc-59cd-408b-93e1-8ebeb1ab847d">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property value="13" name="auxiliary;index"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#4">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <pattern type="http://www.mulesoft.org/schema/mule/jira/jira-connector" name="Delete Issue" entity-id="Jira#4">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name=""/>
+                    <property name="connectionUser"/>
+                    <property name="connectionPassword"/>
+                    <property value="http://www.mulesoft.org/schema/mule/jira/delete-issue" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="SANJIRA-82" name="issueKey"/>
+                    <property value="Jira" name="config-ref"/>
+                    <property name="connectionAddress"/>
+                    <property value="14" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/json/object-to-json-transformer" name="Object to JSON" entity-id="Object to JSON#3">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="sourceClass"/>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="mapper-ref"/>
+                    <property value="15" name="auxiliary;index"/>
+                    <property name="mimeType"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="AddComment" entity-id="63b8563e-0580-4319-af80-f8e9c56b5f3d">
+        <properties>
+            <property name="updated"/>
+            <property value="" name="processingStrategy2"/>
+            <property value="" name="bussinessEventsLabel"/>
+            <property value="true" name="auxiliary;erased;processingStrategy2"/>
+            <property value="false" name="tracking:enable-default-events"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/transaction;1010837063"/>
+        </properties>
+        <description></description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="d7403344-d4d0-4b0b-ab58-aca9561188a2">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <pattern type="http://www.mulesoft.org/schema/mule/jira/jira-connector" name="Add Comment" entity-id="df6c0537-4248-4737-b44b-56b392075427">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="" name=""/>
+                    <property value="" name="connectionUser"/>
+                    <property value="" name="connectionPassword"/>
+                    <property value="Testing comments" name="commentBody"/>
+                    <property name="updated"/>
+                    <property value="Andres" name="commentAuthor"/>
+                    <property value="" name="commentRoleLevel"/>
+                    <property value="" name="commentGroupLevel"/>
+                    <property value="http://www.mulesoft.org/schema/mule/jira/add-comment" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="SANJIRA-82" name="issueKey"/>
+                    <property value="Jira" name="config-ref"/>
+                    <property value="" name="connectionAddress"/>
+                </properties>
+                <description></description>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/json/object-to-json-transformer" name="Object to JSON" entity-id="0ca8af91-42a0-46fd-9e30-79e82eed2c0c">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="GetIssue" entity-id="bd223ccf-b62c-41fb-8181-b01ff18df0fe">
+        <properties>
+            <property name="updated"/>
+            <property value="" name="processingStrategy2"/>
+            <property value="" name="bussinessEventsLabel"/>
+            <property value="true" name="auxiliary;erased;processingStrategy2"/>
+            <property value="false" name="tracking:enable-default-events"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/transaction;2144449495"/>
+        </properties>
+        <description></description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="bde7f496-4a94-4dd3-846b-db3aa619ebae">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <pattern type="http://www.mulesoft.org/schema/mule/jira/jira-connector" name="Get Issue" entity-id="45b2dabc-82e3-4be0-b3c5-585375ff6602">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="" name="connectionUser"/>
+                    <property value="" name=""/>
+                    <property value="" name="connectionPassword"/>
+                    <property name="updated"/>
+                    <property value="http://www.mulesoft.org/schema/mule/jira/get-issue" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="SANJIRA-82" name="issueKey"/>
+                    <property value="" name="connectionAddress"/>
+                    <property value="Jira" name="config-ref"/>
+                </properties>
+                <description></description>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/json/object-to-json-transformer" name="Object to JSON" entity-id="25d9088b-170c-49a7-9e08-0ce024e6735a">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="GetServerInfo" entity-id="e5c778b6-a451-4893-9fad-2d5452d8642b">
+        <properties>
+            <property name="updated"/>
+            <property value="" name="processingStrategy2"/>
+            <property value="" name="bussinessEventsLabel"/>
+            <property value="false" name="tracking:enable-default-events"/>
+            <property value="true" name="auxiliary;erased;processingStrategy2"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/transaction;1618083775"/>
+        </properties>
+        <description></description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="2366b7f4-9dd3-4264-89a6-bf726c18d1e8">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <pattern type="http://www.mulesoft.org/schema/mule/jira/jira-connector" name="Get Server Info" entity-id="b7fd3d60-bee1-48e3-9917-8ff88383e2a7">
+                <graphicalData height="67" width="68" y="1034" x="147"/>
+                <properties>
+                    <property value="" name="connectionUser"/>
+                    <property value="" name=""/>
+                    <property value="" name="connectionPassword"/>
+                    <property name="updated"/>
+                    <property value="http://www.mulesoft.org/schema/mule/jira/get-server-info" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="" name="connectionAddress"/>
+                    <property value="Jira" name="config-ref"/>
+                </properties>
+                <description></description>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/json/object-to-json-transformer" name="Object to JSON" entity-id="4671cf35-0866-436a-abef-1eaa6dda2ed0">
+                <graphicalData height="67" width="93" y="1034" x="275"/>
+            </pattern>
+        </lane>
+    </flow>
 </mule-configuration>
