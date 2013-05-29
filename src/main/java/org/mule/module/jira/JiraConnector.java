@@ -16,6 +16,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import com.atlassian.jira.rpc.soap.beans.*;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.mule.api.ConnectionException;
 import org.mule.api.annotations.*;
@@ -89,6 +90,25 @@ public class JiraConnector {
             }
         }
         return multivaluedFields;
+    }
+
+    /**
+     * If configured using useCustomFieldsExternalName, tries to map custom fields by name to its id
+     * If the mapping is not found, it's left as-is (and expected to fail while trying to set the value in Jira)
+     * @param issue that will get its custom fields mapped
+     */
+    private void mapCustomFieldsFromNamesToIds(RemoteIssue issue) {
+        if (issue.getCustomFieldValues() != null && useCustomFieldsExternalName) {
+            Map<String, String> customFields = getCustomFieldsNamesToIdsMapping();
+            for (RemoteCustomFieldValue field: issue.getCustomFieldValues()) {
+                if (!field.getCustomfieldId().startsWith("customfield_")) {
+                    if (customFields.containsKey(field.getCustomfieldId())) {
+                        field.setCustomfieldId(customFields.get(field.getCustomfieldId()));
+                    }
+                }
+            }
+        }
+        
     }
     
     /**
@@ -332,6 +352,7 @@ public class JiraConnector {
     @Processor(name="create-issue-using-object")
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue createIssueUsingObject(@Optional @Default("#[payload]") RemoteIssue issue) {
+        mapCustomFieldsFromNamesToIds(issue);
         return client.createIssue(token, issue);
     }
 
