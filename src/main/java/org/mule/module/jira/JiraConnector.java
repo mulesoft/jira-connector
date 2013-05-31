@@ -1864,8 +1864,6 @@ public class JiraConnector {
     @Override
     @ConnectionIdentifier
     public String toString() {
-        return "username='" + connectionUser + '\'' +
-                ", address='" + connectionAddress + '\'' +
-                '}';
+        return "{username='" + connectionUser + "\', address='" + connectionAddress + "\'}";
     }
 }
