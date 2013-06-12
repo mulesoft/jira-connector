@@ -288,6 +288,12 @@
                                            securityShemeName="someSecuritySchemeName" url="someUrl"/> 
 <!-- END_INCLUDE(jira:create-project) -->
 
+ <!-- BEGIN_INCLUDE(jira:create-project-using-object) -->
+<jira:create-project-using-object>
+<jira:project ref="#[payload]"/>
+</jira:create-project-using-object>
+<!-- END_INCLUDE(jira:create-project-using-object) -->
+
 <!-- BEGIN_INCLUDE(jira:get-available-actions) -->
 <jira:get-available-actions issueKey="someIssueKey"/>
 <!-- END_INCLUDE(jira:get-available-actions) -->

@@ -879,6 +879,15 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         }
     }
 
+
+    public RemoteProject createProject(String token, RemoteProject project) {
+        try {
+            return getService().createProjectFromObject(token, project);
+        } catch (RemoteException e) {
+            throw new JiraConnectorException(e);
+        }
+    }
+
     public RemoteProject updateProject(String token, String key, String description, String url, String lead,
                                        String permissionSchemeName, String notificationSchemeName, String securityShemeName) {
         RemoteProject project = getProjectByKey(token, key);

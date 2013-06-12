@@ -525,6 +525,20 @@ public class JiraConnector {
     }
 
     /**
+     * Creates a new project.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-project-using-object}
+     *
+     * @param project JIRA issue to be created
+     * @return the new created project
+     */
+    @Processor(name="create-project-using-object")
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
+    public RemoteProject createProjectUsingObject(@Optional @Default("#[payload]") RemoteProject project) {
+        return client.createProject(token, project);
+    }
+
+    /**
      * Updates the project denoted by the given key.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-project}

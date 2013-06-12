@@ -264,6 +264,8 @@ public interface JiraClient<CollectionType>
                                 String notificationSchemeName,
                                 String securityShemeName);
 
+    RemoteProject createProject(String token, RemoteProject project);
+
     RemoteProject updateProject(String token,
                                 String key,
                                 String description,
