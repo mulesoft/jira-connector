@@ -3,6 +3,7 @@ com.atlassian.jira.rpc.soap.beans
 com.atlassian.jira.rpc.soap.beans.holders
 com.atlassian.jira.rpc.soap.beans.transformers
 com.atlassian.jira.rpc.soap.jirasoapservice_v2
+com.atlassian.jira.rpc.soap.service
 org.mule.module.jira
 org.mule.module.jira.adapter
 org.mule.module.jira.adapters
