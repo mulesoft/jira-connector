@@ -345,6 +345,11 @@
 <!-- END_INCLUDE(jira:create-issue-using-object) -->
 
 
+<!-- BEGIN_INCLUDE(jira:create-issue-with-parent) -->
+        <jira:create-issue-with-parent parentIssueKey="someIssueKey" />
+<!-- END_INCLUDE(jira:create-issue-with-parent) -->
+
+
 <!-- BEGIN_INCLUDE(jira:update-worklog-with-new-remaining-estimate) -->
 <jira:update-worklog-with-new-remaining-estimate issueKey="someIssueKey" worklogId="someWorklogId"
                                                          newRemainingEstimate="1d" comment="someComment"

@@ -11,7 +11,7 @@
     <artifactId>mule-module-jira</artifactId>
     <packaging>mule-module</packaging>
     <name>Mule Jira Connector</name>
-    <version>3.0.2-SNAPSHOT</version>
+    <version>3.0.3-SNAPSHOT</version>
     <url>http://www.muleforge.org/projects/mule-module-jira</url>
 
     <properties>
@@ -20,6 +20,32 @@
         <sonar.exclusions>com/atlassian/jira/rpc/**</sonar.exclusions>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>axistools-maven-plugin</artifactId>
+                <version>1.4</version>
+                <configuration>
+                    <allElements>true</allElements>
+                    <wsdlFiles>
+                        <wsdlFiles>jirasoapservice-v2.wsdl</wsdlFiles>
+                    </wsdlFiles>
+                    <outputDirectory>${project.build.directory}/generated-sources/axis</outputDirectory>
+                    <sourceDirectory>${project.basedir}/src/main/resources</sourceDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>

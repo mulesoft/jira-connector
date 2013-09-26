@@ -12,11 +12,7 @@
 
 package org.mule.module.jira;
 
-import java.util.*;
-import java.util.Map.Entry;
-
 import com.atlassian.jira.rpc.soap.beans.*;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.mule.api.ConnectionException;
 import org.mule.api.annotations.*;
@@ -26,6 +22,9 @@ import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.module.jira.api.JiraClient;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * JIRA is a proprietary issue tracking product, developed by Atlassian, commonly used for bug tracking, issue
@@ -354,6 +353,22 @@ public class JiraConnector {
     public RemoteIssue createIssueUsingObject(@Optional @Default("#[payload]") RemoteIssue issue) {
         mapCustomFieldsFromNamesToIds(issue);
         return client.createIssue(token, issue);
+    }
+
+    /**
+     * Creates a sub-task.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue-with-parent}
+     *
+     * @param issue JIRA issue to be created
+     * @param parentIssueKey JIRA issue to be created
+     * @return the new created issue
+     */
+    @Processor(name="create-issue-with-parent")
+    @InvalidateConnectionOn(exception = JiraConnectorException.class)
+    public RemoteIssue createIssueWithParent(@Optional @Default("#[payload]") RemoteIssue issue, String parentIssueKey) {
+        mapCustomFieldsFromNamesToIds(issue);
+        return client.createIssueWithParent(token, issue, parentIssueKey);
     }
 
     /**

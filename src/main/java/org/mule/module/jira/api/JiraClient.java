@@ -77,6 +77,8 @@ public interface JiraClient<CollectionType>
 
     RemoteIssue createIssue(String token, RemoteIssue issue);
 
+    RemoteIssue createIssueWithParent(String token, RemoteIssue issue, String parentIssueKey);
+
     RemoteIssue createIssueWithSecurityLevel(String token,
                                              String asignee,
                                              String summary,
