@@ -2735,7 +2735,7 @@ Summary:
             <a href="../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteProject.html">RemoteProject</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/jira/JiraConnector.html#updateProject(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">updateProject</a></span>(String key, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/jira/JiraConnector.html#updateProject(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">updateProject</a></span>(String key, String projectName, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName)</nobr>
         
         <div class="jd-descrdiv">Updates the project denoted by the given key.</div>
   
@@ -8810,7 +8810,7 @@ From class
 </div>
 
 
-<A NAME="updateProject(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"></A>
+<A NAME="updateProject(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -8823,7 +8823,7 @@ From class
         <a href="../../../../../java/com/atlassian/jira/rpc/soap/beans/RemoteProject.html">RemoteProject</a>
       </span>
       <span class="sympad">updateProject</span>
-      <span class="normal">(String key, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName)</span>
+      <span class="normal">(String key, String projectName, String description, String url, String lead, String permissionSchemeName, String notificationSchemeName, String securityShemeName)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -8844,6 +8844,10 @@ From class
         <tr>
           <th>key</td>
           <td>The key of the project to update</td>
+        </tr>
+        <tr>
+          <th>projectName</td>
+          <td>The new project name</td>
         </tr>
         <tr>
           <th>description</td>
