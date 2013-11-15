@@ -35,6 +35,7 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
     private static final String EMAIL = "some email";
     private static final String ISSUE_KEY = "someIssueKey";
     private static final String PROJECT_KEY = "someProjectKey";
+    private static final String PROJECT_NAME = "someProjectName";
     private static final String SOME_URL = "someUrl";
     private static final String PERMISSION_SCHEME_NAME = "somePermissionSchemeName";
     private static final String NOTIFICATION_SCHEME_NAME = "someNotificationSchemeName";
@@ -181,8 +182,8 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
 
     public void testUpdateProject() throws Exception {
         lookupFlowConstruct("updateProject").process(getTestEvent(""));
-        Mockito.verify(mockJiraClient).updateProject(TOKEN, PROJECT_KEY, "someProjectDescription", SOME_URL, USER_NAME,
-                PERMISSION_SCHEME_NAME, NOTIFICATION_SCHEME_NAME, SECURITY_SCHEME_NAME);
+        Mockito.verify(mockJiraClient).updateProject(TOKEN, PROJECT_KEY, PROJECT_NAME, "someProjectDescription",
+                SOME_URL, USER_NAME, PERMISSION_SCHEME_NAME, NOTIFICATION_SCHEME_NAME, SECURITY_SCHEME_NAME);
     }
 
     public void testGetProjectByKey() throws Exception {

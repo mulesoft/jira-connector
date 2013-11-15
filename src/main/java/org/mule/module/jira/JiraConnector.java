@@ -559,6 +559,7 @@ public class JiraConnector {
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-project}
      *
      * @param key                    the key of the project to update
+     * @param projectName            the new project name
      * @param description            the new description
      * @param url                    the new url
      * @param lead                   the new lead
@@ -570,13 +571,14 @@ public class JiraConnector {
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProject updateProject(String key,
+                                       @Optional String projectName,
                                        String description,
                                        @Optional String url,
                                        String lead,
                                        @Optional String permissionSchemeName,
                                        @Optional String notificationSchemeName,
                                        @Optional String securityShemeName) {
-        return client.updateProject(token, key, description, url, lead, permissionSchemeName, notificationSchemeName, securityShemeName);
+        return client.updateProject(token, key, projectName, description, url, lead, permissionSchemeName, notificationSchemeName, securityShemeName);
     }
 
     /**

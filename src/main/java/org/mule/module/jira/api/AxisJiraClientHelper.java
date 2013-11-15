@@ -202,6 +202,12 @@ public class AxisJiraClientHelper {
         }
     }
 
+    protected void updateName(RemoteProject project, String name) {
+        if (name != null) {
+            project.setName(name);
+        }
+    }
+
     protected void updateDescription(RemoteProject project, String description) {
         if (description != null) {
             project.setDescription(description);
