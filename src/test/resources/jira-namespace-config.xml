@@ -76,7 +76,7 @@
     </flow>
 
     <flow name="getUser">
-        <jira:get-user username="someUserName"/>
+        <jira:get-user userName="someUserName"/>
     </flow>
 
     <flow name="updateGroup">
@@ -96,7 +96,7 @@
     </flow>
 
     <flow name="getIssue">
-        <jira:get-issue issueKey="someIssueKey"/>
+        <jira:get-remote-issue issueKey="someIssueKey"/>
     </flow>
 
     <flow name="createIssue">

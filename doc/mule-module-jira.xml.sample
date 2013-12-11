@@ -402,9 +402,9 @@
                                      base64ImageData="someBase64ImageData"/>
 <!-- END_INCLUDE(jira:set-new-project-avatar) -->
 
-<!-- BEGIN_INCLUDE(jira:get-user) -->
-<jira:get-user username="someUserName"/>
-<!-- END_INCLUDE(jira:get-user) -->
+<!-- BEGIN_INCLUDE(jira:get-remote-user) -->
+<jira:get-remote-user username="someUserName"/>
+<!-- END_INCLUDE(jira:get-remote-user) -->
 
 <!-- BEGIN_INCLUDE(jira:update-group) -->
 <jira:update-group groupName="someGroupName">
@@ -463,9 +463,9 @@
 <jira:get-statuses/>
 <!-- END_INCLUDE(jira:get-statuses) -->
 
-<!-- BEGIN_INCLUDE(jira:get-issue) -->
-<jira:get-issue issueKey="someIssueKey"/> 
-<!-- END_INCLUDE(jira:get-issue) -->
+<!-- BEGIN_INCLUDE(jira:get-remote-issue) -->
+<jira:get-remote-issue issueKey="someIssueKey"/>
+<!-- END_INCLUDE(jira:get-remote-issue) -->
 
 <!-- BEGIN_INCLUDE(jira:add-permission-to) -->
 <jira:add-permission-to permissionSchemeName="somePermissionSchemeName" permissionCode="123"
@@ -531,3 +531,30 @@
                                                      groupLevel="someGroupLevel"
                                                      roleLevelId="someRoleLevelId" />
 <!-- END_INCLUDE(jira:add-worklog-and-retain-remaining-estimate) -->
+<!-- BEGIN_INCLUDE(jira:get-issue) -->
+    <jira:get-issue issueKey="TEST-1" />
+<!-- END_INCLUDE(jira:get-issue) -->
+<!-- BEGIN_INCLUDE(jira:get-project) -->
+    <jira:get-project projectKey="TEST" />
+<!-- END_INCLUDE(jira:get-project) -->
+<!-- BEGIN_INCLUDE(jira:get-user) -->
+    <jira:get-user userName="some.user" />
+<!-- END_INCLUDE(jira:get-user) -->
+<!-- BEGIN_INCLUDE(jira:create-component) -->
+    <jira:create-component projectKey="TEST" component-ref="#[new ComponentInput(name='Some Name', description='Some Description')]"/>
+<!-- END_INCLUDE(jira:create-component) -->
+<!-- BEGIN_INCLUDE(jira:update-component) -->
+    <jira:update-component uri="http://jira.com/component_uri" component-ref="#[new ComponentInput(name='Some Name', description='Updated Description')]"/>
+<!-- END_INCLUDE(jira:update-component) -->
+<!-- BEGIN_INCLUDE(jira:create-version) -->
+    <jira:create-version version-ref="#[new VersionInput(projectKey='TEST' name='Some Name', description='Some Description')]"/>
+<!-- END_INCLUDE(jira:create-version) -->
+<!-- BEGIN_INCLUDE(jira:update-version) -->
+    <jira:update-version uri="http://jira.com/version_uri" version-ref="#[new VersionInput(name='Some Name', description='Updated Description')]"/>
+<!-- END_INCLUDE(jira:update-version) -->
+<!-- BEGIN_INCLUDE(jira:add-effort) -->
+    <jira:add-effort issue-ref="#[new Issue()]" authorUri="http://jira.com/author_uri" date-ref="#[new DateTime()]" minutes="30" comment="Something to comment"/>
+<!-- END_INCLUDE(jira:add-effort) -->
+<!-- BEGIN_INCLUDE(jira:upload-attachment) -->
+    <jira:upload-attachment issue-ref="#[new Issue()]" in-ref="#[IOUtils.toInputStream('Hello World!')]" filename="attachment.txt"/>
+<!-- END_INCLUDE(jira:upload-attachment) -->

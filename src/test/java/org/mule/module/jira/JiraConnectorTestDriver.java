@@ -8,17 +8,15 @@
 
 package org.mule.module.jira;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.api.ConnectionException;
 import org.mule.module.jira.api.AxisJiraClient;
 import org.mule.module.jira.api.DefaultAxisPortProvider;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Test driver for {@link JiraConnector}
@@ -37,7 +35,7 @@ public class JiraConnectorTestDriver
     {
         this.connector = new JiraConnector();
         connector.setClient(new AxisJiraClient(new DefaultAxisPortProvider(endpoint)));
-        connector.connect(username, password, endpoint);
+        connector.connect(username, password, endpoint, null);
     }
 
     @Test(expected = JiraConnectorException.class)

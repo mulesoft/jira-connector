@@ -12,9 +12,18 @@
 
 package org.mule.module.jira;
 
+import com.atlassian.jira.rest.client.api.JiraRestClient;
+import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
+import com.atlassian.jira.rest.client.api.domain.*;
+import com.atlassian.jira.rest.client.api.domain.input.ComponentInput;
+import com.atlassian.jira.rest.client.api.domain.input.VersionInput;
+import com.atlassian.jira.rest.client.api.domain.input.WorklogInput;
+import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.jira.rpc.soap.beans.*;
 import org.apache.commons.collections.CollectionUtils;
+import org.joda.time.DateTime;
 import org.mule.api.ConnectionException;
+import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.*;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
@@ -22,7 +31,14 @@ import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.module.jira.api.JiraClient;
+import org.mule.module.jira.api.rest.JiraClientAuthenticationException;
+import org.mule.module.jira.api.rest.JiraRestClientCallWrapper;
+import org.mule.module.jira.api.rest.JiraRestClientInvocation;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -39,6 +55,9 @@ public class JiraConnector {
     private String token;
     private String connectionUser;
     private String connectionAddress;
+    private String jiraRestUrl;
+    private JiraRestClient restClient;
+
     /**
      * if external custom fields names (instead of internal ids) are used when modifying custom fields, the provided
      * user must be a Jira administrator in order to be able to use this feature
@@ -231,16 +250,17 @@ public class JiraConnector {
     }
 
     /**
-     * Returns information about a user defined to JIRA.
+     * Returns information about a user defined to JIRA. Deprecated by getUser(), which uses the REST API
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-user}
      *
      * @param username the user name to look up
      * @return a RemoteUser or null if it cant be found
      */
+    @Deprecated
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteUser getUser(String username) {
+    public RemoteUser getRemoteUser(String username) {
         return client.getUser(token, username);
     }
 
@@ -288,16 +308,17 @@ public class JiraConnector {
     }
 
     /**
-     * Finds an issue by key.
+     * Finds an issue by key. This operation is deprecated, instead use @{link getIssue()}
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue}
      *
      * @param issueKey the key of the issue to find.
      * @return the issue matching the given key.
      */
+    @Deprecated
     @Processor
     @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteIssue getIssue(String issueKey) {
+    public RemoteIssue getRemoteIssue(String issueKey) {
         return client.getIssue(token, issueKey);
     }
 
@@ -1821,6 +1842,195 @@ public class JiraConnector {
         return client.getSecuritySchemes(token);
     }
 
+    /**
+     * Get an issue given its key
+     *
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue}
+     *
+     * @param issueKey The key of the issue to get
+     * @return the requested Issue
+     */
+    @Processor
+    @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
+    public Issue getIssue(final String issueKey) {
+        return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Issue>() {
+            @Override
+            public Issue invoke() {
+                return getRestClient().getIssueClient().getIssue(issueKey).claim();
+            }
+        });
+    }
+
+    /**
+     * Get a project given its key
+     *
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project}
+     *
+     * @param projectKey The key of the project to get
+     * @return the requested Project
+     */
+    @Processor
+    @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
+    public Project getProject(final String projectKey) {
+        return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Project>() {
+            @Override
+            public Project invoke() {
+                return getRestClient().getProjectClient().getProject(projectKey).claim();
+            }
+        });
+    }
+
+    /**
+     * Get a user given its username
+     *
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-user}
+     *
+     * @param userName of the user to get
+     * @return the requested User
+     */
+    @Processor
+    @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
+    public BasicUser getUser(final String userName) {
+        return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<BasicUser>() {
+            @Override
+            public BasicUser invoke() {
+                return getRestClient().getUserClient().getUser(userName).claim();
+            }
+        });
+    }
+
+    /**
+     * Create a component
+     *
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-component}
+     *
+     * @param projectKey of the project for which the Component should be created
+     * @param component to create
+     * @return the created Component
+     */
+    @Processor
+    @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
+    public Component createComponent(final String projectKey, @Optional @Default("#[payload]") final ComponentInput component) {
+        return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Component>() {
+            @Override
+            public Component invoke() {
+                return getRestClient().getComponentClient().createComponent(projectKey, component).claim();
+            }
+        });
+    }
+
+    /**
+     * Update a component
+     *
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-component}
+     *
+     * @param uri of the Component to update
+     * @param component with the updates to be applied
+     * @return the updated Component
+     * @throws java.net.URISyntaxException when the URI is not well formed
+     */
+    @Processor
+    @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
+    public Component updateComponent(final String uri, @Optional @Default("#[payload]") final ComponentInput component) throws URISyntaxException {
+        final URI actualUri = new URI(uri);
+        return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Component>() {
+            @Override
+            public Component invoke() {
+                return getRestClient().getComponentClient().updateComponent(actualUri, component).claim();
+            }
+        });
+    }
+
+    /**
+     * Create a version
+     *
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-version}
+     *
+     * @param version to create
+     * @return the created Version
+     */
+    @Processor
+    @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
+    public Version createVersion(@Optional @Default("#[payload]") final VersionInput version) {
+        return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Version>() {
+            @Override
+            public Version invoke() {
+                return getRestClient().getVersionRestClient().createVersion(version).claim();
+            }
+        });
+    }
+
+    /**
+     * Update a version
+     *
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-version}
+     *
+     * @param uri of the Version to update
+     * @param version with the updates to be applied
+     * @return the updated Version
+     * @throws java.net.URISyntaxException when the URI is not well formed
+     */
+    @Processor
+    @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
+    public Version updateVersion(final String uri, @Optional @Default("#[payload]") final VersionInput version) throws URISyntaxException {
+        final URI actualUri = new URI(uri);
+        return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Version>() {
+            @Override
+            public Version invoke() {
+                return getRestClient().getVersionRestClient().updateVersion(actualUri, version).claim();
+            }
+        });
+    }
+
+    /**
+     * Add an effort to an issue's worklog
+     *
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-effort}
+     *
+     * @param issue in which to add the effort
+     * @param authorUri uri of the author of the effort
+     * @param date in which the effort should be created
+     * @param minutes spent
+     * @param comment to add to the effort
+     * @return nothing
+     * @throws java.net.URISyntaxException when the URI is not well formed
+     */
+    @Processor
+    @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
+    public Void addEffort(@Optional @Default("#[payload]") final Issue issue, final String authorUri, final DateTime date, final int minutes, final @Optional String comment) throws URISyntaxException {
+        final URI actualAuthorUri = new URI(authorUri);
+        return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Void>() {
+            @Override
+            public Void invoke() {
+                final BasicUser author = new BasicUser(actualAuthorUri, null, null);
+                final WorklogInput worklog = new WorklogInput(null, issue.getSelf(), author, author, comment, date, minutes, null, WorklogInput.AdjustEstimate.AUTO, null);
+                return getRestClient().getIssueClient().addWorklog(issue.getWorklogUri(), worklog).claim();
+            }
+        });
+    }
+
+    /**
+     * Upload an attachment to the issue
+     *
+     * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:upload-attachment}
+     *
+     * @param issue in which to upload the attachment to
+     * @param in InputStream of the file's content
+     * @param filename of the attachment
+     * @return nothing
+     */
+    @Processor
+    @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
+    public Void uploadAttachment(@Optional @Default("#[payload]") final Issue issue, final InputStream in, final String filename) {
+        return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Void>() {
+            @Override
+            public Void invoke() {
+                return getRestClient().getIssueClient().addAttachment(issue.getAttachmentsUri(), in, filename).claim();
+            }
+        });
+    }
+
+
     public void setClient(JiraClient<?> client) {
         this.client = JiraClientAdaptor.adapt(client);
     }
@@ -1851,30 +2061,49 @@ public class JiraConnector {
 
     /**
      * Creates a connection to Jira by making a login call with the given credentials to the specified address.
-     * The login call, if successfull, returns a token which will be used in the subsequent calls to Jira.
+     * The login call, if successfull, returns a token which will be used in the subsequent calls to Jira. It'll also
+     * create a REST client using the given credentials
      *
      * @param connectionUser     the user login user
      * @param connectionPassword the user login pass
      * @param connectionAddress  the JIRA Server Soap address. It usually looks like https://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2 or http://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2
+     * @param restJiraUrl the JIRA REST API URI
      */
     @Connect
-    public void connect(@ConnectionKey String connectionUser, @Password String connectionPassword, String connectionAddress) throws ConnectionException {
+    public void connect(@ConnectionKey String connectionUser, @Password String connectionPassword, String connectionAddress,
+                        @Optional String restJiraUrl) throws ConnectionException {
         this.connectionUser = connectionUser;
         this.connectionAddress = connectionAddress;
         setClient(JiraClientFactory.getClient(connectionAddress));
         token = login(connectionUser, connectionPassword);
+
+        if(restJiraUrl != null) {
+            final JiraRestClientFactory factory = new AsynchronousJiraRestClientFactory();
+            try {
+                final URI jiraServerUri = new URI(restJiraUrl);
+                setRestClient(factory.createWithBasicHttpAuthentication(jiraServerUri, connectionUser, connectionPassword));
+                setJiraRestUrl(restJiraUrl);
+            } catch (URISyntaxException e) {
+                throw new ConnectionException(ConnectionExceptionCode.UNKNOWN_HOST, "", restJiraUrl + " doesn't seem to be a valid URL");
+            }
+        }
     }
 
     /**
      * Performs a logout call to Jira.
      */
     @Disconnect
-    public void disconnect() {
+    public void disconnect() throws IOException {
         if (token != null) {
             String oldToken = token;
             token = null;
             logout(oldToken);
             client = null;
+        }
+
+        if (getRestClient() != null) {
+            getRestClient().close();
+            setRestClient(null);
         }
     }
 
@@ -1884,6 +2113,10 @@ public class JiraConnector {
      */
     @ValidateConnection
     public boolean validateConnection() {
+        if (getJiraRestUrl() != null) {
+            return token != null && getRestClient() != null;
+        }
+
         return token != null;
     }
 
@@ -1894,5 +2127,29 @@ public class JiraConnector {
     @ConnectionIdentifier
     public String toString() {
         return "{username='" + connectionUser + "\', address='" + connectionAddress + "\'}";
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getJiraRestUrl() {
+        return jiraRestUrl;
+    }
+
+    public void setJiraRestUrl(String jiraRestUrl) {
+        this.jiraRestUrl = jiraRestUrl;
+    }
+
+    public JiraRestClient getRestClient() {
+        return restClient;
+    }
+
+    public void setRestClient(JiraRestClient restClient) {
+        this.restClient = restClient;
     }
 }
