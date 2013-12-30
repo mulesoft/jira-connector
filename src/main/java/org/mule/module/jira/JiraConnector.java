@@ -1850,7 +1850,7 @@ public class JiraConnector {
      * @param issueKey The key of the issue to get
      * @return the requested Issue
      */
-    @Processor
+    @Processor(friendlyName = "Get Issue - REST API ONLY")
     @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
     public Issue getIssue(final String issueKey) {
         return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Issue>() {
@@ -1869,7 +1869,7 @@ public class JiraConnector {
      * @param projectKey The key of the project to get
      * @return the requested Project
      */
-    @Processor
+    @Processor(friendlyName = "Get Project - REST API ONLY")
     @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
     public Project getProject(final String projectKey) {
         return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Project>() {
@@ -1888,7 +1888,7 @@ public class JiraConnector {
      * @param userName of the user to get
      * @return the requested User
      */
-    @Processor
+    @Processor(friendlyName = "Get User - REST API ONLY")
     @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
     public BasicUser getUser(final String userName) {
         return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<BasicUser>() {
@@ -1908,7 +1908,7 @@ public class JiraConnector {
      * @param component to create
      * @return the created Component
      */
-    @Processor
+    @Processor(friendlyName = "Create Component - REST API ONLY")
     @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
     public Component createComponent(final String projectKey, @Optional @Default("#[payload]") final ComponentInput component) {
         return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Component>() {
@@ -1929,7 +1929,7 @@ public class JiraConnector {
      * @return the updated Component
      * @throws java.net.URISyntaxException when the URI is not well formed
      */
-    @Processor
+    @Processor(friendlyName = "Update Component - REST API ONLY")
     @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
     public Component updateComponent(final String uri, @Optional @Default("#[payload]") final ComponentInput component) throws URISyntaxException {
         final URI actualUri = new URI(uri);
@@ -1949,7 +1949,7 @@ public class JiraConnector {
      * @param version to create
      * @return the created Version
      */
-    @Processor
+    @Processor(friendlyName = "Create Version - REST API ONLY")
     @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
     public Version createVersion(@Optional @Default("#[payload]") final VersionInput version) {
         return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Version>() {
@@ -1970,7 +1970,7 @@ public class JiraConnector {
      * @return the updated Version
      * @throws java.net.URISyntaxException when the URI is not well formed
      */
-    @Processor
+    @Processor(friendlyName = "Update Component - REST API ONLY")
     @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
     public Version updateVersion(final String uri, @Optional @Default("#[payload]") final VersionInput version) throws URISyntaxException {
         final URI actualUri = new URI(uri);
@@ -1995,7 +1995,7 @@ public class JiraConnector {
      * @return nothing
      * @throws java.net.URISyntaxException when the URI is not well formed
      */
-    @Processor
+    @Processor(friendlyName = "Add Effort - REST API ONLY")
     @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
     public Void addEffort(@Optional @Default("#[payload]") final Issue issue, final String authorUri, final DateTime date, final int minutes, final @Optional String comment) throws URISyntaxException {
         final URI actualAuthorUri = new URI(authorUri);
@@ -2019,7 +2019,7 @@ public class JiraConnector {
      * @param filename of the attachment
      * @return nothing
      */
-    @Processor
+    @Processor(friendlyName = "Upload Attachment - REST API ONLY")
     @InvalidateConnectionOn(exception=JiraClientAuthenticationException.class)
     public Void uploadAttachment(@Optional @Default("#[payload]") final Issue issue, final InputStream in, final String filename) {
         return JiraRestClientCallWrapper.wrap(new JiraRestClientInvocation<Void>() {
