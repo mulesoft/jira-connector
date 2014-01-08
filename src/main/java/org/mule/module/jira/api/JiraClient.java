@@ -270,6 +270,7 @@ public interface JiraClient<CollectionType>
 
     RemoteProject updateProject(String token,
                                 String key,
+                                String name,
                                 String description,
                                 String url,
                                 String lead,

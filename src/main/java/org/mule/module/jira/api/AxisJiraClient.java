@@ -896,9 +896,10 @@ public class AxisJiraClient implements JiraClient<Object[]> {
         }
     }
 
-    public RemoteProject updateProject(String token, String key, String description, String url, String lead,
+    public RemoteProject updateProject(String token, String key, String name, String description, String url, String lead,
                                        String permissionSchemeName, String notificationSchemeName, String securityShemeName) {
         RemoteProject project = getProjectByKey(token, key);
+        helper.updateName(project, name);
         helper.updateDescription(project, description);
         helper.updateUrl(project, url);
         helper.updateLead(project, lead);

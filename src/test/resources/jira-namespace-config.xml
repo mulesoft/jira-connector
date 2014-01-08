@@ -153,7 +153,8 @@
     </flow>
 
     <flow name="updateProject">
-        <jira:update-project key="someProjectKey" description="someProjectDescription" lead="someUserName"
+        <jira:update-project key="someProjectKey" projectName="someProjectName"
+                             description="someProjectDescription" lead="someUserName"
                              permissionSchemeName="somePermissionSchemeName"
                              notificationSchemeName="someNotificationSchemeName"
                              securityShemeName="someSecuritySchemeName" url="someUrl"/>
