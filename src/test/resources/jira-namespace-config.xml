@@ -75,8 +75,8 @@
         <jira:get-components projectKey="someProjectKey"/>
     </flow>
 
-    <flow name="getUser">
-        <jira:get-user userName="someUserName"/>
+    <flow name="getRemoteUser">
+        <jira:get-remote-user username="someUserName"/>
     </flow>
 
     <flow name="updateGroup">

@@ -114,8 +114,8 @@ public class JiraNamespaceHandlerTestCase extends FunctionalTestCase {
         Mockito.verify(mockJiraClient).getComponents(TOKEN, PROJECT_KEY);
     }
 
-    public void testGetUser() throws Exception {
-        lookupFlowConstruct("getUser").process(getTestEvent(""));
+    public void testGetRemoteUser() throws Exception {
+        lookupFlowConstruct("getRemoteUser").process(getTestEvent(""));
         Mockito.verify(mockJiraClient).getUser(TOKEN, USER_NAME);
     }
 
