@@ -1,0 +1,560 @@
+<!-- BEGIN_INCLUDE(jira:get-comment) -->
+<jira:get-comment commentId="123"/>
+<!-- END_INCLUDE(jira:get-comment) -->
+
+<!-- BEGIN_INCLUDE(jira:create-group) -->
+<jira:create-group groupName="someGroupName" userName="someUserName"/>
+<!-- END_INCLUDE(jira:create-group) -->
+
+<!-- BEGIN_INCLUDE(jira:get-group) -->
+<jira:get-group groupName="someGroupName"/>
+<!-- END_INCLUDE(jira:get-group) -->
+
+<!-- BEGIN_INCLUDE(jira:get-configuration) -->
+<jira:get-configuration/>
+<!-- END_INCLUDE(jira:get-configuration) -->
+
+<!-- BEGIN_INCLUDE(jira:get-server-info) -->
+<jira:get-server-info/>
+<!-- END_INCLUDE(jira:get-server-info) -->
+
+<!-- BEGIN_INCLUDE(jira:create-user) -->
+<jira:create-user username="someUserName" password="somePassword" fullName="some full name" email="some email"/>
+<!-- END_INCLUDE(jira:create-user) -->
+
+<!-- BEGIN_INCLUDE(jira:get-components) -->
+<jira:get-components projectKey="someProjectKey"/>
+<!-- END_INCLUDE(jira:get-components) -->
+
+<!-- BEGIN_INCLUDE(jira:add-comment) -->
+<jira:add-comment issueKey="someIssueKey" commentAuthor="someUserName" commentBody="someComment"/>
+<!-- END_INCLUDE(jira:add-comment) -->
+
+<!-- BEGIN_INCLUDE(jira:add-user-to-group) -->
+<jira:add-user-to-group groupName="someGroupName" userName="someUserName"/>
+<!-- END_INCLUDE(jira:add-user-to-group) -->
+
+<!-- BEGIN_INCLUDE(jira:remove-user-from-group) -->
+<jira:remove-user-from-group groupName="someGroupName" userName="someUserName"/>
+<!-- END_INCLUDE(jira:remove-user-from-group) -->
+
+<!-- BEGIN_INCLUDE(jira:get-resolutions) -->
+<jira:get-resolutions/>
+<!-- END_INCLUDE(jira:get-resolutions) -->
+
+
+ <!-- BEGIN_INCLUDE(jira:delete-group) -->
+<jira:delete-group groupName="someGroupName" swapGroupName="someSwapGroupName"/>
+<!-- END_INCLUDE(jira:delete-group) -->
+
+<!-- BEGIN_INCLUDE(jira:get-issues-from-text-search-with-project) -->
+<jira:get-issues-from-text-search-with-project searchTerms="someSearchTerms" maxNumResults="10">
+                         <jira:project-keys>
+                             <jira:project-key>projectKey1</jira:project-key>
+                             <jira:project-key>projectKey2</jira:project-key>
+                         </jira:project-keys>
+                      </jira:get-issues-from-text-search-with-project>
+<!-- END_INCLUDE(jira:get-issues-from-text-search-with-project) -->
+
+<!-- BEGIN_INCLUDE(jira:delete-user) -->
+<jira:delete-user username="someUserName"/>
+<!-- END_INCLUDE(jira:delete-user) -->
+
+<!-- BEGIN_INCLUDE(jira:get-issues-from-filter-with-limit) -->
+<jira:get-issues-from-filter-with-limit filterId="someFilterId" offset="12" maxNumResults="10"/>
+<!-- END_INCLUDE(jira:get-issues-from-filter-with-limit) -->
+
+<!-- BEGIN_INCLUDE(jira:release-version) -->
+<jira:release-version projectKey="someProjectKey" versionName="someVersionName"/>
+<!-- END_INCLUDE(jira:release-version) -->
+
+
+<!-- BEGIN_INCLUDE(jira:get-project-role-actors) -->
+<jira:get-project-role-actors projectRoleId="123" projectKey="someProjectKey"/>
+<!-- END_INCLUDE(jira:get-project-role-actors) -->
+
+<!-- BEGIN_INCLUDE(jira:get-issues-from-text-search-with-limit) -->
+<jira:get-issues-from-text-search-with-limit searchTerms="someSearchTerms" offset="12" maxNumResults="10"/>
+<!-- END_INCLUDE(jira:get-issues-from-text-search-with-limit) -->
+
+
+<!-- BEGIN_INCLUDE(jira:delete-issue) -->
+<jira:delete-issue issueKey="someIssueKey"/>
+<!-- END_INCLUDE(jira:delete-issue) -->
+
+<!-- BEGIN_INCLUDE(jira:get-issue-types-for-project) -->
+<jira:get-issue-types-for-project projectId="someProjectId"/>
+<!-- END_INCLUDE(jira:get-issue-types-for-project) -->
+
+<!-- BEGIN_INCLUDE(jira:get-default-role-actors) -->
+<jira:get-default-role-actors projectRoleId="123"/>
+<!-- END_INCLUDE(jira:get-default-role-actors) -->
+
+
+<!-- BEGIN_INCLUDE(jira:remove-all-role-actors-by-name-and-type) -->
+<jira:remove-all-role-actors-by-name-and-type roleName="someName" type="someType"/>
+<!-- END_INCLUDE(jira:remove-all-role-actors-by-name-and-type) -->
+
+
+<!-- BEGIN_INCLUDE(jira:delete-project-role) -->
+<jira:delete-project-role projectRoleId="123" confirm="false"/>
+<!-- END_INCLUDE(jira:delete-project-role) -->
+
+<!-- BEGIN_INCLUDE(jira:is-project-role-name-unique) -->
+<jira:is-project-role-name-unique roleName="someProjectRoleName"/>
+<!-- END_INCLUDE(jira:is-project-role-name-unique) -->
+
+
+<!-- BEGIN_INCLUDE(jira:get-associated-notification-schemes) -->
+<jira:get-associated-notification-schemes projectRoleId="123"/>
+<!-- END_INCLUDE(jira:get-associated-notification-schemes) -->
+
+<!-- BEGIN_INCLUDE(jira:get-associated-permission-schemes) -->
+<jira:get-associated-permission-schemes projectRoleId="123"/>
+<!-- END_INCLUDE(jira:get-associated-permission-schemes) -->
+
+<!-- BEGIN_INCLUDE(jira:delete-project) -->
+<jira:delete-project projectKey="someProjectKey"/>
+<!-- END_INCLUDE(jira:delete-project) -->
+
+<!-- BEGIN_INCLUDE(jira:get-versions) -->
+<jira:get-versions projectKey="someProjectKey"/>
+<!-- END_INCLUDE(jira:get-versions) -->
+
+
+<!-- BEGIN_INCLUDE(jira:get-comments) -->
+<jira:get-comments issueKey="someIssueKey"/>
+<!-- END_INCLUDE(jira:get-comments) -->
+
+<!-- BEGIN_INCLUDE(jira:archive-version) -->
+<jira:archive-version projectKey="someProjectKey" versionName="someVersionName" archive="true"/>
+<!-- END_INCLUDE(jira:archive-version) -->
+
+<!-- BEGIN_INCLUDE(jira:get-fields-for-edit) -->
+<jira:get-fields-for-edit issueKey="someIssueKey"/>
+<!-- END_INCLUDE(jira:get-fields-for-edit) -->
+
+<!-- BEGIN_INCLUDE(jira:get-sub-task-issue-types-for-project) -->
+<jira:get-sub-task-issue-types-for-project projectId="someProjectId"/>
+<!-- END_INCLUDE(jira:get-sub-task-issue-types-for-project) -->
+
+<!-- BEGIN_INCLUDE(jira:login) -->
+<jira:login username="someUserName" password="somePassword"/>
+<!-- END_INCLUDE(jira:login) -->
+
+<!-- BEGIN_INCLUDE(jira:get-security-level) -->
+<jira:get-security-level issueKey="someIssueKey"/>
+<!-- END_INCLUDE(jira:get-security-level) -->
+
+<!-- BEGIN_INCLUDE(jira:remove-all-role-actors-by-project) -->
+<jira:remove-all-role-actors-by-project projectKey="someProjectKey"/> 
+<!-- END_INCLUDE(jira:remove-all-role-actors-by-project) -->
+
+<!-- BEGIN_INCLUDE(jira:logout) -->
+<jira:logout token="aToken"/>
+<!-- END_INCLUDE(jira:logout) -->
+
+<!-- BEGIN_INCLUDE(jira:get-project-with-schemes-by-id) -->
+<jira:get-project-with-schemes-by-id projectId="123"/>
+<!-- END_INCLUDE(jira:get-project-with-schemes-by-id) -->
+
+<!-- BEGIN_INCLUDE(jira:get-issues-from-jql-search) -->
+<jira:get-issues-from-jql-search jqlSearch="someJqlSearch" maxNumResults="10"/>
+<!-- END_INCLUDE(jira:get-issues-from-jql-search) -->
+
+<!-- BEGIN_INCLUDE(jira:get-attachments-from-issue) -->
+<jira:get-attachments-from-issue issueKey="someIssueKey"/>
+<!-- END_INCLUDE(jira:get-attachments-from-issue) -->
+
+<!-- BEGIN_INCLUDE(jira:get-fields-for-action) -->
+<jira:get-fields-for-action issueKey="someIssueKey" actionIdString="someActionIdString"/>
+<!-- END_INCLUDE(jira:get-fields-for-action) -->
+
+<!-- BEGIN_INCLUDE(jira:get-issue-by-id) -->
+<jira:get-issue-by-id issueId="someIssueId"/>
+<!-- END_INCLUDE(jira:get-issue-by-id) -->
+
+<!-- BEGIN_INCLUDE(jira:delete-worklog-with-new-remaining-estimate) -->
+<jira:delete-worklog-with-new-remaining-estimate workLogId="someWorklogId" newRemainingEstimate="1h"/>
+<!-- END_INCLUDE(jira:delete-worklog-with-new-remaining-estimate) -->
+
+<!-- BEGIN_INCLUDE(jira:delete-worklog-and-auto-adjust-remaining-estimate) -->
+<jira:delete-worklog-and-auto-adjust-remaining-estimate worklogId="someWorklogId"/>
+<!-- END_INCLUDE(jira:delete-worklog-and-auto-adjust-remaining-estimate) -->
+
+<!-- BEGIN_INCLUDE(jira:delete-worklog-and-retain-remaining-estimate) -->
+<jira:delete-worklog-and-retain-remaining-estimate worklogId="someWorklogId"/>
+<!-- END_INCLUDE(jira:delete-worklog-and-retain-remaining-estimate) -->
+
+<!-- BEGIN_INCLUDE(jira:get-worklogs) -->
+<jira:get-worklogs issueKey="someIssueKey"/>
+<!-- END_INCLUDE(jira:get-worklogs) -->
+
+<!-- BEGIN_INCLUDE(jira:has-permission-to-create-worklog) -->
+<jira:has-permission-to-create-worklog issueKey="someIssueKey"/>
+<!-- END_INCLUDE(jira:has-permission-to-create-worklog) -->
+
+<!-- BEGIN_INCLUDE(jira:has-permission-to-delete-worklog) -->
+<jira:has-permission-to-delete-worklog worklogId="someWorklogId"/>
+<!-- END_INCLUDE(jira:has-permission-to-delete-worklog) -->
+
+<!-- BEGIN_INCLUDE(jira:has-permission-to-update-worklog) -->
+<jira:has-permission-to-update-worklog worklogId="someWorklogId"/>
+<!-- END_INCLUDE(jira:has-permission-to-update-worklog) -->
+
+<!-- BEGIN_INCLUDE(jira:get-resolution-date-by-key) -->
+<jira:get-resolution-date-by-key issueKey="someIssueKey"/>
+<!-- END_INCLUDE(jira:get-resolution-date-by-key) -->
+
+<!-- BEGIN_INCLUDE(jira:get-resolution-date-by-id) -->
+<jira:get-resolution-date-by-id issueId="123"/>
+<!-- END_INCLUDE(jira:get-resolution-date-by-id) -->
+
+<!-- BEGIN_INCLUDE(jira:get-issue-count-for-filter) -->
+<jira:get-issue-count-for-filter filterId="someFilterId"/>
+<!-- END_INCLUDE(jira:get-issue-count-for-filter) -->
+
+<!-- BEGIN_INCLUDE(jira:get-security-levels) -->
+<jira:get-security-levels projectKey="someProjectKey"/>
+<!-- END_INCLUDE(jira:get-security-levels) -->
+
+<!-- BEGIN_INCLUDE(jira:get-project-avatar) -->
+<jira:get-project-avatar projectKey="someProjectKey"/>
+<!-- END_INCLUDE(jira:get-project-avatar) -->
+
+<!-- BEGIN_INCLUDE(jira:get-permission-schemes) -->
+<jira:get-permission-schemes/>
+<!-- END_INCLUDE(jira:get-permission-schemes) -->
+
+<!-- BEGIN_INCLUDE(jira:create-permission-scheme) -->
+<jira:create-permission-scheme permissionName="somePermissionSchemeName" description="somePermissionSchemeDesc"/>
+<!-- END_INCLUDE(jira:create-permission-scheme) -->
+
+<!-- BEGIN_INCLUDE(jira:set-project-avatar) -->
+<jira:set-project-avatar projectKey="someProjectKey" avatarId="123"/>
+<!-- END_INCLUDE(jira:set-project-avatar) -->
+
+ <!-- BEGIN_INCLUDE(jira:add-version) -->
+<jira:add-version projectKey="someProjectKey" versionName="someVersionName" archived="true" released="false"
+                          releaseDate="someDate"/>
+<!-- END_INCLUDE(jira:add-version) -->
+
+ <!-- BEGIN_INCLUDE(jira:remove-default-actors-from-project-role) -->
+<jira:remove-default-actors-from-project-role remoteProjectRoleId="123" type="someType">
+                          <jira:actors>
+                              <jira:actor>actor1</jira:actor>
+                              <jira:actor>actor2</jira:actor>
+                          </jira:actors>
+                      </jira:remove-default-actors-from-project-role>
+<!-- END_INCLUDE(jira:remove-default-actors-from-project-role) -->
+
+<!-- BEGIN_INCLUDE(jira:add-default-actors-to-project-role) -->
+<jira:add-default-actors-to-project-role projectRoleId="123" type="someType">
+                          <jira:actors>
+                              <jira:actor>actor1</jira:actor>
+                              <jira:actor>actor2</jira:actor>
+                          </jira:actors>
+                      </jira:add-default-actors-to-project-role>
+<!-- END_INCLUDE(jira:add-default-actors-to-project-role) -->
+
+ <!-- BEGIN_INCLUDE(jira:create-project-role) -->
+<jira:create-project-role projectRoleName="someProjectRoleName"
+                                  projectRoleDescription="someProjectRoleDescription"/>
+<!-- END_INCLUDE(jira:create-project-role) -->
+
+ <!-- BEGIN_INCLUDE(jira:update-project-role) -->
+<jira:update-project-role projectRoleId="123" projectRoleName="someProjectRoleName"
+                                  projectRoleDescription="someProjectDescription"/>
+<!-- END_INCLUDE(jira:update-project-role) -->
+
+<!-- BEGIN_INCLUDE(jira:get-priorities) -->
+<jira:get-priorities/> 
+<!-- END_INCLUDE(jira:get-priorities) -->
+ <!-- BEGIN_INCLUDE(jira:get-project-by-key) -->
+<jira:get-project-by-key projectKey="someProjectKey"/>
+<!-- END_INCLUDE(jira:get-project-by-key) -->
+
+<!-- BEGIN_INCLUDE(jira:update-project) -->
+<jira:update-project key="someProjectKey" description="someProjectDescription" lead="someUserName"
+                             permissionSchemeName="somePermissionSchemeName"
+                             notificationSchemeName="someNotificationSchemeName"
+                             securityShemeName="someSecuritySchemeName" url="someUrl"/>
+<!-- END_INCLUDE(jira:update-project) -->
+
+ <!-- BEGIN_INCLUDE(jira:create-project) -->
+<jira:create-project key="someProjectKey" projectName="someProjectName" description="someProjectDescription"
+                                           lead="someUserName" permissionSchemeName="somePermissionSchemeName"
+                                           notificationSchemeName="someNotificationSchemeName"
+                                           securityShemeName="someSecuritySchemeName" url="someUrl"/> 
+<!-- END_INCLUDE(jira:create-project) -->
+
+ <!-- BEGIN_INCLUDE(jira:create-project-using-object) -->
+<jira:create-project-using-object>
+<jira:project ref="#[payload]"/>
+</jira:create-project-using-object>
+<!-- END_INCLUDE(jira:create-project-using-object) -->
+
+<!-- BEGIN_INCLUDE(jira:get-available-actions) -->
+<jira:get-available-actions issueKey="someIssueKey"/>
+<!-- END_INCLUDE(jira:get-available-actions) -->
+
+<!-- BEGIN_INCLUDE(jira:update-issue) -->
+        <jira:update-issue issueKey="someIssueKey">
+            <jira:fields>
+                <jira:field key="customfield_10000">value1</jira:field>
+                <jira:field key="customfield_20000">value2</jira:field>
+            </jira:fields>
+        </jira:update-issue>
+<!-- END_INCLUDE(jira:update-issue) -->
+
+<!-- BEGIN_INCLUDE(jira:update-issues-by-jql) -->
+        <jira:update-issues-by-jql jql="status = Open">
+            <jira:fields>
+                <jira:field key="customfield_10000">value1</jira:field>
+            </jira:fields>
+        </jira:update-issues-by-jql>
+<!-- END_INCLUDE(jira:update-issues-by-jql) -->
+
+ <!-- BEGIN_INCLUDE(jira:create-issue-with-security-level) -->
+        <jira:create-issue-with-security-level summary="someSummary" project="someProject" type="someType"
+                                               assignee="someUserName" reporter="someUserName"
+                                               dueDate="someDueDate" description="someDescription"
+                                               environment="someEnvironment" priority="somePriority" votes="10"
+                                               securityLevelId="1">
+            <jira:custom-fields>
+                <jira:custom-field key="customfield_10000">value1</jira:custom-field>
+                <jira:custom-field key="customfield_20000">value2</jira:custom-field>
+            </jira:custom-fields>
+        </jira:create-issue-with-security-level>
+<!-- END_INCLUDE(jira:create-issue-with-security-level) -->
+
+ <!-- BEGIN_INCLUDE(jira:create-issue) -->
+        <jira:create-issue summary="someSummary" project="someProject" type="someType" assignee="someUserName"
+                           reporter="someUserName"
+                           dueDate="someDueDate" description="someDescription" environment="someEnvironment"
+                           priority="somePriority" votes="10">
+            <jira:custom-fields>
+                <jira:custom-field key="customfield_10000">value1</jira:custom-field>
+                <jira:custom-field key="customfield_20000">value2</jira:custom-field>
+            </jira:custom-fields>
+        </jira:create-issue>
+<!-- END_INCLUDE(jira:create-issue) -->
+
+<!-- BEGIN_INCLUDE(jira:create-issue-using-object) -->
+        <jira:create-issue-using-object />
+<!-- END_INCLUDE(jira:create-issue-using-object) -->
+
+
+<!-- BEGIN_INCLUDE(jira:create-issue-with-parent) -->
+        <jira:create-issue-with-parent parentIssueKey="someIssueKey" />
+<!-- END_INCLUDE(jira:create-issue-with-parent) -->
+
+
+<!-- BEGIN_INCLUDE(jira:update-worklog-with-new-remaining-estimate) -->
+<jira:update-worklog-with-new-remaining-estimate issueKey="someIssueKey" worklogId="someWorklogId"
+                                                         newRemainingEstimate="1d" comment="someComment"
+                                                         groupLevel="someGroupLevel" roleLevelId="someRoleLevelId"/>
+<!-- END_INCLUDE(jira:update-worklog-with-new-remaining-estimate) -->
+
+<!-- BEGIN_INCLUDE(jira:delete-permission-from) -->
+<jira:delete-permission-from permissionSchemeName="somePermissionSchemeName" permissionCode="123"
+                                     entityName="someEntityName"/> 
+<!-- END_INCLUDE(jira:delete-permission-from) -->
+
+<!-- BEGIN_INCLUDE(jira:get-project-by-id) -->
+<jira:get-project-by-id projectId="123"/>
+<!-- END_INCLUDE(jira:get-project-by-id) -->
+
+<!-- BEGIN_INCLUDE(jira:delete-permission-scheme) -->
+<jira:delete-permission-scheme permissionSchemeName="somePermissionSchemeName"/>
+<!-- END_INCLUDE(jira:delete-permission-scheme) -->
+ 
+
+ <!-- BEGIN_INCLUDE(jira:remove-default-actors-from-project-role) -->
+<jira:remove-default-actors-from-project-role remoteProjectRoleId="123" type="someType">
+                         <jira:actors>
+                             <jira:actor>actor1</jira:actor>
+                             <jira:actor>actor2</jira:actor>
+                         </jira:actors>
+                      </jira:remove-default-actors-from-project-role>
+<!-- END_INCLUDE(jira:remove-default-actors-from-project-role) -->
+
+<!-- BEGIN_INCLUDE(jira:add-default-actors-to-project-role) -->
+<jira:add-default-actors-to-project-role projectRoleId="123" type="someType">
+                          <jira:actors>
+                              <jira:actor>actor1</jira:actor>
+                              <jira:actor>actor2</jira:actor>
+                          </jira:actors>
+                      </jira:add-default-actors-to-project-role>
+<!-- END_INCLUDE(jira:add-default-actors-to-project-role) -->
+
+
+ <!-- BEGIN_INCLUDE(jira:get-security-schemes) -->
+<jira:get-security-schemes/>
+<!-- END_INCLUDE(jira:get-security-schemes) -->
+
+ <!-- BEGIN_INCLUDE(jira:get-projects-no-schemes) -->
+<jira:get-projects-no-schemes/>
+<!-- END_INCLUDE(jira:get-projects-no-schemes) -->
+
+<!-- BEGIN_INCLUDE(jira:set-new-project-avatar) -->
+<jira:set-new-project-avatar projectKey="someProjectKey" contentType="someContentType"
+                                     base64ImageData="someBase64ImageData"/>
+<!-- END_INCLUDE(jira:set-new-project-avatar) -->
+
+<!-- BEGIN_INCLUDE(jira:get-remote-user) -->
+<jira:get-remote-user username="someUserName"/>
+<!-- END_INCLUDE(jira:get-remote-user) -->
+
+<!-- BEGIN_INCLUDE(jira:update-group) -->
+<jira:update-group groupName="someGroupName">
+                <jira:usernames>
+                  <jira:username>someUserName</jira:username>
+                </jira:usernames>
+              </jira:update-group>
+<!-- END_INCLUDE(jira:update-group) -->
+
+<!-- BEGIN_INCLUDE(jira:get-sub-task-issue-types) -->
+<jira:get-sub-task-issue-types/>
+<!-- END_INCLUDE(jira:get-sub-task-issue-types) -->
+
+<!-- BEGIN_INCLUDE(jira:get-issue-types) -->
+<jira:get-issue-types/>
+<!-- END_INCLUDE(jira:get-issue-types) -->
+
+<!-- BEGIN_INCLUDE(jira:get-project-roles) -->
+<jira:get-project-roles/>
+<!-- END_INCLUDE(jira:get-project-roles) -->
+
+<!-- BEGIN_INCLUDE(jira:get-favourite-filters) -->
+<jira:get-favourite-filters/>
+<!-- END_INCLUDE(jira:get-favourite-filters) -->
+
+<!-- BEGIN_INCLUDE(jira:get-project-role) -->
+<jira:get-project-role projectRoleId="123"/>
+<!-- END_INCLUDE(jira:get-project-role) -->
+
+
+<!-- BEGIN_INCLUDE(jira:get-project-avatars) -->
+<jira:get-project-avatars projectKey="someProjectKey" includeSystemAvatars="true"/>
+<!-- END_INCLUDE(jira:get-project-avatars) -->
+
+<!-- BEGIN_INCLUDE(jira:get-custom-fields) -->
+<jira:get-custom-fields/>
+<!-- END_INCLUDE(jira:get-custom-fields) -->
+
+<!-- BEGIN_INCLUDE(jira:get-notification-schemes) -->
+<jira:get-notification-schemes/> 
+<!-- END_INCLUDE(jira:get-notification-schemes) -->
+
+<!-- BEGIN_INCLUDE(jira:get-all-permissions) -->
+<jira:get-all-permissions/>
+<!-- END_INCLUDE(jira:get-all-permissions) -->
+
+<!-- BEGIN_INCLUDE(jira:delete-project-avatar) -->
+<jira:delete-project-avatar avatarId="123"/>
+<!-- END_INCLUDE(jira:delete-project-avatar) -->
+
+<!-- BEGIN_INCLUDE(jira:refresh-custom-fields) -->
+<jira:refresh-custom-fields/>
+<!-- END_INCLUDE(jira:refresh-custom-fields) -->
+
+ <!-- BEGIN_INCLUDE(jira:get-statuses) -->
+<jira:get-statuses/>
+<!-- END_INCLUDE(jira:get-statuses) -->
+
+<!-- BEGIN_INCLUDE(jira:get-remote-issue) -->
+<jira:get-remote-issue issueKey="someIssueKey"/>
+<!-- END_INCLUDE(jira:get-remote-issue) -->
+
+<!-- BEGIN_INCLUDE(jira:add-permission-to) -->
+<jira:add-permission-to permissionSchemeName="somePermissionSchemeName" permissionCode="123"
+                                entityName="someEntityName" /> 
+<!-- END_INCLUDE(jira:add-permission-to) -->
+
+<!-- BEGIN_INCLUDE(jira:add-base64-encoded-attachments-to-issue) -->
+<jira:add-base64-encoded-attachments-to-issue issueKey="someIssueKey">
+                          <jira:file-names>
+                              <jira:file-name>fileName1</jira:file-name>
+                              <jira:file-name>fileName2</jira:file-name>
+                          </jira:file-names>
+                          <jira:base64-encoded-attachment-data>
+                              <jira:base64-encoded-attachment-datum>base64EncodedAttachment1</jira:base64-encoded-attachment-datum>
+                              <jira:base64-encoded-attachment-datum>base64EncodedAttachment2</jira:base64-encoded-attachment-datum>
+                          </jira:base64-encoded-attachment-data>
+                      </jira:add-base64-encoded-attachments-to-issue>
+<!-- END_INCLUDE(jira:add-base64-encoded-attachments-to-issue) -->
+                                
+<!-- BEGIN_INCLUDE(jira:progress-workflow-action) -->
+        <jira:progress-workflow-action issueKey="someIssueKey" actionIdString="someActionIdString">
+            <jira:fields>
+                <jira:field key="customfield_10000">value1</jira:field>
+                <jira:field key="customfield_20000">value2</jira:field>
+            </jira:fields>
+        </jira:progress-workflow-action>
+<!-- END_INCLUDE(jira:progress-workflow-action) -->
+
+
+<!-- BEGIN_INCLUDE(jira:edit-comment) -->
+<jira:edit-comment commentId="123" body="someBody" updateAuthor="someUserName" />
+<!-- END_INCLUDE(jira:edit-comment) -->
+
+
+<!-- BEGIN_INCLUDE(jira:has-permission-to-edit-comment) -->
+<jira:has-permission-to-edit-comment commentId="123"/>
+<!-- END_INCLUDE(jira:has-permission-to-edit-comment) -->
+
+<!-- BEGIN_INCLUDE(jira:add-worklog-and-auto-adjust-remaining-estimate) -->
+<jira:add-worklog-and-auto-adjust-remaining-estimate issueKey="someIssueKey"
+                                                     timeSpent="1h" 
+                                                     startDate="someStartDate"
+                                                     comment="someComment"
+                                                     groupLevel="someGroupLevel"
+                                                     roleLevelId="someRoleLevelId" />
+<!-- END_INCLUDE(jira:add-worklog-and-auto-adjust-remaining-estimate) -->
+
+<!-- BEGIN_INCLUDE(jira:add-worklog-with-new-remaining-estimate) -->
+<jira:add-worklog-with-new-remaining-estimate issueKey="someIssueKey"
+                                                     timeSpent="1h" 
+                                                     newRemainingEstimate="2d"
+                                                     startDate="someStartDate" 
+                                                     comment="comment"
+                                                     groupLevel="someGroupLevel"
+                                                     roleLevelId="someRoleLevelId" />
+<!-- END_INCLUDE(jira:add-worklog-with-new-remaining-estimate) -->
+
+<!-- BEGIN_INCLUDE(jira:add-worklog-and-retain-remaining-estimate) -->
+<jira:add-worklog-and-retain-remaining-estimate issueKey="someIssueKey"
+                                                     timeSpent="1h" 
+                                                     startDate="someStartDate"
+                                                     comment="comment"
+                                                     groupLevel="someGroupLevel"
+                                                     roleLevelId="someRoleLevelId" />
+<!-- END_INCLUDE(jira:add-worklog-and-retain-remaining-estimate) -->
+<!-- BEGIN_INCLUDE(jira:get-issue) -->
+    <jira:get-issue issueKey="TEST-1" />
+<!-- END_INCLUDE(jira:get-issue) -->
+<!-- BEGIN_INCLUDE(jira:get-project) -->
+    <jira:get-project projectKey="TEST" />
+<!-- END_INCLUDE(jira:get-project) -->
+<!-- BEGIN_INCLUDE(jira:get-user) -->
+    <jira:get-user userName="some.user" />
+<!-- END_INCLUDE(jira:get-user) -->
+<!-- BEGIN_INCLUDE(jira:create-component) -->
+    <jira:create-component projectKey="TEST" component-ref="#[new ComponentInput(name='Some Name', description='Some Description')]"/>
+<!-- END_INCLUDE(jira:create-component) -->
+<!-- BEGIN_INCLUDE(jira:update-component) -->
+    <jira:update-component uri="http://jira.com/component_uri" component-ref="#[new ComponentInput(name='Some Name', description='Updated Description')]"/>
+<!-- END_INCLUDE(jira:update-component) -->
+<!-- BEGIN_INCLUDE(jira:create-version) -->
+    <jira:create-version version-ref="#[new VersionInput(projectKey='TEST' name='Some Name', description='Some Description')]"/>
+<!-- END_INCLUDE(jira:create-version) -->
+<!-- BEGIN_INCLUDE(jira:update-version) -->
+    <jira:update-version uri="http://jira.com/version_uri" version-ref="#[new VersionInput(name='Some Name', description='Updated Description')]"/>
+<!-- END_INCLUDE(jira:update-version) -->
+<!-- BEGIN_INCLUDE(jira:add-effort) -->
+    <jira:add-effort issue-ref="#[new Issue()]" authorUri="http://jira.com/author_uri" date-ref="#[new DateTime()]" minutes="30" comment="Something to comment"/>
+<!-- END_INCLUDE(jira:add-effort) -->
+<!-- BEGIN_INCLUDE(jira:upload-attachment) -->
+    <jira:upload-attachment issue-ref="#[new Issue()]" in-ref="#[IOUtils.toInputStream('Hello World!')]" filename="attachment.txt"/>
+<!-- END_INCLUDE(jira:upload-attachment) -->
