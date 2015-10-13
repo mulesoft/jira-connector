@@ -32,12 +32,12 @@ public class JiraConnectorTestDriver {
 
     @Before
     public void init() throws ConnectionException, ConfigurationLoadingFailedException {
-        Config config = new Config();
         final Properties prop = ConfigurationUtils.getAutomationCredentialsProperties();
         username = prop.getProperty("config.username");
         password = prop.getProperty("config.password");
         endpoint = prop.getProperty("config.endpoint");
 
+        Config config = new Config();
         config.connect(username, password, endpoint);
         connector.setConfig(config);
     }
