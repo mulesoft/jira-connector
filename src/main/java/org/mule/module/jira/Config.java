@@ -56,7 +56,7 @@ public class Config {
     public void connect(@ConnectionKey String connectionUser, @Password String connectionPassword, String connectionAddress) throws ConnectionException {
         this.connectionUser = connectionUser;
         this.connectionAddress = connectionAddress;
-        client = JiraClientAdaptor.adapt(JiraClientFactory.getClient(connectionAddress)); // (JiraClientFactory.getClient(connectionAddress));
+        client = JiraClientAdaptor.adapt(JiraClientFactory.getClient(connectionAddress));
         token = client.login(connectionUser, connectionPassword);
     }
 
@@ -65,16 +65,18 @@ public class Config {
      */
     @Disconnect
     public void disconnect() {
-        if (token != null) {
-            String oldToken = token;
+        try {
+            if (token != null) {
+                client.logout(token);
+            }
+        } finally {
             token = null;
-            client.logout(oldToken);
             client = null;
         }
     }
 
     /**
-     * Returns whether the current user is authenticated. It does not mean tell anything whether the current session has expired
+     * @return whether the current user is authenticated. It does not mean anything whether the current session has expired
      */
     @ValidateConnection
     public boolean validateConnection() {
@@ -87,7 +89,7 @@ public class Config {
     @Override
     @ConnectionIdentifier
     public String toString() {
-        return "{username='" + connectionUser + "\', address='" + connectionAddress + "\'}";
+        return String.format("{username='%s', address='%s'}", connectionUser, connectionAddress);
     }
 
     public JiraClient<List<Object>> getClient() {

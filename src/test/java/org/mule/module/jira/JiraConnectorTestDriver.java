@@ -10,26 +10,34 @@ package org.mule.module.jira;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.api.ConnectionException;
+import org.mule.tools.devkit.ctf.configuration.util.ConfigurationUtils;
+import org.mule.tools.devkit.ctf.exceptions.ConfigurationLoadingFailedException;
 
 /**
  * Test driver for {@link JiraConnector}
  */
 public class JiraConnectorTestDriver {
 
-    private String endpoint = System.getenv("jira.endpoint");
-    private String username = System.getenv("jira.username");
-    private String password = System.getenv("jira.password");
+    private String endpoint;
+    private String username;
+    private String password;
 
     private JiraConnector connector;
 
     @Before
-    public void init() throws ConnectionException {
+    public void init() throws ConnectionException, ConfigurationLoadingFailedException {
         Config config = new Config();
+        final Properties prop = ConfigurationUtils.getAutomationCredentialsProperties();
+        username = prop.getProperty("config.username");
+        password = prop.getProperty("config.password");
+        endpoint = prop.getProperty("config.endpoint");
+
         config.connect(username, password, endpoint);
         connector.setConfig(config);
     }
