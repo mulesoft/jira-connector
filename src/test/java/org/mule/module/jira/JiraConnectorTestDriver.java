@@ -8,48 +8,40 @@
 
 package org.mule.module.jira;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.api.ConnectionException;
-import org.mule.module.jira.api.AxisJiraClient;
-import org.mule.module.jira.api.DefaultAxisPortProvider;
 
 /**
  * Test driver for {@link JiraConnector}
  */
-public class JiraConnectorTestDriver
-{
+public class JiraConnectorTestDriver {
+
     private String endpoint = System.getenv("jira.endpoint");
     private String username = System.getenv("jira.username");
     private String password = System.getenv("jira.password");
 
-    
     private JiraConnector connector;
 
     @Before
-    public void init() throws ConnectionException
-    {
-        this.connector = new JiraConnector();
-        connector.setClient(new AxisJiraClient(new DefaultAxisPortProvider(endpoint)));
-        connector.connect(username, password, endpoint);
+    public void init() throws ConnectionException {
+        Config config = new Config();
+        config.connect(username, password, endpoint);
+        connector.setConfig(config);
     }
 
     @Test(expected = JiraConnectorException.class)
-    public void createIssue()
-    {
+    public void createIssue() {
         connector.createIssue(null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
 
     @Test
     @Ignore
-    public void updateIssuesByJql()
-    {
+    public void updateIssuesByJql() {
         Map<String, String> fields = new HashMap<String, String>();
         fields.put("priority", "1");
         connector.updateIssuesByJql("status = Open", fields, null);

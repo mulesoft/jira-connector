@@ -3,7 +3,7 @@
         <parent>
                 <groupId>org.mule.tools.devkit</groupId>
                 <artifactId>mule-devkit-parent</artifactId>
-                <version>3.5.0-cascade</version>
+                <version>3.7.1</version>
         </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -95,5 +95,19 @@
             <layout>default</layout>
         </repository>
     </repositories>
-
+    
+    <distributionManagement>
+        <repository>
+            <id>mule-ee-releases</id>
+            <name>MuleEE Releases Repository</name>
+            <url>https://repository-master.mulesoft.org/nexus/content/repositories/releases-ee/</url>
+        </repository>
+        <snapshotRepository>
+            <id>mule-ee-snapshots</id>
+            <name>MuleEE Snapshots Repository</name>
+            <url>https://repository-master.mulesoft.org/nexus/content/repositories/ci-snapshots/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+    
 </project>

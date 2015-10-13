@@ -12,41 +12,61 @@
 
 package org.mule.module.jira;
 
-import com.atlassian.jira.rpc.soap.beans.*;
-import org.apache.commons.collections.CollectionUtils;
-import org.mule.api.ConnectionException;
-import org.mule.api.annotations.*;
-import org.mule.api.annotations.display.Password;
-import org.mule.api.annotations.display.Placement;
-import org.mule.api.annotations.param.ConnectionKey;
-import org.mule.api.annotations.param.Default;
-import org.mule.api.annotations.param.Optional;
-import org.mule.module.jira.api.JiraClient;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.ReconnectOn;
+import org.mule.api.annotations.display.Placement;
+import org.mule.api.annotations.param.Default;
+import org.mule.api.annotations.param.Optional;
+
+import com.atlassian.jira.rpc.soap.beans.RemoteAvatar;
+import com.atlassian.jira.rpc.soap.beans.RemoteComment;
+import com.atlassian.jira.rpc.soap.beans.RemoteConfiguration;
+import com.atlassian.jira.rpc.soap.beans.RemoteCustomFieldValue;
+import com.atlassian.jira.rpc.soap.beans.RemoteField;
+import com.atlassian.jira.rpc.soap.beans.RemoteGroup;
+import com.atlassian.jira.rpc.soap.beans.RemoteIssue;
+import com.atlassian.jira.rpc.soap.beans.RemotePermissionScheme;
+import com.atlassian.jira.rpc.soap.beans.RemoteProject;
+import com.atlassian.jira.rpc.soap.beans.RemoteProjectRole;
+import com.atlassian.jira.rpc.soap.beans.RemoteProjectRoleActors;
+import com.atlassian.jira.rpc.soap.beans.RemoteRoleActors;
+import com.atlassian.jira.rpc.soap.beans.RemoteSecurityLevel;
+import com.atlassian.jira.rpc.soap.beans.RemoteServerInfo;
+import com.atlassian.jira.rpc.soap.beans.RemoteUser;
+import com.atlassian.jira.rpc.soap.beans.RemoteVersion;
+import com.atlassian.jira.rpc.soap.beans.RemoteWorklog;
+
 /**
- * JIRA is a proprietary issue tracking product, developed by Atlassian, commonly used for bug tracking, issue
- * tracking, and project management.
+ * JIRA is a proprietary issue tracking product, developed by Atlassian, commonly used for bug tracking, issue tracking, and project management.
  *
  * @author MuleSoft, Inc.
  */
 @Connector(name = "jira", schemaVersion = "2.0", friendlyName = "Jira")
+@ReconnectOn(exceptions = { JiraConnectorException.class })
 public class JiraConnector {
 
-    private JiraClient<List<Object>> client;
-    private String token;
-    private String connectionUser;
-    private String connectionAddress;
-    /**
-     * if external custom fields names (instead of internal ids) are used when modifying custom fields, the provided
-     * user must be a Jira administrator in order to be able to use this feature
-     */
-    @Configurable
-    @Optional
-    @Default("false")
-    private Boolean useCustomFieldsExternalName;
+    @org.mule.api.annotations.Config
+    private Config config;
+
+    public Config getConfig() {
+        return config;
+    }
+
+    public void setConfig(Config config) {
+        this.config = config;
+    }
+
     private static final String MULTIVALUED_FIELD_SEPARATOR = "\\|";
     private Map<String, String> customFieldsNamesToIdsMapping = null;
     private Calendar customFieldsCacheExpiration = null;
@@ -55,7 +75,7 @@ public class JiraConnector {
         if (customFieldsNamesToIdsMapping == null || new GregorianCalendar().after(customFieldsCacheExpiration)) {
             customFieldsNamesToIdsMapping = new HashMap<String, String>();
 
-            List<Object> customFields = client.getCustomFields(token);
+            List<Object> customFields = config.getClient().getCustomFields(config.getToken());
             for (Object customField : customFields) {
                 RemoteField remoteField = (RemoteField) customField;
                 customFieldsNamesToIdsMapping.put(remoteField.getName(), remoteField.getId());
@@ -74,7 +94,7 @@ public class JiraConnector {
         if (fields != null) {
             for (Entry<String, String> field : fields.entrySet()) {
                 String fieldKey = field.getKey();
-                if (useCustomFieldsExternalName) {
+                if (config.getUseCustomFieldsExternalName()) {
                     Map<String, String> customFields = getCustomFieldsNamesToIdsMapping();
                     String id = customFields.get(fieldKey);
                     if (id != null) {
@@ -92,14 +112,16 @@ public class JiraConnector {
     }
 
     /**
-     * If configured using useCustomFieldsExternalName, tries to map custom fields by name to its id
-     * If the mapping is not found, it's left as-is (and expected to fail while trying to set the value in Jira)
-     * @param issue that will get its custom fields mapped
+     * If configured using useCustomFieldsExternalName, tries to map custom fields by name to its id If the mapping is not found, it's left as-is (and expected to fail while trying
+     * to set the value in Jira)
+     *
+     * @param issue
+     *            that will get its custom fields mapped
      */
     private void mapCustomFieldsFromNamesToIds(RemoteIssue issue) {
-        if (issue.getCustomFieldValues() != null && useCustomFieldsExternalName) {
+        if (issue.getCustomFieldValues() != null && config.getUseCustomFieldsExternalName()) {
             Map<String, String> customFields = getCustomFieldsNamesToIdsMapping();
-            for (RemoteCustomFieldValue field: issue.getCustomFieldValues()) {
+            for (RemoteCustomFieldValue field : issue.getCustomFieldValues()) {
                 if (!field.getCustomfieldId().startsWith("customfield_")) {
                     if (customFields.containsKey(field.getCustomfieldId())) {
                         field.setCustomfieldId(customFields.get(field.getCustomfieldId()));
@@ -107,21 +129,21 @@ public class JiraConnector {
                 }
             }
         }
-        
+
     }
-    
+
     /**
      * Finds a comment.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-comment}
      *
-     * @param commentId the commentId of the comment
+     * @param commentId
+     *            the commentId of the comment
      * @return the RemoteComment
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteComment getComment(Long commentId) {
-        return client.getComment(token, commentId);
+        return config.getClient().getComment(config.getToken(), commentId);
     }
 
     /**
@@ -132,9 +154,8 @@ public class JiraConnector {
      * @return a RemoteConfiguration object which contains information about the current configuration of JIRA.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteConfiguration getConfiguration() {
-        return client.getConfiguration(token);
+        return config.getClient().getConfiguration(config.getToken());
     }
 
     /**
@@ -143,14 +164,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-group}
      *
-     * @param groupName the name of the group to create.
-     * @param userName  the user to add to the group (if null, no user will be added).
+     * @param groupName
+     *            the name of the group to create.
+     * @param userName
+     *            the user to add to the group (if null, no user will be added).
      * @return the RemoteGroup created
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteGroup createGroup(String groupName, @Optional String userName) {
-        return client.createGroup(token, groupName, userName);
+        return config.getClient().createGroup(config.getToken(), groupName, userName);
     }
 
     /**
@@ -161,9 +183,8 @@ public class JiraConnector {
      * @return information about the server JIRA is running on including build number and base URL.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteServerInfo getServerInfo() {
-        return client.getServerInfo(token);
+        return config.getClient().getServerInfo(config.getToken());
     }
 
     /**
@@ -171,13 +192,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-group}
      *
-     * @param groupName the name of the group to find
+     * @param groupName
+     *            the name of the group to find
      * @return a RemoteGroup object for the found group or null if it cant be found.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteGroup getGroup(String groupName) {
-        return client.getGroup(token, groupName);
+        return config.getClient().getGroup(config.getToken(), groupName);
     }
 
     /**
@@ -185,16 +206,19 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-user}
      *
-     * @param username the user name to create
-     * @param password the password for the new user
-     * @param fullName the full name of the new user
-     * @param email    the email of the new user
+     * @param username
+     *            the user name to create
+     * @param password
+     *            the password for the new user
+     * @param fullName
+     *            the full name of the new user
+     * @param email
+     *            the email of the new user
      * @return the newly created RemoteUser
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteUser createUser(String username, String password, String fullName, String email) {
-        return client.createUser(token, username, password, fullName, email);
+        return config.getClient().createUser(config.getToken(), username, password, fullName, email);
     }
 
     /**
@@ -202,18 +226,21 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-comment}
      *
-     * @param issueKey          the key of the issue
-     * @param commentAuthor     the author of the comment
-     * @param commentBody       the body of the comment
-     * @param commentGroupLevel the group level of the comment
-     * @param commentRoleLevel  the role level of the comment
+     * @param issueKey
+     *            the key of the issue
+     * @param commentAuthor
+     *            the author of the comment
+     * @param commentBody
+     *            the body of the comment
+     * @param commentGroupLevel
+     *            the group level of the comment
+     * @param commentRoleLevel
+     *            the role level of the comment
      * @return Added comment
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteComment addComment(String issueKey, String commentAuthor, String commentBody,
-                                    @Optional String commentGroupLevel, @Optional String commentRoleLevel) {
-        return client.addComment(token, issueKey, commentAuthor, commentBody, commentGroupLevel, commentRoleLevel);
+    public RemoteComment addComment(String issueKey, String commentAuthor, String commentBody, @Optional String commentGroupLevel, @Optional String commentRoleLevel) {
+        return config.getClient().addComment(config.getToken(), issueKey, commentAuthor, commentBody, commentGroupLevel, commentRoleLevel);
     }
 
     /**
@@ -221,13 +248,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-components}
      *
-     * @param projectKey the key of the requested project
+     * @param projectKey
+     *            the key of the requested project
      * @return an array of RemoteComponent objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getComponents(String projectKey) {
-        return client.getComponents(token, projectKey);
+        return config.getClient().getComponents(config.getToken(), projectKey);
     }
 
     /**
@@ -235,13 +262,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-user}
      *
-     * @param username the user name to look up
+     * @param username
+     *            the user name to look up
      * @return a RemoteUser or null if it cant be found
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteUser getUser(String username) {
-        return client.getUser(token, username);
+        return config.getClient().getUser(config.getToken(), username);
     }
 
     /**
@@ -249,14 +276,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-group}
      *
-     * @param groupName the group name to update
-     * @param usernames the updated usernames
+     * @param groupName
+     *            the group name to update
+     * @param usernames
+     *            the updated usernames
      * @return the updated group
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteGroup updateGroup(String groupName, List<String> usernames) {
-        return client.updateGroup(token, groupName, usernames);
+        return config.getClient().updateGroup(config.getToken(), groupName, usernames);
     }
 
     /**
@@ -264,13 +292,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-user-to-group}
      *
-     * @param groupName the group name
-     * @param userName  the user name
+     * @param groupName
+     *            the group name
+     * @param userName
+     *            the user name
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void addUserToGroup(String groupName, String userName) {
-        client.addUserToGroup(token, groupName, userName);
+        config.getClient().addUserToGroup(config.getToken(), groupName, userName);
     }
 
     /**
@@ -278,13 +307,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-user-from-group}
      *
-     * @param groupName the group name for which to remove the user
-     * @param userName  the username to remove
+     * @param groupName
+     *            the group name for which to remove the user
+     * @param userName
+     *            the username to remove
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void removeUserFromGroup(String groupName, String userName) {
-        client.removeUserFromGroup(token, groupName, userName);
+        config.getClient().removeUserFromGroup(config.getToken(), groupName, userName);
     }
 
     /**
@@ -292,13 +322,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue}
      *
-     * @param issueKey the key of the issue to find.
+     * @param issueKey
+     *            the key of the issue to find.
      * @return the issue matching the given key.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue getIssue(String issueKey) {
-        return client.getIssue(token, issueKey);
+        return config.getClient().getIssue(config.getToken(), issueKey);
     }
 
     /**
@@ -306,38 +336,42 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue}
      *
-     * @param assignee     the assignee of the new issue
-     * @param summary      the summary of the new issue
-     * @param description  the description of the new issue
-     * @param dueDate      the due date of the new issue using the format MM-dd-yyy'T'HH:mm:ss
-     * @param environment  the environment of the new issue
-     * @param priority     the priority of the new issue
-     * @param project      the project of the new issue
-     * @param reporter     the reporter of the new issue
-     * @param type         the type of the new issue
-     * @param votes        the votes of the new issue
-     * @param customFields the custom fields of the new issue, the keys of the map are the field ids, the values should be separated by a "|" if it is multivalued
-     * @param componentName the component name
-     * @param componentId   the componentId
+     * @param assignee
+     *            the assignee of the new issue
+     * @param summary
+     *            the summary of the new issue
+     * @param description
+     *            the description of the new issue
+     * @param dueDate
+     *            the due date of the new issue using the format MM-dd-yyy'T'HH:mm:ss
+     * @param environment
+     *            the environment of the new issue
+     * @param priority
+     *            the priority of the new issue
+     * @param project
+     *            the project of the new issue
+     * @param reporter
+     *            the reporter of the new issue
+     * @param type
+     *            the type of the new issue
+     * @param votes
+     *            the votes of the new issue
+     * @param customFields
+     *            the custom fields of the new issue, the keys of the map are the field ids, the values should be separated by a "|" if it is multivalued
+     * @param componentName
+     *            the component name
+     * @param componentId
+     *            the componentId
      * @return the new created issue
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteIssue createIssue(@Optional String assignee,
-                                   @Placement(group = "Basic", order = 3) String summary,
-                                   @Placement(group = "Basic", order = 4) @Optional String description,
-                                   @Optional String dueDate,
-                                   @Optional String environment,
-                                   @Optional String priority,
-                                   @Placement(group = "Basic", order = 1) String project,
-                                   @Optional String reporter,
-                                   @Placement(group = "Basic", order = 2) String type,
-                                   @Optional Long votes,
-                                   @Placement(group = "Custom Fields") @Optional Map<String, String> customFields,
-                                   @Optional String componentName,
-                                   @Optional String componentId) {
+    public RemoteIssue createIssue(@Optional String assignee, @Placement(group = "Basic", order = 3) String summary,
+            @Placement(group = "Basic", order = 4) @Optional String description, @Optional String dueDate, @Optional String environment, @Optional String priority,
+            @Placement(group = "Basic", order = 1) String project, @Optional String reporter, @Placement(group = "Basic", order = 2) String type, @Optional Long votes,
+            @Placement(group = "Custom Fields") @Optional Map<String, String> customFields, @Optional String componentName, @Optional String componentId) {
         Map<String, List<String>> multivaluedFields = convertFieldsToMultivaluedAndMapNamesToIds(customFields);
-        return client.createIssue(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, multivaluedFields, componentName, componentId);
+        return config.getClient().createIssue(config.getToken(), assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, multivaluedFields,
+                componentName, componentId);
     }
 
     /**
@@ -345,14 +379,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue-using-object}
      *
-     * @param issue JIRA issue to be created
+     * @param issue
+     *            JIRA issue to be created
      * @return the new created issue
      */
-    @Processor(name="create-issue-using-object")
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteIssue createIssueUsingObject(@Optional @Default("#[payload]") RemoteIssue issue) {
+    @Processor(name = "create-issue-using-object")
+    public RemoteIssue createIssueUsingObject(@Default("#[payload]") RemoteIssue issue) {
         mapCustomFieldsFromNamesToIds(issue);
-        return client.createIssue(token, issue);
+        return config.getClient().createIssue(config.getToken(), issue);
     }
 
     /**
@@ -360,15 +394,16 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue-with-parent}
      *
-     * @param issue JIRA issue to be created
-     * @param parentIssueKey JIRA issue to be created
+     * @param issue
+     *            JIRA issue to be created
+     * @param parentIssueKey
+     *            JIRA issue to be created
      * @return the new created issue
      */
-    @Processor(name="create-issue-with-parent")
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteIssue createIssueWithParent(@Optional @Default("#[payload]") RemoteIssue issue, String parentIssueKey) {
+    @Processor(name = "create-issue-with-parent")
+    public RemoteIssue createIssueWithParent(@Default("#[payload]") RemoteIssue issue, String parentIssueKey) {
         mapCustomFieldsFromNamesToIds(issue);
-        return client.createIssueWithParent(token, issue, parentIssueKey);
+        return config.getClient().createIssueWithParent(config.getToken(), issue, parentIssueKey);
     }
 
     /**
@@ -376,93 +411,93 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-issue-with-security-level}
      *
-     * @param assignee        the assignee of the new issue
-     * @param summary         the summary of the new issue
-     * @param description     the description of the new issue
-     * @param dueDate         the due date of the new issue using the format MM-dd-yyy'T'HH:mm:ss
-     * @param environment     the environment of the new issue
-     * @param priority        the priority of the new issue
-     * @param project         the project of the new issue
-     * @param reporter        the reporter of the new issue
-     * @param type            the type of the new issue
-     * @param votes           the votes of the new issue
-     * @param customFields    the custom fields of the new issue, the keys of the map are the field ids, the values should be separated by a "|" if it is multivalued
-     * @param securityLevelId the id of the security level to use
-     * @param componentName the component name
-     * @param componentId   the componentId
+     * @param assignee
+     *            the assignee of the new issue
+     * @param summary
+     *            the summary of the new issue
+     * @param description
+     *            the description of the new issue
+     * @param dueDate
+     *            the due date of the new issue using the format MM-dd-yyy'T'HH:mm:ss
+     * @param environment
+     *            the environment of the new issue
+     * @param priority
+     *            the priority of the new issue
+     * @param project
+     *            the project of the new issue
+     * @param reporter
+     *            the reporter of the new issue
+     * @param type
+     *            the type of the new issue
+     * @param votes
+     *            the votes of the new issue
+     * @param customFields
+     *            the custom fields of the new issue, the keys of the map are the field ids, the values should be separated by a "|" if it is multivalued
+     * @param securityLevelId
+     *            the id of the security level to use
+     * @param componentName
+     *            the component name
+     * @param componentId
+     *            the componentId
      * @return the new created issue
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteIssue createIssueWithSecurityLevel(@Optional String assignee,
-                                                    String summary,
-                                                    @Optional String description,
-                                                    @Optional String dueDate,
-                                                    @Optional String environment,
-                                                    @Optional String priority,
-                                                    String project,
-                                                    @Optional String reporter,
-                                                    String type,
-                                                    @Optional Long votes,
-                                                    @Optional Map<String, String> customFields,
-                                                    Long securityLevelId,
-                                                    @Optional String componentName,
-                                                    @Optional String componentId) {
+    public RemoteIssue createIssueWithSecurityLevel(@Optional String assignee, String summary, @Optional String description, @Optional String dueDate,
+            @Optional String environment, @Optional String priority, String project, @Optional String reporter, String type, @Optional Long votes,
+            @Optional Map<String, String> customFields, Long securityLevelId, @Optional String componentName, @Optional String componentId) {
         Map<String, List<String>> multivaluedFields = convertFieldsToMultivaluedAndMapNamesToIds(customFields);
-        return client.createIssueWithSecurityLevel(token, assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes, multivaluedFields, securityLevelId, componentName, componentId);
+        return config.getClient().createIssueWithSecurityLevel(config.getToken(), assignee, summary, description, dueDate, environment, priority, project, reporter, type, votes,
+                multivaluedFields, securityLevelId, componentName, componentId);
     }
 
     /**
-     * This will update an issue with new values.
-     * NOTE : You cannot update the 'status' field of the issue via this method.
+     * This will update an issue with new values. NOTE : You cannot update the 'status' field of the issue via this method.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-issue}
      *
-     * @param issueKey The issue to update.
-     * @param fields   The fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a "|" if it is multivalued
-     * 
+     * @param issueKey
+     *            The issue to update.
+     * @param fields
+     *            The fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a "|" if it is
+     *            multivalued
+     *
      * @return the updated RemoteIssue
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue updateIssue(String issueKey, Map<String, String> fields) {
         Map<String, List<String>> multivaluedFields = convertFieldsToMultivaluedAndMapNamesToIds(fields);
-        return client.updateIssue(token, issueKey, multivaluedFields);
+        return config.getClient().updateIssue(config.getToken(), issueKey, multivaluedFields);
     }
-    
+
     /**
-     * This will update the set of issues that result from the jql search
-     * NOTE : You cannot update the 'status' field of the issues via this method.
+     * This will update the set of issues that result from the jql search NOTE : You cannot update the 'status' field of the issues via this method.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-issues-by-jql}
      *
-     * @param fields   The fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a "|" if it is multivalued
-     * @param jql      The jql to search the issues that will be updated if issueKey is not set.
-     * @param maxRecordsToUpdate The number of issues you expect the jql search will find. If set,
-     * the update will only take place if the number of issues found is the same as this
-     * 
+     * @param fields
+     *            The fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a "|" if it is
+     *            multivalued
+     * @param jql
+     *            The jql to search the issues that will be updated if issueKey is not set.
+     * @param maxRecordsToUpdate
+     *            The number of issues you expect the jql search will find. If set, the update will only take place if the number of issues found is the same as this
+     *
      * @return A {@link List} with the updated {@link RemoteIssue}s
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<RemoteIssue> updateIssuesByJql(String jql, Map<String, String> fields, @Optional Integer maxRecordsToUpdate) {
-        List<Object> issuesToUpdate = client.getIssuesFromJqlSearch(token, jql, 10000);
-        if (issuesToUpdate != null && maxRecordsToUpdate != null)
-        {
-            if (issuesToUpdate.size() > maxRecordsToUpdate)
-            {
-                throw new JiraConnectorException("Couldn't execute update-issues-by-jql. "
-                    + "The number of issues found by the jql query (" + issuesToUpdate.size()
-                    + ") was greater than the maxRecordsToUpdate given (" + maxRecordsToUpdate + ")");
+        List<Object> issuesToUpdate = config.getClient().getIssuesFromJqlSearch(config.getToken(), jql, 10000);
+        if (issuesToUpdate != null && maxRecordsToUpdate != null) {
+            if (issuesToUpdate.size() > maxRecordsToUpdate) {
+                throw new JiraConnectorException("Couldn't execute update-issues-by-jql. " + "The number of issues found by the jql query (" + issuesToUpdate.size()
+                        + ") was greater than the maxRecordsToUpdate given (" + maxRecordsToUpdate + ")");
             }
         }
-        if (CollectionUtils.isNotEmpty(issuesToUpdate))
-        {
+        if (CollectionUtils.isNotEmpty(issuesToUpdate)) {
             List<RemoteIssue> result = new ArrayList<RemoteIssue>();
             Map<String, List<String>> multivaluedFields = convertFieldsToMultivaluedAndMapNamesToIds(fields);
-            for (Object issue : issuesToUpdate)
-            {
-                RemoteIssue updatedIssue = client.updateIssue(token, ((RemoteIssue)issue).getKey(), multivaluedFields);
+            for (Object issue : issuesToUpdate) {
+                RemoteIssue updatedIssue = config.getClient().updateIssue(config.getToken(), ((RemoteIssue) issue).getKey(), multivaluedFields);
                 result.add(updatedIssue);
             }
             return result;
@@ -476,12 +511,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-issue}
      *
-     * @param issueKey the key of the issue to delete
+     * @param issueKey
+     *            the key of the issue to delete
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteIssue(String issueKey) {
-        client.deleteIssue(token, issueKey);
+        config.getClient().deleteIssue(config.getToken(), issueKey);
     }
 
     /**
@@ -489,13 +524,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-available-actions}
      *
-     * @param issueKey the key of the issue
+     * @param issueKey
+     *            the key of the issue
      * @return the available actions for the given issue key
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getAvailableActions(String issueKey) {
-        return client.getAvailableActions(token, issueKey);
+        return config.getClient().getAvailableActions(config.getToken(), issueKey);
     }
 
     /**
@@ -506,9 +541,8 @@ public class JiraConnector {
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getSubTaskIssueTypes() {
-        return client.getSubTaskIssueTypes(token);
+        return config.getClient().getSubTaskIssueTypes(config.getToken());
     }
 
     /**
@@ -516,27 +550,28 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-project}
      *
-     * @param key                    the key for the new project
-     * @param projectName            the name for the new project
-     * @param description            the description for the new project
-     * @param url                    the url for the new project
-     * @param lead                   the lead of the new project
-     * @param permissionSchemeName   the name of the permission scheme for the new project
-     * @param notificationSchemeName the name of the notification scheme for the new project
-     * @param securityShemeName      the name of the security scheme  for the new project
+     * @param key
+     *            the key for the new project
+     * @param projectName
+     *            the name for the new project
+     * @param description
+     *            the description for the new project
+     * @param url
+     *            the url for the new project
+     * @param lead
+     *            the lead of the new project
+     * @param permissionSchemeName
+     *            the name of the permission scheme for the new project
+     * @param notificationSchemeName
+     *            the name of the notification scheme for the new project
+     * @param securityShemeName
+     *            the name of the security scheme for the new project
      * @return the new project
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteProject createProject(String key,
-                                       String projectName,
-                                       String description,
-                                       @Optional String url,
-                                       String lead,
-                                       @Optional String permissionSchemeName,
-                                       @Optional String notificationSchemeName,
-                                       @Optional String securityShemeName) {
-        return client.createProject(token, key, projectName, description, url, lead, permissionSchemeName, notificationSchemeName, securityShemeName);
+    public RemoteProject createProject(String key, String projectName, String description, @Optional String url, String lead, @Optional String permissionSchemeName,
+            @Optional String notificationSchemeName, @Optional String securityShemeName) {
+        return config.getClient().createProject(config.getToken(), key, projectName, description, url, lead, permissionSchemeName, notificationSchemeName, securityShemeName);
     }
 
     /**
@@ -544,13 +579,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-project-using-object}
      *
-     * @param project JIRA issue to be created
+     * @param project
+     *            JIRA issue to be created
      * @return the new created project
      */
-    @Processor(name="create-project-using-object")
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteProject createProjectUsingObject(@Optional @Default("#[payload]") RemoteProject project) {
-        return client.createProject(token, project);
+    @Processor(name = "create-project-using-object")
+    public RemoteProject createProjectUsingObject(@Default("#[payload]") RemoteProject project) {
+        return config.getClient().createProject(config.getToken(), project);
     }
 
     /**
@@ -558,27 +593,28 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-project}
      *
-     * @param key                    the key of the project to update
-     * @param projectName            the new project name
-     * @param description            the new description
-     * @param url                    the new url
-     * @param lead                   the new lead
-     * @param permissionSchemeName   the new permission scheme name
-     * @param notificationSchemeName the new notification scheme name
-     * @param securityShemeName      the new security scheme name
+     * @param key
+     *            the key of the project to update
+     * @param projectName
+     *            the new project name
+     * @param description
+     *            the new description
+     * @param url
+     *            the new url
+     * @param lead
+     *            the new lead
+     * @param permissionSchemeName
+     *            the new permission scheme name
+     * @param notificationSchemeName
+     *            the new notification scheme name
+     * @param securityShemeName
+     *            the new security scheme name
      * @return the updated project
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteProject updateProject(String key,
-                                       @Optional String projectName,
-                                       String description,
-                                       @Optional String url,
-                                       String lead,
-                                       @Optional String permissionSchemeName,
-                                       @Optional String notificationSchemeName,
-                                       @Optional String securityShemeName) {
-        return client.updateProject(token, key, projectName, description, url, lead, permissionSchemeName, notificationSchemeName, securityShemeName);
+    public RemoteProject updateProject(String key, @Optional String projectName, String description, @Optional String url, String lead, @Optional String permissionSchemeName,
+            @Optional String notificationSchemeName, @Optional String securityShemeName) {
+        return config.getClient().updateProject(config.getToken(), key, projectName, description, url, lead, permissionSchemeName, notificationSchemeName, securityShemeName);
     }
 
     /**
@@ -586,13 +622,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-by-key}
      *
-     * @param projectKey the key of the requested projec
+     * @param projectKey
+     *            the key of the requested projec
      * @return the RemoteProject object specified by the key, if it exists and the user has the BROWSE permission for it
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProject getProjectByKey(String projectKey) {
-        return client.getProjectByKey(token, projectKey);
+        return config.getClient().getProjectByKey(config.getToken(), projectKey);
     }
 
     /**
@@ -600,12 +636,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-all-role-actors-by-project}
      *
-     * @param projectKey the project key for which to remove all role actors
+     * @param projectKey
+     *            the project key for which to remove all role actors
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void removeAllRoleActorsByProject(String projectKey) {
-        client.removeAllRoleActorsByProject(token, projectKey);
+        config.getClient().removeAllRoleActorsByProject(config.getToken(), projectKey);
     }
 
     /**
@@ -616,9 +652,8 @@ public class JiraConnector {
      * @return an array of RemoteStatus objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getPriorities() {
-        return client.getPriorities(token);
+        return config.getClient().getPriorities(config.getToken());
     }
 
     /**
@@ -629,9 +664,8 @@ public class JiraConnector {
      * @return an array of RemoteResolution objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getResolutions() {
-        return client.getResolutions(token);
+        return config.getClient().getResolutions(config.getToken());
     }
 
     /**
@@ -642,11 +676,9 @@ public class JiraConnector {
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getIssueTypes() {
-        return client.getIssueTypes(token);
+        return config.getClient().getIssueTypes(config.getToken());
     }
-
 
     /**
      * Returns an array of all the issue statuses in JIRA.
@@ -656,24 +688,22 @@ public class JiraConnector {
      * @return an array of RemoteStatus objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getStatuses() {
-        return client.getStatuses(token);
+        return config.getClient().getStatuses(config.getToken());
     }
-
 
     /**
      * Returns an array of all the (non-sub task) issue types for the specified project id.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue-types-for-project}
      *
-     * @param projectId id of the project
+     * @param projectId
+     *            id of the project
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getIssueTypesForProject(String projectId) {
-        return client.getIssueTypesForProject(token, projectId);
+        return config.getClient().getIssueTypesForProject(config.getToken(), projectId);
     }
 
     /**
@@ -684,9 +714,8 @@ public class JiraConnector {
      * @return the project roles.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getProjectRoles() {
-        return client.getProjectRoles(token);
+        return config.getClient().getProjectRoles(config.getToken());
     }
 
     /**
@@ -694,13 +723,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-role}
      *
-     * @param projectRoleId the projectRoleId of the project role
+     * @param projectRoleId
+     *            the projectRoleId of the project role
      * @return the project role by projectRoleId.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProjectRole getProjectRole(Long projectRoleId) {
-        return client.getProjectRole(token, projectRoleId);
+        return config.getClient().getProjectRole(config.getToken(), projectRoleId);
     }
 
     /**
@@ -708,14 +737,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-role-actors}
      *
-     * @param projectRoleId the project role id to use
-     * @param projectKey    the project key to use
+     * @param projectRoleId
+     *            the project role id to use
+     * @param projectKey
+     *            the project key to use
      * @return the project role actors for the given project
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProjectRoleActors getProjectRoleActors(Long projectRoleId, String projectKey) {
-        return client.getProjectRoleActors(token, projectRoleId, projectKey);
+        return config.getClient().getProjectRoleActors(config.getToken(), projectRoleId, projectKey);
     }
 
     /**
@@ -723,13 +753,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-default-role-actors}
      *
-     * @param projectRoleId the id of the project role
+     * @param projectRoleId
+     *            the id of the project role
      * @return the default role actors for the given project role id.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteRoleActors getDefaultRoleActors(Long projectRoleId) {
-        return client.getDefaultRoleActors(token, projectRoleId);
+        return config.getClient().getDefaultRoleActors(config.getToken(), projectRoleId);
     }
 
     /**
@@ -737,13 +767,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-all-role-actors-by-name-and-type}
      *
-     * @param roleName the name to delete
-     * @param type the type to delete
+     * @param roleName
+     *            the name to delete
+     * @param type
+     *            the type to delete
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void removeAllRoleActorsByNameAndType(String roleName, String type) {
-        client.removeAllRoleActorsByNameAndType(token, roleName, type);
+        config.getClient().removeAllRoleActorsByNameAndType(config.getToken(), roleName, type);
     }
 
     /**
@@ -751,13 +782,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-project-role}
      *
-     * @param projectRoleId the id of the project role to delete
-     * @param confirm       whether confirm
+     * @param projectRoleId
+     *            the id of the project role to delete
+     * @param confirm
+     *            whether confirm
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteProjectRole(Long projectRoleId, Boolean confirm) {
-        client.deleteProjectRole(token, projectRoleId, confirm);
+        config.getClient().deleteProjectRole(config.getToken(), projectRoleId, confirm);
     }
 
     /**
@@ -765,14 +797,16 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-project-role}
      *
-     * @param projectRoleId          the id of the project role to update
-     * @param projectRoleName        the new project role name
-     * @param projectRoleDescription the new project role description
+     * @param projectRoleId
+     *            the id of the project role to update
+     * @param projectRoleName
+     *            the new project role name
+     * @param projectRoleDescription
+     *            the new project role description
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void updateProjectRole(Long projectRoleId, @Optional String projectRoleName, @Optional String projectRoleDescription) {
-        client.updateProjectRole(token, projectRoleId, projectRoleName, projectRoleDescription);
+        config.getClient().updateProjectRole(config.getToken(), projectRoleId, projectRoleName, projectRoleDescription);
     }
 
     /**
@@ -780,14 +814,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-project-role}
      *
-     * @param projectRoleName        the name of the new project role
-     * @param projectRoleDescription the description of the new project role
+     * @param projectRoleName
+     *            the name of the new project role
+     * @param projectRoleDescription
+     *            the description of the new project role
      * @return the created project role
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProjectRole createProjectRole(String projectRoleName, String projectRoleDescription) {
-        return client.createProjectRole(token, projectRoleName, projectRoleDescription);
+        return config.getClient().createProjectRole(config.getToken(), projectRoleName, projectRoleDescription);
     }
 
     /**
@@ -795,13 +830,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:is-project-role-name-unique}
      *
-     * @param roleName the project role name to check for uniqueness
+     * @param roleName
+     *            the project role name to check for uniqueness
      * @return true if the given project role name is unique, false otherwise.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean isProjectRoleNameUnique(String roleName) {
-        return client.isProjectRoleNameUnique(token, roleName);
+        return config.getClient().isProjectRoleNameUnique(config.getToken(), roleName);
     }
 
     /**
@@ -809,13 +844,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:release-version}
      *
-     * @param projectKey  the project key to use
-     * @param versionName the version name to release
+     * @param projectKey
+     *            the project key to use
+     * @param versionName
+     *            the version name to release
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void releaseVersion(String projectKey, String versionName) {
-        client.releaseVersion(token, projectKey, versionName);
+        config.getClient().releaseVersion(config.getToken(), projectKey, versionName);
     }
 
     /**
@@ -823,15 +859,18 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-default-actors-to-project-role}
      *
-     * @param actors        the actors to add
-     * @param projectRoleId the id of the project role to use
-     * @param projectKey    the key of project to use
-     * @param actorType     the actor type to use
+     * @param actors
+     *            the actors to add
+     * @param projectRoleId
+     *            the id of the project role to use
+     * @param projectKey
+     *            the key of project to use
+     * @param actorType
+     *            the actor type to use
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void addActorsToProjectRole(List<String> actors, Long projectRoleId, String projectKey, @Optional String actorType) {
-        client.addActorsToProjectRole(token, actors, projectRoleId, projectKey, actorType);
+        config.getClient().addActorsToProjectRole(config.getToken(), actors, projectRoleId, projectKey, actorType);
     }
 
     /**
@@ -839,15 +878,18 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-default-actors-from-project-role}
      *
-     * @param actors        the actors to remove
-     * @param projectRoleId the id of the project role to use
-     * @param projectKey    the key of project to use
-     * @param actorType     the actor type to use
+     * @param actors
+     *            the actors to remove
+     * @param projectRoleId
+     *            the id of the project role to use
+     * @param projectKey
+     *            the key of project to use
+     * @param actorType
+     *            the actor type to use
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void removeActorsFromProjectRole(List<String> actors, Long projectRoleId, String projectKey, @Optional String actorType) {
-        client.removeActorsFromProjectRole(token, actors, projectRoleId, projectKey, actorType);
+        config.getClient().removeActorsFromProjectRole(config.getToken(), actors, projectRoleId, projectKey, actorType);
     }
 
     /**
@@ -855,14 +897,16 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-default-actors-to-project-role}
      *
-     * @param actors        the actors to add
-     * @param projectRoleId the id of the project role
-     * @param type          the type
+     * @param actors
+     *            the actors to add
+     * @param projectRoleId
+     *            the id of the project role
+     * @param type
+     *            the type
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void addDefaultActorsToProjectRole(List<String> actors, Long projectRoleId, @Optional String type) {
-        client.addDefaultActorsToProjectRole(token, actors, projectRoleId, type);
+        config.getClient().addDefaultActorsToProjectRole(config.getToken(), actors, projectRoleId, type);
     }
 
     /**
@@ -870,14 +914,16 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:remove-default-actors-from-project-role}
      *
-     * @param actors              the actors to remove
-     * @param remoteProjectRoleId the id of the project role
-     * @param type                the type
+     * @param actors
+     *            the actors to remove
+     * @param remoteProjectRoleId
+     *            the id of the project role
+     * @param type
+     *            the type
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void removeDefaultActorsFromProjectRole(List<String> actors, Long remoteProjectRoleId, @Optional String type) {
-        client.removeDefaultActorsFromProjectRole(token, actors, remoteProjectRoleId, type);
+        config.getClient().removeDefaultActorsFromProjectRole(config.getToken(), actors, remoteProjectRoleId, type);
     }
 
     /**
@@ -885,13 +931,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-associated-notification-schemes}
      *
-     * @param projectRoleId the project role to search
+     * @param projectRoleId
+     *            the project role to search
      * @return the associated notification schemes for the given project role.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getAssociatedNotificationSchemes(Long projectRoleId) {
-        return client.getAssociatedNotificationSchemes(token, projectRoleId);
+        return config.getClient().getAssociatedNotificationSchemes(config.getToken(), projectRoleId);
     }
 
     /**
@@ -899,13 +945,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-associated-permission-schemes}
      *
-     * @param projectRoleId the project role to search
+     * @param projectRoleId
+     *            the project role to search
      * @return the associated permission schemas for the given project role.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getAssociatedPermissionSchemes(Long projectRoleId) {
-        return client.getAssociatedPermissionSchemes(token, projectRoleId);
+        return config.getClient().getAssociatedPermissionSchemes(config.getToken(), projectRoleId);
     }
 
     /**
@@ -913,12 +959,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-project}
      *
-     * @param projectKey the key of the project to delete
+     * @param projectKey
+     *            the key of the project to delete
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteProject(String projectKey) {
-        client.deleteProject(token, projectKey);
+        config.getClient().deleteProject(config.getToken(), projectKey);
     }
 
     /**
@@ -926,13 +972,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-by-id}
      *
-     * @param projectId the id of the requested project
+     * @param projectId
+     *            the id of the requested project
      * @return the RemoteProject object specified by the key, if it exists and the user has the BROWSE permission for it
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProject getProjectById(Long projectId) {
-        return client.getProjectById(token, projectId);
+        return config.getClient().getProjectById(config.getToken(), projectId);
     }
 
     /**
@@ -940,13 +986,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-versions}
      *
-     * @param projectKey the key of the requested project
+     * @param projectKey
+     *            the key of the requested project
      * @return an array of RemoteVersion objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getVersions(String projectKey) {
-        return client.getVersions(token, projectKey);
+        return config.getClient().getVersions(config.getToken(), projectKey);
     }
 
     /**
@@ -954,14 +1000,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-comments}
      *
-     * @param issueKey the key of the issue to get the comments for
+     * @param issueKey
+     *            the key of the issue to get the comments for
      * @return the comments for the issue denoted by the given key.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public List<Object> getComments(
-            String issueKey) {
-        return client.getComments(token, issueKey);
+    public List<Object> getComments(String issueKey) {
+        return config.getClient().getComments(config.getToken(), issueKey);
     }
 
     /**
@@ -972,9 +1017,8 @@ public class JiraConnector {
      * @return a list of the currently logged in user's favourite fitlers.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getFavouriteFilters() {
-        return client.getFavouriteFilters(token);
+        return config.getClient().getFavouriteFilters(config.getToken());
     }
 
     /**
@@ -982,14 +1026,16 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:archive-version}
      *
-     * @param projectKey  the project key to use
-     * @param versionName the version name to use
-     * @param archive     whether it should be archived
+     * @param projectKey
+     *            the project key to use
+     * @param versionName
+     *            the version name to use
+     * @param archive
+     *            whether it should be archived
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void archiveVersion(String projectKey, String versionName, Boolean archive) {
-        client.archiveVersion(token, projectKey, versionName, archive);
+        config.getClient().archiveVersion(config.getToken(), projectKey, versionName, archive);
     }
 
     /**
@@ -997,13 +1043,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-fields-for-edit}
      *
-     * @param issueKey the issue key to get the fields for
+     * @param issueKey
+     *            the issue key to get the fields for
      * @return the fields for edit
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getFieldsForEdit(String issueKey) {
-        return client.getFieldsForEdit(token, issueKey);
+        return config.getClient().getFieldsForEdit(config.getToken(), issueKey);
     }
 
     /**
@@ -1011,28 +1057,29 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-sub-task-issue-types-for-project}
      *
-     * @param projectId id of the project
+     * @param projectId
+     *            id of the project
      * @return an array of RemoteIssueType objects
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getSubTaskIssueTypesForProject(String projectId) {
-        return client.getSubTaskIssueTypesForProject(token, projectId);
+        return config.getClient().getSubTaskIssueTypesForProject(config.getToken(), projectId);
     }
 
     /**
-     * Log in using the given credentials, it returns the authentication token.
+     * Log in using the given credentials, it returns the authentication config.getToken().
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:login}
      *
-     * @param username the username to use
-     * @param password the password to use
-     * @return the authentication token
+     * @param username
+     *            the username to use
+     * @param password
+     *            the password to use
+     * @return the authentication config.getToken()
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public String login(String username, String password) {
-        return client.login(username, password);
+        return config.getClient().login(username, password);
     }
 
     /**
@@ -1040,13 +1087,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-security-level}
      *
-     * @param issueKey the issue key
+     * @param issueKey
+     *            the issue key
      * @return issue security level
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteSecurityLevel getSecurityLevel(String issueKey) {
-        return client.getSecurityLevel(token, issueKey);
+        return config.getClient().getSecurityLevel(config.getToken(), issueKey);
     }
 
     /**
@@ -1057,23 +1104,22 @@ public class JiraConnector {
      * @return the custom fields for the current user
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getCustomFields() {
-        return client.getCustomFields(token);
+        return config.getClient().getCustomFields(config.getToken());
     }
 
     /**
-     * Cleans up an authentication token that was previously created with a call to login
+     * Cleans up an authentication config.getToken() that was previously created with a call to login
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:logout}
      *
-     * @param token the token to invalidate
+     * @param config
+     *            .getToken() the config.getToken() to invalidate
      * @return true if the logout succeeded
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean logout(String token) {
-        return client.logout(token);
+        return config.getClient().logout(token);
     }
 
     /**
@@ -1081,13 +1127,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-with-schemes-by-id}
      *
-     * @param projectId the id of the requested project
+     * @param projectId
+     *            the id of the requested project
      * @return the RemoteProject object specified by the key, if it exists and the user has the BROWSE permission for it
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteProject getProjectWithSchemesById(Long projectId) {
-        return client.getProjectWithSchemesById(token, projectId);
+        return config.getClient().getProjectWithSchemesById(config.getToken(), projectId);
     }
 
     /**
@@ -1095,30 +1141,30 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-security-levels}
      *
-     * @param projectKey the key for the project
+     * @param projectKey
+     *            the key for the project
      * @return array of RemoteSecurityLevels for the project
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getSecurityLevels(String projectKey) {
-        return client.getSecurityLevels(token, projectKey);
+        return config.getClient().getSecurityLevels(config.getToken(), projectKey);
     }
 
     /**
-     * Retrieves avatars for the given project. If the includeSystemAvatars parameter is true, this will include both
-     * system (built-in) avatars as well as custom (user-supplied) avatars for that project, otherwise it will include
-     * only the custom avatars. Project browse permission is required.
+     * Retrieves avatars for the given project. If the includeSystemAvatars parameter is true, this will include both system (built-in) avatars as well as custom (user-supplied)
+     * avatars for that project, otherwise it will include only the custom avatars. Project browse permission is required.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-avatars}
      *
-     * @param projectKey           the key for the project.
-     * @param includeSystemAvatars if false, only custom avatars will be included in the returned array.
+     * @param projectKey
+     *            the key for the project.
+     * @param includeSystemAvatars
+     *            if false, only custom avatars will be included in the returned array.
      * @return the avatars for the project, possibly empty.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getProjectAvatars(String projectKey, Boolean includeSystemAvatars) {
-        return client.getProjectAvatars(token, projectKey, includeSystemAvatars);
+        return config.getClient().getProjectAvatars(config.getToken(), projectKey, includeSystemAvatars);
     }
 
     /**
@@ -1126,13 +1172,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:set-project-avatar}
      *
-     * @param projectKey the key for the project.
-     * @param avatarId   the id of an existing avatar to use for the project or null for the default avatar.
+     * @param projectKey
+     *            the key for the project.
+     * @param avatarId
+     *            the id of an existing avatar to use for the project or null for the default avatar.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void setProjectAvatar(String projectKey, Long avatarId) {
-        client.setProjectAvatar(token, projectKey, avatarId);
+        config.getClient().setProjectAvatar(config.getToken(), projectKey, avatarId);
     }
 
     /**
@@ -1140,13 +1187,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-project-avatar}
      *
-     * @param projectKey the key for the project.
+     * @param projectKey
+     *            the key for the project.
      * @return the current avatar for the project.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteAvatar getProjectAvatar(String projectKey) {
-        return client.getProjectAvatar(token, projectKey);
+        return config.getClient().getProjectAvatar(config.getToken(), projectKey);
     }
 
     /**
@@ -1154,12 +1201,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-project-avatar}
      *
-     * @param avatarId id of the custom avatar to delete.
+     * @param avatarId
+     *            id of the custom avatar to delete.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteProjectAvatar(Long avatarId) {
-        client.deleteProjectAvatar(token, avatarId);
+        config.getClient().deleteProjectAvatar(config.getToken(), avatarId);
     }
 
     /**
@@ -1170,9 +1217,8 @@ public class JiraConnector {
      * @return the notification schemes.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getNotificationSchemes() {
-        return client.getNotificationSchemes(token);
+        return config.getClient().getNotificationSchemes(config.getToken());
     }
 
     /**
@@ -1183,9 +1229,8 @@ public class JiraConnector {
      * @return the permission schemes.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getPermissionSchemes() {
-        return client.getPermissionSchemes(token);
+        return config.getClient().getPermissionSchemes(config.getToken());
     }
 
     /**
@@ -1196,9 +1241,8 @@ public class JiraConnector {
      * @return all the permissions
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getAllPermissions() {
-        return client.getAllPermissions(token);
+        return config.getClient().getAllPermissions(config.getToken());
     }
 
     /**
@@ -1206,14 +1250,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:create-permission-scheme}
      *
-     * @param permissionName        the name of the new permission scheme
-     * @param description the description of the new permission scheme
+     * @param permissionName
+     *            the name of the new permission scheme
+     * @param description
+     *            the description of the new permission scheme
      * @return the created permission scheme
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemotePermissionScheme createPermissionScheme(String permissionName, String description) {
-        return client.createPermissionScheme(token, permissionName, description);
+        return config.getClient().createPermissionScheme(config.getToken(), permissionName, description);
     }
 
     /**
@@ -1221,15 +1266,17 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-permission-to}
      *
-     * @param permissionSchemeName the name of the permission scheme to use
-     * @param permissionCode       the permission code to use
-     * @param entityName           the entity name, username or group name
+     * @param permissionSchemeName
+     *            the name of the permission scheme to use
+     * @param permissionCode
+     *            the permission code to use
+     * @param entityName
+     *            the entity name, username or group name
      * @return the modified permission scheme
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemotePermissionScheme addPermissionTo(String permissionSchemeName, Long permissionCode, String entityName) {
-        return client.addPermissionTo(token, permissionSchemeName, permissionCode, entityName);
+        return config.getClient().addPermissionTo(config.getToken(), permissionSchemeName, permissionCode, entityName);
     }
 
     /**
@@ -1237,15 +1284,17 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-permission-from}
      *
-     * @param permissionSchemeName the name of the permission scheme to use
-     * @param permissionCode       the permission code to use
-     * @param entityName           the entity name, username or group name
+     * @param permissionSchemeName
+     *            the name of the permission scheme to use
+     * @param permissionCode
+     *            the permission code to use
+     * @param entityName
+     *            the entity name, username or group name
      * @return the modified permission scheme
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemotePermissionScheme deletePermissionFrom(String permissionSchemeName, Long permissionCode, String entityName) {
-        return client.deletePermissionFrom(token, permissionSchemeName, permissionCode, entityName);
+        return config.getClient().deletePermissionFrom(config.getToken(), permissionSchemeName, permissionCode, entityName);
     }
 
     /**
@@ -1253,12 +1302,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-permission-scheme}
      *
-     * @param permissionSchemeName the name of the permission scheme to delete
+     * @param permissionSchemeName
+     *            the name of the permission scheme to delete
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deletePermissionScheme(String permissionSchemeName) {
-        client.deletePermissionScheme(token, permissionSchemeName);
+        config.getClient().deletePermissionScheme(config.getToken(), permissionSchemeName);
     }
 
     /**
@@ -1266,13 +1315,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-attachments-from-issue}
      *
-     * @param issueKey the issue key to use
+     * @param issueKey
+     *            the issue key to use
      * @return the attachments for the issue denoted by the given key.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getAttachmentsFromIssue(String issueKey) {
-        return client.getAttachmentsFromIssue(token, issueKey);
+        return config.getClient().getAttachmentsFromIssue(config.getToken(), issueKey);
     }
 
     /**
@@ -1280,13 +1329,13 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:has-permission-to-edit-comment}
      *
-     * @param commentId the comment id to use
+     * @param commentId
+     *            the comment id to use
      * @return whether the current user has permissions to edit the comment denoted by the given id.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean hasPermissionToEditComment(Long commentId) {
-        return client.hasPermissionToEditComment(token, commentId);
+        return config.getClient().hasPermissionToEditComment(config.getToken(), commentId);
     }
 
     /**
@@ -1294,15 +1343,17 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:edit-comment}
      *
-     * @param commentId    the id of the comment to edit
-     * @param body         the updated body comment
-     * @param updateAuthor the update author
+     * @param commentId
+     *            the id of the comment to edit
+     * @param body
+     *            the updated body comment
+     * @param updateAuthor
+     *            the update author
      * @return the edited comment
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteComment editComment(Long commentId, @Optional String body, @Optional String updateAuthor) {
-        return client.editComment(token, commentId, body, updateAuthor);
+        return config.getClient().editComment(config.getToken(), commentId, body, updateAuthor);
     }
 
     /**
@@ -1310,14 +1361,15 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-fields-for-action}
      *
-     * @param issueKey       the issue key to use
-     * @param actionIdString the action id to use
+     * @param issueKey
+     *            the issue key to use
+     * @param actionIdString
+     *            the action id to use
      * @return the fields for the given action
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getFieldsForAction(String issueKey, String actionIdString) {
-        return client.getFieldsForAction(token, issueKey, actionIdString);
+        return config.getClient().getFieldsForAction(config.getToken(), issueKey, actionIdString);
     }
 
     /**
@@ -1325,62 +1377,63 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue-by-id}
      *
-     * @param issueId the issue id to use
+     * @param issueId
+     *            the issue id to use
      * @return the issue for the given issue id.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue getIssueById(String issueId) {
-        return client.getIssueById(token, issueId);
+        return config.getClient().getIssueById(config.getToken(), issueId);
     }
 
     /**
-     * Deletes the worklog with the given id and sets the remaining estimate field on the isssue to the given value. The time spent field of the issue is reduced by the time spent amount on the worklog being deleted.
+     * Deletes the worklog with the given id and sets the remaining estimate field on the isssue to the given value. The time spent field of the issue is reduced by the time spent
+     * amount on the worklog being deleted.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-worklog-with-new-remaining-estimate}
      * <p/>
-     * the SOAP auth token.
+     * the SOAP auth config.getToken().
      *
-     * @param workLogId            the id of the worklog to delete.
-     * @param newRemainingEstimate the new value for the issue's remaining estimate as a duration string, eg 1d 2h.
+     * @param workLogId
+     *            the id of the worklog to delete.
+     * @param newRemainingEstimate
+     *            the new value for the issue's remaining estimate as a duration string, eg 1d 2h.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteWorklogWithNewRemainingEstimate(String workLogId, String newRemainingEstimate) {
-        client.deleteWorklogWithNewRemainingEstimate(token, workLogId, newRemainingEstimate);
+        config.getClient().deleteWorklogWithNewRemainingEstimate(config.getToken(), workLogId, newRemainingEstimate);
     }
 
     /**
-     * Deletes the worklog with the given id and updates the remaining estimate field on the isssue by increasing it
-     * by the time spent amount on the worklog being deleted. The time spent field of the issue is reduced by the
-     * time spent amount on the worklog being deleted.
+     * Deletes the worklog with the given id and updates the remaining estimate field on the isssue by increasing it by the time spent amount on the worklog being deleted. The time
+     * spent field of the issue is reduced by the time spent amount on the worklog being deleted.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-worklog-and-auto-adjust-remaining-estimate}
      * <p/>
-     * the SOAP auth token.
+     * the SOAP auth config.getToken().
      *
-     * @param worklogId the id of the worklog to delete.
+     * @param worklogId
+     *            the id of the worklog to delete.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteWorklogAndAutoAdjustRemainingEstimate(String worklogId) {
-        client.deleteWorklogAndAutoAdjustRemainingEstimate(token, worklogId);
+        config.getClient().deleteWorklogAndAutoAdjustRemainingEstimate(config.getToken(), worklogId);
     }
 
     /**
-     * Deletes the worklog with the given id but leaves the remaining estimate field on the isssue unchanged. The time
-     * spent field of the issue is reduced by the time spent amount on the worklog being deleted.
+     * Deletes the worklog with the given id but leaves the remaining estimate field on the isssue unchanged. The time spent field of the issue is reduced by the time spent amount
+     * on the worklog being deleted.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-worklog-and-retain-remaining-estimate}
      * <p/>
-     * the SOAP auth token.
+     * the SOAP auth config.getToken().
      *
-     * @param worklogId the id of the worklog to delete.
+     * @param worklogId
+     *            the id of the worklog to delete.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void deleteWorklogAndRetainRemainingEstimate(String worklogId) {
-        client.deleteWorklogAndRetainRemainingEstimate(token, worklogId);
+        config.getClient().deleteWorklogAndRetainRemainingEstimate(config.getToken(), worklogId);
     }
 
     /**
@@ -1388,91 +1441,91 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-worklogs}
      * <p/>
-     * the SOAP auth token.
+     * the SOAP auth config.getToken().
      *
-     * @param issueKey the key of the issue.
+     * @param issueKey
+     *            the key of the issue.
      * @return all the worklogs of the issue.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getWorklogs(String issueKey) {
-        return client.getWorklogs(token, issueKey);
+        return config.getClient().getWorklogs(config.getToken(), issueKey);
     }
 
     /**
-     * Determines if the user has the permission to add worklogs to the specified issue, that timetracking is enabled
-     * in JIRA and that the specified issue is in an editable workflow state.
+     * Determines if the user has the permission to add worklogs to the specified issue, that timetracking is enabled in JIRA and that the specified issue is in an editable
+     * workflow state.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:has-permission-to-create-worklog}
      * <p/>
-     * the SOAP auth token.
+     * the SOAP auth config.getToken().
      *
-     * @param issueKey the key of the issue.
+     * @param issueKey
+     *            the key of the issue.
      * @return true if the user has permission to create a worklog on the specified issue, false otherwise
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean hasPermissionToCreateWorklog(String issueKey) {
-        return client.hasPermissionToCreateWorklog(token, issueKey);
+        return config.getClient().hasPermissionToCreateWorklog(config.getToken(), issueKey);
     }
 
     /**
-     * Determine whether the current user has the permission to delete the supplied worklog, that timetracking is enabled in JIRA and that the associated issue is in an editable workflow state.
-     * This method will return true if the user is a member of the worklog's group/role level (if specified) AND
-     * The user has the WORKLOG_DELETE_ALL permission; OR
-     * The user is the worklog author and has the WORKLOG_DELETE_OWN permission
-     * and false otherwise.
+     * Determine whether the current user has the permission to delete the supplied worklog, that timetracking is enabled in JIRA and that the associated issue is in an editable
+     * workflow state. This method will return true if the user is a member of the worklog's group/role level (if specified) AND The user has the WORKLOG_DELETE_ALL permission; OR
+     * The user is the worklog author and has the WORKLOG_DELETE_OWN permission and false otherwise.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:has-permission-to-delete-worklog}
      * <p/>
-     * the SOAP auth token.
+     * the SOAP auth config.getToken().
      *
-     * @param worklogId the id of the worklog wishes to delete.
+     * @param worklogId
+     *            the id of the worklog wishes to delete.
      * @return true if the user has permission to delete the supplied worklog, false otherwise
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean hasPermissionToDeleteWorklog(String worklogId) {
-        return client.hasPermissionToDeleteWorklog(token, worklogId);
+        return config.getClient().hasPermissionToDeleteWorklog(config.getToken(), worklogId);
     }
 
     /**
-     * Determine whether the current user has the permission to update the supplied worklog, that timetracking is enabled in JIRA and that the associated issue is in an editable workflow state.
-     * This method will return true if the user is a member of the worklog's group/role level (if specified) AND
-     * The user has the WORKLOG_EDIT_ALL permission; OR
-     * The user is the worklog author and has the WORKLOG_EDIT_OWN permission
-     * and false otherwise.
+     * Determine whether the current user has the permission to update the supplied worklog, that timetracking is enabled in JIRA and that the associated issue is in an editable
+     * workflow state. This method will return true if the user is a member of the worklog's group/role level (if specified) AND The user has the WORKLOG_EDIT_ALL permission; OR
+     * The user is the worklog author and has the WORKLOG_EDIT_OWN permission and false otherwise.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:has-permission-to-update-worklog}
      *
-     * @param worklogId the ide of the worklog wishes to update.
+     * @param worklogId
+     *            the ide of the worklog wishes to update.
      * @return true if the user has permission to update the supplied worklog, false otherwise
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean hasPermissionToUpdateWorklog(String worklogId) {
-        return client.hasPermissionToUpdateWorklog(token, worklogId);
+        return config.getClient().hasPermissionToUpdateWorklog(config.getToken(), worklogId);
     }
 
     /**
-     * Modifies the worklog with the id of the given worklog, updating its fields to match the given worklog and sets
-     * the remaining estimate field on the relevant issue to the given value. The time spent field of the issue is
-     * changed by subtracting the previous value of the worklog's time spent amount and adding the new value in the
-     * given worklog.
+     * Modifies the worklog with the id of the given worklog, updating its fields to match the given worklog and sets the remaining estimate field on the relevant issue to the
+     * given value. The time spent field of the issue is changed by subtracting the previous value of the worklog's time spent amount and adding the new value in the given worklog.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:update-worklog-with-new-remaining-estimate}
      *
-     * @param issueKey             the issue key to use
-     * @param worklogId            the worklog id to use
-     * @param newRemainingEstimate the new value for the issue's remaining estimate as a duration string, eg 1d 2h.
-     * @param comment              the new comment
-     * @param groupLevel           the new group level
-     * @param roleLevelId          the new role level id
+     * @param issueKey
+     *            the issue key to use
+     * @param worklogId
+     *            the worklog id to use
+     * @param newRemainingEstimate
+     *            the new value for the issue's remaining estimate as a duration string, eg 1d 2h.
+     * @param comment
+     *            the new comment
+     * @param groupLevel
+     *            the new group level
+     * @param roleLevelId
+     *            the new role level id
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public void updateWorklogWithNewRemainingEstimate(String issueKey, String worklogId, String newRemainingEstimate, @Optional String comment, @Optional String groupLevel, @Optional String roleLevelId) {
-        client.updateWorklogWithNewRemainingEstimate(token, issueKey, worklogId, comment, groupLevel, roleLevelId, newRemainingEstimate);
+    public void updateWorklogWithNewRemainingEstimate(String issueKey, String worklogId, String newRemainingEstimate, @Optional String comment, @Optional String groupLevel,
+            @Optional String roleLevelId) {
+        config.getClient().updateWorklogWithNewRemainingEstimate(config.getToken(), issueKey, worklogId, comment, groupLevel, roleLevelId, newRemainingEstimate);
     }
 
     /**
@@ -1480,47 +1533,50 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-version}
      *
-     * @param projectKey  the project key to use
-     * @param versionName the version name to use
-     * @param archived    whether is archived
-     * @param released    whether is released
-     * @param releaseDate the release date to use in the format MM-dd-yyy'T'HH:mm:ss
+     * @param projectKey
+     *            the project key to use
+     * @param versionName
+     *            the version name to use
+     * @param archived
+     *            whether is archived
+     * @param released
+     *            whether is released
+     * @param releaseDate
+     *            the release date to use in the format MM-dd-yyy'T'HH:mm:ss
      * @return the new version
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteVersion addVersion(String projectKey, String versionName, Boolean archived, Boolean released, String releaseDate) {
-        return client.addVersion(token, projectKey, versionName, archived, released, releaseDate);
+        return config.getClient().addVersion(config.getToken(), projectKey, versionName, archived, released, releaseDate);
     }
 
     /**
-     * Given an issue key, this method returns the resolution date for this issue. If the issue hasn't been resolved
-     * yet, this method will return null.
+     * Given an issue key, this method returns the resolution date for this issue. If the issue hasn't been resolved yet, this method will return null.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-resolution-date-by-key}
      *
-     * @param issueKey the key of the issue
+     * @param issueKey
+     *            the key of the issue
      * @return The resolution date of the issue. May be null
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public Calendar getResolutionDateByKey(String issueKey) {
-        return client.getResolutionDateByKey(token, issueKey);
+        return config.getClient().getResolutionDateByKey(config.getToken(), issueKey);
     }
 
     /**
-     * Given an issue id, this method returns the resolution date for this issue. If the issue hasn't been resolved yet, this method will return null.
-     * If the no issue with the given id exists a RemoteException will be thrown.
+     * Given an issue id, this method returns the resolution date for this issue. If the issue hasn't been resolved yet, this method will return null. If the no issue with the
+     * given id exists a RemoteException will be thrown.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-resolution-date-by-id}
      *
-     * @param issueId the id of the issue
+     * @param issueId
+     *            the id of the issue
      * @return The resolution date of the issue. May be null
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public Calendar getResolutionDateById(Long issueId) {
-        return client.getResolutionDateById(token, issueId);
+        return config.getClient().getResolutionDateById(config.getToken(), issueId);
     }
 
     /**
@@ -1528,61 +1584,59 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issue-count-for-filter}
      *
-     * @param filterId the fiter id to use
+     * @param filterId
+     *            the fiter id to use
      * @return the issue count for the filter denoted by this id.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public long getIssueCountForFilter(String filterId) {
-        return client.getIssueCountForFilter(token, filterId);
+        return config.getClient().getIssueCountForFilter(config.getToken(), filterId);
     }
 
     /**
-     * Returns issues containing searchTerms that are within the specified projects.
-     * Note: this is a fuzzy search, returned in order of 'relevance', so the results are only generally useful for
-     * human consumption.
+     * Returns issues containing searchTerms that are within the specified projects. Note: this is a fuzzy search, returned in order of 'relevance', so the results are only
+     * generally useful for human consumption.
      * <p/>
      * This method will return no more than the maxNumResults.
      * <p/>
-     * This method also respects the jira.search.views.max.limit and jira.search.views.max.unlimited.group JIRA
-     * properties which will override the max number of results returned.
+     * This method also respects the jira.search.views.max.limit and jira.search.views.max.unlimited.group JIRA properties which will override the max number of results returned.
      * <p/>
-     * If the jira.search.views.max.limit property is set and you are not in a group specified by
-     * jira.search.views.max.unlimited.group then the number of results returned will be constrained by the value of
-     * jira.search.views.max.limit if it is less than the specified maxNumResults.
+     * If the jira.search.views.max.limit property is set and you are not in a group specified by jira.search.views.max.unlimited.group then the number of results returned will be
+     * constrained by the value of jira.search.views.max.limit if it is less than the specified maxNumResults.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issues-from-text-search-with-project}
      *
-     * @param projectKeys   the project keys to use
-     * @param searchTerms   earch terms
-     * @param maxNumResults the maximum number of results that this method will return.
+     * @param projectKeys
+     *            the project keys to use
+     * @param searchTerms
+     *            earch terms
+     * @param maxNumResults
+     *            the maximum number of results that this method will return.
      * @return issues matching the search terms
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getIssuesFromTextSearchWithProject(List<String> projectKeys, String searchTerms, Integer maxNumResults) {
-        return client.getIssuesFromTextSearchWithProject(token, projectKeys, searchTerms, maxNumResults);
+        return config.getClient().getIssuesFromTextSearchWithProject(config.getToken(), projectKeys, searchTerms, maxNumResults);
     }
 
     /**
-     * Execute a specified JQL query and return the resulting issues.
-     * This method also respects the jira.search.views.max.limit and jira.search.views.max.unlimited.group JIRA properties
-     * which will override the max number of results returned.
+     * Execute a specified JQL query and return the resulting issues. This method also respects the jira.search.views.max.limit and jira.search.views.max.unlimited.group JIRA
+     * properties which will override the max number of results returned.
      * <p/>
-     * If the jira.search.views.max.limit property is set and you are not in a group specified by
-     * jira.search.views.max.unlimited.group then the number of results returned will be constrained by the value of
-     * jira.search.views.max.limit if it is less than the specified maxNumResults.
+     * If the jira.search.views.max.limit property is set and you are not in a group specified by jira.search.views.max.unlimited.group then the number of results returned will be
+     * constrained by the value of jira.search.views.max.limit if it is less than the specified maxNumResults.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issues-from-jql-search}
      *
-     * @param jqlSearch     JQL query string to execute
-     * @param maxNumResults the maximum number of results that this method will return
+     * @param jqlSearch
+     *            JQL query string to execute
+     * @param maxNumResults
+     *            the maximum number of results that this method will return
      * @return issues matching the JQL query
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getIssuesFromJqlSearch(String jqlSearch, Integer maxNumResults) {
-        return client.getIssuesFromJqlSearch(token, jqlSearch, maxNumResults);
+        return config.getClient().getIssuesFromJqlSearch(config.getToken(), jqlSearch, maxNumResults);
     }
 
     /**
@@ -1590,13 +1644,12 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-user}
      *
-     * @param username the user name to delete
+     * @param username
+     *            the user name to delete
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public void deleteUser(
-            String username) {
-        client.deleteUser(token, username);
+    public void deleteUser(String username) {
+        config.getClient().deleteUser(config.getToken(), username);
     }
 
     /**
@@ -1604,15 +1657,14 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:delete-group}
      *
-     * @param groupName     the group name to use
-     * @param swapGroupName the swap group name to use
+     * @param groupName
+     *            the group name to use
+     * @param swapGroupName
+     *            the swap group name to use
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public void deleteGroup(
-            String groupName,
-            @Optional String swapGroupName) {
-        client.deleteGroup(token, groupName, swapGroupName);
+    public void deleteGroup(String groupName, @Optional String swapGroupName) {
+        config.getClient().deleteGroup(config.getToken(), groupName, swapGroupName);
     }
 
     /**
@@ -1621,83 +1673,79 @@ public class JiraConnector {
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:refresh-custom-fields}
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void refreshCustomFields() {
-        client.refreshCustomFields(token);
+        config.getClient().refreshCustomFields(config.getToken());
     }
 
     /**
-     * An alternative mechanism for adding attachments to an issue. This method accepts the data of the attachments as
-     * Base64 encoded strings instead of byte arrays. This is to combat the XML message bloat created by Axis when
-     * SOAP-ifying byte arrays.
-     * For more information, please see JRA-11693.
+     * An alternative mechanism for adding attachments to an issue. This method accepts the data of the attachments as Base64 encoded strings instead of byte arrays. This is to
+     * combat the XML message bloat created by Axis when SOAP-ifying byte arrays. For more information, please see JRA-11693.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-base64-encoded-attachments-to-issue}
      *
-     * @param issueKey                    the issue to attach to
-     * @param fileNames                   an array of filenames; each element names an attachment to be uploaded
-     * @param base64EncodedAttachmentData an array of Base 64 encoded Strings; each element contains the data of the attachment to be uploaded
+     * @param issueKey
+     *            the issue to attach to
+     * @param fileNames
+     *            an array of filenames; each element names an attachment to be uploaded
+     * @param base64EncodedAttachmentData
+     *            an array of Base 64 encoded Strings; each element contains the data of the attachment to be uploaded
      * @return true if attachments were successfully added; if the operation was not successful, an exception would be thrown
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public boolean addBase64EncodedAttachmentsToIssue(String issueKey, List<String> fileNames, List<String> base64EncodedAttachmentData) {
-        return client.addBase64EncodedAttachmentsToIssue(token, issueKey, fileNames, base64EncodedAttachmentData);
+        return config.getClient().addBase64EncodedAttachmentsToIssue(config.getToken(), issueKey, fileNames, base64EncodedAttachmentData);
     }
 
     /**
-     * Returns issues that match the saved filter specified by the filterId.
-     * This method will return no more than the maxNumResults.
+     * Returns issues that match the saved filter specified by the filterId. This method will return no more than the maxNumResults.
      * <p/>
      * It will start the result set at the provided off set.
      * <p/>
-     * This method also respects the jira.search.views.max.limit and jira.search.views.max.unlimited.group JIRA properties
-     * which will override the max number of results returned.
+     * This method also respects the jira.search.views.max.limit and jira.search.views.max.unlimited.group JIRA properties which will override the max number of results returned.
      * <p/>
-     * If the jira.search.views.max.limit property is set and you are not in a group specified by
-     * jira.search.views.max.unlimited.group then the number of results returned will be constrained by the value of
-     * jira.search.views.max.limit if it is less than the specified maxNumResults.
+     * If the jira.search.views.max.limit property is set and you are not in a group specified by jira.search.views.max.unlimited.group then the number of results returned will be
+     * constrained by the value of jira.search.views.max.limit if it is less than the specified maxNumResults.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issues-from-filter-with-limit}
      *
-     * @param filterId      identifies the saved filter to use for the search.
-     * @param offset        the place in the result set to use as the first result returned
-     * @param maxNumResults the maximum number of results that this method will return.
+     * @param filterId
+     *            identifies the saved filter to use for the search.
+     * @param offset
+     *            the place in the result set to use as the first result returned
+     * @param maxNumResults
+     *            the maximum number of results that this method will return.
      * @return issues matching the saved filter
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getIssuesFromFilterWithLimit(String filterId, Integer offset, Integer maxNumResults) {
-        return client.getIssuesFromFilterWithLimit(token, filterId, offset, maxNumResults);
+        return config.getClient().getIssuesFromFilterWithLimit(config.getToken(), filterId, offset, maxNumResults);
     }
 
     /**
-     * Returns issues containing searchTerms.
-     * Note: this is a fuzzy search, returned in order of 'relevance', so the results are only generally useful for human
-     * consumption.
+     * Returns issues containing searchTerms. Note: this is a fuzzy search, returned in order of 'relevance', so the results are only generally useful for human consumption.
      * <p/>
      * This method will return no more than the maxNumResults.
      * <p/>
      * It will start the result set at the provided off set.
      * <p/>
-     * This method also respects the jira.search.views.max.limit and jira.search.views.max.unlimited.group JIRA properties
-     * which will override the max number of results returned.
+     * This method also respects the jira.search.views.max.limit and jira.search.views.max.unlimited.group JIRA properties which will override the max number of results returned.
      * <p/>
-     * If the jira.search.views.max.limit property is set and you are not in a group specified by
-     * jira.search.views.max.unlimited.group then the number of results returned will be constrained by the value of
-     * jira.search.views.max.limit if it is less than the specified maxNumResults.
+     * If the jira.search.views.max.limit property is set and you are not in a group specified by jira.search.views.max.unlimited.group then the number of results returned will be
+     * constrained by the value of jira.search.views.max.limit if it is less than the specified maxNumResults.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:get-issues-from-text-search-with-limit}
      *
-     * @param searchTerms   search terms
-     * @param offset        the place in the result set to use as the first result returned
-     * @param maxNumResults the maximum number of results that this method will return.
+     * @param searchTerms
+     *            search terms
+     * @param offset
+     *            the place in the result set to use as the first result returned
+     * @param maxNumResults
+     *            the maximum number of results that this method will return.
      * @return issues matching the search terms
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getIssuesFromTextSearchWithLimit(String searchTerms, Integer offset, Integer maxNumResults) {
-        return client.getIssuesFromTextSearchWithLimit(token, searchTerms, offset, maxNumResults);
+        return config.getClient().getIssuesFromTextSearchWithLimit(config.getToken(), searchTerms, offset, maxNumResults);
     }
 
     /**
@@ -1708,27 +1756,27 @@ public class JiraConnector {
      * @return an array of RemoteProject objects.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getProjectsNoSchemes() {
-        return client.getProjectsNoSchemes(token);
+        return config.getClient().getProjectsNoSchemes(config.getToken());
     }
 
     /**
-     * Creates a new custom avatar for the given project and sets it to be current for the project. The image data
-     * must be provided as base64 encoded data and should be 48 pixels square. If the image is larger, the top left
-     * 48 pixels are taken, if it is smaller it is upscaled to 48 pixels. The small version of the avatar image (16
-     * pixels) is generated automatically. Project administration permission is required.
+     * Creates a new custom avatar for the given project and sets it to be current for the project. The image data must be provided as base64 encoded data and should be 48 pixels
+     * square. If the image is larger, the top left 48 pixels are taken, if it is smaller it is upscaled to 48 pixels. The small version of the avatar image (16 pixels) is
+     * generated automatically. Project administration permission is required.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:set-new-project-avatar}
      *
-     * @param projectKey      the key for the project.
-     * @param contentType     the MIME type of the image provided, e.g. image/gif, image/jpeg, image/png.
-     * @param base64ImageData a base 64 encoded image, 48 pixels square.
+     * @param projectKey
+     *            the key for the project.
+     * @param contentType
+     *            the MIME type of the image provided, e.g. image/gif, image/jpeg, image/png.
+     * @param base64ImageData
+     *            a base 64 encoded image, 48 pixels square.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public void setNewProjectAvatar(String projectKey, String contentType, String base64ImageData) {
-        client.setNewProjectAvatar(token, projectKey, contentType, base64ImageData);
+        config.getClient().setNewProjectAvatar(config.getToken(), projectKey, contentType, base64ImageData);
     }
 
     /**
@@ -1736,78 +1784,96 @@ public class JiraConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:progress-workflow-action }
      *
-     * @param issueKey       the issue to update.
-     * @param actionIdString the workflow action to progress to
-     * @param fields         the fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a "|" if it is multivalued
+     * @param issueKey
+     *            the issue to update.
+     * @param actionIdString
+     *            the workflow action to progress to
+     * @param fields
+     *            the fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a "|" if it is
+     *            multivalued
      * @return the updated RemoteIssue
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public RemoteIssue progressWorkflowAction(String issueKey, String actionIdString, @Optional Map<String, String> fields) {
         Map<String, List<String>> multivaluedFields = convertFieldsToMultivaluedAndMapNamesToIds(fields);
-        return client.progressWorkflowAction(token, issueKey, actionIdString, multivaluedFields);
+        return config.getClient().progressWorkflowAction(config.getToken(), issueKey, actionIdString, multivaluedFields);
     }
 
     /**
      * Adds a worklog to the given issue.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-worklog-and-auto-adjust-remaining-estimate}
-     * 
-     * @param issueKey    the key of the issue.
-     * @param timeSpent   specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h.
-     * @param startDate   the start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss
-     * @param comment     add a comment to the worklog.
-     * @param groupLevel  the new group level.
-     * @param roleLevelId the new role level id.
+     *
+     * @param issueKey
+     *            the key of the issue.
+     * @param timeSpent
+     *            specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h.
+     * @param startDate
+     *            the start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss
+     * @param comment
+     *            add a comment to the worklog.
+     * @param groupLevel
+     *            the new group level.
+     * @param roleLevelId
+     *            the new role level id.
      * @return Created worklog with the id set or null if no worklog was created.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteWorklog addWorklogAndAutoAdjustRemainingEstimate(String issueKey, String timeSpent, String startDate, 
-                                                                  @Optional String comment, @Optional String groupLevel, @Optional String roleLevelId) {
-        return client.addWorklogAndAutoAdjustRemainingEstimate(token, issueKey, timeSpent, startDate, comment, groupLevel, roleLevelId);
+    public RemoteWorklog addWorklogAndAutoAdjustRemainingEstimate(String issueKey, String timeSpent, String startDate, @Optional String comment, @Optional String groupLevel,
+            @Optional String roleLevelId) {
+        return config.getClient().addWorklogAndAutoAdjustRemainingEstimate(config.getToken(), issueKey, timeSpent, startDate, comment, groupLevel, roleLevelId);
     }
 
     /**
      * Adds a worklog to the given issue and sets the issue's remaining estimate field to the given value.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-worklog-with-new-remaining-estimate}
-     * 
-     * @param issueKey              the key of the issue.
-     * @param timeSpent             specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h.
-     * @param startDate             the start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss
-     * @param newRemainingEstimate  specifies the issue's remaining estimate as a duration string, eg 1d 2h.
-     * @param comment               add a comment to the worklog.
-     * @param groupLevel            the new group level.
-     * @param roleLevelId           the new role level id.
+     *
+     * @param issueKey
+     *            the key of the issue.
+     * @param timeSpent
+     *            specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h.
+     * @param startDate
+     *            the start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss
+     * @param newRemainingEstimate
+     *            specifies the issue's remaining estimate as a duration string, eg 1d 2h.
+     * @param comment
+     *            add a comment to the worklog.
+     * @param groupLevel
+     *            the new group level.
+     * @param roleLevelId
+     *            the new role level id.
      * @return Created worklog with the id set or null if no worklog was created.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteWorklog addWorklogWithNewRemainingEstimate(String issueKey, String timeSpent, String startDate, 
-                                                            String newRemainingEstimate, @Optional String comment, @Optional String groupLevel, 
-                                                            @Optional String roleLevelId) {
-        return client.addWorklogWithNewRemainingEstimate(token, issueKey, timeSpent, startDate, newRemainingEstimate, comment, groupLevel, roleLevelId);
+    public RemoteWorklog addWorklogWithNewRemainingEstimate(String issueKey, String timeSpent, String startDate, String newRemainingEstimate, @Optional String comment,
+            @Optional String groupLevel, @Optional String roleLevelId) {
+        return config.getClient().addWorklogWithNewRemainingEstimate(config.getToken(), issueKey, timeSpent, startDate, newRemainingEstimate, comment, groupLevel, roleLevelId);
     }
 
     /**
      * Adds a worklog to the given issue but leaves the issue's remaining estimate field unchanged.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-jira.xml.sample jira:add-worklog-and-retain-remaining-estimate}
-     * 
-     * @param issueKey    the key of the issue.
-     * @param timeSpent   specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h.
-     * @param startDate   the start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss
-     * @param comment     add a comment to the worklog.
-     * @param groupLevel  the new group level.
-     * @param roleLevelId the new role level id.
+     *
+     * @param issueKey
+     *            the key of the issue.
+     * @param timeSpent
+     *            specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h.
+     * @param startDate
+     *            the start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss
+     * @param comment
+     *            add a comment to the worklog.
+     * @param groupLevel
+     *            the new group level.
+     * @param roleLevelId
+     *            the new role level id.
      * @return Created worklog with the id set or null if no worklog was created.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
-    public RemoteWorklog addWorklogAndRetainRemainingEstimate(String issueKey, String timeSpent, String startDate, 
-                                                              @Optional String comment, @Optional String groupLevel, @Optional String roleLevelId) {
-        return client.addWorklogAndRetainRemainingEstimate(token, issueKey, timeSpent, startDate, comment, groupLevel, roleLevelId);
+    public RemoteWorklog addWorklogAndRetainRemainingEstimate(String issueKey, String timeSpent, String startDate, @Optional String comment, @Optional String groupLevel,
+            @Optional String roleLevelId) {
+        return config.getClient().addWorklogAndRetainRemainingEstimate(config.getToken(), issueKey, timeSpent, startDate, comment, groupLevel, roleLevelId);
     }
 
     /**
@@ -1818,83 +1884,7 @@ public class JiraConnector {
      * @return the security schemes.
      */
     @Processor
-    @InvalidateConnectionOn(exception = JiraConnectorException.class)
     public List<Object> getSecuritySchemes() {
-        return client.getSecuritySchemes(token);
-    }
-
-    public void setClient(JiraClient<?> client) {
-        this.client = JiraClientAdaptor.adapt(client);
-    }
-
-    public String getConnectionUser() {
-        return connectionUser;
-    }
-
-    public void setConnectionUser(String connectionUser) {
-        this.connectionUser = connectionUser;
-    }
-
-    public String getConnectionAddress() {
-        return connectionAddress;
-    }
-
-    public void setConnectionAddress(String connectionAddress) {
-        this.connectionAddress = connectionAddress;
-    }
-
-    public Boolean getUseCustomFieldsExternalName() {
-        return useCustomFieldsExternalName;
-    }
-
-    public void setUseCustomFieldsExternalName(Boolean useCustomFieldsExternalName) {
-        this.useCustomFieldsExternalName = useCustomFieldsExternalName;
-    }
-
-    /**
-     * Creates a connection to Jira by making a login call with the given credentials to the specified address.
-     * The login call, if successfull, returns a token which will be used in the subsequent calls to Jira.
-     *
-     * @param connectionUser     the user login user
-     * @param connectionPassword the user login pass
-     * @param connectionAddress  the JIRA Server Soap address. It usually looks like https://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2 or http://&lt;jira server hostname&gt;/rpc/soap/jirasoapservice-v2
-     */
-    @Connect
-    public void connect(@ConnectionKey String connectionUser, @Password String connectionPassword, String connectionAddress) throws ConnectionException {
-        this.connectionUser = connectionUser;
-        this.connectionAddress = connectionAddress;
-        setClient(JiraClientFactory.getClient(connectionAddress));
-        token = login(connectionUser, connectionPassword);
-    }
-
-    /**
-     * Performs a logout call to Jira.
-     */
-    @Disconnect
-    public void disconnect() {
-        if (token != null) {
-            String oldToken = token;
-            token = null;
-            logout(oldToken);
-            client = null;
-        }
-    }
-
-    /**
-     * Returns whether the current user is authenticated. It does not mean tell anything whether the current session
-     * has expired
-     */
-    @ValidateConnection
-    public boolean validateConnection() {
-        return token != null;
-    }
-
-    /**
-     * Returns a connection identifier.
-     */
-    @Override
-    @ConnectionIdentifier
-    public String toString() {
-        return "{username='" + connectionUser + "\', address='" + connectionAddress + "\'}";
+        return config.getClient().getSecuritySchemes(config.getToken());
     }
 }
