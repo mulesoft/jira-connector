@@ -12,3 +12,4 @@ Reporting Issues
 ----------------
 
 We use GitHub:Issues for tracking issues with this connector. You can report new issues at this link https://github.com/mulesoft/jira-connector/issues.
+Find something you don't like? - Want to add your own magic to the connector? Go to http://mulesoft.github.io/connector-certification-docs/contr/index.html and learn how you can also be a part of it.

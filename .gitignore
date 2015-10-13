@@ -8,3 +8,4 @@ bin
 *.iws
 .idea
 .DS_Store
+automation-credentials.properties
