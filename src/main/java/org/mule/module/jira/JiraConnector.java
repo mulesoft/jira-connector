@@ -52,7 +52,7 @@ import com.atlassian.jira.rpc.soap.beans.RemoteWorklog;
  *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "jira", schemaVersion = "2.0", friendlyName = "Jira")
+@Connector(name = "jira", schemaVersion = "2.0", friendlyName = "Jira", minMuleVersion = "3.6")
 @ReconnectOn(exceptions = { JiraConnectorException.class })
 public class JiraConnector {
 
