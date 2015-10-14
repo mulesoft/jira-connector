@@ -1,0 +1,1044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<namespace xmlns="http://www.mulesoft.org/schema/mule/tooling.attributes" xmlns:mule="http://www.mulesoft.org/schema/mule/core" url="http://www.mulesoft.org/schema/mule/jira" prefix="jira">
+  <global-cloud-connector versions="[3.6.0,8.0.0]" caption="Jira" description="" icon="" localId="parentConfig" image="" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric"></global-cloud-connector>
+  <nested caption="" description="" localId="connection-pooling-profile" abstract="true">
+    <radioBoolean name="defaultPoolingProfile" caption="Use default connection pool configuration" description="Use default connection pool configuration." fillLine="true"></radioBoolean>
+    <radioBoolean name="customPoolingProfile" caption="Define connection pool configuration" description="Define connection pool configuration." fillLine="true"></radioBoolean>
+    <integer defaultValue="5" min="-1" step="0" name="maxActive" caption="Max active" description="Controls the maximum number of connections that can be borrowed from the pool at one time. When set to a negative value, there is no limit to the number of connections that may be active at one time. When maxActive is exceeded, the pool is said to be exhausted." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="5" min="-1" step="0" name="maxIdle" caption="Max idle" description="Controls the maximum number of connections that can sit idle in the pool at any time. When set to a negative value, there is no limit to the number of connections that may be idle at one time." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <enum defaultValue="INITIALISE_ONE" name="initialisationPolicy" caption="Initialisation policy" description="Determines how connections in a pool should be initialized. The possible values are: INITIALISE_NONE (will not load any connection into the pool on startup), INITIALISE_ONE (will load one initial connection into the pool on startup), or INITIALISE_ALL (will load all connections in the pool on startup)" alwaysFill="true" controlled="customPoolingProfile" indented="true">
+      <option value="INITIALISE_NONE"></option>
+      <option value="INITIALISE_ONE"></option>
+      <option value="INITIALISE_ALL"></option>
+    </enum>
+    <enum defaultValue="WHEN_EXHAUSTED_GROW" name="exhaustedAction" caption="Exhausted action" description="Specifies the behavior of the connection pool when the pool is exhausted. Possible values are: &quot;WHEN_EXHAUSTED_FAIL&quot;, which will throw a NoSuchElementException, &quot;WHEN_EXHAUSTED_WAIT&quot;, which will block by invoking Object.wait(long) until a new or idle object is available, or WHEN_EXHAUSTED_GROW, which will create a new connection and return it, essentially making maxActive meaningless. If a positive maxWait value is supplied, it will block for at most that many milliseconds, after which a NoSuchElementException will be thrown. If maxThreadWait is a negative value, it will block indefinitely." alwaysFill="true" controlled="customPoolingProfile" indented="true">
+      <option value="WHEN_EXHAUSTED_WAIT"></option>
+      <option value="WHEN_EXHAUSTED_FAIL"></option>
+      <option value="WHEN_EXHAUSTED_GROW"></option>
+    </enum>
+    <integer defaultValue="5" min="-1" step="0" name="maxWait" caption="Max wait" description="When exhausted action is Wait (or block) this is the amount of time in milliseconds that the pool will wait before failing. Setting a negative value will block indefinitely until an idle instance becomes available." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="1800000" min="-1" step="0" name="minEvictionMillis" caption="Min eviction (ms)" description="Determines the minimum amount of time a connection may sit idle in the pool before it is eligible for eviction. When non-positive, no connections will be evicted from the pool due to idle time alone." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="-1" min="-1" step="0" name="evictionCheckIntervalMillis" caption="Eviction check interval (ms)" description="Specifies the number of milliseconds between runs of the connection evictor. When non-positive, no connection evictor is executed." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+  </nested>
+  <nested caption="" description="" localId="reconnectionStrategyElement" abstract="true">
+    <label name="connectionLabel" caption="Define how mule should attempt to handle a connection failure" description=""></label>
+    <radioBoolean name="noReconnection" caption="Do not use a Reconnection strategy" description="Disable reconection strategy" fillLine="true"></radioBoolean>
+    <radioBoolean name="standardReconnection" caption="Standard Reconnection" description="A reconnection strategy that allows the user to configure how many times a reconnection should be attempted and how long to wait between attempts." fillLine="true"></radioBoolean>
+    <integer defaultValue="2000" min="1" max="2147483647" step="1" name="reconnectionFrequency" caption="Frequency (ms)" description="How often (in ms) to reconnect" controlled="standardReconnection" indented="true"></integer>
+    <integer defaultValue="2" min="1" max="2147483647" step="1" name="reconnectionAttemps" caption="Reconnection Attempts" description="How many reconnection attempts to make" controlled="standardReconnection,!reconnectForever" indented="true"></integer>
+    <boolean name="reconnectForever" caption="Reconnect Forever" description="A reconnection strategy that retries an infinite number of times at the specified frequency." supportsExpressions="false" controlled="standardReconnection" indented="true"></boolean>
+    <radioBoolean name="customReconnection" caption="Custom Reconnection" description="A user-defined reconnection strategy." fillLine="true"></radioBoolean>
+    <classname name="class" caption="Class" description="A class that implements the RetryPolicyTemplate interface." controlled="customReconnection" indented="true"></classname>
+    <childElement allowMultiple="true" name="http://www.springframework.org/schema/beans/property" caption="Properties" description="Property elements." controlled="customReconnection"></childElement>
+  </nested>
+  <global-cloud-connector versions="[3.6.0,8.0.0]" caption="Jira: Configuration" description="Global Configuration configuration information." icon="icons/small/jira-connector-24x16.png" localId="config" image="icons/large/jira-connector-48x32.png" abstract="false" extends="http://www.mulesoft.org/schema/mule/jira/parentConfig" connectivityTesting="on" connectivityTestingLabel="Test Connection..." metaData="static" metaDataKeyDisplay="DISPLAY_NAME" supportsUserDefinedMetaData="false">
+    <attribute-category caption="General" description="Jira configuration properties.">
+      <group id="jiraGenericProperties" caption="Basic Settings">
+        <name name="name" caption="Name" description="Give a name to this configuration so it can be later referenced by config-ref." required="true"></name>
+      </group>
+      <group id="connection" caption="Connection">
+        <string name="connectionUser" caption="Connection User" description="The user login user." required="true" javaType="java.lang.String"></string>
+        <password name="connectionPassword" caption="Connection Password" description="The user login pass." required="true" javaType="java.lang.String"></password>
+        <string name="connectionAddress" caption="Connection Address" description="The JIRA Server Soap address. It usually looks like https://&amp;lt;jira server hostname&amp;gt;/rpc/soap/jirasoapservice-v2 or http://&amp;lt;jira server hostname&amp;gt;/rpc/soap/jirasoapservice-v2." required="true" javaType="java.lang.String"></string>
+      </group>
+      <group id="general" caption="General">
+        <boolean defaultValue="false" name="useCustomFieldsExternalName" caption="Use Custom Fields External Name" description="If external custom fields names (instead of internal ids) are used when modifying custom fields, the provided user must be a Jira administrator in order to be able to use
+this feature." supportsExpressions="false" required="false" javaType="java.lang.Boolean"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Pooling Profile" description="Pooling profile options.">
+      <group id="poolingProfile" caption="Pooling Profile">
+        <childElement inplace="true" name="http://www.mulesoft.org/schema/mule/jira/connection-pooling-profile" caption="" description="" valuePersistence="org.mule.tooling.ui.modules.core.widgets.meta.PoolingProfileValuePersistence"></childElement>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Reconnection" description="Reconnection options.">
+      <group id="reconnectionStrategies" caption="Strategies">
+        <childElement inplace="true" name="http://www.mulesoft.org/schema/mule/core/reconnectionStrategyElement" caption="" description="" valuePersistence="org.mule.tooling.ui.modules.core.widgets.meta.HTTPTransactionValuePersistence"></childElement>
+        <childElement allowSubTypes="true" allowedSubTypes="http://www.mulesoft.org/schema/mule/core/reconnect,http://www.mulesoft.org/schema/mule/core/reconnect-custom-strategy,http://www.mulesoft.org/schema/mule/core/reconnect-forever" name="http://www.mulesoft.org/schema/mule/core/abstractReconnectionStrategy" caption="" description="" visibleInDialog="false"></childElement>
+      </group>
+    </attribute-category>
+  </global-cloud-connector>
+  <cloud-connector caption="Abstractjiraconnectorgeneric" description="Interact with Jira." icon="icons/small/jira-connector-24x16.png" localId="abstractJiraConnectorGeneric" image="icons/large/jira-connector-48x32.png" abstract="true">
+    <attribute-category caption="General" description="General.">
+      <group id="abstractJiraConnectorGeneric" caption="Basic Settings">
+        <globalRef requiredType="http://www.mulesoft.org/schema/mule/jira/config" name="config-ref" caption="Connector Configuration" description="Specify which configuration to use for this invocation." required="true"></globalRef>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector versions="[3.6.0,8.0.0]" aliasId="org.mule.tooling.ui.modules.core.pattern.jira" caption="Jira" description="JIRA is a proprietary issue tracking product, developed by Atlassian, commonly used for bug tracking, issue tracking, and project management." icon="icons/small/jira-connector-24x16.png" localId="jira-connector" image="icons/large/jira-connector-48x32.png" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="jiraConnectorGeneric" caption="Basic Settings">
+        <modeSwitch alwaysCombo="true" name="Jira operations to execute" caption="Operation" description="Operation.">
+          <no-operation abstractElement="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" versions="[3.6.0,8.0.0]" connector-name="processor"></no-operation>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/add-actors-to-project-role" modeLabel="Add actors to project role"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/add-base64-encoded-attachments-to-issue" modeLabel="Add base64 encoded attachments to issue"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/add-comment" modeLabel="Add comment"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/add-default-actors-to-project-role" modeLabel="Add default actors to project role"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/add-permission-to" modeLabel="Add permission to"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/add-user-to-group" modeLabel="Add user to group"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/add-version" modeLabel="Add version"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/add-worklog-and-auto-adjust-remaining-estimate" modeLabel="Add worklog and auto adjust remaining estimate"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/add-worklog-and-retain-remaining-estimate" modeLabel="Add worklog and retain remaining estimate"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/add-worklog-with-new-remaining-estimate" modeLabel="Add worklog with new remaining estimate"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/archive-version" modeLabel="Archive version"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/create-group" modeLabel="Create group"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/create-issue" modeLabel="Create issue"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/create-issue-using-object" modeLabel="Create issue using object"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/create-issue-with-parent" modeLabel="Create issue with parent"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/create-issue-with-security-level" modeLabel="Create issue with security level"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/create-permission-scheme" modeLabel="Create permission scheme"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/create-project" modeLabel="Create project"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/create-project-role" modeLabel="Create project role"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/create-project-using-object" modeLabel="Create project using object"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/create-user" modeLabel="Create user"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/delete-group" modeLabel="Delete group"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/delete-issue" modeLabel="Delete issue"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/delete-permission-from" modeLabel="Delete permission from"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/delete-permission-scheme" modeLabel="Delete permission scheme"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/delete-project" modeLabel="Delete project"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/delete-project-avatar" modeLabel="Delete project avatar"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/delete-project-role" modeLabel="Delete project role"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/delete-user" modeLabel="Delete user"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/delete-worklog-and-auto-adjust-remaining-estimate" modeLabel="Delete worklog and auto adjust remaining estimate"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/delete-worklog-and-retain-remaining-estimate" modeLabel="Delete worklog and retain remaining estimate"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/delete-worklog-with-new-remaining-estimate" modeLabel="Delete worklog with new remaining estimate"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/edit-comment" modeLabel="Edit comment"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-all-permissions" modeLabel="Get all permissions"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-associated-notification-schemes" modeLabel="Get associated notification schemes"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-associated-permission-schemes" modeLabel="Get associated permission schemes"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-attachments-from-issue" modeLabel="Get attachments from issue"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-available-actions" modeLabel="Get available actions"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-comment" modeLabel="Get comment"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-comments" modeLabel="Get comments"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-components" modeLabel="Get components"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-configuration" modeLabel="Get configuration"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-custom-fields" modeLabel="Get custom fields"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-default-role-actors" modeLabel="Get default role actors"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-favourite-filters" modeLabel="Get favourite filters"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-fields-for-action" modeLabel="Get fields for action"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-fields-for-edit" modeLabel="Get fields for edit"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-group" modeLabel="Get group"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-issue" modeLabel="Get issue"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-issue-by-id" modeLabel="Get issue by id"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-issue-count-for-filter" modeLabel="Get issue count for filter"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-issue-types" modeLabel="Get issue types"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-issue-types-for-project" modeLabel="Get issue types for project"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-issues-from-filter-with-limit" modeLabel="Get issues from filter with limit"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-issues-from-jql-search" modeLabel="Get issues from jql search"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-issues-from-text-search-with-limit" modeLabel="Get issues from text search with limit"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-issues-from-text-search-with-project" modeLabel="Get issues from text search with project"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-notification-schemes" modeLabel="Get notification schemes"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-permission-schemes" modeLabel="Get permission schemes"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-priorities" modeLabel="Get priorities"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-project-avatar" modeLabel="Get project avatar"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-project-avatars" modeLabel="Get project avatars"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-project-by-id" modeLabel="Get project by id"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-project-by-key" modeLabel="Get project by key"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-project-role" modeLabel="Get project role"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-project-role-actors" modeLabel="Get project role actors"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-project-roles" modeLabel="Get project roles"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-project-with-schemes-by-id" modeLabel="Get project with schemes by id"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-projects-no-schemes" modeLabel="Get projects no schemes"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-resolution-date-by-id" modeLabel="Get resolution date by id"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-resolution-date-by-key" modeLabel="Get resolution date by key"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-resolutions" modeLabel="Get resolutions"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-security-level" modeLabel="Get security level"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-security-levels" modeLabel="Get security levels"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-security-schemes" modeLabel="Get security schemes"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-server-info" modeLabel="Get server info"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-statuses" modeLabel="Get statuses"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-sub-task-issue-types" modeLabel="Get sub task issue types"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-sub-task-issue-types-for-project" modeLabel="Get sub task issue types for project"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-user" modeLabel="Get user"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-versions" modeLabel="Get versions"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/get-worklogs" modeLabel="Get worklogs"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/has-permission-to-create-worklog" modeLabel="Has permission to create worklog"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/has-permission-to-delete-worklog" modeLabel="Has permission to delete worklog"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/has-permission-to-edit-comment" modeLabel="Has permission to edit comment"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/has-permission-to-update-worklog" modeLabel="Has permission to update worklog"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/is-project-role-name-unique" modeLabel="Is project role name unique"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/login" modeLabel="Login"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/logout" modeLabel="Logout"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/progress-workflow-action" modeLabel="Progress workflow action"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/refresh-custom-fields" modeLabel="Refresh custom fields"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/release-version" modeLabel="Release version"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/remove-actors-from-project-role" modeLabel="Remove actors from project role"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/remove-all-role-actors-by-name-and-type" modeLabel="Remove all role actors by name and type"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/remove-all-role-actors-by-project" modeLabel="Remove all role actors by project"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/remove-default-actors-from-project-role" modeLabel="Remove default actors from project role"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/remove-user-from-group" modeLabel="Remove user from group"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/set-new-project-avatar" modeLabel="Set new project avatar"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/set-project-avatar" modeLabel="Set project avatar"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/update-group" modeLabel="Update group"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/update-issue" modeLabel="Update issue"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/update-issues-by-jql" modeLabel="Update issues by jql"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/update-project" modeLabel="Update project"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/update-project-role" modeLabel="Update project role"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/jira/update-worklog-with-new-remaining-estimate" modeLabel="Update worklog with new remaining estimate"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Add Actors To Project Role" icon="icons/small/jira-connector-24x16.png" localId="add-actors-to-project-role" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="projectRoleId" caption="Project Role Id" description="The id of the project role to use." required="true" javaType="java.lang.Long"></integer>
+        <string name="actorType" caption="Actor Type" description="The actor type to use." required="false" javaType="java.lang.String"></string>
+        <string name="projectKey" caption="Project Key" description="The key of project to use." required="true" javaType="java.lang.String"></string>
+        <element-controller-list listName="actors" localName="add-actors-to-project-role-actors" itemName="actor" caption="Actors" description="The actors to add." required="true" javaType="java.util.List&lt;java.lang.String&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="boolean" caption="Add Base64 Encoded Attachments To Issue" icon="icons/small/jira-connector-24x16.png" localId="add-base64-encoded-attachments-to-issue" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueKey" caption="Issue Key" description="The issue to attach to." required="true" javaType="java.lang.String"></string>
+        <element-controller-list listName="base64-encoded-attachment-data" localName="add-base64-encoded-attachments-to-issue-base64-encoded-attachment-data" itemName="base64-encoded-attachment-datum" caption="Base64 Encoded Attachment Data" description="An array of Base 64 encoded Strings; each element contains the data of the attachment to be uploaded." required="true" javaType="java.util.List&lt;java.lang.String&gt;"></element-controller-list>
+        <element-controller-list listName="file-names" localName="add-base64-encoded-attachments-to-issue-file-names" itemName="file-name" caption="File Names" description="An array of filenames; each element names an attachment to be uploaded." required="true" javaType="java.util.List&lt;java.lang.String&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteComment" caption="Add Comment" icon="icons/small/jira-connector-24x16.png" localId="add-comment" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="commentAuthor" caption="Comment Author" description="The author of the comment." required="true" javaType="java.lang.String"></string>
+        <string name="commentBody" caption="Comment Body" description="The body of the comment." required="true" javaType="java.lang.String"></string>
+        <string name="commentGroupLevel" caption="Comment Group Level" description="The group level of the comment." required="false" javaType="java.lang.String"></string>
+        <string name="commentRoleLevel" caption="Comment Role Level" description="The role level of the comment." required="false" javaType="java.lang.String"></string>
+        <string name="issueKey" caption="Issue Key" description="The key of the issue." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Add Default Actors To Project Role" icon="icons/small/jira-connector-24x16.png" localId="add-default-actors-to-project-role" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="projectRoleId" caption="Project Role Id" description="The id of the project role." required="true" javaType="java.lang.Long"></integer>
+        <string name="type" caption="Type" description="The type." required="false" javaType="java.lang.String"></string>
+        <element-controller-list listName="actors" localName="add-default-actors-to-project-role-actors" itemName="actor" caption="Actors" description="The actors to add." required="true" javaType="java.util.List&lt;java.lang.String&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemotePermissionScheme" caption="Add Permission To" icon="icons/small/jira-connector-24x16.png" localId="add-permission-to" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="permissionSchemeName" caption="Permission Scheme Name" description="The name of the permission scheme to use." required="true" javaType="java.lang.String"></string>
+        <integer min="0" step="1" name="permissionCode" caption="Permission Code" description="The permission code to use." required="true" javaType="java.lang.Long"></integer>
+        <string name="entityName" caption="Entity Name" description="The entity name, username or group name." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Add User To Group" icon="icons/small/jira-connector-24x16.png" localId="add-user-to-group" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="groupName" caption="Group Name" description="The group name." required="true" javaType="java.lang.String"></string>
+        <string name="userName" caption="User Name" description="The user name." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteVersion" caption="Add Version" icon="icons/small/jira-connector-24x16.png" localId="add-version" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectKey" caption="Project Key" description="The project key to use." required="true" javaType="java.lang.String"></string>
+        <string name="releaseDate" caption="Release Date" description="The release date to use in the format MM-dd-yyy'T'HH:mm:ss." required="true" javaType="java.lang.String"></string>
+        <string name="versionName" caption="Version Name" description="The version name to use." required="true" javaType="java.lang.String"></string>
+        <boolean name="archived" caption="Archived" description="Whether is archived." supportsExpressions="true" required="true" javaType="java.lang.Boolean"></boolean>
+        <boolean name="released" caption="Released" description="Whether is released." supportsExpressions="true" required="true" javaType="java.lang.Boolean"></boolean>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteWorklog" caption="Add Worklog And Auto Adjust Remaining Estimate" icon="icons/small/jira-connector-24x16.png" localId="add-worklog-and-auto-adjust-remaining-estimate" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="comment" caption="Comment" description="Add a comment to the worklog." required="false" javaType="java.lang.String"></string>
+        <string name="groupLevel" caption="Group Level" description="The new group level." required="false" javaType="java.lang.String"></string>
+        <string name="issueKey" caption="Issue Key" description="The key of the issue." required="true" javaType="java.lang.String"></string>
+        <string name="roleLevelId" caption="Role Level Id" description="The new role level id." required="false" javaType="java.lang.String"></string>
+        <string name="startDate" caption="Start Date" description="The start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss." required="true" javaType="java.lang.String"></string>
+        <string name="timeSpent" caption="Time Spent" description="Specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteWorklog" caption="Add Worklog And Retain Remaining Estimate" icon="icons/small/jira-connector-24x16.png" localId="add-worklog-and-retain-remaining-estimate" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="comment" caption="Comment" description="Add a comment to the worklog." required="false" javaType="java.lang.String"></string>
+        <string name="groupLevel" caption="Group Level" description="The new group level." required="false" javaType="java.lang.String"></string>
+        <string name="issueKey" caption="Issue Key" description="The key of the issue." required="true" javaType="java.lang.String"></string>
+        <string name="roleLevelId" caption="Role Level Id" description="The new role level id." required="false" javaType="java.lang.String"></string>
+        <string name="startDate" caption="Start Date" description="The start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss." required="true" javaType="java.lang.String"></string>
+        <string name="timeSpent" caption="Time Spent" description="Specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteWorklog" caption="Add Worklog With New Remaining Estimate" icon="icons/small/jira-connector-24x16.png" localId="add-worklog-with-new-remaining-estimate" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="comment" caption="Comment" description="Add a comment to the worklog." required="false" javaType="java.lang.String"></string>
+        <string name="groupLevel" caption="Group Level" description="The new group level." required="false" javaType="java.lang.String"></string>
+        <string name="issueKey" caption="Issue Key" description="The key of the issue." required="true" javaType="java.lang.String"></string>
+        <string name="newRemainingEstimate" caption="New Remaining Estimate" description="Specifies the issue's remaining estimate as a duration string, eg 1d 2h." required="true" javaType="java.lang.String"></string>
+        <string name="roleLevelId" caption="Role Level Id" description="The new role level id." required="false" javaType="java.lang.String"></string>
+        <string name="startDate" caption="Start Date" description="The start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss." required="true" javaType="java.lang.String"></string>
+        <string name="timeSpent" caption="Time Spent" description="Specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Archive Version" icon="icons/small/jira-connector-24x16.png" localId="archive-version" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectKey" caption="Project Key" description="The project key to use." required="true" javaType="java.lang.String"></string>
+        <string name="versionName" caption="Version Name" description="The version name to use." required="true" javaType="java.lang.String"></string>
+        <boolean name="archive" caption="Archive" description="Whether it should be archived." supportsExpressions="true" required="true" javaType="java.lang.Boolean"></boolean>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteGroup" caption="Create Group" icon="icons/small/jira-connector-24x16.png" localId="create-group" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="groupName" caption="Group Name" description="The name of the group to create." required="true" javaType="java.lang.String"></string>
+        <string name="userName" caption="User Name" description="The user to add to the group (if null, no user will be added)." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteIssue" caption="Create Issue" icon="icons/small/jira-connector-24x16.png" localId="create-issue" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="assignee" caption="Assignee" description="The assignee of the new issue." required="false" javaType="java.lang.String"></string>
+        <string name="dueDate" caption="Due Date" description="The due date of the new issue using the format MM-dd-yyy'T'HH:mm:ss." required="false" javaType="java.lang.String"></string>
+        <string name="environment" caption="Environment" description="The environment of the new issue." required="false" javaType="java.lang.String"></string>
+        <string name="priority" caption="Priority" description="The priority of the new issue." required="false" javaType="java.lang.String"></string>
+        <string name="reporter" caption="Reporter" description="The reporter of the new issue." required="false" javaType="java.lang.String"></string>
+        <integer min="0" step="1" name="votes" caption="Votes" description="The votes of the new issue." required="false" javaType="java.lang.Long"></integer>
+        <string name="componentId" caption="Component Id" description="The componentId." required="false" javaType="java.lang.String"></string>
+        <string name="componentName" caption="Component Name" description="The component name." required="false" javaType="java.lang.String"></string>
+      </group>
+      <group id="basic" caption="Basic">
+        <string name="summary" caption="Summary" description="The summary of the new issue." required="true" javaType="java.lang.String"></string>
+        <string name="description" caption="Description" description="The description of the new issue." required="false" javaType="java.lang.String"></string>
+        <string name="project" caption="Project" description="The project of the new issue." required="true" javaType="java.lang.String"></string>
+        <string name="type" caption="Type" description="The type of the new issue." required="true" javaType="java.lang.String"></string>
+      </group>
+      <group id="custom Fields" caption="Custom Fields">
+        <element-controller-map mapName="custom-fields" localName="create-issue-custom-fields" itemName="custom-field" caption="Custom Fields" description="The custom fields of the new issue, the keys of the map are the field ids, the values should be separated by a &quot;|&quot; if it is multivalued." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteIssue" caption="Create Issue Using Object" icon="icons/small/jira-connector-24x16.png" localId="create-issue-using-object" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/jira/issue" caption="Issue Reference" required="false" javaType="com.atlassian.jira.rpc.soap.beans.RemoteIssue"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteIssue" caption="Create Issue With Parent" icon="icons/small/jira-connector-24x16.png" localId="create-issue-with-parent" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/jira/issue" caption="Issue Reference" required="false" javaType="com.atlassian.jira.rpc.soap.beans.RemoteIssue"></childElement>
+        <string name="parentIssueKey" caption="Parent Issue Key" description="JIRA issue to be created." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteIssue" caption="Create Issue With Security Level" icon="icons/small/jira-connector-24x16.png" localId="create-issue-with-security-level" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="assignee" caption="Assignee" description="The assignee of the new issue." required="false" javaType="java.lang.String"></string>
+        <string name="componentId" caption="Component Id" description="The componentId." required="false" javaType="java.lang.String"></string>
+        <string name="componentName" caption="Component Name" description="The component name." required="false" javaType="java.lang.String"></string>
+        <string name="description" caption="Description" description="The description of the new issue." required="false" javaType="java.lang.String"></string>
+        <string name="dueDate" caption="Due Date" description="The due date of the new issue using the format MM-dd-yyy'T'HH:mm:ss." required="false" javaType="java.lang.String"></string>
+        <string name="environment" caption="Environment" description="The environment of the new issue." required="false" javaType="java.lang.String"></string>
+        <string name="priority" caption="Priority" description="The priority of the new issue." required="false" javaType="java.lang.String"></string>
+        <string name="project" caption="Project" description="The project of the new issue." required="true" javaType="java.lang.String"></string>
+        <string name="reporter" caption="Reporter" description="The reporter of the new issue." required="false" javaType="java.lang.String"></string>
+        <string name="summary" caption="Summary" description="The summary of the new issue." required="true" javaType="java.lang.String"></string>
+        <string name="type" caption="Type" description="The type of the new issue." required="true" javaType="java.lang.String"></string>
+        <integer min="0" step="1" name="votes" caption="Votes" description="The votes of the new issue." required="false" javaType="java.lang.Long"></integer>
+        <integer min="0" step="1" name="securityLevelId" caption="Security Level Id" description="The id of the security level to use." required="true" javaType="java.lang.Long"></integer>
+        <element-controller-map mapName="custom-fields" localName="create-issue-with-security-level-custom-fields" itemName="custom-field" caption="Custom Fields" description="The custom fields of the new issue, the keys of the map are the field ids, the values should be separated by a &quot;|&quot; if it is multivalued." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemotePermissionScheme" caption="Create Permission Scheme" icon="icons/small/jira-connector-24x16.png" localId="create-permission-scheme" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="description" caption="Description" description="The description of the new permission scheme." required="true" javaType="java.lang.String"></string>
+        <string name="permissionName" caption="Permission Name" description="The name of the new permission scheme." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteProject" caption="Create Project" icon="icons/small/jira-connector-24x16.png" localId="create-project" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="description" caption="Description" description="The description for the new project." required="true" javaType="java.lang.String"></string>
+        <string name="key" caption="Key" description="The key for the new project." required="true" javaType="java.lang.String"></string>
+        <string name="lead" caption="Lead" description="The lead of the new project." required="true" javaType="java.lang.String"></string>
+        <string name="notificationSchemeName" caption="Notification Scheme Name" description="The name of the notification scheme for the new project." required="false" javaType="java.lang.String"></string>
+        <string name="permissionSchemeName" caption="Permission Scheme Name" description="The name of the permission scheme for the new project." required="false" javaType="java.lang.String"></string>
+        <string name="projectName" caption="Project Name" description="The name for the new project." required="true" javaType="java.lang.String"></string>
+        <string name="securityShemeName" caption="Security Sheme Name" description="The name of the security scheme for the new project." required="false" javaType="java.lang.String"></string>
+        <string name="url" caption="Url" description="The url for the new project." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteProjectRole" caption="Create Project Role" icon="icons/small/jira-connector-24x16.png" localId="create-project-role" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectRoleDescription" caption="Project Role Description" description="The description of the new project role." required="true" javaType="java.lang.String"></string>
+        <string name="projectRoleName" caption="Project Role Name" description="The name of the new project role." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteProject" caption="Create Project Using Object" icon="icons/small/jira-connector-24x16.png" localId="create-project-using-object" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/jira/project" caption="Project Reference" required="false" javaType="com.atlassian.jira.rpc.soap.beans.RemoteProject"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteUser" caption="Create User" icon="icons/small/jira-connector-24x16.png" localId="create-user" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="email" caption="Email" description="The email of the new user." required="true" javaType="java.lang.String"></string>
+        <string name="fullName" caption="Full Name" description="The full name of the new user." required="true" javaType="java.lang.String"></string>
+        <string name="password" caption="Password" description="The password for the new user." required="true" javaType="java.lang.String"></string>
+        <string name="username" caption="Username" description="The user name to create." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Group" icon="icons/small/jira-connector-24x16.png" localId="delete-group" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="groupName" caption="Group Name" description="The group name to use." required="true" javaType="java.lang.String"></string>
+        <string name="swapGroupName" caption="Swap Group Name" description="The swap group name to use." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Issue" icon="icons/small/jira-connector-24x16.png" localId="delete-issue" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueKey" caption="Issue Key" description="The key of the issue to delete." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemotePermissionScheme" caption="Delete Permission From" icon="icons/small/jira-connector-24x16.png" localId="delete-permission-from" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="permissionSchemeName" caption="Permission Scheme Name" description="The name of the permission scheme to use." required="true" javaType="java.lang.String"></string>
+        <integer min="0" step="1" name="permissionCode" caption="Permission Code" description="The permission code to use." required="true" javaType="java.lang.Long"></integer>
+        <string name="entityName" caption="Entity Name" description="The entity name, username or group name." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Permission Scheme" icon="icons/small/jira-connector-24x16.png" localId="delete-permission-scheme" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="permissionSchemeName" caption="Permission Scheme Name" description="The name of the permission scheme to delete." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Project" icon="icons/small/jira-connector-24x16.png" localId="delete-project" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectKey" caption="Project Key" description="The key of the project to delete." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Project Avatar" icon="icons/small/jira-connector-24x16.png" localId="delete-project-avatar" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="avatarId" caption="Avatar Id" description="Id of the custom avatar to delete." required="true" javaType="java.lang.Long"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Project Role" icon="icons/small/jira-connector-24x16.png" localId="delete-project-role" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="projectRoleId" caption="Project Role Id" description="The id of the project role to delete." required="true" javaType="java.lang.Long"></integer>
+        <boolean name="confirm" caption="Confirm" description="Whether confirm." supportsExpressions="true" required="true" javaType="java.lang.Boolean"></boolean>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete User" icon="icons/small/jira-connector-24x16.png" localId="delete-user" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="username" caption="Username" description="The user name to delete." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Worklog And Auto Adjust Remaining Estimate" icon="icons/small/jira-connector-24x16.png" localId="delete-worklog-and-auto-adjust-remaining-estimate" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="worklogId" caption="Worklog Id" description="The id of the worklog to delete." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Worklog And Retain Remaining Estimate" icon="icons/small/jira-connector-24x16.png" localId="delete-worklog-and-retain-remaining-estimate" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="worklogId" caption="Worklog Id" description="The id of the worklog to delete." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Worklog With New Remaining Estimate" icon="icons/small/jira-connector-24x16.png" localId="delete-worklog-with-new-remaining-estimate" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="newRemainingEstimate" caption="New Remaining Estimate" description="The new value for the issue's remaining estimate as a duration string, eg 1d 2h." required="true" javaType="java.lang.String"></string>
+        <string name="workLogId" caption="Work Log Id" description="The id of the worklog to delete." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteComment" caption="Edit Comment" icon="icons/small/jira-connector-24x16.png" localId="edit-comment" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="commentId" caption="Comment Id" description="The id of the comment to edit." required="true" javaType="java.lang.Long"></integer>
+        <string name="body" caption="Body" description="The updated body comment." required="false" javaType="java.lang.String"></string>
+        <string name="updateAuthor" caption="Update Author" description="The update author." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get All Permissions" icon="icons/small/jira-connector-24x16.png" localId="get-all-permissions" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Associated Notification Schemes" icon="icons/small/jira-connector-24x16.png" localId="get-associated-notification-schemes" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="projectRoleId" caption="Project Role Id" description="The project role to search." required="true" javaType="java.lang.Long"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Associated Permission Schemes" icon="icons/small/jira-connector-24x16.png" localId="get-associated-permission-schemes" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="projectRoleId" caption="Project Role Id" description="The project role to search." required="true" javaType="java.lang.Long"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Attachments From Issue" icon="icons/small/jira-connector-24x16.png" localId="get-attachments-from-issue" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueKey" caption="Issue Key" description="The issue key to use." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Available Actions" icon="icons/small/jira-connector-24x16.png" localId="get-available-actions" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueKey" caption="Issue Key" description="The key of the issue." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteComment" caption="Get Comment" icon="icons/small/jira-connector-24x16.png" localId="get-comment" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="commentId" caption="Comment Id" description="The commentId of the comment." required="true" javaType="java.lang.Long"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Comments" icon="icons/small/jira-connector-24x16.png" localId="get-comments" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueKey" caption="Issue Key" description="The key of the issue to get the comments for." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Components" icon="icons/small/jira-connector-24x16.png" localId="get-components" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectKey" caption="Project Key" description="The key of the requested project." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteConfiguration" caption="Get Configuration" icon="icons/small/jira-connector-24x16.png" localId="get-configuration" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Custom Fields" icon="icons/small/jira-connector-24x16.png" localId="get-custom-fields" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteRoleActors" caption="Get Default Role Actors" icon="icons/small/jira-connector-24x16.png" localId="get-default-role-actors" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="projectRoleId" caption="Project Role Id" description="The id of the project role." required="true" javaType="java.lang.Long"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Favourite Filters" icon="icons/small/jira-connector-24x16.png" localId="get-favourite-filters" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Fields For Action" icon="icons/small/jira-connector-24x16.png" localId="get-fields-for-action" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="actionIdString" caption="Action Id String" description="The action id to use." required="true" javaType="java.lang.String"></string>
+        <string name="issueKey" caption="Issue Key" description="The issue key to use." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Fields For Edit" icon="icons/small/jira-connector-24x16.png" localId="get-fields-for-edit" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueKey" caption="Issue Key" description="The issue key to get the fields for." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteGroup" caption="Get Group" icon="icons/small/jira-connector-24x16.png" localId="get-group" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="groupName" caption="Group Name" description="The name of the group to find." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteIssue" caption="Get Issue" icon="icons/small/jira-connector-24x16.png" localId="get-issue" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueKey" caption="Issue Key" description="The key of the issue to find." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteIssue" caption="Get Issue By Id" icon="icons/small/jira-connector-24x16.png" localId="get-issue-by-id" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueId" caption="Issue Id" description="The issue id to use." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="long" caption="Get Issue Count For Filter" icon="icons/small/jira-connector-24x16.png" localId="get-issue-count-for-filter" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="filterId" caption="Filter Id" description="The fiter id to use." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Issue Types" icon="icons/small/jira-connector-24x16.png" localId="get-issue-types" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Issue Types For Project" icon="icons/small/jira-connector-24x16.png" localId="get-issue-types-for-project" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectId" caption="Project Id" description="Id of the project." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Issues From Filter With Limit" icon="icons/small/jira-connector-24x16.png" localId="get-issues-from-filter-with-limit" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="filterId" caption="Filter Id" description="Identifies the saved filter to use for the search." required="true" javaType="java.lang.String"></string>
+        <integer min="0" step="1" name="maxNumResults" caption="Max Num Results" description="The maximum number of results that this method will return." required="true" javaType="java.lang.Integer"></integer>
+        <integer min="0" step="1" name="offset" caption="Offset" description="The place in the result set to use as the first result returned." required="true" javaType="java.lang.Integer"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Issues From Jql Search" icon="icons/small/jira-connector-24x16.png" localId="get-issues-from-jql-search" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="jqlSearch" caption="Jql Search" description="JQL query string to execute." required="true" javaType="java.lang.String"></string>
+        <integer min="0" step="1" name="maxNumResults" caption="Max Num Results" description="The maximum number of results that this method will return." required="true" javaType="java.lang.Integer"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Issues From Text Search With Limit" icon="icons/small/jira-connector-24x16.png" localId="get-issues-from-text-search-with-limit" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="searchTerms" caption="Search Terms" description="Search terms." required="true" javaType="java.lang.String"></string>
+        <integer min="0" step="1" name="maxNumResults" caption="Max Num Results" description="The maximum number of results that this method will return." required="true" javaType="java.lang.Integer"></integer>
+        <integer min="0" step="1" name="offset" caption="Offset" description="The place in the result set to use as the first result returned." required="true" javaType="java.lang.Integer"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Issues From Text Search With Project" icon="icons/small/jira-connector-24x16.png" localId="get-issues-from-text-search-with-project" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="searchTerms" caption="Search Terms" description="Earch terms." required="true" javaType="java.lang.String"></string>
+        <integer min="0" step="1" name="maxNumResults" caption="Max Num Results" description="The maximum number of results that this method will return." required="true" javaType="java.lang.Integer"></integer>
+        <element-controller-list listName="project-keys" localName="get-issues-from-text-search-with-project-project-keys" itemName="project-key" caption="Project Keys" description="The project keys to use." required="true" javaType="java.util.List&lt;java.lang.String&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Notification Schemes" icon="icons/small/jira-connector-24x16.png" localId="get-notification-schemes" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Permission Schemes" icon="icons/small/jira-connector-24x16.png" localId="get-permission-schemes" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Priorities" icon="icons/small/jira-connector-24x16.png" localId="get-priorities" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteAvatar" caption="Get Project Avatar" icon="icons/small/jira-connector-24x16.png" localId="get-project-avatar" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectKey" caption="Project Key" description="The key for the project." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Project Avatars" icon="icons/small/jira-connector-24x16.png" localId="get-project-avatars" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectKey" caption="Project Key" description="The key for the project." required="true" javaType="java.lang.String"></string>
+        <boolean name="includeSystemAvatars" caption="Include System Avatars" description="If false, only custom avatars will be included in the returned array." supportsExpressions="true" required="true" javaType="java.lang.Boolean"></boolean>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteProject" caption="Get Project By Id" icon="icons/small/jira-connector-24x16.png" localId="get-project-by-id" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="projectId" caption="Project Id" description="The id of the requested project." required="true" javaType="java.lang.Long"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteProject" caption="Get Project By Key" icon="icons/small/jira-connector-24x16.png" localId="get-project-by-key" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectKey" caption="Project Key" description="The key of the requested projec." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteProjectRole" caption="Get Project Role" icon="icons/small/jira-connector-24x16.png" localId="get-project-role" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="projectRoleId" caption="Project Role Id" description="The projectRoleId of the project role." required="true" javaType="java.lang.Long"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteProjectRoleActors" caption="Get Project Role Actors" icon="icons/small/jira-connector-24x16.png" localId="get-project-role-actors" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="projectRoleId" caption="Project Role Id" description="The project role id to use." required="true" javaType="java.lang.Long"></integer>
+        <string name="projectKey" caption="Project Key" description="The project key to use." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Project Roles" icon="icons/small/jira-connector-24x16.png" localId="get-project-roles" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteProject" caption="Get Project With Schemes By Id" icon="icons/small/jira-connector-24x16.png" localId="get-project-with-schemes-by-id" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="projectId" caption="Project Id" description="The id of the requested project." required="true" javaType="java.lang.Long"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Projects No Schemes" icon="icons/small/jira-connector-24x16.png" localId="get-projects-no-schemes" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.Calendar" caption="Get Resolution Date By Id" icon="icons/small/jira-connector-24x16.png" localId="get-resolution-date-by-id" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="issueId" caption="Issue Id" description="The id of the issue." required="true" javaType="java.lang.Long"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.Calendar" caption="Get Resolution Date By Key" icon="icons/small/jira-connector-24x16.png" localId="get-resolution-date-by-key" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueKey" caption="Issue Key" description="The key of the issue." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Resolutions" icon="icons/small/jira-connector-24x16.png" localId="get-resolutions" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteSecurityLevel" caption="Get Security Level" icon="icons/small/jira-connector-24x16.png" localId="get-security-level" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueKey" caption="Issue Key" description="The issue key." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Security Levels" icon="icons/small/jira-connector-24x16.png" localId="get-security-levels" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectKey" caption="Project Key" description="The key for the project." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Security Schemes" icon="icons/small/jira-connector-24x16.png" localId="get-security-schemes" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteServerInfo" caption="Get Server Info" icon="icons/small/jira-connector-24x16.png" localId="get-server-info" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Statuses" icon="icons/small/jira-connector-24x16.png" localId="get-statuses" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Sub Task Issue Types" icon="icons/small/jira-connector-24x16.png" localId="get-sub-task-issue-types" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Sub Task Issue Types For Project" icon="icons/small/jira-connector-24x16.png" localId="get-sub-task-issue-types-for-project" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectId" caption="Project Id" description="Id of the project." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteUser" caption="Get User" icon="icons/small/jira-connector-24x16.png" localId="get-user" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="username" caption="Username" description="The user name to look up." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Versions" icon="icons/small/jira-connector-24x16.png" localId="get-versions" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectKey" caption="Project Key" description="The key of the requested project." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.Object&gt;" caption="Get Worklogs" icon="icons/small/jira-connector-24x16.png" localId="get-worklogs" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueKey" caption="Issue Key" description="The key of the issue." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="boolean" caption="Has Permission To Create Worklog" icon="icons/small/jira-connector-24x16.png" localId="has-permission-to-create-worklog" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueKey" caption="Issue Key" description="The key of the issue." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="boolean" caption="Has Permission To Delete Worklog" icon="icons/small/jira-connector-24x16.png" localId="has-permission-to-delete-worklog" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="worklogId" caption="Worklog Id" description="The id of the worklog wishes to delete." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="boolean" caption="Has Permission To Edit Comment" icon="icons/small/jira-connector-24x16.png" localId="has-permission-to-edit-comment" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="commentId" caption="Comment Id" description="The comment id to use." required="true" javaType="java.lang.Long"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="boolean" caption="Has Permission To Update Worklog" icon="icons/small/jira-connector-24x16.png" localId="has-permission-to-update-worklog" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="worklogId" caption="Worklog Id" description="The ide of the worklog wishes to update." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="boolean" caption="Is Project Role Name Unique" icon="icons/small/jira-connector-24x16.png" localId="is-project-role-name-unique" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="roleName" caption="Role Name" description="The project role name to check for uniqueness." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Login" icon="icons/small/jira-connector-24x16.png" localId="login" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="password" caption="Password" description="The password to use." required="true" javaType="java.lang.String"></string>
+        <string name="username" caption="Username" description="The username to use." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="boolean" caption="Logout" icon="icons/small/jira-connector-24x16.png" localId="logout" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="token" caption="Token" description="" required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteIssue" caption="Progress Workflow Action" icon="icons/small/jira-connector-24x16.png" localId="progress-workflow-action" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="actionIdString" caption="Action Id String" description="The workflow action to progress to." required="true" javaType="java.lang.String"></string>
+        <string name="issueKey" caption="Issue Key" description="The issue to update." required="true" javaType="java.lang.String"></string>
+        <element-controller-map mapName="fields" localName="progress-workflow-action-fields" itemName="field" caption="Fields" description="The fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a &quot;|&quot; if it is multivalued." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Refresh Custom Fields" icon="icons/small/jira-connector-24x16.png" localId="refresh-custom-fields" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Release Version" icon="icons/small/jira-connector-24x16.png" localId="release-version" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectKey" caption="Project Key" description="The project key to use." required="true" javaType="java.lang.String"></string>
+        <string name="versionName" caption="Version Name" description="The version name to release." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Remove Actors From Project Role" icon="icons/small/jira-connector-24x16.png" localId="remove-actors-from-project-role" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="projectRoleId" caption="Project Role Id" description="The id of the project role to use." required="true" javaType="java.lang.Long"></integer>
+        <string name="actorType" caption="Actor Type" description="The actor type to use." required="false" javaType="java.lang.String"></string>
+        <string name="projectKey" caption="Project Key" description="The key of project to use." required="true" javaType="java.lang.String"></string>
+        <element-controller-list listName="actors" localName="remove-actors-from-project-role-actors" itemName="actor" caption="Actors" description="The actors to remove." required="true" javaType="java.util.List&lt;java.lang.String&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Remove All Role Actors By Name And Type" icon="icons/small/jira-connector-24x16.png" localId="remove-all-role-actors-by-name-and-type" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="roleName" caption="Role Name" description="The name to delete." required="true" javaType="java.lang.String"></string>
+        <string name="type" caption="Type" description="The type to delete." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Remove All Role Actors By Project" icon="icons/small/jira-connector-24x16.png" localId="remove-all-role-actors-by-project" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectKey" caption="Project Key" description="The project key for which to remove all role actors." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Remove Default Actors From Project Role" icon="icons/small/jira-connector-24x16.png" localId="remove-default-actors-from-project-role" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="remoteProjectRoleId" caption="Remote Project Role Id" description="The id of the project role." required="true" javaType="java.lang.Long"></integer>
+        <string name="type" caption="Type" description="The type." required="false" javaType="java.lang.String"></string>
+        <element-controller-list listName="actors" localName="remove-default-actors-from-project-role-actors" itemName="actor" caption="Actors" description="The actors to remove." required="true" javaType="java.util.List&lt;java.lang.String&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Remove User From Group" icon="icons/small/jira-connector-24x16.png" localId="remove-user-from-group" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="groupName" caption="Group Name" description="The group name for which to remove the user." required="true" javaType="java.lang.String"></string>
+        <string name="userName" caption="User Name" description="The username to remove." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Set New Project Avatar" icon="icons/small/jira-connector-24x16.png" localId="set-new-project-avatar" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="base64ImageData" caption="Base64 Image Data" description="A base 64 encoded image, 48 pixels square." required="true" javaType="java.lang.String"></string>
+        <string name="contentType" caption="Content Type" description="The MIME type of the image provided, e.g. image/gif, image/jpeg, image/png." required="true" javaType="java.lang.String"></string>
+        <string name="projectKey" caption="Project Key" description="The key for the project." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Set Project Avatar" icon="icons/small/jira-connector-24x16.png" localId="set-project-avatar" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="projectKey" caption="Project Key" description="The key for the project." required="true" javaType="java.lang.String"></string>
+        <integer min="0" step="1" name="avatarId" caption="Avatar Id" description="The id of an existing avatar to use for the project or null for the default avatar." required="true" javaType="java.lang.Long"></integer>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteGroup" caption="Update Group" icon="icons/small/jira-connector-24x16.png" localId="update-group" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="groupName" caption="Group Name" description="The group name to update." required="true" javaType="java.lang.String"></string>
+        <element-controller-list listName="usernames" localName="update-group-usernames" itemName="username" caption="Usernames" description="The updated usernames." required="true" javaType="java.util.List&lt;java.lang.String&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteIssue" caption="Update Issue" icon="icons/small/jira-connector-24x16.png" localId="update-issue" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="issueKey" caption="Issue Key" description="The issue to update." required="true" javaType="java.lang.String"></string>
+        <element-controller-map mapName="fields" localName="update-issue-fields" itemName="field" caption="Fields" description="The fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a &quot;|&quot; if it is multivalued." required="true" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;com.atlassian.jira.rpc.soap.beans.RemoteIssue&gt;" caption="Update Issues By Jql" icon="icons/small/jira-connector-24x16.png" localId="update-issues-by-jql" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="jql" caption="Jql" description="The jql to search the issues that will be updated if issueKey is not set." required="true" javaType="java.lang.String"></string>
+        <integer min="0" step="1" name="maxRecordsToUpdate" caption="Max Records To Update" description="The number of issues you expect the jql search will find. If set, the update will only take place if the number of issues found is the same as this." required="false" javaType="java.lang.Integer"></integer>
+        <element-controller-map mapName="fields" localName="update-issues-by-jql-fields" itemName="field" caption="Fields" description="The fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a &quot;|&quot; if it is multivalued." required="true" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.atlassian.jira.rpc.soap.beans.RemoteProject" caption="Update Project" icon="icons/small/jira-connector-24x16.png" localId="update-project" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="description" caption="Description" description="The new description." required="true" javaType="java.lang.String"></string>
+        <string name="key" caption="Key" description="The key of the project to update." required="true" javaType="java.lang.String"></string>
+        <string name="lead" caption="Lead" description="The new lead." required="true" javaType="java.lang.String"></string>
+        <string name="notificationSchemeName" caption="Notification Scheme Name" description="The new notification scheme name." required="false" javaType="java.lang.String"></string>
+        <string name="permissionSchemeName" caption="Permission Scheme Name" description="The new permission scheme name." required="false" javaType="java.lang.String"></string>
+        <string name="projectName" caption="Project Name" description="The new project name." required="false" javaType="java.lang.String"></string>
+        <string name="securityShemeName" caption="Security Sheme Name" description="The new security scheme name." required="false" javaType="java.lang.String"></string>
+        <string name="url" caption="Url" description="The new url." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Update Project Role" icon="icons/small/jira-connector-24x16.png" localId="update-project-role" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <integer min="0" step="1" name="projectRoleId" caption="Project Role Id" description="The id of the project role to update." required="true" javaType="java.lang.Long"></integer>
+        <string name="projectRoleDescription" caption="Project Role Description" description="The new project role description." required="false" javaType="java.lang.String"></string>
+        <string name="projectRoleName" caption="Project Role Name" description="The new project role name." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Update Worklog With New Remaining Estimate" icon="icons/small/jira-connector-24x16.png" localId="update-worklog-with-new-remaining-estimate" image="icons/large/jira-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/jira/abstractJiraConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="comment" caption="Comment" description="The new comment." required="false" javaType="java.lang.String"></string>
+        <string name="groupLevel" caption="Group Level" description="The new group level." required="false" javaType="java.lang.String"></string>
+        <string name="issueKey" caption="Issue Key" description="The issue key to use." required="true" javaType="java.lang.String"></string>
+        <string name="newRemainingEstimate" caption="New Remaining Estimate" description="The new value for the issue's remaining estimate as a duration string, eg 1d 2h." required="true" javaType="java.lang.String"></string>
+        <string name="roleLevelId" caption="Role Level Id" description="The new role level id." required="false" javaType="java.lang.String"></string>
+        <string name="worklogId" caption="Worklog Id" description="The worklog id to use." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <nested xmlname="issue" caption="" description="" localId="issue" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Issue Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <string name="affectsVersions-ref" caption="Affects Versions Reference" description="" required="false" controlled="complex" javaType="com.atlassian.jira.rpc.soap.beans.RemoteVersion[]"></string>
+    <string name="assignee" caption="Assignee" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="attachmentNames-ref" caption="Attachment Names Reference" description="" required="false" controlled="complex" javaType="java.lang.String[]"></string>
+    <string name="components-ref" caption="Components Reference" description="" required="false" controlled="complex" javaType="com.atlassian.jira.rpc.soap.beans.RemoteComponent[]"></string>
+    <string name="created" caption="Created Reference" description="" required="false" controlled="complex" javaType="java.util.Calendar"></string>
+    <string name="customFieldValues-ref" caption="Custom Field Values Reference" description="" required="false" controlled="complex" javaType="com.atlassian.jira.rpc.soap.beans.RemoteCustomFieldValue[]"></string>
+    <string name="description" caption="Description" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="duedate" caption="Duedate Reference" description="" required="false" controlled="complex" javaType="java.util.Calendar"></string>
+    <string name="environment" caption="Environment" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="fixVersions-ref" caption="Fix Versions Reference" description="" required="false" controlled="complex" javaType="com.atlassian.jira.rpc.soap.beans.RemoteVersion[]"></string>
+    <string name="key" caption="Key" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="priority" caption="Priority" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="project" caption="Project" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="reporter" caption="Reporter" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="resolution" caption="Resolution" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="status" caption="Status" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="summary" caption="Summary" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="type" caption="Type" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="updated" caption="Updated Reference" description="" required="false" controlled="complex" javaType="java.util.Calendar"></string>
+    <integer min="0" step="1" name="votes" caption="Votes" description="" required="false" controlled="complex" javaType="java.lang.Long"></integer>
+  </nested>
+  <nested xmlname="issue-security-scheme" caption="" description="" localId="issue-security-scheme" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Issue Security Scheme Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <string name="description" caption="Description" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <integer min="0" step="1" name="id" caption="Id" description="" required="false" controlled="complex" javaType="java.lang.Long"></integer>
+    <string name="name" caption="Name" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="type" caption="Type" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="notification-scheme" caption="" description="" localId="notification-scheme" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Notification Scheme Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <string name="description" caption="Description" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <integer min="0" step="1" name="id" caption="Id" description="" required="false" controlled="complex" javaType="java.lang.Long"></integer>
+    <string name="name" caption="Name" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="type" caption="Type" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="permission-scheme" caption="" description="" localId="permission-scheme" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Permission Scheme Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <string name="permissionMappings-ref" caption="Permission Mappings Reference" description="" required="false" controlled="complex" javaType="com.atlassian.jira.rpc.soap.beans.RemotePermissionMapping[]"></string>
+  </nested>
+  <nested xmlname="project" caption="" description="" localId="project" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Project Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <string name="description" caption="Description" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/jira/issue-security-scheme" caption="Issue Security Scheme Reference" required="false" controlled="complex" javaType="com.atlassian.jira.rpc.soap.beans.RemoteScheme"></childElement>
+    <string name="key" caption="Key" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="lead" caption="Lead" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/jira/notification-scheme" caption="Notification Scheme Reference" required="false" controlled="complex" javaType="com.atlassian.jira.rpc.soap.beans.RemoteScheme"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/jira/permission-scheme" caption="Permission Scheme Reference" required="false" controlled="complex" javaType="com.atlassian.jira.rpc.soap.beans.RemotePermissionScheme"></childElement>
+    <string name="projectUrl" caption="Project Url" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="url" caption="Url" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+</namespace>

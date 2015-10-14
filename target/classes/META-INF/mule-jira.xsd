@@ -1,0 +1,3627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:ns2="http://www.mulesoft.org/schema/mule/devkit" xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mulesoft.org/schema/mule/jira" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
+  <xs:import namespace="http://www.springframework.org/schema/beans" schemaLocation="http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"></xs:import>
+  <xs:import namespace="http://www.mulesoft.org/schema/mule/core" schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
+  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-extension" name="config">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="mule:abstractExtensionType">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element type="mule:poolingProfileType" minOccurs="0" name="connection-pooling-profile">
+              <xs:annotation>
+                <xs:documentation>Characteristics of the connection pool.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" ref="mule:abstract-reconnection-strategy">
+              <xs:annotation>
+                <xs:documentation>Reconnection strategy that defines how Mule should handle a connection failure.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute type="xs:string" use="required" name="name">
+            <xs:annotation>
+              <xs:documentation>Give a name to this configuration so it can be later referenced by config-ref.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="booleanType" use="optional" default="false" name="useCustomFieldsExternalName">
+            <xs:annotation>
+              <xs:documentation>if external custom fields names (instead of internal ids) are used when modifying custom fields, the provided user must be a Jira administrator in order to be able to use
+this feature</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="required" name="connectionUser">
+            <xs:annotation>
+              <xs:documentation>the user login user</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="required" name="connectionPassword">
+            <xs:annotation>
+              <xs:documentation>the user login pass</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="required" name="connectionAddress">
+            <xs:annotation>
+              <xs:documentation>the JIRA Server Soap address. It usually looks like https://&amp;lt;jira server hostname&amp;gt;/rpc/soap/jirasoapservice-v2 or http://&amp;lt;jira server hostname&amp;gt;/rpc/soap/jirasoapservice-v2</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetCommentType" substitutionGroup="mule:abstract-message-processor" name="get-comment">
+    <xs:annotation>
+      <xs:documentation>Finds a comment.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetCommentType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="commentId">
+          <xs:annotation>
+            <xs:documentation>the commentId of the comment</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetConfigurationType" substitutionGroup="mule:abstract-message-processor" name="get-configuration">
+    <xs:annotation>
+      <xs:documentation>Returns information about the current configuration of JIRA.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetConfigurationType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateGroupType" substitutionGroup="mule:abstract-message-processor" name="create-group">
+    <xs:annotation>
+      <xs:documentation>Creates a group with the given name optionally adding the given user to it.
+&lt;p/&gt;
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateGroupType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="groupName">
+          <xs:annotation>
+            <xs:documentation>the name of the group to create.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="userName">
+          <xs:annotation>
+            <xs:documentation>the user to add to the group (if null, no user will be added).</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetServerInfoType" substitutionGroup="mule:abstract-message-processor" name="get-server-info">
+    <xs:annotation>
+      <xs:documentation>Returns information about the server JIRA is running on including build number and base URL.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetServerInfoType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetGroupType" substitutionGroup="mule:abstract-message-processor" name="get-group">
+    <xs:annotation>
+      <xs:documentation>Find the group with the specified name in JIRA.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetGroupType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="groupName">
+          <xs:annotation>
+            <xs:documentation>the name of the group to find</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateUserType" substitutionGroup="mule:abstract-message-processor" name="create-user">
+    <xs:annotation>
+      <xs:documentation>Creates a user in JIRA with the specified user details
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateUserType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="username">
+          <xs:annotation>
+            <xs:documentation>the user name to create</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="password">
+          <xs:annotation>
+            <xs:documentation>the password for the new user</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="fullName">
+          <xs:annotation>
+            <xs:documentation>the full name of the new user</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="email">
+          <xs:annotation>
+            <xs:documentation>the email of the new user</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AddCommentType" substitutionGroup="mule:abstract-message-processor" name="add-comment">
+    <xs:annotation>
+      <xs:documentation>Adds a new comment to the issue.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AddCommentType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the key of the issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="commentAuthor">
+          <xs:annotation>
+            <xs:documentation>the author of the comment</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="commentBody">
+          <xs:annotation>
+            <xs:documentation>the body of the comment</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="commentGroupLevel">
+          <xs:annotation>
+            <xs:documentation>the group level of the comment</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="commentRoleLevel">
+          <xs:annotation>
+            <xs:documentation>the role level of the comment</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetComponentsType" substitutionGroup="mule:abstract-message-processor" name="get-components">
+    <xs:annotation>
+      <xs:documentation>Returns an array of all the components for the specified project key.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetComponentsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the key of the requested project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetUserType" substitutionGroup="mule:abstract-message-processor" name="get-user">
+    <xs:annotation>
+      <xs:documentation>Returns information about a user defined to JIRA.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetUserType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="username">
+          <xs:annotation>
+            <xs:documentation>the user name to look up</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdateGroupType" substitutionGroup="mule:abstract-message-processor" name="update-group">
+    <xs:annotation>
+      <xs:documentation>Updates the given group name with the provided users.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdateGroupType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="usernames">
+            <xs:annotation>
+              <xs:documentation>the updated usernames</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="username">
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:string">
+                        <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="groupName">
+          <xs:annotation>
+            <xs:documentation>the group name to update</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AddUserToGroupType" substitutionGroup="mule:abstract-message-processor" name="add-user-to-group">
+    <xs:annotation>
+      <xs:documentation>Adds a user to the given group name.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AddUserToGroupType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="groupName">
+          <xs:annotation>
+            <xs:documentation>the group name</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="userName">
+          <xs:annotation>
+            <xs:documentation>the user name</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="RemoveUserFromGroupType" substitutionGroup="mule:abstract-message-processor" name="remove-user-from-group">
+    <xs:annotation>
+      <xs:documentation>Removes a user from the group name.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="RemoveUserFromGroupType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="groupName">
+          <xs:annotation>
+            <xs:documentation>the group name for which to remove the user</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="userName">
+          <xs:annotation>
+            <xs:documentation>the username to remove</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetIssueType" substitutionGroup="mule:abstract-message-processor" name="get-issue">
+    <xs:annotation>
+      <xs:documentation>Finds an issue by key.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetIssueType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the key of the issue to find.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateIssueType" substitutionGroup="mule:abstract-message-processor" name="create-issue">
+    <xs:annotation>
+      <xs:documentation>Creates an issue.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateIssueType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="custom-fields">
+            <xs:annotation>
+              <xs:documentation>the custom fields of the new issue, the keys of the map are the field ids, the values should be separated by a "|" if it is multivalued</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:choice>
+                <xs:sequence>
+                  <xs:element minOccurs="0" maxOccurs="unbounded" name="custom-field">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                          <xs:attribute type="xs:string" name="key"></xs:attribute>
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:sequence>
+                  <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"></xs:any>
+                </xs:sequence>
+              </xs:choice>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="assignee">
+          <xs:annotation>
+            <xs:documentation>the assignee of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="summary">
+          <xs:annotation>
+            <xs:documentation>the summary of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="description">
+          <xs:annotation>
+            <xs:documentation>the description of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="dueDate">
+          <xs:annotation>
+            <xs:documentation>the due date of the new issue using the format MM-dd-yyy'T'HH:mm:ss</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="environment">
+          <xs:annotation>
+            <xs:documentation>the environment of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="priority">
+          <xs:annotation>
+            <xs:documentation>the priority of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="project">
+          <xs:annotation>
+            <xs:documentation>the project of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="reporter">
+          <xs:annotation>
+            <xs:documentation>the reporter of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="type">
+          <xs:annotation>
+            <xs:documentation>the type of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="optional" name="votes">
+          <xs:annotation>
+            <xs:documentation>the votes of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="componentName">
+          <xs:annotation>
+            <xs:documentation>the component name</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="componentId">
+          <xs:annotation>
+            <xs:documentation>the componentId</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Create-issue-using-objectType" substitutionGroup="mule:abstract-message-processor" name="create-issue-using-object">
+    <xs:annotation>
+      <xs:documentation>Creates an issue.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AbstractRemoteEntityObjectType">
+    <xs:sequence></xs:sequence>
+    <xs:attribute type="xs:string" use="optional" name="id">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" use="optional" name="ref">
+      <xs:annotation>
+        <xs:documentation>The reference object for this parameter</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="RemoteIssueObjectType">
+    <xs:complexContent>
+      <xs:extension xmlns="http://www.mulesoft.org/schema/mule/jira" base="AbstractRemoteEntityObjectType">
+        <xs:sequence></xs:sequence>
+        <xs:attribute type="xs:string" use="optional" name="affectsVersions-ref">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="assignee">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="attachmentNames-ref">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="components-ref">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="dateTimeType" use="optional" name="created">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="customFieldValues-ref">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="description">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="dateTimeType" use="optional" name="duedate">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="environment">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="fixVersions-ref">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="key">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="priority">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="project">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="reporter">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="resolution">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="status">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="summary">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="type">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="dateTimeType" use="optional" name="updated">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="longType" use="optional" name="votes">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Create-issue-using-objectType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="issue">
+            <xs:annotation>
+              <xs:documentation>JIRA issue to be created</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:extension xmlns="http://www.mulesoft.org/schema/mule/jira" base="RemoteIssueObjectType"></xs:extension>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Create-issue-with-parentType" substitutionGroup="mule:abstract-message-processor" name="create-issue-with-parent">
+    <xs:annotation>
+      <xs:documentation>Creates a sub-task.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="Create-issue-with-parentType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="issue">
+            <xs:annotation>
+              <xs:documentation>JIRA issue to be created</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:extension xmlns="http://www.mulesoft.org/schema/mule/jira" base="RemoteIssueObjectType"></xs:extension>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="parentIssueKey">
+          <xs:annotation>
+            <xs:documentation>JIRA issue to be created</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateIssueWithSecurityLevelType" substitutionGroup="mule:abstract-message-processor" name="create-issue-with-security-level">
+    <xs:annotation>
+      <xs:documentation>Creates an issue using the the security level denoted by the given id.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateIssueWithSecurityLevelType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="custom-fields">
+            <xs:annotation>
+              <xs:documentation>the custom fields of the new issue, the keys of the map are the field ids, the values should be separated by a "|" if it is multivalued</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:choice>
+                <xs:sequence>
+                  <xs:element minOccurs="0" maxOccurs="unbounded" name="custom-field">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                          <xs:attribute type="xs:string" name="key"></xs:attribute>
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:sequence>
+                  <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"></xs:any>
+                </xs:sequence>
+              </xs:choice>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="assignee">
+          <xs:annotation>
+            <xs:documentation>the assignee of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="summary">
+          <xs:annotation>
+            <xs:documentation>the summary of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="description">
+          <xs:annotation>
+            <xs:documentation>the description of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="dueDate">
+          <xs:annotation>
+            <xs:documentation>the due date of the new issue using the format MM-dd-yyy'T'HH:mm:ss</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="environment">
+          <xs:annotation>
+            <xs:documentation>the environment of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="priority">
+          <xs:annotation>
+            <xs:documentation>the priority of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="project">
+          <xs:annotation>
+            <xs:documentation>the project of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="reporter">
+          <xs:annotation>
+            <xs:documentation>the reporter of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="type">
+          <xs:annotation>
+            <xs:documentation>the type of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="optional" name="votes">
+          <xs:annotation>
+            <xs:documentation>the votes of the new issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="securityLevelId">
+          <xs:annotation>
+            <xs:documentation>the id of the security level to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="componentName">
+          <xs:annotation>
+            <xs:documentation>the component name</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="componentId">
+          <xs:annotation>
+            <xs:documentation>the componentId</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdateIssueType" substitutionGroup="mule:abstract-message-processor" name="update-issue">
+    <xs:annotation>
+      <xs:documentation>This will update an issue with new values. NOTE : You cannot update the 'status' field of the issue via this method.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdateIssueType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="fields">
+            <xs:annotation>
+              <xs:documentation>The fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a "|" if it is multivalued</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:choice>
+                <xs:sequence>
+                  <xs:element minOccurs="0" maxOccurs="unbounded" name="field">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                          <xs:attribute type="xs:string" name="key"></xs:attribute>
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:sequence>
+                  <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"></xs:any>
+                </xs:sequence>
+              </xs:choice>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>The issue to update.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdateIssuesByJqlType" substitutionGroup="mule:abstract-message-processor" name="update-issues-by-jql">
+    <xs:annotation>
+      <xs:documentation>This will update the set of issues that result from the jql search NOTE : You cannot update the 'status' field of the issues via this method.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdateIssuesByJqlType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="fields">
+            <xs:annotation>
+              <xs:documentation>The fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a "|" if it is multivalued</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:choice>
+                <xs:sequence>
+                  <xs:element minOccurs="0" maxOccurs="unbounded" name="field">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                          <xs:attribute type="xs:string" name="key"></xs:attribute>
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:sequence>
+                  <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"></xs:any>
+                </xs:sequence>
+              </xs:choice>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="jql">
+          <xs:annotation>
+            <xs:documentation>The jql to search the issues that will be updated if issueKey is not set.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="integerType" use="optional" name="maxRecordsToUpdate">
+          <xs:annotation>
+            <xs:documentation>The number of issues you expect the jql search will find. If set, the update will only take place if the number of issues found is the same as this</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteIssueType" substitutionGroup="mule:abstract-message-processor" name="delete-issue">
+    <xs:annotation>
+      <xs:documentation>Deletes the issue with the given key
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteIssueType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the key of the issue to delete</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetAvailableActionsType" substitutionGroup="mule:abstract-message-processor" name="get-available-actions">
+    <xs:annotation>
+      <xs:documentation>Finds the available actions for the given issue key
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetAvailableActionsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the key of the issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetSubTaskIssueTypesType" substitutionGroup="mule:abstract-message-processor" name="get-sub-task-issue-types">
+    <xs:annotation>
+      <xs:documentation>Returns an array of all the sub task issue types in JIRA.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetSubTaskIssueTypesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateProjectType" substitutionGroup="mule:abstract-message-processor" name="create-project">
+    <xs:annotation>
+      <xs:documentation>Creates a new project
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateProjectType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="key">
+          <xs:annotation>
+            <xs:documentation>the key for the new project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectName">
+          <xs:annotation>
+            <xs:documentation>the name for the new project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="description">
+          <xs:annotation>
+            <xs:documentation>the description for the new project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="url">
+          <xs:annotation>
+            <xs:documentation>the url for the new project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="lead">
+          <xs:annotation>
+            <xs:documentation>the lead of the new project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="permissionSchemeName">
+          <xs:annotation>
+            <xs:documentation>the name of the permission scheme for the new project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="notificationSchemeName">
+          <xs:annotation>
+            <xs:documentation>the name of the notification scheme for the new project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="securityShemeName">
+          <xs:annotation>
+            <xs:documentation>the name of the security scheme for the new project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Create-project-using-objectType" substitutionGroup="mule:abstract-message-processor" name="create-project-using-object">
+    <xs:annotation>
+      <xs:documentation>Creates a new project.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AbstractNamedRemoteEntityObjectType">
+    <xs:complexContent>
+      <xs:extension xmlns="http://www.mulesoft.org/schema/mule/jira" base="AbstractRemoteEntityObjectType">
+        <xs:sequence></xs:sequence>
+        <xs:attribute type="xs:string" use="optional" name="name">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RemoteSchemeObjectType">
+    <xs:sequence></xs:sequence>
+    <xs:attribute type="xs:string" use="optional" name="description">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="optional" name="id">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" use="optional" name="name">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" use="optional" name="type">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" use="optional" name="ref">
+      <xs:annotation>
+        <xs:documentation>The reference object for this parameter</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="RemotePermissionSchemeObjectType">
+    <xs:complexContent>
+      <xs:extension xmlns="http://www.mulesoft.org/schema/mule/jira" base="RemoteSchemeObjectType">
+        <xs:sequence></xs:sequence>
+        <xs:attribute type="xs:string" use="optional" name="permissionMappings-ref">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RemoteProjectObjectType">
+    <xs:complexContent>
+      <xs:extension xmlns="http://www.mulesoft.org/schema/mule/jira" base="AbstractNamedRemoteEntityObjectType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="issue-security-scheme">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:extension base="RemoteSchemeObjectType"></xs:extension>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" name="notification-scheme">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:extension base="RemoteSchemeObjectType"></xs:extension>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" name="permission-scheme">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:extension base="RemotePermissionSchemeObjectType"></xs:extension>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="optional" name="description">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="key">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="lead">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="projectUrl">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="url">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Create-project-using-objectType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="project">
+            <xs:annotation>
+              <xs:documentation>JIRA issue to be created</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:extension xmlns="http://www.mulesoft.org/schema/mule/jira" base="RemoteProjectObjectType"></xs:extension>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdateProjectType" substitutionGroup="mule:abstract-message-processor" name="update-project">
+    <xs:annotation>
+      <xs:documentation>Updates the project denoted by the given key.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdateProjectType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="key">
+          <xs:annotation>
+            <xs:documentation>the key of the project to update</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="projectName">
+          <xs:annotation>
+            <xs:documentation>the new project name</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="description">
+          <xs:annotation>
+            <xs:documentation>the new description</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="url">
+          <xs:annotation>
+            <xs:documentation>the new url</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="lead">
+          <xs:annotation>
+            <xs:documentation>the new lead</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="permissionSchemeName">
+          <xs:annotation>
+            <xs:documentation>the new permission scheme name</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="notificationSchemeName">
+          <xs:annotation>
+            <xs:documentation>the new notification scheme name</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="securityShemeName">
+          <xs:annotation>
+            <xs:documentation>the new security scheme name</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetProjectByKeyType" substitutionGroup="mule:abstract-message-processor" name="get-project-by-key">
+    <xs:annotation>
+      <xs:documentation>Returns the Project with the matching key (if the user has permission to browse it).
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetProjectByKeyType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the key of the requested projec</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="RemoveAllRoleActorsByProjectType" substitutionGroup="mule:abstract-message-processor" name="remove-all-role-actors-by-project">
+    <xs:annotation>
+      <xs:documentation>Removes all role actors for the given project key.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="RemoveAllRoleActorsByProjectType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the project key for which to remove all role actors</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetPrioritiesType" substitutionGroup="mule:abstract-message-processor" name="get-priorities">
+    <xs:annotation>
+      <xs:documentation>Returns an array of all the issue statuses in JIRA.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetPrioritiesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetResolutionsType" substitutionGroup="mule:abstract-message-processor" name="get-resolutions">
+    <xs:annotation>
+      <xs:documentation>Returns an array of all the issue resolutions in JIRA.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetResolutionsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetIssueTypesType" substitutionGroup="mule:abstract-message-processor" name="get-issue-types">
+    <xs:annotation>
+      <xs:documentation>Returns an array of all the issue types for all projects in JIRA.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetIssueTypesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetStatusesType" substitutionGroup="mule:abstract-message-processor" name="get-statuses">
+    <xs:annotation>
+      <xs:documentation>Returns an array of all the issue statuses in JIRA.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetStatusesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetIssueTypesForProjectType" substitutionGroup="mule:abstract-message-processor" name="get-issue-types-for-project">
+    <xs:annotation>
+      <xs:documentation>Returns an array of all the (non-sub task) issue types for the specified project id.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetIssueTypesForProjectType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectId">
+          <xs:annotation>
+            <xs:documentation>id of the project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetProjectRolesType" substitutionGroup="mule:abstract-message-processor" name="get-project-roles">
+    <xs:annotation>
+      <xs:documentation>Returns the project roles.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetProjectRolesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetProjectRoleType" substitutionGroup="mule:abstract-message-processor" name="get-project-role">
+    <xs:annotation>
+      <xs:documentation>Returns the project role by projectRoleId.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetProjectRoleType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="projectRoleId">
+          <xs:annotation>
+            <xs:documentation>the projectRoleId of the project role</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetProjectRoleActorsType" substitutionGroup="mule:abstract-message-processor" name="get-project-role-actors">
+    <xs:annotation>
+      <xs:documentation>Returns the project role actors for the given project
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetProjectRoleActorsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="projectRoleId">
+          <xs:annotation>
+            <xs:documentation>the project role id to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the project key to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetDefaultRoleActorsType" substitutionGroup="mule:abstract-message-processor" name="get-default-role-actors">
+    <xs:annotation>
+      <xs:documentation>Returns the default role actors for the given project role id.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetDefaultRoleActorsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="projectRoleId">
+          <xs:annotation>
+            <xs:documentation>the id of the project role</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="RemoveAllRoleActorsByNameAndTypeType" substitutionGroup="mule:abstract-message-processor" name="remove-all-role-actors-by-name-and-type">
+    <xs:annotation>
+      <xs:documentation>Removes all role actors using the given name and type.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="RemoveAllRoleActorsByNameAndTypeType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="roleName">
+          <xs:annotation>
+            <xs:documentation>the name to delete</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="type">
+          <xs:annotation>
+            <xs:documentation>the type to delete</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteProjectRoleType" substitutionGroup="mule:abstract-message-processor" name="delete-project-role">
+    <xs:annotation>
+      <xs:documentation>Deletes the project role denoted by the given project role id.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteProjectRoleType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="projectRoleId">
+          <xs:annotation>
+            <xs:documentation>the id of the project role to delete</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="booleanType" use="required" name="confirm">
+          <xs:annotation>
+            <xs:documentation>whether confirm</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdateProjectRoleType" substitutionGroup="mule:abstract-message-processor" name="update-project-role">
+    <xs:annotation>
+      <xs:documentation>Updates the project role with the given id.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdateProjectRoleType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="projectRoleId">
+          <xs:annotation>
+            <xs:documentation>the id of the project role to update</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="projectRoleName">
+          <xs:annotation>
+            <xs:documentation>the new project role name</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="projectRoleDescription">
+          <xs:annotation>
+            <xs:documentation>the new project role description</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateProjectRoleType" substitutionGroup="mule:abstract-message-processor" name="create-project-role">
+    <xs:annotation>
+      <xs:documentation>Creates a new project role.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateProjectRoleType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectRoleName">
+          <xs:annotation>
+            <xs:documentation>the name of the new project role</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectRoleDescription">
+          <xs:annotation>
+            <xs:documentation>the description of the new project role</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="IsProjectRoleNameUniqueType" substitutionGroup="mule:abstract-message-processor" name="is-project-role-name-unique">
+    <xs:annotation>
+      <xs:documentation>Checks if the given project role name is unique.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="IsProjectRoleNameUniqueType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="roleName">
+          <xs:annotation>
+            <xs:documentation>the project role name to check for uniqueness</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ReleaseVersionType" substitutionGroup="mule:abstract-message-processor" name="release-version">
+    <xs:annotation>
+      <xs:documentation>Releases the version denoted by the given name
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ReleaseVersionType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the project key to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="versionName">
+          <xs:annotation>
+            <xs:documentation>the version name to release</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AddActorsToProjectRoleType" substitutionGroup="mule:abstract-message-processor" name="add-actors-to-project-role">
+    <xs:annotation>
+      <xs:documentation>Adds the given actors to the project role.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AddActorsToProjectRoleType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="actors">
+            <xs:annotation>
+              <xs:documentation>the actors to add</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="actor">
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:string">
+                        <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="projectRoleId">
+          <xs:annotation>
+            <xs:documentation>the id of the project role to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the key of project to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="actorType">
+          <xs:annotation>
+            <xs:documentation>the actor type to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="RemoveActorsFromProjectRoleType" substitutionGroup="mule:abstract-message-processor" name="remove-actors-from-project-role">
+    <xs:annotation>
+      <xs:documentation>Removes the given actors from the project role
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="RemoveActorsFromProjectRoleType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="actors">
+            <xs:annotation>
+              <xs:documentation>the actors to remove</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="actor">
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:string">
+                        <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="projectRoleId">
+          <xs:annotation>
+            <xs:documentation>the id of the project role to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the key of project to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="actorType">
+          <xs:annotation>
+            <xs:documentation>the actor type to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AddDefaultActorsToProjectRoleType" substitutionGroup="mule:abstract-message-processor" name="add-default-actors-to-project-role">
+    <xs:annotation>
+      <xs:documentation>Adds the default actors to the project role denoted by this id.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AddDefaultActorsToProjectRoleType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="actors">
+            <xs:annotation>
+              <xs:documentation>the actors to add</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="actor">
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:string">
+                        <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="projectRoleId">
+          <xs:annotation>
+            <xs:documentation>the id of the project role</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="type">
+          <xs:annotation>
+            <xs:documentation>the type</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="RemoveDefaultActorsFromProjectRoleType" substitutionGroup="mule:abstract-message-processor" name="remove-default-actors-from-project-role">
+    <xs:annotation>
+      <xs:documentation>Removes the default actors from the project role denoted by this id.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="RemoveDefaultActorsFromProjectRoleType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="actors">
+            <xs:annotation>
+              <xs:documentation>the actors to remove</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="actor">
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:string">
+                        <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="remoteProjectRoleId">
+          <xs:annotation>
+            <xs:documentation>the id of the project role</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="type">
+          <xs:annotation>
+            <xs:documentation>the type</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetAssociatedNotificationSchemesType" substitutionGroup="mule:abstract-message-processor" name="get-associated-notification-schemes">
+    <xs:annotation>
+      <xs:documentation>Returns the associated notification schemes for the given project role.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetAssociatedNotificationSchemesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="projectRoleId">
+          <xs:annotation>
+            <xs:documentation>the project role to search</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetAssociatedPermissionSchemesType" substitutionGroup="mule:abstract-message-processor" name="get-associated-permission-schemes">
+    <xs:annotation>
+      <xs:documentation>Returns the associated permission schemas for the given project role.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetAssociatedPermissionSchemesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="projectRoleId">
+          <xs:annotation>
+            <xs:documentation>the project role to search</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteProjectType" substitutionGroup="mule:abstract-message-processor" name="delete-project">
+    <xs:annotation>
+      <xs:documentation>Deletes the project represented by the given project key.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteProjectType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the key of the project to delete</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetProjectByIdType" substitutionGroup="mule:abstract-message-processor" name="get-project-by-id">
+    <xs:annotation>
+      <xs:documentation>Returns the Project with the matching id (if the user has permission to browse it).
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetProjectByIdType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="projectId">
+          <xs:annotation>
+            <xs:documentation>the id of the requested project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetVersionsType" substitutionGroup="mule:abstract-message-processor" name="get-versions">
+    <xs:annotation>
+      <xs:documentation>Returns an array of all the versions for the specified project key.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetVersionsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the key of the requested project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetCommentsType" substitutionGroup="mule:abstract-message-processor" name="get-comments">
+    <xs:annotation>
+      <xs:documentation>Returns the comments for the issue denoted by the given key.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetCommentsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the key of the issue to get the comments for</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetFavouriteFiltersType" substitutionGroup="mule:abstract-message-processor" name="get-favourite-filters">
+    <xs:annotation>
+      <xs:documentation>This retreives a list of the currently logged in user's favourite fitlers.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetFavouriteFiltersType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ArchiveVersionType" substitutionGroup="mule:abstract-message-processor" name="archive-version">
+    <xs:annotation>
+      <xs:documentation>Archieves the given version/
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ArchiveVersionType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the project key to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="versionName">
+          <xs:annotation>
+            <xs:documentation>the version name to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="booleanType" use="required" name="archive">
+          <xs:annotation>
+            <xs:documentation>whether it should be archived</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetFieldsForEditType" substitutionGroup="mule:abstract-message-processor" name="get-fields-for-edit">
+    <xs:annotation>
+      <xs:documentation>Returns the fields for edit for the given issue key
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetFieldsForEditType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the issue key to get the fields for</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetSubTaskIssueTypesForProjectType" substitutionGroup="mule:abstract-message-processor" name="get-sub-task-issue-types-for-project">
+    <xs:annotation>
+      <xs:documentation>Returns an array of all the sub task issue types for the specified project id.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetSubTaskIssueTypesForProjectType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectId">
+          <xs:annotation>
+            <xs:documentation>id of the project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="LoginType" substitutionGroup="mule:abstract-message-processor" name="login">
+    <xs:annotation>
+      <xs:documentation>Log in using the given credentials, it returns the authentication config.getToken().
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="LoginType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="username">
+          <xs:annotation>
+            <xs:documentation>the username to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="password">
+          <xs:annotation>
+            <xs:documentation>the password to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetSecurityLevelType" substitutionGroup="mule:abstract-message-processor" name="get-security-level">
+    <xs:annotation>
+      <xs:documentation>Returns the current security level for given issue
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetSecurityLevelType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the issue key</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetCustomFieldsType" substitutionGroup="mule:abstract-message-processor" name="get-custom-fields">
+    <xs:annotation>
+      <xs:documentation>Returns the custom fields for the current user
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetCustomFieldsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="LogoutType" substitutionGroup="mule:abstract-message-processor" name="logout">
+    <xs:annotation>
+      <xs:documentation>Cleans up an authentication config.getToken() that was previously created with a call to login
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="LogoutType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="token">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetProjectWithSchemesByIdType" substitutionGroup="mule:abstract-message-processor" name="get-project-with-schemes-by-id">
+    <xs:annotation>
+      <xs:documentation>Returns the Project with the matching id (if the user has permission to browse it) with notification, issue security and permission schemes attached.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetProjectWithSchemesByIdType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="projectId">
+          <xs:annotation>
+            <xs:documentation>the id of the requested project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetSecurityLevelsType" substitutionGroup="mule:abstract-message-processor" name="get-security-levels">
+    <xs:annotation>
+      <xs:documentation>Returns an array of all security levels for a given project.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetSecurityLevelsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the key for the project</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetProjectAvatarsType" substitutionGroup="mule:abstract-message-processor" name="get-project-avatars">
+    <xs:annotation>
+      <xs:documentation>Retrieves avatars for the given project. If the includeSystemAvatars parameter is true, this will include both system (built-in) avatars as well as custom (user-supplied)
+avatars for that project, otherwise it will include only the custom avatars. Project browse permission is required.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetProjectAvatarsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the key for the project.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="booleanType" use="required" name="includeSystemAvatars">
+          <xs:annotation>
+            <xs:documentation>if false, only custom avatars will be included in the returned array.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="SetProjectAvatarType" substitutionGroup="mule:abstract-message-processor" name="set-project-avatar">
+    <xs:annotation>
+      <xs:documentation>Sets the current avatar for the given project to that with the given id. Project administration permission is required.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="SetProjectAvatarType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the key for the project.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="avatarId">
+          <xs:annotation>
+            <xs:documentation>the id of an existing avatar to use for the project or null for the default avatar.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetProjectAvatarType" substitutionGroup="mule:abstract-message-processor" name="get-project-avatar">
+    <xs:annotation>
+      <xs:documentation>Retrieves the current avatar for the given project. Project browse permission is required.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetProjectAvatarType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the key for the project.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteProjectAvatarType" substitutionGroup="mule:abstract-message-processor" name="delete-project-avatar">
+    <xs:annotation>
+      <xs:documentation>Deletes the given custom Avatar from the system. System avatars cannot be deleted. Project administration permission is required.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteProjectAvatarType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="avatarId">
+          <xs:annotation>
+            <xs:documentation>id of the custom avatar to delete.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetNotificationSchemesType" substitutionGroup="mule:abstract-message-processor" name="get-notification-schemes">
+    <xs:annotation>
+      <xs:documentation>Returns notification schemes.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetNotificationSchemesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetPermissionSchemesType" substitutionGroup="mule:abstract-message-processor" name="get-permission-schemes">
+    <xs:annotation>
+      <xs:documentation>Returns the permission schemes.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetPermissionSchemesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetAllPermissionsType" substitutionGroup="mule:abstract-message-processor" name="get-all-permissions">
+    <xs:annotation>
+      <xs:documentation>Returns all the permissions.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetAllPermissionsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreatePermissionSchemeType" substitutionGroup="mule:abstract-message-processor" name="create-permission-scheme">
+    <xs:annotation>
+      <xs:documentation>Creates a new permission schema using the given name and description.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreatePermissionSchemeType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="permissionName">
+          <xs:annotation>
+            <xs:documentation>the name of the new permission scheme</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="description">
+          <xs:annotation>
+            <xs:documentation>the description of the new permission scheme</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AddPermissionToType" substitutionGroup="mule:abstract-message-processor" name="add-permission-to">
+    <xs:annotation>
+      <xs:documentation>Adds the permission to the given entity name (username or group name)
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AddPermissionToType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="permissionSchemeName">
+          <xs:annotation>
+            <xs:documentation>the name of the permission scheme to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="permissionCode">
+          <xs:annotation>
+            <xs:documentation>the permission code to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="entityName">
+          <xs:annotation>
+            <xs:documentation>the entity name, username or group name</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeletePermissionFromType" substitutionGroup="mule:abstract-message-processor" name="delete-permission-from">
+    <xs:annotation>
+      <xs:documentation>Removes the permission to the given entity name (username or group name)
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeletePermissionFromType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="permissionSchemeName">
+          <xs:annotation>
+            <xs:documentation>the name of the permission scheme to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="permissionCode">
+          <xs:annotation>
+            <xs:documentation>the permission code to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="entityName">
+          <xs:annotation>
+            <xs:documentation>the entity name, username or group name</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeletePermissionSchemeType" substitutionGroup="mule:abstract-message-processor" name="delete-permission-scheme">
+    <xs:annotation>
+      <xs:documentation>Deletes the permission scheme denoted by the given name
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeletePermissionSchemeType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="permissionSchemeName">
+          <xs:annotation>
+            <xs:documentation>the name of the permission scheme to delete</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetAttachmentsFromIssueType" substitutionGroup="mule:abstract-message-processor" name="get-attachments-from-issue">
+    <xs:annotation>
+      <xs:documentation>Returns the attachments for the issue denoted by the given key.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetAttachmentsFromIssueType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the issue key to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="HasPermissionToEditCommentType" substitutionGroup="mule:abstract-message-processor" name="has-permission-to-edit-comment">
+    <xs:annotation>
+      <xs:documentation>Returns whether the current user has permissions to edit the comment denoted by the given id.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="HasPermissionToEditCommentType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="commentId">
+          <xs:annotation>
+            <xs:documentation>the comment id to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="EditCommentType" substitutionGroup="mule:abstract-message-processor" name="edit-comment">
+    <xs:annotation>
+      <xs:documentation>Edits the comment denoted by the given id
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="EditCommentType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="commentId">
+          <xs:annotation>
+            <xs:documentation>the id of the comment to edit</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="body">
+          <xs:annotation>
+            <xs:documentation>the updated body comment</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="updateAuthor">
+          <xs:annotation>
+            <xs:documentation>the update author</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetFieldsForActionType" substitutionGroup="mule:abstract-message-processor" name="get-fields-for-action">
+    <xs:annotation>
+      <xs:documentation>Returns the fields for the given action.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetFieldsForActionType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the issue key to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="actionIdString">
+          <xs:annotation>
+            <xs:documentation>the action id to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetIssueByIdType" substitutionGroup="mule:abstract-message-processor" name="get-issue-by-id">
+    <xs:annotation>
+      <xs:documentation>Returns the issue for the given issue id.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetIssueByIdType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueId">
+          <xs:annotation>
+            <xs:documentation>the issue id to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteWorklogWithNewRemainingEstimateType" substitutionGroup="mule:abstract-message-processor" name="delete-worklog-with-new-remaining-estimate">
+    <xs:annotation>
+      <xs:documentation>Deletes the worklog with the given id and sets the remaining estimate field on the isssue to the given value. The time spent field of the issue is reduced by the time spent
+amount on the worklog being deleted.
+&lt;p/&gt;
+
+&lt;p/&gt;
+the SOAP auth config.getToken().</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteWorklogWithNewRemainingEstimateType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="workLogId">
+          <xs:annotation>
+            <xs:documentation>the id of the worklog to delete.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="newRemainingEstimate">
+          <xs:annotation>
+            <xs:documentation>the new value for the issue's remaining estimate as a duration string, eg 1d 2h.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteWorklogAndAutoAdjustRemainingEstimateType" substitutionGroup="mule:abstract-message-processor" name="delete-worklog-and-auto-adjust-remaining-estimate">
+    <xs:annotation>
+      <xs:documentation>Deletes the worklog with the given id and updates the remaining estimate field on the isssue by increasing it by the time spent amount on the worklog being deleted. The time
+spent field of the issue is reduced by the time spent amount on the worklog being deleted.
+&lt;p/&gt;
+
+&lt;p/&gt;
+the SOAP auth config.getToken().</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteWorklogAndAutoAdjustRemainingEstimateType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="worklogId">
+          <xs:annotation>
+            <xs:documentation>the id of the worklog to delete.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteWorklogAndRetainRemainingEstimateType" substitutionGroup="mule:abstract-message-processor" name="delete-worklog-and-retain-remaining-estimate">
+    <xs:annotation>
+      <xs:documentation>Deletes the worklog with the given id but leaves the remaining estimate field on the isssue unchanged. The time spent field of the issue is reduced by the time spent amount
+on the worklog being deleted.
+&lt;p/&gt;
+
+&lt;p/&gt;
+the SOAP auth config.getToken().</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteWorklogAndRetainRemainingEstimateType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="worklogId">
+          <xs:annotation>
+            <xs:documentation>the id of the worklog to delete.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetWorklogsType" substitutionGroup="mule:abstract-message-processor" name="get-worklogs">
+    <xs:annotation>
+      <xs:documentation>Returns all worklogs for the given issue.
+&lt;p/&gt;
+
+&lt;p/&gt;
+the SOAP auth config.getToken().</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetWorklogsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the key of the issue.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="HasPermissionToCreateWorklogType" substitutionGroup="mule:abstract-message-processor" name="has-permission-to-create-worklog">
+    <xs:annotation>
+      <xs:documentation>Determines if the user has the permission to add worklogs to the specified issue, that timetracking is enabled in JIRA and that the specified issue is in an editable
+workflow state.
+&lt;p/&gt;
+
+&lt;p/&gt;
+the SOAP auth config.getToken().</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="HasPermissionToCreateWorklogType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the key of the issue.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="HasPermissionToDeleteWorklogType" substitutionGroup="mule:abstract-message-processor" name="has-permission-to-delete-worklog">
+    <xs:annotation>
+      <xs:documentation>Determine whether the current user has the permission to delete the supplied worklog, that timetracking is enabled in JIRA and that the associated issue is in an editable
+workflow state. This method will return true if the user is a member of the worklog's group/role level (if specified) AND The user has the WORKLOG_DELETE_ALL permission; OR
+The user is the worklog author and has the WORKLOG_DELETE_OWN permission and false otherwise.
+&lt;p/&gt;
+
+&lt;p/&gt;
+the SOAP auth config.getToken().</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="HasPermissionToDeleteWorklogType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="worklogId">
+          <xs:annotation>
+            <xs:documentation>the id of the worklog wishes to delete.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="HasPermissionToUpdateWorklogType" substitutionGroup="mule:abstract-message-processor" name="has-permission-to-update-worklog">
+    <xs:annotation>
+      <xs:documentation>Determine whether the current user has the permission to update the supplied worklog, that timetracking is enabled in JIRA and that the associated issue is in an editable
+workflow state. This method will return true if the user is a member of the worklog's group/role level (if specified) AND The user has the WORKLOG_EDIT_ALL permission; OR
+The user is the worklog author and has the WORKLOG_EDIT_OWN permission and false otherwise.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="HasPermissionToUpdateWorklogType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="worklogId">
+          <xs:annotation>
+            <xs:documentation>the ide of the worklog wishes to update.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdateWorklogWithNewRemainingEstimateType" substitutionGroup="mule:abstract-message-processor" name="update-worklog-with-new-remaining-estimate">
+    <xs:annotation>
+      <xs:documentation>Modifies the worklog with the id of the given worklog, updating its fields to match the given worklog and sets the remaining estimate field on the relevant issue to the
+given value. The time spent field of the issue is changed by subtracting the previous value of the worklog's time spent amount and adding the new value in the given worklog.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdateWorklogWithNewRemainingEstimateType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the issue key to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="worklogId">
+          <xs:annotation>
+            <xs:documentation>the worklog id to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="newRemainingEstimate">
+          <xs:annotation>
+            <xs:documentation>the new value for the issue's remaining estimate as a duration string, eg 1d 2h.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="comment">
+          <xs:annotation>
+            <xs:documentation>the new comment</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="groupLevel">
+          <xs:annotation>
+            <xs:documentation>the new group level</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="roleLevelId">
+          <xs:annotation>
+            <xs:documentation>the new role level id</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AddVersionType" substitutionGroup="mule:abstract-message-processor" name="add-version">
+    <xs:annotation>
+      <xs:documentation>Adds a new version
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AddVersionType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the project key to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="versionName">
+          <xs:annotation>
+            <xs:documentation>the version name to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="booleanType" use="required" name="archived">
+          <xs:annotation>
+            <xs:documentation>whether is archived</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="booleanType" use="required" name="released">
+          <xs:annotation>
+            <xs:documentation>whether is released</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="releaseDate">
+          <xs:annotation>
+            <xs:documentation>the release date to use in the format MM-dd-yyy'T'HH:mm:ss</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetResolutionDateByKeyType" substitutionGroup="mule:abstract-message-processor" name="get-resolution-date-by-key">
+    <xs:annotation>
+      <xs:documentation>Given an issue key, this method returns the resolution date for this issue. If the issue hasn't been resolved yet, this method will return null.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetResolutionDateByKeyType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the key of the issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetResolutionDateByIdType" substitutionGroup="mule:abstract-message-processor" name="get-resolution-date-by-id">
+    <xs:annotation>
+      <xs:documentation>Given an issue id, this method returns the resolution date for this issue. If the issue hasn't been resolved yet, this method will return null. If the no issue with the
+given id exists a RemoteException will be thrown.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetResolutionDateByIdType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="longType" use="required" name="issueId">
+          <xs:annotation>
+            <xs:documentation>the id of the issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetIssueCountForFilterType" substitutionGroup="mule:abstract-message-processor" name="get-issue-count-for-filter">
+    <xs:annotation>
+      <xs:documentation>Returns the issue count for the filter denoted by this id.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetIssueCountForFilterType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="filterId">
+          <xs:annotation>
+            <xs:documentation>the fiter id to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetIssuesFromTextSearchWithProjectType" substitutionGroup="mule:abstract-message-processor" name="get-issues-from-text-search-with-project">
+    <xs:annotation>
+      <xs:documentation>Returns issues containing searchTerms that are within the specified projects. Note: this is a fuzzy search, returned in order of 'relevance', so the results are only
+generally useful for human consumption.
+&lt;p/&gt;
+This method will return no more than the maxNumResults.
+&lt;p/&gt;
+This method also respects the jira.search.views.max.limit and jira.search.views.max.unlimited.group JIRA properties which will override the max number of results returned.
+&lt;p/&gt;
+If the jira.search.views.max.limit property is set and you are not in a group specified by jira.search.views.max.unlimited.group then the number of results returned will be
+constrained by the value of jira.search.views.max.limit if it is less than the specified maxNumResults.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetIssuesFromTextSearchWithProjectType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="project-keys">
+            <xs:annotation>
+              <xs:documentation>the project keys to use</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="project-key">
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:string">
+                        <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="searchTerms">
+          <xs:annotation>
+            <xs:documentation>earch terms</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="integerType" use="required" name="maxNumResults">
+          <xs:annotation>
+            <xs:documentation>the maximum number of results that this method will return.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetIssuesFromJqlSearchType" substitutionGroup="mule:abstract-message-processor" name="get-issues-from-jql-search">
+    <xs:annotation>
+      <xs:documentation>Execute a specified JQL query and return the resulting issues. This method also respects the jira.search.views.max.limit and jira.search.views.max.unlimited.group JIRA
+properties which will override the max number of results returned.
+&lt;p/&gt;
+If the jira.search.views.max.limit property is set and you are not in a group specified by jira.search.views.max.unlimited.group then the number of results returned will be
+constrained by the value of jira.search.views.max.limit if it is less than the specified maxNumResults.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetIssuesFromJqlSearchType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="jqlSearch">
+          <xs:annotation>
+            <xs:documentation>JQL query string to execute</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="integerType" use="required" name="maxNumResults">
+          <xs:annotation>
+            <xs:documentation>the maximum number of results that this method will return</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteUserType" substitutionGroup="mule:abstract-message-processor" name="delete-user">
+    <xs:annotation>
+      <xs:documentation>Deletes a user in JIRA with the specified username.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteUserType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="username">
+          <xs:annotation>
+            <xs:documentation>the user name to delete</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteGroupType" substitutionGroup="mule:abstract-message-processor" name="delete-group">
+    <xs:annotation>
+      <xs:documentation>Deletes the group denoted by the given group name.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteGroupType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="groupName">
+          <xs:annotation>
+            <xs:documentation>the group name to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="swapGroupName">
+          <xs:annotation>
+            <xs:documentation>the swap group name to use</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="RefreshCustomFieldsType" substitutionGroup="mule:abstract-message-processor" name="refresh-custom-fields">
+    <xs:annotation>
+      <xs:documentation>Refreshs custom fields for the current user.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="RefreshCustomFieldsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AddBase64EncodedAttachmentsToIssueType" substitutionGroup="mule:abstract-message-processor" name="add-base64-encoded-attachments-to-issue">
+    <xs:annotation>
+      <xs:documentation>An alternative mechanism for adding attachments to an issue. This method accepts the data of the attachments as Base64 encoded strings instead of byte arrays. This is to
+combat the XML message bloat created by Axis when SOAP-ifying byte arrays. For more information, please see JRA-11693.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AddBase64EncodedAttachmentsToIssueType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="file-names">
+            <xs:annotation>
+              <xs:documentation>an array of filenames; each element names an attachment to be uploaded</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="file-name">
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:string">
+                        <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="1" maxOccurs="1" name="base64-encoded-attachment-data">
+            <xs:annotation>
+              <xs:documentation>an array of Base 64 encoded Strings; each element contains the data of the attachment to be uploaded</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="base64-encoded-attachment-datum">
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:string">
+                        <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the issue to attach to</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetIssuesFromFilterWithLimitType" substitutionGroup="mule:abstract-message-processor" name="get-issues-from-filter-with-limit">
+    <xs:annotation>
+      <xs:documentation>Returns issues that match the saved filter specified by the filterId. This method will return no more than the maxNumResults.
+&lt;p/&gt;
+It will start the result set at the provided off set.
+&lt;p/&gt;
+This method also respects the jira.search.views.max.limit and jira.search.views.max.unlimited.group JIRA properties which will override the max number of results returned.
+&lt;p/&gt;
+If the jira.search.views.max.limit property is set and you are not in a group specified by jira.search.views.max.unlimited.group then the number of results returned will be
+constrained by the value of jira.search.views.max.limit if it is less than the specified maxNumResults.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetIssuesFromFilterWithLimitType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="filterId">
+          <xs:annotation>
+            <xs:documentation>identifies the saved filter to use for the search.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="integerType" use="required" name="offset">
+          <xs:annotation>
+            <xs:documentation>the place in the result set to use as the first result returned</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="integerType" use="required" name="maxNumResults">
+          <xs:annotation>
+            <xs:documentation>the maximum number of results that this method will return.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetIssuesFromTextSearchWithLimitType" substitutionGroup="mule:abstract-message-processor" name="get-issues-from-text-search-with-limit">
+    <xs:annotation>
+      <xs:documentation>Returns issues containing searchTerms. Note: this is a fuzzy search, returned in order of 'relevance', so the results are only generally useful for human consumption.
+&lt;p/&gt;
+This method will return no more than the maxNumResults.
+&lt;p/&gt;
+It will start the result set at the provided off set.
+&lt;p/&gt;
+This method also respects the jira.search.views.max.limit and jira.search.views.max.unlimited.group JIRA properties which will override the max number of results returned.
+&lt;p/&gt;
+If the jira.search.views.max.limit property is set and you are not in a group specified by jira.search.views.max.unlimited.group then the number of results returned will be
+constrained by the value of jira.search.views.max.limit if it is less than the specified maxNumResults.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetIssuesFromTextSearchWithLimitType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="searchTerms">
+          <xs:annotation>
+            <xs:documentation>search terms</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="integerType" use="required" name="offset">
+          <xs:annotation>
+            <xs:documentation>the place in the result set to use as the first result returned</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/jira" type="integerType" use="required" name="maxNumResults">
+          <xs:annotation>
+            <xs:documentation>the maximum number of results that this method will return.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetProjectsNoSchemesType" substitutionGroup="mule:abstract-message-processor" name="get-projects-no-schemes">
+    <xs:annotation>
+      <xs:documentation>Returns an array of all the Projects defined in JIRA.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetProjectsNoSchemesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="SetNewProjectAvatarType" substitutionGroup="mule:abstract-message-processor" name="set-new-project-avatar">
+    <xs:annotation>
+      <xs:documentation>Creates a new custom avatar for the given project and sets it to be current for the project. The image data must be provided as base64 encoded data and should be 48 pixels
+square. If the image is larger, the top left 48 pixels are taken, if it is smaller it is upscaled to 48 pixels. The small version of the avatar image (16 pixels) is
+generated automatically. Project administration permission is required.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="SetNewProjectAvatarType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="projectKey">
+          <xs:annotation>
+            <xs:documentation>the key for the project.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="contentType">
+          <xs:annotation>
+            <xs:documentation>the MIME type of the image provided, e.g. image/gif, image/jpeg, image/png.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="base64ImageData">
+          <xs:annotation>
+            <xs:documentation>a base 64 encoded image, 48 pixels square.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ProgressWorkflowActionType" substitutionGroup="mule:abstract-message-processor" name="progress-workflow-action">
+    <xs:annotation>
+      <xs:documentation>This will progress an issue through a workflow.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ProgressWorkflowActionType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="fields">
+            <xs:annotation>
+              <xs:documentation>the fields to be updated, the key of the map is the field id and the value is a list of values for that field, the values should be separated by a "|" if it is multivalued</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:choice>
+                <xs:sequence>
+                  <xs:element minOccurs="0" maxOccurs="unbounded" name="field">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="xs:string" use="optional" name="value-ref"></xs:attribute>
+                          <xs:attribute type="xs:string" name="key"></xs:attribute>
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:sequence>
+                  <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"></xs:any>
+                </xs:sequence>
+              </xs:choice>
+              <xs:attribute type="xs:string" use="optional" name="ref">
+                <xs:annotation>
+                  <xs:documentation>The reference object for this parameter</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the issue to update.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="actionIdString">
+          <xs:annotation>
+            <xs:documentation>the workflow action to progress to</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AddWorklogAndAutoAdjustRemainingEstimateType" substitutionGroup="mule:abstract-message-processor" name="add-worklog-and-auto-adjust-remaining-estimate">
+    <xs:annotation>
+      <xs:documentation>Adds a worklog to the given issue.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AddWorklogAndAutoAdjustRemainingEstimateType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the key of the issue.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="timeSpent">
+          <xs:annotation>
+            <xs:documentation>specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="startDate">
+          <xs:annotation>
+            <xs:documentation>the start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="comment">
+          <xs:annotation>
+            <xs:documentation>add a comment to the worklog.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="groupLevel">
+          <xs:annotation>
+            <xs:documentation>the new group level.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="roleLevelId">
+          <xs:annotation>
+            <xs:documentation>the new role level id.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AddWorklogWithNewRemainingEstimateType" substitutionGroup="mule:abstract-message-processor" name="add-worklog-with-new-remaining-estimate">
+    <xs:annotation>
+      <xs:documentation>Adds a worklog to the given issue and sets the issue's remaining estimate field to the given value.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AddWorklogWithNewRemainingEstimateType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the key of the issue.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="timeSpent">
+          <xs:annotation>
+            <xs:documentation>specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="startDate">
+          <xs:annotation>
+            <xs:documentation>the start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="newRemainingEstimate">
+          <xs:annotation>
+            <xs:documentation>specifies the issue's remaining estimate as a duration string, eg 1d 2h.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="comment">
+          <xs:annotation>
+            <xs:documentation>add a comment to the worklog.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="groupLevel">
+          <xs:annotation>
+            <xs:documentation>the new group level.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="roleLevelId">
+          <xs:annotation>
+            <xs:documentation>the new role level id.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AddWorklogAndRetainRemainingEstimateType" substitutionGroup="mule:abstract-message-processor" name="add-worklog-and-retain-remaining-estimate">
+    <xs:annotation>
+      <xs:documentation>Adds a worklog to the given issue but leaves the issue's remaining estimate field unchanged.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AddWorklogAndRetainRemainingEstimateType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="issueKey">
+          <xs:annotation>
+            <xs:documentation>the key of the issue.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="timeSpent">
+          <xs:annotation>
+            <xs:documentation>specifies a time duration in JIRA duration format, representing the time spent working on the worklog, eg 1d 2h.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="startDate">
+          <xs:annotation>
+            <xs:documentation>the start date of the worklog using the format MM-dd-yyy'T'HH:mm:ss</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="comment">
+          <xs:annotation>
+            <xs:documentation>add a comment to the worklog.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="groupLevel">
+          <xs:annotation>
+            <xs:documentation>the new group level.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="roleLevelId">
+          <xs:annotation>
+            <xs:documentation>the new role level id.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/jira" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetSecuritySchemesType" substitutionGroup="mule:abstract-message-processor" name="get-security-schemes">
+    <xs:annotation>
+      <xs:documentation>Returns the security schemes.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetSecuritySchemesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="OnNoTokenPolicyEnumType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="EXCEPTION"></xs:enumeration>
+          <xs:enumeration value="STOP_FLOW"></xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="integerType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:integer"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="decimalType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:decimal"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="floatType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:float"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="doubleType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:double"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="dateTimeType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:dateTime"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="longType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:long"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="byteType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:byte"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="booleanType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:boolean"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="anyUriType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:anyURI"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="charType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"></xs:minLength>
+          <xs:maxLength value="1"></xs:maxLength>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+</xs:schema>
